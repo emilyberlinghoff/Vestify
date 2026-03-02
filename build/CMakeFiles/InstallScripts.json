@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/cmake_install.cmake",
+		"/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/tests/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

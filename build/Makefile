@@ -139,6 +139,30 @@ vestify/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/build
 .PHONY : vestify/fast
 
+src/data/LiveDataProvider.o: src/data/LiveDataProvider.cpp.o
+.PHONY : src/data/LiveDataProvider.o
+
+# target to build an object file
+src/data/LiveDataProvider.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o
+.PHONY : src/data/LiveDataProvider.cpp.o
+
+src/data/LiveDataProvider.i: src/data/LiveDataProvider.cpp.i
+.PHONY : src/data/LiveDataProvider.i
+
+# target to preprocess a source file
+src/data/LiveDataProvider.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.i
+.PHONY : src/data/LiveDataProvider.cpp.i
+
+src/data/LiveDataProvider.s: src/data/LiveDataProvider.cpp.s
+.PHONY : src/data/LiveDataProvider.s
+
+# target to generate assembly for a file
+src/data/LiveDataProvider.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.s
+.PHONY : src/data/LiveDataProvider.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -173,6 +197,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... vestify"
+	@echo "... src/data/LiveDataProvider.o"
+	@echo "... src/data/LiveDataProvider.i"
+	@echo "... src/data/LiveDataProvider.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

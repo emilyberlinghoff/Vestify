@@ -1,1 +1,1 @@
-/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/vestify.dir/src/main.cpp.o -o vestify
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/vestify.dir/src/main.cpp.o CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o -o vestify  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libcurl.tbd /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libcurl.tbd

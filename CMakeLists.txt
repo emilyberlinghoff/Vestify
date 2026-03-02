@@ -10,12 +10,29 @@ option(VESTIFY_BUILD_TESTS "Build Vestify tests" ON)
 
 add_executable(vestify
     src/main.cpp
+    src/data/LiveDataProvider.cpp
 )
 
 target_include_directories(vestify
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
+
+option(VESTIFY_ENABLE_LIVE "Enable live Yahoo Finance data provider" ON)
+
+if (VESTIFY_ENABLE_LIVE)
+    find_package(CURL REQUIRED)
+    include(FetchContent)
+    FetchContent_Declare(
+        nlohmann_json
+        URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz
+        DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+    )
+    FetchContent_MakeAvailable(nlohmann_json)
+
+    target_compile_definitions(vestify PRIVATE VESTIFY_ENABLE_LIVE=1)
+    target_link_libraries(vestify PRIVATE CURL::libcurl nlohmann_json::nlohmann_json)
+endif()
 
 # Reasonable warnings for most Unix-like toolchains
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU")

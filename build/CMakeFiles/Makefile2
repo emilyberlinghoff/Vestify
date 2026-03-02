@@ -64,22 +64,45 @@ CMAKE_BINARY_DIR = "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Proje
 
 # The main recursive "all" target.
 all: CMakeFiles/vestify.dir/all
+all: _deps/nlohmann_json-build/all
 all: tests/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/vestify.dir/codegen
+codegen: _deps/nlohmann_json-build/codegen
 codegen: tests/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
+preinstall: _deps/nlohmann_json-build/preinstall
 preinstall: tests/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
 clean: CMakeFiles/vestify.dir/clean
+clean: _deps/nlohmann_json-build/clean
 clean: tests/clean
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory _deps/nlohmann_json-build
+
+# Recursive "all" directory target.
+_deps/nlohmann_json-build/all:
+.PHONY : _deps/nlohmann_json-build/all
+
+# Recursive "codegen" directory target.
+_deps/nlohmann_json-build/codegen:
+.PHONY : _deps/nlohmann_json-build/codegen
+
+# Recursive "preinstall" directory target.
+_deps/nlohmann_json-build/preinstall:
+.PHONY : _deps/nlohmann_json-build/preinstall
+
+# Recursive "clean" directory target.
+_deps/nlohmann_json-build/clean:
+.PHONY : _deps/nlohmann_json-build/clean
 
 #=============================================================================
 # Directory level rules for directory tests
@@ -107,12 +130,12 @@ tests/clean:
 CMakeFiles/vestify.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/CMakeFiles" --progress-num=1,2 "Built target vestify"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/CMakeFiles" --progress-num=1,2,3 "Built target vestify"
 .PHONY : CMakeFiles/vestify.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/vestify.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/CMakeFiles" 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/vestify.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/CMakeFiles" 0
 .PHONY : CMakeFiles/vestify.dir/rule
@@ -124,7 +147,7 @@ vestify: CMakeFiles/vestify.dir/rule
 # codegen rule for target.
 CMakeFiles/vestify.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/CMakeFiles" --progress-num=1,2 "Finished codegen for target vestify"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/CMakeFiles" --progress-num=1,2,3 "Finished codegen for target vestify"
 .PHONY : CMakeFiles/vestify.dir/codegen
 
 # clean rule for target.

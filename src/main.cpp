@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#include "data/CSVLoader.hpp"
+#include "core/StockRepository.hpp"
 #include "data/LiveDataProvider.hpp"
 
 /**
@@ -96,8 +96,8 @@ int main(int argc, char** argv) {
                 return 1;
             }
 
-            CSVLoader loader;
-            auto result = loader.loadFile(argv[2]);
+            StockRepository repo;
+            auto result = repo.loadFromCsv(argv[2]);
 
             for (const auto& error : result.errors) {
                 std::cerr << error << "\n";

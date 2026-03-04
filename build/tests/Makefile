@@ -140,6 +140,30 @@ csv_loader_tests/fast:
 	cd "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build" && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/csv_loader_tests.dir/build.make tests/CMakeFiles/csv_loader_tests.dir/build
 .PHONY : csv_loader_tests/fast
 
+__/src/core/StockRepository.o: __/src/core/StockRepository.cpp.o
+.PHONY : __/src/core/StockRepository.o
+
+# target to build an object file
+__/src/core/StockRepository.cpp.o:
+	cd "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build" && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/csv_loader_tests.dir/build.make tests/CMakeFiles/csv_loader_tests.dir/__/src/core/StockRepository.cpp.o
+.PHONY : __/src/core/StockRepository.cpp.o
+
+__/src/core/StockRepository.i: __/src/core/StockRepository.cpp.i
+.PHONY : __/src/core/StockRepository.i
+
+# target to preprocess a source file
+__/src/core/StockRepository.cpp.i:
+	cd "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build" && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/csv_loader_tests.dir/build.make tests/CMakeFiles/csv_loader_tests.dir/__/src/core/StockRepository.cpp.i
+.PHONY : __/src/core/StockRepository.cpp.i
+
+__/src/core/StockRepository.s: __/src/core/StockRepository.cpp.s
+.PHONY : __/src/core/StockRepository.s
+
+# target to generate assembly for a file
+__/src/core/StockRepository.cpp.s:
+	cd "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build" && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/csv_loader_tests.dir/build.make tests/CMakeFiles/csv_loader_tests.dir/__/src/core/StockRepository.cpp.s
+.PHONY : __/src/core/StockRepository.cpp.s
+
 test_csv_loader.o: test_csv_loader.cpp.o
 .PHONY : test_csv_loader.o
 
@@ -174,6 +198,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... csv_loader_tests"
+	@echo "... __/src/core/StockRepository.o"
+	@echo "... __/src/core/StockRepository.i"
+	@echo "... __/src/core/StockRepository.s"
 	@echo "... test_csv_loader.o"
 	@echo "... test_csv_loader.i"
 	@echo "... test_csv_loader.s"

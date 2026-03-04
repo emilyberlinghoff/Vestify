@@ -11,6 +11,7 @@ option(VESTIFY_BUILD_TESTS "Build Vestify tests" ON)
 add_executable(vestify
     src/main.cpp
     src/data/LiveDataProvider.cpp
+    src/core/StockRepository.cpp
 )
 
 target_include_directories(vestify

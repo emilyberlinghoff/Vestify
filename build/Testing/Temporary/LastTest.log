@@ -1,19 +1,19 @@
-Start testing: Mar 04 15:16 EST
+Start testing: Mar 04 15:22 EST
 ----------------------------------------------------------
 1/1 Testing: csv_loader_tests
 1/1 Test: csv_loader_tests
 Command: "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/tests/csv_loader_tests"
 Directory: /Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/tests
-"csv_loader_tests" start time: Mar 04 15:16 EST
+"csv_loader_tests" start time: Mar 04 15:22 EST
 Output:
 ----------------------------------------------------------
 All CSV loader tests passed.
 <end of output>
-Test time =   0.10 sec
+Test time =   0.53 sec
 ----------------------------------------------------------
 Test Passed.
-"csv_loader_tests" end time: Mar 04 15:16 EST
+"csv_loader_tests" end time: Mar 04 15:22 EST
 "csv_loader_tests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Mar 04 15:16 EST
+End testing: Mar 04 15:22 EST

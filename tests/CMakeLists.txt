@@ -1,5 +1,6 @@
 add_executable(csv_loader_tests
     test_csv_loader.cpp
+    ../src/core/StockRepository.cpp
 )
 
 target_include_directories(csv_loader_tests

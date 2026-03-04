@@ -152,6 +152,30 @@ csv_loader_tests/fast:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/csv_loader_tests.dir/build.make tests/CMakeFiles/csv_loader_tests.dir/build
 .PHONY : csv_loader_tests/fast
 
+src/core/StockRepository.o: src/core/StockRepository.cpp.o
+.PHONY : src/core/StockRepository.o
+
+# target to build an object file
+src/core/StockRepository.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o
+.PHONY : src/core/StockRepository.cpp.o
+
+src/core/StockRepository.i: src/core/StockRepository.cpp.i
+.PHONY : src/core/StockRepository.i
+
+# target to preprocess a source file
+src/core/StockRepository.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/core/StockRepository.cpp.i
+.PHONY : src/core/StockRepository.cpp.i
+
+src/core/StockRepository.s: src/core/StockRepository.cpp.s
+.PHONY : src/core/StockRepository.s
+
+# target to generate assembly for a file
+src/core/StockRepository.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/core/StockRepository.cpp.s
+.PHONY : src/core/StockRepository.cpp.s
+
 src/data/LiveDataProvider.o: src/data/LiveDataProvider.cpp.o
 .PHONY : src/data/LiveDataProvider.o
 
@@ -211,6 +235,9 @@ help:
 	@echo "... test"
 	@echo "... csv_loader_tests"
 	@echo "... vestify"
+	@echo "... src/core/StockRepository.o"
+	@echo "... src/core/StockRepository.i"
+	@echo "... src/core/StockRepository.s"
 	@echo "... src/data/LiveDataProvider.o"
 	@echo "... src/data/LiveDataProvider.i"
 	@echo "... src/data/LiveDataProvider.s"

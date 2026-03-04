@@ -1,9 +1,10 @@
 #include <cstdlib>
+#include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
 
-#include "data/CSVLoader.hpp"
+#include "core/StockRepository.hpp"
 
 /**
  * @brief Simple test assertion helper.
@@ -20,7 +21,18 @@ bool assertTrue(bool condition, const std::string& message) {
 }
 
 /**
- * @brief Test valid CSV parsing.
+ * @brief Write test content to a temporary file.
+ *
+ * @param path File path.
+ * @param contents Contents to write.
+ */
+void writeTempFile(const std::string& path, const std::string& contents) {
+    std::ofstream out(path);
+    out << contents;
+}
+
+/**
+ * @brief Test valid CSV parsing via repository.
  *
  * @return True if the test passes.
  */
@@ -29,8 +41,11 @@ bool testValidCsv() {
     input << "ticker,name,sector,price,marketCap,peRatio,dividendYield\n";
     input << "AAPL,Apple,Technology,150.5,2500000000000,25.1,0.006\n";
 
-    CSVLoader loader;
-    auto result = loader.loadStream(input);
+    const std::string path = "/tmp/vestify_test_valid.csv";
+    writeTempFile(path, input.str());
+
+    StockRepository repo;
+    auto result = repo.loadFromCsv(path);
 
     bool ok = true;
     ok &= assertTrue(result.errors.empty(), "Expected no errors for valid CSV");
@@ -49,13 +64,13 @@ bool testValidCsv() {
 }
 
 /**
- * @brief Test missing file handling.
+ * @brief Test missing file handling via repository.
  *
  * @return True if the test passes.
  */
 bool testMissingFile() {
-    CSVLoader loader;
-    auto result = loader.loadFile("/tmp/this_file_should_not_exist_123.csv");
+    StockRepository repo;
+    auto result = repo.loadFromCsv("/tmp/this_file_should_not_exist_123.csv");
 
     bool ok = true;
     ok &= assertTrue(!result.errors.empty(), "Expected error for missing file");
@@ -70,7 +85,7 @@ bool testMissingFile() {
 }
 
 /**
- * @brief Test malformed row handling.
+ * @brief Test malformed row handling via repository.
  *
  * @return True if the test passes.
  */
@@ -80,8 +95,11 @@ bool testMalformedRow() {
     input << "AAPL,Apple,Technology,150.5,2500000000000,25.1,0.006\n";
     input << "MSFT,Microsoft,Technology,NOT_A_NUMBER,2100000000000,30.2,0.007\n";
 
-    CSVLoader loader;
-    auto result = loader.loadStream(input);
+    const std::string path = "/tmp/vestify_test_malformed.csv";
+    writeTempFile(path, input.str());
+
+    StockRepository repo;
+    auto result = repo.loadFromCsv(path);
 
     bool ok = true;
     ok &= assertTrue(result.stocks.size() == 1, "Expected malformed row to be skipped");

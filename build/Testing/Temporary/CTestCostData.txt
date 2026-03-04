@@ -1,2 +1,2 @@
-csv_loader_tests 2 0.0522901
+csv_loader_tests 3 0.175355
 ---

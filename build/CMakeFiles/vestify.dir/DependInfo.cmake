@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/src/core/StockRepository.cpp" "CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o" "gcc" "CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o.d"
   "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/src/data/LiveDataProvider.cpp" "CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o" "gcc" "CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o.d"
   "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/src/main.cpp" "CMakeFiles/vestify.dir/src/main.cpp.o" "gcc" "CMakeFiles/vestify.dir/src/main.cpp.o.d"
   )

@@ -6,9 +6,9 @@
 #include "core/Stock.hpp"
 
 /**
- * @brief Live data provider that fetches quotes from Yahoo Finance endpoints.
+ * @brief Live data provider that fetches quotes from Alpha Vantage.
  *
- * Uses unofficial Yahoo Finance endpoints. These can change or break without notice.
+ * Requires an API key provided via the ALPHAVANTAGE_API_KEY environment variable.
  */
 class LiveDataProvider {
 public:
@@ -25,9 +25,9 @@ public:
     /**
      * @brief Construct a provider with a base URL.
      *
-     * @param base_url Base URL for Yahoo endpoints.
+     * @param base_url Base URL for Alpha Vantage endpoints.
      */
-    explicit LiveDataProvider(std::string base_url = "https://query1.finance.yahoo.com");
+    explicit LiveDataProvider(std::string base_url = "https://www.alphavantage.co");
 
     /**
      * @brief Fetch current quotes for the given tickers.
@@ -38,25 +38,35 @@ public:
     QuoteResult fetchQuotes(const std::vector<std::string>& tickers) const;
 
 private:
-    /** @brief Base URL for Yahoo endpoints. */
+    /** @brief Base URL for Alpha Vantage endpoints. */
     std::string base_url_;
 
     /**
-     * @brief Attempt to fetch quotes using the given base URL.
+     * @brief Fetch a single quote from Alpha Vantage.
      *
-     * @param base_url Base URL to use.
-     * @param tickers List of ticker symbols.
-     * @return QuoteResult with any data or errors.
+     * @param ticker Ticker symbol.
+     * @param api_key Alpha Vantage API key.
+     * @return QuoteResult containing at most one stock.
      */
-    QuoteResult fetchWithBaseUrl(const std::string& base_url, const std::vector<std::string>& tickers) const;
+    QuoteResult fetchQuote(const std::string& ticker, const std::string& api_key) const;
 
     /**
-     * @brief Build the Yahoo quote URL.
+     * @brief Build the Alpha Vantage Global Quote URL.
      *
-     * @param tickers List of ticker symbols.
-     * @return URL for the quote endpoint.
+     * @param ticker Ticker symbol.
+     * @param api_key Alpha Vantage API key.
+     * @return URL for the Global Quote endpoint.
      */
-    std::string buildQuoteUrl(const std::string& base_url, const std::vector<std::string>& tickers) const;
+    std::string buildGlobalQuoteUrl(const std::string& ticker, const std::string& api_key) const;
+
+    /**
+     * @brief Build the Alpha Vantage Company Overview URL.
+     *
+     * @param ticker Ticker symbol.
+     * @param api_key Alpha Vantage API key.
+     * @return URL for the Overview endpoint.
+     */
+    std::string buildOverviewUrl(const std::string& ticker, const std::string& api_key) const;
 
     /**
      * @brief Join tickers into a comma-separated string.

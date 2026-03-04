@@ -6,7 +6,5 @@ CXX_DEFINES = -DVESTIFY_ENABLE_LIVE=1
 
 CXX_INCLUDES = -I"/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/include" -I"/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/_deps/nlohmann_json-src/include"
 
-CXX_FLAGSarm64 = -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic
-
-CXX_FLAGS = -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic
+CXX_FLAGS = -std=c++17 -Wall -Wextra -Wpedantic
 

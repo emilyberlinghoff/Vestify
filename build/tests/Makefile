@@ -126,6 +126,44 @@ depend:
 	cd "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build" && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
+# Convenience name for target.
+tests/CMakeFiles/csv_loader_tests.dir/rule:
+	cd "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/csv_loader_tests.dir/rule
+.PHONY : tests/CMakeFiles/csv_loader_tests.dir/rule
+
+# Convenience name for target.
+csv_loader_tests: tests/CMakeFiles/csv_loader_tests.dir/rule
+.PHONY : csv_loader_tests
+
+# fast build rule for target.
+csv_loader_tests/fast:
+	cd "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build" && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/csv_loader_tests.dir/build.make tests/CMakeFiles/csv_loader_tests.dir/build
+.PHONY : csv_loader_tests/fast
+
+test_csv_loader.o: test_csv_loader.cpp.o
+.PHONY : test_csv_loader.o
+
+# target to build an object file
+test_csv_loader.cpp.o:
+	cd "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build" && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/csv_loader_tests.dir/build.make tests/CMakeFiles/csv_loader_tests.dir/test_csv_loader.cpp.o
+.PHONY : test_csv_loader.cpp.o
+
+test_csv_loader.i: test_csv_loader.cpp.i
+.PHONY : test_csv_loader.i
+
+# target to preprocess a source file
+test_csv_loader.cpp.i:
+	cd "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build" && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/csv_loader_tests.dir/build.make tests/CMakeFiles/csv_loader_tests.dir/test_csv_loader.cpp.i
+.PHONY : test_csv_loader.cpp.i
+
+test_csv_loader.s: test_csv_loader.cpp.s
+.PHONY : test_csv_loader.s
+
+# target to generate assembly for a file
+test_csv_loader.cpp.s:
+	cd "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build" && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/csv_loader_tests.dir/build.make tests/CMakeFiles/csv_loader_tests.dir/test_csv_loader.cpp.s
+.PHONY : test_csv_loader.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -135,6 +173,10 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... csv_loader_tests"
+	@echo "... test_csv_loader.o"
+	@echo "... test_csv_loader.i"
+	@echo "... test_csv_loader.s"
 .PHONY : help
 
 

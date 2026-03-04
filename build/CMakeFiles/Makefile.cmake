@@ -72,4 +72,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/vestify.dir/DependInfo.cmake"
+  "tests/CMakeFiles/csv_loader_tests.dir/DependInfo.cmake"
   )

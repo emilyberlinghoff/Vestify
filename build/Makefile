@@ -139,6 +139,19 @@ vestify/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/build
 .PHONY : vestify/fast
 
+#=============================================================================
+# Target rules for targets named csv_loader_tests
+
+# Build rule for target.
+csv_loader_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 csv_loader_tests
+.PHONY : csv_loader_tests
+
+# fast build rule for target.
+csv_loader_tests/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/csv_loader_tests.dir/build.make tests/CMakeFiles/csv_loader_tests.dir/build
+.PHONY : csv_loader_tests/fast
+
 src/data/LiveDataProvider.o: src/data/LiveDataProvider.cpp.o
 .PHONY : src/data/LiveDataProvider.o
 
@@ -196,6 +209,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... csv_loader_tests"
 	@echo "... vestify"
 	@echo "... src/data/LiveDataProvider.o"
 	@echo "... src/data/LiveDataProvider.i"

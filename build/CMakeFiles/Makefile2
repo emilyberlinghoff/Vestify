@@ -108,11 +108,11 @@ _deps/nlohmann_json-build/clean:
 # Directory level rules for directory tests
 
 # Recursive "all" directory target.
-tests/all:
+tests/all: tests/CMakeFiles/csv_loader_tests.dir/all
 .PHONY : tests/all
 
 # Recursive "codegen" directory target.
-tests/codegen:
+tests/codegen: tests/CMakeFiles/csv_loader_tests.dir/codegen
 .PHONY : tests/codegen
 
 # Recursive "preinstall" directory target.
@@ -120,7 +120,7 @@ tests/preinstall:
 .PHONY : tests/preinstall
 
 # Recursive "clean" directory target.
-tests/clean:
+tests/clean: tests/CMakeFiles/csv_loader_tests.dir/clean
 .PHONY : tests/clean
 
 #=============================================================================
@@ -130,7 +130,7 @@ tests/clean:
 CMakeFiles/vestify.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/CMakeFiles" --progress-num=1,2,3 "Built target vestify"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/CMakeFiles" --progress-num=3,4,5 "Built target vestify"
 .PHONY : CMakeFiles/vestify.dir/all
 
 # Build rule for subdir invocation for target.
@@ -147,13 +147,45 @@ vestify: CMakeFiles/vestify.dir/rule
 # codegen rule for target.
 CMakeFiles/vestify.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/CMakeFiles" --progress-num=1,2,3 "Finished codegen for target vestify"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/CMakeFiles" --progress-num=3,4,5 "Finished codegen for target vestify"
 .PHONY : CMakeFiles/vestify.dir/codegen
 
 # clean rule for target.
 CMakeFiles/vestify.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/clean
 .PHONY : CMakeFiles/vestify.dir/clean
+
+#=============================================================================
+# Target rules for target tests/CMakeFiles/csv_loader_tests.dir
+
+# All Build rule for target.
+tests/CMakeFiles/csv_loader_tests.dir/all:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/csv_loader_tests.dir/build.make tests/CMakeFiles/csv_loader_tests.dir/depend
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/csv_loader_tests.dir/build.make tests/CMakeFiles/csv_loader_tests.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/CMakeFiles" --progress-num=1,2 "Built target csv_loader_tests"
+.PHONY : tests/CMakeFiles/csv_loader_tests.dir/all
+
+# Build rule for subdir invocation for target.
+tests/CMakeFiles/csv_loader_tests.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/CMakeFiles" 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/csv_loader_tests.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/CMakeFiles" 0
+.PHONY : tests/CMakeFiles/csv_loader_tests.dir/rule
+
+# Convenience name for target.
+csv_loader_tests: tests/CMakeFiles/csv_loader_tests.dir/rule
+.PHONY : csv_loader_tests
+
+# codegen rule for target.
+tests/CMakeFiles/csv_loader_tests.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/csv_loader_tests.dir/build.make tests/CMakeFiles/csv_loader_tests.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/emilyberlinghoff/Documents/School/Year 4/CS3307/Project/group13/Vestify/build/CMakeFiles" --progress-num=1,2 "Finished codegen for target csv_loader_tests"
+.PHONY : tests/CMakeFiles/csv_loader_tests.dir/codegen
+
+# clean rule for target.
+tests/CMakeFiles/csv_loader_tests.dir/clean:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/csv_loader_tests.dir/build.make tests/CMakeFiles/csv_loader_tests.dir/clean
+.PHONY : tests/CMakeFiles/csv_loader_tests.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

@@ -1,11 +1,13 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o"
-  "CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o.d"
-  "CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o"
-  "CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o.d"
-  "CMakeFiles/vestify.dir/src/main.cpp.o"
-  "CMakeFiles/vestify.dir/src/main.cpp.o.d"
-  "vestify"
+  "CMakeFiles/vestify.dir/src/core/StockRepository.cpp.obj"
+  "CMakeFiles/vestify.dir/src/core/StockRepository.cpp.obj.d"
+  "CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.obj"
+  "CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.obj.d"
+  "CMakeFiles/vestify.dir/src/main.cpp.obj"
+  "CMakeFiles/vestify.dir/src/main.cpp.obj.d"
+  "libvestify.dll.a"
+  "vestify.exe"
+  "vestify.exe.manifest"
   "vestify.pdb"
 )
 

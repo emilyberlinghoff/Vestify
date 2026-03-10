@@ -1,2 +1,68 @@
-.env
+# =========================
+# Build directories
+# =========================
 build/
+cmake-build-*/
+out/
+
+# =========================
+# CMake files
+# =========================
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+Makefile
+
+# =========================
+# Executables / binaries
+# =========================
+*.exe
+*.out
+*.app
+*.dll
+*.so
+*.dylib
+
+# =========================
+# Object / compiled files
+# =========================
+*.o
+*.obj
+*.a
+*.lib
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Environment / secrets
+# =========================
+.env
+
+# =========================
+# Python virtual environments
+# =========================
+.venv/
+venv/
+env/
+
+# =========================
+# IDE files
+# =========================
+.vscode/
+.idea/
+*.code-workspace
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Test artifacts
+# =========================
+Testing/

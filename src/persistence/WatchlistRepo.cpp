@@ -1,4 +1,4 @@
-#include "persistence/WatchlistRep.hpp"
+#include "persistence/WatchlistRepo.hpp"
 
 #include <fstream>
 #include <nlohmann/json.hpp>
@@ -19,6 +19,7 @@ WatchlistRepo::LoadResult WatchlistRepo::load() const
     }
 
     nlohmann::json j;
+
     try
     {
         infile >> j;
@@ -28,6 +29,11 @@ WatchlistRepo::LoadResult WatchlistRepo::load() const
         out.errors.push_back(
             "Could not parse watchlist (" + filepath_ + "): " + ex.what());
         return out;
+    }
+
+    if (j.contains("name") && j["name"].is_string())
+    {
+        out.watchlist.setName(j["name"].get<std::string>());
     }
 
     if (!j.contains("tickers") || !j["tickers"].is_array())
@@ -62,9 +68,12 @@ WatchlistRepo::SaveResult WatchlistRepo::save(const Watchlist &wl) const
     SaveResult res;
 
     nlohmann::json j;
+
+    j["name"] = wl.getName();
     j["tickers"] = wl.getAll();
 
     std::ofstream outfile(filepath_);
+
     if (!outfile.is_open())
     {
         res.errMsg = "Cant open file for writing: " + filepath_;

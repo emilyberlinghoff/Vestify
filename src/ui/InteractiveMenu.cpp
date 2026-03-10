@@ -1,21 +1,27 @@
 #include "ui/InteractiveMenu.hpp"
 
-#include <algorithm>
 #include <cstdlib>
 #include <iostream>
 
-#include "data/CSVLoader.hpp"
 #include "data/LiveDataProvider.hpp"
 #include "ui/StockPrinter.hpp"
 
+void InteractiveMenu::printUsage(const std::string &exe)
+{
+    std::cout << "Usage:\n";
+    std::cout << "  " << exe << " --load-csv <path>\n";
+    std::cout << "  " << exe << " --live <ticker[,ticker...]>\n";
+    std::cout << "  " << exe << " --help\n";
+    std::cout << "Environment:\n";
+    std::cout << "  ALPHAVANTAGE_API_KEY=your_api_key\n";
+}
+
 std::string InteractiveMenu::toUpper(std::string str)
 {
-    std::transform(
-        str.begin(),
-        str.end(),
-        str.begin(),
-        [](unsigned char c)
-        { return static_cast<char>(std::toupper(c)); });
+    for (char &c : str)
+    {
+        c = static_cast<char>(std::toupper(static_cast<unsigned char>(c)));
+    }
     return str;
 }
 
@@ -48,14 +54,46 @@ std::vector<std::string> InteractiveMenu::splitTickers(const std::string &input)
     return tickers;
 }
 
+int InteractiveMenu::handleCommandLine(int argc, char **argv)
+{
+    std::string arg = argv[1];
+
+    if (arg == "--help")
+    {
+        printUsage(argv[0]);
+        return 0;
+    }
+
+    if (arg == "--load-csv")
+    {
+        if (argc < 3)
+        {
+            std::cerr << "--load-csv requires a path\n";
+            return 1;
+        }
+        return handleLoadCsv(argv[2]);
+    }
+
+    if (arg == "--live")
+    {
+        if (argc < 3)
+        {
+            std::cerr << "--live requires a ticker list\n";
+            return 1;
+        }
+        return handleLiveQuotes(argv[2]);
+    }
+
+    std::cerr << "Unknown argument: " << arg << "\n";
+    printUsage(argv[0]);
+    return 1;
+}
+
 int InteractiveMenu::handleLoadCsv(const std::string &path)
 {
-    CSVLoader loader;
-    auto result = loader.loadFile(path);
+    auto result = repository_.loadFromCsv(path);
 
-    loadedStocks_ = result.stocks;
-
-    std::cout << "\nLoaded " << loadedStocks_.size() << " stocks.\n";
+    std::cout << "\nLoaded " << repository_.getAll().size() << " stocks.\n";
 
     for (const auto &error : result.errors)
     {
@@ -70,15 +108,28 @@ int InteractiveMenu::handleLiveQuotes(const std::string &tickerList)
     LiveDataProvider provider;
     auto result = provider.fetchQuotes(splitTickers(tickerList));
 
+    repository_.setStocks(result.stocks);
+
     for (const auto &error : result.errors)
     {
         std::cerr << error << "\n";
     }
 
-    std::cout << "\nLoaded " << result.stocks.size() << " live quotes.\n";
-    StockPrinter::printStocks(result.stocks);
+    std::cout << "\nLoaded " << repository_.getAll().size() << " live quotes.\n";
+    StockPrinter::printStocks(repository_.getAll());
 
     return result.errors.empty() ? 0 : 2;
+}
+
+void InteractiveMenu::printLoadedStocks() const
+{
+    if (repository_.getAll().empty())
+    {
+        std::cout << "No stock data loaded.\n";
+        return;
+    }
+
+    StockPrinter::printStocks(repository_.getAll());
 }
 
 void InteractiveMenu::updateStockData()
@@ -97,9 +148,9 @@ void InteractiveMenu::updateStockData()
     }
 }
 
-void InteractiveMenu::searchTicker()
+void InteractiveMenu::searchTicker() const
 {
-    if (loadedStocks_.empty())
+    if (repository_.getAll().empty())
     {
         std::cout << "No stock data loaded.\n";
         return;
@@ -109,21 +160,18 @@ void InteractiveMenu::searchTicker()
     std::cout << "Enter ticker: ";
     std::cin >> ticker;
 
-    ticker = toUpper(ticker);
+    const Stock *stock = repository_.findByTicker(ticker);
 
-    for (const auto &stock : loadedStocks_)
+    if (stock == nullptr)
     {
-        if (toUpper(stock.ticker) == ticker)
-        {
-            StockPrinter::printStocks({stock});
-            return;
-        }
+        std::cout << "Ticker not found.\n";
+        return;
     }
 
-    std::cout << "Ticker not found.\n";
+    StockPrinter::printStocks({*stock});
 }
 
-void InteractiveMenu::run()
+void InteractiveMenu::runInteractive()
 {
     bool running = true;
 
@@ -155,42 +203,39 @@ void InteractiveMenu::run()
         case 1:
             handleLoadCsv("data/nasdaq100_fundamentals_full.csv");
             break;
-
         case 2:
             updateStockData();
             break;
-
         case 3:
-            if (loadedStocks_.empty())
-            {
-                std::cout << "No stock data loaded.\n";
-            }
-            else
-            {
-                StockPrinter::printStocks(loadedStocks_);
-            }
+            printLoadedStocks();
             break;
-
         case 4:
             searchTicker();
             break;
-
         case 5:
-            StockPrinter::printAvailableStocks(loadedStocks_);
+            StockPrinter::printAvailableStocks(repository_.getAll());
             break;
-
         case 6:
-            StockPrinter::printTopEVFCF(loadedStocks_, 10);
+            StockPrinter::printTopEVFCF(repository_.getAll(), 10);
             break;
-
         case 7:
             std::cout << "Exiting Vestify.\n";
             running = false;
             break;
-
         default:
             std::cout << "Invalid option.\n";
             break;
         }
     }
+}
+
+int InteractiveMenu::run(int argc, char **argv)
+{
+    if (argc >= 2)
+    {
+        return handleCommandLine(argc, argv);
+    }
+
+    runInteractive();
+    return 0;
 }

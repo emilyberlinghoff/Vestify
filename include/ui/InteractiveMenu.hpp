@@ -3,21 +3,26 @@
 #include <string>
 #include <vector>
 
-#include "core/Stock.hpp"
+#include "core/StockRepository.hpp"
 
-class InteractiveMenu {
+class InteractiveMenu
+{
 public:
-    InteractiveMenu() = default;
-    void run();
+    int run(int argc, char **argv);
 
 private:
-    std::vector<Stock> loadedStocks_;
+    StockRepository repository_;
 
+    static void printUsage(const std::string &exe);
     static std::string toUpper(std::string str);
-    static std::vector<std::string> splitTickers(const std::string& input);
+    static std::vector<std::string> splitTickers(const std::string &input);
 
-    int handleLoadCsv(const std::string& path);
-    int handleLiveQuotes(const std::string& tickerList);
+    int handleCommandLine(int argc, char **argv);
+    int handleLoadCsv(const std::string &path);
+    int handleLiveQuotes(const std::string &tickerList);
+
+    void printLoadedStocks() const;
     void updateStockData();
-    void searchTicker();
+    void searchTicker() const;
+    void runInteractive();
 };

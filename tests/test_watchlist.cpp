@@ -4,7 +4,7 @@
 #include <string>
 
 #include "core/Watchlist.hpp"
-#include "persistence/WatchlistRep.hpp"
+#include "persistence/WatchlistRepo.hpp"
 
 static const std::string TEMP_FILE = "test_wl_tmp.json";
 
@@ -15,8 +15,10 @@ static const std::string TEMP_FILE = "test_wl_tmp.json";
  * @param message Message printed on failure.
  * @return True if the condition is true.
  */
-bool assertTrue(bool condition, const std::string& message) {
-    if (!condition) {
+bool assertTrue(bool condition, const std::string &message)
+{
+    if (!condition)
+    {
         std::cerr << "TEST FAILURE: " << message << "\n";
     }
     return condition;
@@ -25,7 +27,8 @@ bool assertTrue(bool condition, const std::string& message) {
 /**
  * @brief Remove the temporary test file if it exists.
  */
-void removeTempFile() {
+void removeTempFile()
+{
     std::remove(TEMP_FILE.c_str());
 }
 
@@ -34,7 +37,8 @@ void removeTempFile() {
  *
  * @return True if the test passes.
  */
-bool testBasicOps() {
+bool testBasicOps()
+{
     Watchlist wl;
 
     bool ok = true;
@@ -61,7 +65,8 @@ bool testBasicOps() {
  *
  * @return True if the test passes.
  */
-bool testSaveAndLoad() {
+bool testSaveAndLoad()
+{
     removeTempFile();
 
     Watchlist wl;
@@ -89,7 +94,8 @@ bool testSaveAndLoad() {
  *
  * @return True if the test passes.
  */
-bool testNoFile() {
+bool testNoFile()
+{
     removeTempFile();
 
     WatchlistRepo repo(TEMP_FILE);
@@ -106,7 +112,8 @@ bool testNoFile() {
  *
  * @return True if the test passes.
  */
-bool testCorruptedFile() {
+bool testCorruptedFile()
+{
     removeTempFile();
 
     {
@@ -130,7 +137,8 @@ bool testCorruptedFile() {
  *
  * @return True if the test passes.
  */
-bool testDataMatchesAfterRoundTrip() {
+bool testDataMatchesAfterRoundTrip()
+{
     removeTempFile();
 
     Watchlist orig;
@@ -144,13 +152,14 @@ bool testDataMatchesAfterRoundTrip() {
     auto loaded = repo.load();
     bool ok = assertTrue(loaded.errors.empty(), "Clean load");
 
-    const auto& before = orig.getAll();
-    const auto& after = loaded.watchlist.getAll();
+    const auto &before = orig.getAll();
+    const auto &after = loaded.watchlist.getAll();
     ok &= assertTrue(before.size() == after.size(), "Same count");
 
-    for (size_t i = 0; i < before.size(); i++) {
+    for (size_t i = 0; i < before.size(); i++)
+    {
         ok &= assertTrue(before[i] == after[i],
-            "Mismatch at index " + std::to_string(i));
+                         "Mismatch at index " + std::to_string(i));
     }
 
     removeTempFile();
@@ -162,7 +171,8 @@ bool testDataMatchesAfterRoundTrip() {
  *
  * @return True if the test passes.
  */
-bool testSaveEmpty() {
+bool testSaveEmpty()
+{
     removeTempFile();
 
     Watchlist wl;
@@ -184,7 +194,8 @@ bool testSaveEmpty() {
  *
  * @return Exit code.
  */
-int main() {
+int main()
+{
     bool ok = true;
     ok &= testBasicOps();
     ok &= testSaveAndLoad();
@@ -193,7 +204,8 @@ int main() {
     ok &= testDataMatchesAfterRoundTrip();
     ok &= testSaveEmpty();
 
-    if (!ok) {
+    if (!ok)
+    {
         return EXIT_FAILURE;
     }
     std::cout << "All watchlist tests passed.\n";

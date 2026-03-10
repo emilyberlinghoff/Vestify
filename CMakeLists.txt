@@ -24,14 +24,7 @@ target_include_directories(vestify
 
 if (VESTIFY_ENABLE_LIVE)
     find_package(CURL REQUIRED)
-
-    include(FetchContent)
-    FetchContent_Declare(
-        nlohmann_json
-        URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz
-        DOWNLOAD_EXTRACT_TIMESTAMP TRUE
-    )
-    FetchContent_MakeAvailable(nlohmann_json)
+    find_package(nlohmann_json REQUIRED)
 
     target_compile_definitions(vestify PRIVATE VESTIFY_ENABLE_LIVE=1)
     target_link_libraries(vestify PRIVATE CURL::libcurl nlohmann_json::nlohmann_json)

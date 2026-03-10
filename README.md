@@ -1,48 +1,95 @@
-# Vestify
+Vestify
 
-## Build
+Vestify is a C++ stock analysis tool that loads stock data from CSV files or live APIs and provides screening and analysis through a command-line interface.
 
-```bash
-cmake -S . -B build
-cmake --build build
-```
+The project separates data providers, core logic, services, and UI to make the system modular and extensible.
 
-## Live Quotes (Alpha Vantage)
+Requirements
 
-Vestify uses Alpha Vantage for live quotes. You must provide an API key via an environment variable.
+C++17 compatible compiler
 
-1. Create a `.env` file (ignored by git):
+CMake ≥ 3.16
 
-```bash
-ALPHAVANTAGE_API_KEY=your_api_key_here
-```
+Python 3
 
-2. Load the key into your shell (once per terminal session):
+libcurl (for live data requests)
 
-```bash
-set -a
-source .env
-set +a
-```
+Python Setup (for data update scripts)
 
-3. Run the app:
+Vestify includes Python scripts used to fetch and update stock data.
 
-```bash
-./build/vestify --live AAPL,MSFT
-```
+1. Create a virtual environment
 
-If you open a new terminal, repeat step 2 before running the app.
+From the project root:
 
-## Tests
+python3 -m venv .venv
+2. Activate the environment
+source .venv/bin/activate
 
-Run tests from the build directory:
+Your shell prompt should now start with:
 
-```bash
+(.venv)
+3. Install Python dependencies
+pip install -r scripts/requirements.txt
+Build and Run
+
+Vestify uses CMake and a simple Makefile wrapper.
+
+Run the program
+make run
+
+This will:
+
+Configure the project with CMake
+
+Build the executable
+
+Run the application
+
+Clean the build directory
+make clean
+
+This removes the build/ directory so the project can be rebuilt from scratch.
+
+Running Tests
+
+Tests are built automatically when the project is compiled.
+
+Run them with:
+
 cd build
 ctest
-```
 
-Current tests cover the CSV loader acceptance criteria:
-- Valid CSV path loads stocks with correct fields.
-- Missing file returns a clear error without crashing.
-- Malformed row is skipped and an error is reported.
+Current tests verify:
+
+CSV files load correctly
+
+Missing CSV files return a clear error
+
+Malformed rows are skipped without crashing
+
+Repository Structure
+Vestify/
+├── include/        # Header files
+├── src/
+│   ├── core/       # Core business logic
+│   ├── data/       # Data providers
+│   ├── services/   # Application services
+│   └── ui/         # Command line interface
+├── scripts/        # Python scripts for data updates
+├── tests/          # Unit tests
+├── build/          # Build output (ignored by git)
+├── CMakeLists.txt
+├── Makefile
+└── README.md
+Notes
+
+.venv and build/ are ignored by Git.
+
+Always activate the Python virtual environment before running scripts that depend on Python packages.
+
+If you open a new terminal, run:
+
+source .venv/bin/activate
+
+again before using the scripts.

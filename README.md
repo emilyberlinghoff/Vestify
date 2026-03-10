@@ -1,74 +1,100 @@
-Vestify
+# Vestify
 
 Vestify is a C++ stock analysis tool that loads stock data from CSV files or live APIs and provides screening and analysis through a command-line interface.
 
 The project separates data providers, core logic, services, and UI to make the system modular and extensible.
 
-Requirements
+---
 
-C++17 compatible compiler
+# Requirements
 
-CMake ≥ 3.16
+- C++17 compatible compiler  
+- CMake ≥ 3.16  
+- Python 3  
+- libcurl (for live data requests)
 
-Python 3
+---
 
-libcurl (for live data requests)
-
-Python Setup (for data update scripts)
+# Python Setup (for data update scripts)
 
 Vestify includes Python scripts used to fetch and update stock data.
 
-1. Create a virtual environment
+## 1. Create a virtual environment
 
 From the project root:
 
+```bash
 python3 -m venv .venv
-2. Activate the environment
+```
+
+## 2. Activate the environment
+
+```bash
 source .venv/bin/activate
+```
 
 Your shell prompt should now start with:
 
+```
 (.venv)
-3. Install Python dependencies
+```
+
+## 3. Install Python dependencies
+
+```bash
 pip install -r scripts/requirements.txt
-Build and Run
+```
+
+---
+
+# Build and Run
 
 Vestify uses CMake and a simple Makefile wrapper.
 
-Run the program
+## Run the program
+
+```bash
 make run
+```
 
 This will:
 
-Configure the project with CMake
+- Configure the project with CMake
+- Build the executable
+- Run the application
 
-Build the executable
+## Clean the build directory
 
-Run the application
-
-Clean the build directory
+```bash
 make clean
+```
 
-This removes the build/ directory so the project can be rebuilt from scratch.
+This removes the `build/` directory so the project can be rebuilt from scratch.
 
-Running Tests
+---
+
+# Running Tests
 
 Tests are built automatically when the project is compiled.
 
 Run them with:
 
+```bash
 cd build
 ctest
+```
 
 Current tests verify:
 
-CSV files load correctly
+- CSV files load correctly
+- Missing CSV files return a clear error
+- Malformed rows are skipped without crashing
 
-Missing CSV files return a clear error
+---
 
-Malformed rows are skipped without crashing
+# Repository Structure
 
-Repository Structure
+```
 Vestify/
 ├── include/        # Header files
 ├── src/
@@ -82,14 +108,19 @@ Vestify/
 ├── CMakeLists.txt
 ├── Makefile
 └── README.md
-Notes
+```
 
-.venv and build/ are ignored by Git.
+---
 
-Always activate the Python virtual environment before running scripts that depend on Python packages.
+# Notes
+
+- `.venv` and `build/` are ignored by Git.
+- Always activate the Python virtual environment before running scripts that depend on Python packages.
 
 If you open a new terminal, run:
 
+```bash
 source .venv/bin/activate
+```
 
 again before using the scripts.

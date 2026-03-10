@@ -323,7 +323,7 @@ PKG_CONFIG_EXECUTABLE:FILEPATH=PKG_CONFIG_EXECUTABLE-NOTFOUND
 //Build Vestify tests
 VESTIFY_BUILD_TESTS:BOOL=ON
 
-//Enable live Yahoo Finance data provider
+//Enable live Alpha Vantage data provider
 VESTIFY_ENABLE_LIVE:BOOL=ON
 
 //Value Computed by CMake

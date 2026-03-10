@@ -118,12 +118,12 @@ tests/clean: tests/CMakeFiles/scoring_tests.dir/clean
 CMakeFiles/vestify.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/maxim/3307/group13/Vestify/build/CMakeFiles --progress-num=6,7,8,9 "Built target vestify"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/maxim/3307/group13/Vestify/build/CMakeFiles --progress-num=6,7,8,9,10,11,12,13 "Built target vestify"
 .PHONY : CMakeFiles/vestify.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/vestify.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maxim/3307/group13/Vestify/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maxim/3307/group13/Vestify/build/CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/vestify.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/maxim/3307/group13/Vestify/build/CMakeFiles 0
 .PHONY : CMakeFiles/vestify.dir/rule

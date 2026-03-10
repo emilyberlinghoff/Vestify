@@ -7,11 +7,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(VESTIFY_BUILD_TESTS "Build Vestify tests" ON)
+option(VESTIFY_ENABLE_LIVE "Enable live Alpha Vantage data provider" ON)
 
 add_executable(vestify
     src/main.cpp
-    src/data/LiveDataProvider.cpp
     src/core/StockRepository.cpp
+    src/data/LiveDataProvider.cpp
+    src/ui/InteractiveMenu.cpp
+    src/ui/StockPrinter.cpp
+    src/services/DataUpdater.cpp
+    src/services/StockScreener.cpp
 )
 
 target_include_directories(vestify
@@ -19,10 +24,9 @@ target_include_directories(vestify
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-option(VESTIFY_ENABLE_LIVE "Enable live Yahoo Finance data provider" ON)
-
 if (VESTIFY_ENABLE_LIVE)
     find_package(CURL REQUIRED)
+
     include(FetchContent)
     FetchContent_Declare(
         nlohmann_json
@@ -35,7 +39,6 @@ if (VESTIFY_ENABLE_LIVE)
     target_link_libraries(vestify PRIVATE CURL::libcurl nlohmann_json::nlohmann_json)
 endif()
 
-# Reasonable warnings for most Unix-like toolchains
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU")
     target_compile_options(vestify PRIVATE -Wall -Wextra -Wpedantic)
 endif()

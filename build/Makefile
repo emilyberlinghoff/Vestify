@@ -237,6 +237,102 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/services/DataUpdater.o: src/services/DataUpdater.cpp.o
+.PHONY : src/services/DataUpdater.o
+
+# target to build an object file
+src/services/DataUpdater.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.o
+.PHONY : src/services/DataUpdater.cpp.o
+
+src/services/DataUpdater.i: src/services/DataUpdater.cpp.i
+.PHONY : src/services/DataUpdater.i
+
+# target to preprocess a source file
+src/services/DataUpdater.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.i
+.PHONY : src/services/DataUpdater.cpp.i
+
+src/services/DataUpdater.s: src/services/DataUpdater.cpp.s
+.PHONY : src/services/DataUpdater.s
+
+# target to generate assembly for a file
+src/services/DataUpdater.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.s
+.PHONY : src/services/DataUpdater.cpp.s
+
+src/services/StockScreener.o: src/services/StockScreener.cpp.o
+.PHONY : src/services/StockScreener.o
+
+# target to build an object file
+src/services/StockScreener.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/services/StockScreener.cpp.o
+.PHONY : src/services/StockScreener.cpp.o
+
+src/services/StockScreener.i: src/services/StockScreener.cpp.i
+.PHONY : src/services/StockScreener.i
+
+# target to preprocess a source file
+src/services/StockScreener.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/services/StockScreener.cpp.i
+.PHONY : src/services/StockScreener.cpp.i
+
+src/services/StockScreener.s: src/services/StockScreener.cpp.s
+.PHONY : src/services/StockScreener.s
+
+# target to generate assembly for a file
+src/services/StockScreener.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/services/StockScreener.cpp.s
+.PHONY : src/services/StockScreener.cpp.s
+
+src/ui/InteractiveMenu.o: src/ui/InteractiveMenu.cpp.o
+.PHONY : src/ui/InteractiveMenu.o
+
+# target to build an object file
+src/ui/InteractiveMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.o
+.PHONY : src/ui/InteractiveMenu.cpp.o
+
+src/ui/InteractiveMenu.i: src/ui/InteractiveMenu.cpp.i
+.PHONY : src/ui/InteractiveMenu.i
+
+# target to preprocess a source file
+src/ui/InteractiveMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.i
+.PHONY : src/ui/InteractiveMenu.cpp.i
+
+src/ui/InteractiveMenu.s: src/ui/InteractiveMenu.cpp.s
+.PHONY : src/ui/InteractiveMenu.s
+
+# target to generate assembly for a file
+src/ui/InteractiveMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.s
+.PHONY : src/ui/InteractiveMenu.cpp.s
+
+src/ui/StockPrinter.o: src/ui/StockPrinter.cpp.o
+.PHONY : src/ui/StockPrinter.o
+
+# target to build an object file
+src/ui/StockPrinter.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.o
+.PHONY : src/ui/StockPrinter.cpp.o
+
+src/ui/StockPrinter.i: src/ui/StockPrinter.cpp.i
+.PHONY : src/ui/StockPrinter.i
+
+# target to preprocess a source file
+src/ui/StockPrinter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.i
+.PHONY : src/ui/StockPrinter.cpp.i
+
+src/ui/StockPrinter.s: src/ui/StockPrinter.cpp.s
+.PHONY : src/ui/StockPrinter.s
+
+# target to generate assembly for a file
+src/ui/StockPrinter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vestify.dir/build.make CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.s
+.PHONY : src/ui/StockPrinter.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -258,6 +354,18 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/services/DataUpdater.o"
+	@echo "... src/services/DataUpdater.i"
+	@echo "... src/services/DataUpdater.s"
+	@echo "... src/services/StockScreener.o"
+	@echo "... src/services/StockScreener.i"
+	@echo "... src/services/StockScreener.s"
+	@echo "... src/ui/InteractiveMenu.o"
+	@echo "... src/ui/InteractiveMenu.i"
+	@echo "... src/ui/InteractiveMenu.s"
+	@echo "... src/ui/StockPrinter.o"
+	@echo "... src/ui/StockPrinter.i"
+	@echo "... src/ui/StockPrinter.s"
 .PHONY : help
 
 

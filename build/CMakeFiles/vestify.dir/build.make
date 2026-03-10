@@ -83,24 +83,10 @@ CMakeFiles/vestify.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/vestify.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxim/3307/group13/Vestify/src/main.cpp -o CMakeFiles/vestify.dir/src/main.cpp.s
 
-CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o: CMakeFiles/vestify.dir/flags.make
-CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o: /home/maxim/3307/group13/Vestify/src/data/LiveDataProvider.cpp
-CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o: CMakeFiles/vestify.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/maxim/3307/group13/Vestify/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o -MF CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o.d -o CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o -c /home/maxim/3307/group13/Vestify/src/data/LiveDataProvider.cpp
-
-CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxim/3307/group13/Vestify/src/data/LiveDataProvider.cpp > CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.i
-
-CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxim/3307/group13/Vestify/src/data/LiveDataProvider.cpp -o CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.s
-
 CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o: CMakeFiles/vestify.dir/flags.make
 CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o: /home/maxim/3307/group13/Vestify/src/core/StockRepository.cpp
 CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o: CMakeFiles/vestify.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/maxim/3307/group13/Vestify/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/maxim/3307/group13/Vestify/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o -MF CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o.d -o CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o -c /home/maxim/3307/group13/Vestify/src/core/StockRepository.cpp
 
 CMakeFiles/vestify.dir/src/core/StockRepository.cpp.i: cmake_force
@@ -111,22 +97,100 @@ CMakeFiles/vestify.dir/src/core/StockRepository.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/vestify.dir/src/core/StockRepository.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxim/3307/group13/Vestify/src/core/StockRepository.cpp -o CMakeFiles/vestify.dir/src/core/StockRepository.cpp.s
 
+CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o: CMakeFiles/vestify.dir/flags.make
+CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o: /home/maxim/3307/group13/Vestify/src/data/LiveDataProvider.cpp
+CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o: CMakeFiles/vestify.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/maxim/3307/group13/Vestify/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o -MF CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o.d -o CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o -c /home/maxim/3307/group13/Vestify/src/data/LiveDataProvider.cpp
+
+CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxim/3307/group13/Vestify/src/data/LiveDataProvider.cpp > CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.i
+
+CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxim/3307/group13/Vestify/src/data/LiveDataProvider.cpp -o CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.s
+
+CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.o: CMakeFiles/vestify.dir/flags.make
+CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.o: /home/maxim/3307/group13/Vestify/src/ui/InteractiveMenu.cpp
+CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.o: CMakeFiles/vestify.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/maxim/3307/group13/Vestify/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.o -MF CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.o.d -o CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.o -c /home/maxim/3307/group13/Vestify/src/ui/InteractiveMenu.cpp
+
+CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxim/3307/group13/Vestify/src/ui/InteractiveMenu.cpp > CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.i
+
+CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxim/3307/group13/Vestify/src/ui/InteractiveMenu.cpp -o CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.s
+
+CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.o: CMakeFiles/vestify.dir/flags.make
+CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.o: /home/maxim/3307/group13/Vestify/src/ui/StockPrinter.cpp
+CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.o: CMakeFiles/vestify.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/maxim/3307/group13/Vestify/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.o -MF CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.o.d -o CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.o -c /home/maxim/3307/group13/Vestify/src/ui/StockPrinter.cpp
+
+CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxim/3307/group13/Vestify/src/ui/StockPrinter.cpp > CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.i
+
+CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxim/3307/group13/Vestify/src/ui/StockPrinter.cpp -o CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.s
+
+CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.o: CMakeFiles/vestify.dir/flags.make
+CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.o: /home/maxim/3307/group13/Vestify/src/services/DataUpdater.cpp
+CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.o: CMakeFiles/vestify.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/maxim/3307/group13/Vestify/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.o -MF CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.o.d -o CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.o -c /home/maxim/3307/group13/Vestify/src/services/DataUpdater.cpp
+
+CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxim/3307/group13/Vestify/src/services/DataUpdater.cpp > CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.i
+
+CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxim/3307/group13/Vestify/src/services/DataUpdater.cpp -o CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.s
+
+CMakeFiles/vestify.dir/src/services/StockScreener.cpp.o: CMakeFiles/vestify.dir/flags.make
+CMakeFiles/vestify.dir/src/services/StockScreener.cpp.o: /home/maxim/3307/group13/Vestify/src/services/StockScreener.cpp
+CMakeFiles/vestify.dir/src/services/StockScreener.cpp.o: CMakeFiles/vestify.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/maxim/3307/group13/Vestify/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/vestify.dir/src/services/StockScreener.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vestify.dir/src/services/StockScreener.cpp.o -MF CMakeFiles/vestify.dir/src/services/StockScreener.cpp.o.d -o CMakeFiles/vestify.dir/src/services/StockScreener.cpp.o -c /home/maxim/3307/group13/Vestify/src/services/StockScreener.cpp
+
+CMakeFiles/vestify.dir/src/services/StockScreener.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/vestify.dir/src/services/StockScreener.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxim/3307/group13/Vestify/src/services/StockScreener.cpp > CMakeFiles/vestify.dir/src/services/StockScreener.cpp.i
+
+CMakeFiles/vestify.dir/src/services/StockScreener.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/vestify.dir/src/services/StockScreener.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxim/3307/group13/Vestify/src/services/StockScreener.cpp -o CMakeFiles/vestify.dir/src/services/StockScreener.cpp.s
+
 # Object files for target vestify
 vestify_OBJECTS = \
 "CMakeFiles/vestify.dir/src/main.cpp.o" \
+"CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o" \
 "CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o" \
-"CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o"
+"CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.o" \
+"CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.o" \
+"CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.o" \
+"CMakeFiles/vestify.dir/src/services/StockScreener.cpp.o"
 
 # External object files for target vestify
 vestify_EXTERNAL_OBJECTS =
 
 vestify: CMakeFiles/vestify.dir/src/main.cpp.o
-vestify: CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o
 vestify: CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o
+vestify: CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o
+vestify: CMakeFiles/vestify.dir/src/ui/InteractiveMenu.cpp.o
+vestify: CMakeFiles/vestify.dir/src/ui/StockPrinter.cpp.o
+vestify: CMakeFiles/vestify.dir/src/services/DataUpdater.cpp.o
+vestify: CMakeFiles/vestify.dir/src/services/StockScreener.cpp.o
 vestify: CMakeFiles/vestify.dir/build.make
 vestify: /usr/lib/x86_64-linux-gnu/libcurl.so
 vestify: CMakeFiles/vestify.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/maxim/3307/group13/Vestify/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable vestify"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/maxim/3307/group13/Vestify/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable vestify"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/vestify.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

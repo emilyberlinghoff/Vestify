@@ -7,6 +7,14 @@
 #include <locale>
 #include <sstream>
 
+/**
+ * @file StockPrinter.cpp
+ * @brief Implementation of the StockPrinter class for formatting and displaying stock data.
+ *
+ * This file contains the implementation of methods for formatting financial values,
+ * colorizing metrics based on thresholds, and printing stock information to the console.
+ */
+
 namespace
 {
     const std::string GREEN = "\033[32m";
@@ -15,6 +23,15 @@ namespace
     const std::string RESET = "\033[0m";
 }
 
+/**
+ * @brief Formats a monetary value with appropriate suffixes (K, M, B, T).
+ *
+ * This function converts large numbers into a more readable format by using
+ * suffixes for thousands (K), millions (M), billions (B), and trillions (T).
+ *
+ * @param value The monetary value to format.
+ * @return A string representation of the formatted value with suffix.
+ */
 std::string StockPrinter::formatMoney(double value)
 {
     const double trillion = 1e12;
@@ -49,6 +66,18 @@ std::string StockPrinter::formatMoney(double value)
     return out.str();
 }
 
+/**
+ * @brief Colorizes a metric value based on performance thresholds.
+ *
+ * This function applies ANSI color codes to metric values where higher values
+ * are generally better (e.g., profitability ratios). Green for good performance,
+ * red for weak performance, yellow for neutral.
+ *
+ * @param value The metric value to colorize.
+ * @param goodThreshold The threshold above which the value is considered good.
+ * @param weakThreshold The threshold below which the value is considered weak.
+ * @return A colorized string representation of the value.
+ */
 std::string StockPrinter::colorizeMetric(double value, double goodThreshold, double weakThreshold)
 {
     std::ostringstream out;
@@ -65,6 +94,18 @@ std::string StockPrinter::colorizeMetric(double value, double goodThreshold, dou
     return YELLOW + out.str() + RESET;
 }
 
+/**
+ * @brief Colorizes a metric value where lower values are better.
+ *
+ * This function applies ANSI color codes to valuation metrics where lower values
+ * are generally preferred (e.g., P/E ratio). Green for attractive valuations,
+ * red for expensive valuations, yellow for neutral.
+ *
+ * @param value The metric value to colorize.
+ * @param goodThreshold The threshold below which the value is considered good.
+ * @param badThreshold The threshold above which the value is considered bad.
+ * @return A colorized string representation of the value.
+ */
 std::string StockPrinter::colorizeLowIsBetter(double value, double goodThreshold, double badThreshold)
 {
     std::ostringstream out;
@@ -81,6 +122,15 @@ std::string StockPrinter::colorizeLowIsBetter(double value, double goodThreshold
     return YELLOW + out.str() + RESET;
 }
 
+/**
+ * @brief Prints detailed information for a list of stocks.
+ *
+ * This function displays comprehensive stock data including basic information,
+ * financial metrics, balance sheet items, profitability ratios, and valuation
+ * metrics. Values are formatted and colorized appropriately.
+ *
+ * @param stocks A vector of Stock objects to display.
+ */
 void StockPrinter::printStocks(const std::vector<Stock> &stocks)
 {
     std::cout << std::fixed;
@@ -128,6 +178,14 @@ void StockPrinter::printStocks(const std::vector<Stock> &stocks)
     }
 }
 
+/**
+ * @brief Prints a summary list of available stocks.
+ *
+ * This function displays a tabular view of all available stocks showing
+ * ticker symbols, sectors, and company names.
+ *
+ * @param stocks A vector of Stock objects to display.
+ */
 void StockPrinter::printAvailableStocks(const std::vector<Stock> &stocks)
 {
     if (stocks.empty())
@@ -154,6 +212,16 @@ void StockPrinter::printAvailableStocks(const std::vector<Stock> &stocks)
     }
 }
 
+/**
+ * @brief Prints the top stocks ranked by EV/FCF ratio.
+ *
+ * This function sorts stocks by their Enterprise Value to Free Cash Flow ratio
+ * (ascending order, lower is better) and displays the top N cheapest stocks
+ * based on this valuation metric.
+ *
+ * @param stocks A vector of Stock objects to analyze (passed by value for sorting).
+ * @param count The number of top stocks to display.
+ */
 void StockPrinter::printTopEVFCF(std::vector<Stock> stocks, std::size_t count)
 {
     if (stocks.empty())

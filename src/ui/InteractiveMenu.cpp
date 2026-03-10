@@ -1,3 +1,13 @@
+/**
+ * @file InteractiveMenu.cpp
+ * @brief Implementation of the interactive command-line interface for the Vestify application.
+ *
+ * This file contains the implementation of the InteractiveMenu class which provides
+ * both command-line and interactive menu interfaces for the stock analysis application.
+ * It handles user input, coordinates data loading and display operations, and manages
+ * the application workflow.
+ */
+
 #include "ui/InteractiveMenu.hpp"
 
 #include <cstdlib>
@@ -6,6 +16,14 @@
 #include "data/LiveDataProvider.hpp"
 #include "ui/StockPrinter.hpp"
 
+/**
+ * @brief Prints command-line usage information to stdout.
+ *
+ * Displays the available command-line options and required environment variables
+ * for running the Vestify application from the command line.
+ *
+ * @param exe The executable name/path to display in usage examples.
+ */
 void InteractiveMenu::printUsage(const std::string &exe)
 {
     std::cout << "Usage:\n";
@@ -16,6 +34,15 @@ void InteractiveMenu::printUsage(const std::string &exe)
     std::cout << "  ALPHAVANTAGE_API_KEY=your_api_key\n";
 }
 
+/**
+ * @brief Converts a string to uppercase.
+ *
+ * This utility function converts all characters in the input string to uppercase
+ * using the standard library toupper function.
+ *
+ * @param str The input string to convert.
+ * @return A new string with all characters converted to uppercase.
+ */
 std::string InteractiveMenu::toUpper(std::string str)
 {
     for (char &c : str)
@@ -25,6 +52,15 @@ std::string InteractiveMenu::toUpper(std::string str)
     return str;
 }
 
+/**
+ * @brief Splits a comma-separated string of tickers into individual ticker symbols.
+ *
+ * Parses a comma-delimited string and extracts individual ticker symbols,
+ * trimming any whitespace and handling empty entries.
+ *
+ * @param input A comma-separated string of ticker symbols.
+ * @return A vector of individual ticker symbol strings.
+ */
 std::vector<std::string> InteractiveMenu::splitTickers(const std::string &input)
 {
     std::vector<std::string> tickers;
@@ -54,6 +90,16 @@ std::vector<std::string> InteractiveMenu::splitTickers(const std::string &input)
     return tickers;
 }
 
+/**
+ * @brief Processes command-line arguments and executes the appropriate action.
+ *
+ * Parses command-line arguments and dispatches to the appropriate handler
+ * function based on the provided options (--help, --load-csv, --live).
+ *
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line argument strings.
+ * @return Exit code (0 for success, non-zero for errors).
+ */
 int InteractiveMenu::handleCommandLine(int argc, char **argv)
 {
     std::string arg = argv[1];
@@ -89,6 +135,16 @@ int InteractiveMenu::handleCommandLine(int argc, char **argv)
     return 1;
 }
 
+/**
+ * @brief Loads stock data from a CSV file.
+ *
+ * Attempts to load stock data from the specified CSV file path using the
+ * stock repository. Reports the number of stocks loaded and any errors
+ * that occurred during loading.
+ *
+ * @param path Path to the CSV file containing stock data.
+ * @return Exit code (0 for success, 2 if errors occurred during loading).
+ */
 int InteractiveMenu::handleLoadCsv(const std::string &path)
 {
     auto result = repository_.loadFromCsv(path);
@@ -103,6 +159,16 @@ int InteractiveMenu::handleLoadCsv(const std::string &path)
     return result.errors.empty() ? 0 : 2;
 }
 
+/**
+ * @brief Fetches live stock quotes for the specified tickers.
+ *
+ * Uses the LiveDataProvider to fetch current stock quotes for the given
+ * list of ticker symbols. Updates the repository with the fetched data
+ * and displays the results.
+ *
+ * @param tickerList Comma-separated string of ticker symbols.
+ * @return Exit code (0 for success, 2 if errors occurred during fetching).
+ */
 int InteractiveMenu::handleLiveQuotes(const std::string &tickerList)
 {
     LiveDataProvider provider;
@@ -121,6 +187,12 @@ int InteractiveMenu::handleLiveQuotes(const std::string &tickerList)
     return result.errors.empty() ? 0 : 2;
 }
 
+/**
+ * @brief Prints detailed information for all loaded stocks.
+ *
+ * Displays comprehensive stock data for all stocks currently loaded in the
+ * repository. If no stocks are loaded, displays an appropriate message.
+ */
 void InteractiveMenu::printLoadedStocks() const
 {
     if (repository_.getAll().empty())
@@ -132,6 +204,12 @@ void InteractiveMenu::printLoadedStocks() const
     StockPrinter::printStocks(repository_.getAll());
 }
 
+/**
+ * @brief Updates stock data by running the update script.
+ *
+ * Executes the Python script responsible for updating stock data and reports
+ * the success or failure of the operation.
+ */
 void InteractiveMenu::updateStockData()
 {
     std::cout << "\nUpdating stock data...\n";
@@ -148,6 +226,13 @@ void InteractiveMenu::updateStockData()
     }
 }
 
+/**
+ * @brief Searches for and displays information about a specific stock ticker.
+ *
+ * Prompts the user to enter a ticker symbol, searches the repository for it,
+ * and displays detailed information if found. If no stocks are loaded or the
+ * ticker is not found, displays appropriate error messages.
+ */
 void InteractiveMenu::searchTicker() const
 {
     if (repository_.getAll().empty())
@@ -171,6 +256,13 @@ void InteractiveMenu::searchTicker() const
     StockPrinter::printStocks({*stock});
 }
 
+/**
+ * @brief Runs the interactive menu loop.
+ *
+ * Displays a menu of options and processes user input in a loop until the
+ * user chooses to exit. Provides access to all major application features
+ * through numbered menu options.
+ */
 void InteractiveMenu::runInteractive()
 {
     bool running = true;
@@ -229,6 +321,17 @@ void InteractiveMenu::runInteractive()
     }
 }
 
+/**
+ * @brief Main entry point for the InteractiveMenu system.
+ *
+ * Determines whether to run in command-line mode (if arguments provided)
+ * or interactive mode (if no arguments). This is the primary interface
+ * between the application and the user.
+ *
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line argument strings.
+ * @return Exit code (0 for success, non-zero for errors).
+ */
 int InteractiveMenu::run(int argc, char **argv)
 {
     if (argc >= 2)

@@ -1,3 +1,13 @@
+/**
+ * @file StockRepository.cpp
+ * @brief Implementation of the StockRepository class for managing stock data.
+ *
+ * This file contains the implementation of the StockRepository class which serves
+ * as the central data store for stock information in the Vestify application.
+ * It provides methods for loading stock data from CSV files, storing stocks
+ * in memory, and retrieving stocks by various criteria.
+ */
+
 #include "core/StockRepository.hpp"
 
 #include <algorithm>
@@ -7,6 +17,15 @@
 
 namespace
 {
+    /**
+     * @brief Converts a string to uppercase.
+     *
+     * Creates a copy of the input string with all characters converted to uppercase
+     * using the standard library toupper function.
+     *
+     * @param str The input string to convert.
+     * @return A new string with all characters in uppercase.
+     */
     std::string toUpperCopy(std::string str)
     {
         std::transform(
@@ -19,6 +38,16 @@ namespace
     }
 }
 
+/**
+ * @brief Loads stock data from a CSV file.
+ *
+ * Uses the CSVLoader to parse the specified file and stores the loaded
+ * stocks in the repository. Returns a LoadResult containing both the
+ * successfully loaded stocks and any errors that occurred during loading.
+ *
+ * @param path Path to the CSV file containing stock data.
+ * @return LoadResult structure with loaded stocks and any error messages.
+ */
 StockRepository::LoadResult StockRepository::loadFromCsv(const std::string &path)
 {
     CSVLoader loader;
@@ -32,16 +61,44 @@ StockRepository::LoadResult StockRepository::loadFromCsv(const std::string &path
     return out;
 }
 
+/**
+ * @brief Sets the stock data directly.
+ *
+ * Replaces the current stock collection with the provided vector of stocks.
+ * This method is typically used when stock data comes from sources other
+ * than CSV files, such as live data providers.
+ *
+ * @param stocks Vector of Stock objects to store in the repository.
+ */
 void StockRepository::setStocks(const std::vector<Stock> &stocks)
 {
     stocks_ = stocks;
 }
 
+/**
+ * @brief Returns a reference to all stocks in the repository.
+ *
+ * Provides read-only access to the complete collection of stocks currently
+ * stored in the repository. The returned reference is valid as long as
+ * the repository exists and no operations modify the stock collection.
+ *
+ * @return Const reference to the vector of all stored stocks.
+ */
 const std::vector<Stock> &StockRepository::getAll() const
 {
     return stocks_;
 }
 
+/**
+ * @brief Finds a stock by its ticker symbol.
+ *
+ * Searches through the stored stocks to find one with a matching ticker symbol.
+ * The search is case-insensitive. Returns a pointer to the found stock, or
+ * nullptr if no stock with the given ticker is found.
+ *
+ * @param ticker The ticker symbol to search for (case-insensitive).
+ * @return Pointer to the found Stock object, or nullptr if not found.
+ */
 const Stock *StockRepository::findByTicker(const std::string &ticker) const
 {
     std::string target = toUpperCopy(ticker);

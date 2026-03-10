@@ -15,8 +15,6 @@ add_executable(vestify
     src/data/LiveDataProvider.cpp
     src/ui/InteractiveMenu.cpp
     src/ui/StockPrinter.cpp
-    src/services/DataUpdater.cpp
-    src/services/StockScreener.cpp
 )
 
 target_include_directories(vestify

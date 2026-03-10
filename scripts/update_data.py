@@ -1,12 +1,23 @@
+## @file update_data.py
+## @brief Script to update financial data for NASDAQ 100 stocks using Yahoo Finance.
+##
+## This script fetches comprehensive financial data for NASDAQ 100 companies using
+## the yfinance library, calculates various financial ratios and metrics, and saves
+## the data to a CSV file for use by the Vestify stock analysis application.
+
 import pandas as pd
 import yfinance as yf
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
 from pathlib import Path
 
+## @brief Base directory path for the project.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+## @brief Output path for the generated CSV file.
 OUTPUT_PATH = BASE_DIR / "data" / "nasdaq100_fundamentals_full.csv"
 
+## @brief List of NASDAQ 100 ticker symbols to fetch data for.
 tickers = [
     "ADBE","ADP","AMD","ABNB","ALNY","GOOGL","GOOG","AMZN","AEP","AMGN",
     "ADI","AAPL","AMAT","APP","ARM","ASML","TEAM","ADSK","AXON","BKR",
@@ -20,9 +31,15 @@ tickers = [
     "TXN","TRI","TMUS","VRSK","VRTX","WMT","WBD","WDC","WDAY","XEL","ZS"
 ]
 
+## @brief Maximum number of worker threads for concurrent data fetching.
 MAX_WORKERS = 8
 
 
+## @brief Get the first existing non-null value from a DataFrame for given column names.
+##
+## @param df DataFrame to search in.
+## @param names List of column names to check in order.
+## @return First non-null value found, or None if none exists.
 def first_existing(df, names):
     if df is None or df.empty:
         return None
@@ -37,6 +54,12 @@ def first_existing(df, names):
     return None
 
 
+## @brief Get the current stock price for a ticker using multiple fallback methods.
+##
+## Attempts to get price from fast_info first, then falls back to recent historical data.
+##
+## @param ticker_obj yfinance Ticker object for the stock.
+## @return Current price as float, or None if unable to retrieve.
 def get_price(ticker_obj):
     try:
         fast_info = ticker_obj.fast_info
@@ -61,6 +84,13 @@ def get_price(ticker_obj):
     return None
 
 
+## @brief Extract comprehensive financial data for a single ticker.
+##
+## Fetches income statement, balance sheet, cash flow data, and company info
+## from Yahoo Finance and extracts relevant financial metrics.
+##
+## @param ticker Stock ticker symbol to fetch data for.
+## @return Dictionary containing all extracted financial data for the stock.
 def extract_row(ticker):
     t = yf.Ticker(ticker)
 
@@ -135,11 +165,20 @@ def extract_row(ticker):
     return row
 
 
+## @brief Main data processing section.
+##
+## Uses multithreading to fetch data for all tickers concurrently,
+## then processes the results and saves to CSV.
+
+## @brief List to store processed data rows.
 rows = []
 
+## @brief Fetch data for all tickers using multithreaded execution.
 with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+    ## @brief Submit all ticker processing tasks to the thread pool.
     futures = [executor.submit(extract_row, ticker) for ticker in tickers]
 
+    ## @brief Process completed tasks with progress bar.
     for future in tqdm(as_completed(futures), total=len(futures), desc="Processing tickers"):
         try:
             row = future.result()
@@ -148,47 +187,63 @@ with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
             pass
 
 
+## @brief Convert collected rows to pandas DataFrame.
 df = pd.DataFrame(rows)
 
+## @brief Convert numeric columns to proper numeric types.
 for col in df.columns:
     if col not in ("ticker", "name", "sector"):
         df[col] = pd.to_numeric(df[col], errors="coerce")
 
 
+## @brief Calculate derived financial metrics.
+
+## @brief Calculate market capitalization.
 df["market_cap"] = df["price"] * df["shares_outstanding"]
 
+## @brief Calculate free cash flow.
 df["free_cash_flow"] = df["operating_cash_flow"] - df["capital_expenditures"].abs()
 
+## @brief Calculate profit margins.
 df["gross_margin"] = df["gross_profit"] / df["revenue"]
 df["operating_margin"] = df["operating_income"] / df["revenue"]
 df["net_margin"] = df["net_income"] / df["revenue"]
 
+## @brief Calculate liquidity and leverage ratios.
 df["current_ratio"] = df["current_assets"] / df["current_liabilities"]
 df["debt_to_equity"] = df["total_debt"] / df["total_equity"]
 
+## @brief Calculate per-share metrics.
 df["book_value_per_share"] = df["total_equity"] / df["shares_outstanding"]
 df["revenue_per_share"] = df["revenue"] / df["shares_outstanding"]
 df["eps"] = df["net_income"] / df["shares_outstanding"]
 df["fcf_per_share"] = df["free_cash_flow"] / df["shares_outstanding"]
 
+## @brief Calculate valuation ratios.
 df["pe_ratio"] = df["price"] / df["eps"]
 df["pb_ratio"] = df["price"] / df["book_value_per_share"]
 df["ps_ratio"] = df["price"] / df["revenue_per_share"]
 df["fcf_yield"] = df["free_cash_flow"] / df["market_cap"]
 
+## @brief Calculate enterprise value.
 df["enterprise_value"] = df["market_cap"] + df["total_debt"] - df["cash"]
 
+## @brief Calculate enterprise value multiples.
 df["ev_to_ebit"] = df["enterprise_value"] / df["operating_income"]
 df["ev_to_sales"] = df["enterprise_value"] / df["revenue"]
 df["ev_to_fcf"] = df["enterprise_value"] / df["free_cash_flow"]
 
+## @brief Calculate return ratios.
 df["roe"] = df["net_income"] / df["total_equity"]
 df["roa"] = df["net_income"] / df["total_assets"]
 
+## @brief Clean up infinite values.
 df.replace([float("inf"), -float("inf")], pd.NA, inplace=True)
 
+## @brief Sort by ticker and reset index.
 df = df.sort_values("ticker").reset_index(drop=True)
 
+## @brief Define required columns for data completeness.
 required_columns = [
     "ticker",
     "name",
@@ -230,6 +285,7 @@ required_columns = [
     "roa",
 ]
 
+## @brief Remove rows with missing required data and save to CSV.
 df = df.dropna(subset=required_columns).reset_index(drop=True)
 
 df.to_csv(OUTPUT_PATH, index=False, float_format="%.6f")

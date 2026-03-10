@@ -1,3 +1,1 @@
-"C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E rm -f CMakeFiles\vestify.dir/objects.a
-C:\msys64\mingw64\bin\ar.exe cr CMakeFiles\vestify.dir/objects.a @CMakeFiles\vestify.dir\objects1.rsp
-C:\msys64\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\vestify.dir/objects.a -Wl,--no-whole-archive -o vestify.exe -Wl,--out-implib,libvestify.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\vestify.dir\linklibs.rsp
+/usr/bin/c++ CMakeFiles/vestify.dir/src/main.cpp.o CMakeFiles/vestify.dir/src/data/LiveDataProvider.cpp.o CMakeFiles/vestify.dir/src/core/StockRepository.cpp.o -o vestify  /usr/lib/x86_64-linux-gnu/libcurl.so 

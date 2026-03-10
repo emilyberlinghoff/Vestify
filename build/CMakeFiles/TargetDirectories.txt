@@ -1,9 +1,12 @@
-C:/3307 proj/group13/Vestify/build/CMakeFiles/vestify.dir
-C:/3307 proj/group13/Vestify/build/CMakeFiles/rebuild_cache.dir
-C:/3307 proj/group13/Vestify/build/CMakeFiles/test.dir
-C:/3307 proj/group13/Vestify/build/CMakeFiles/edit_cache.dir
-C:/3307 proj/group13/Vestify/build/tests/CMakeFiles/csv_loader_tests.dir
-C:/3307 proj/group13/Vestify/build/tests/CMakeFiles/scoring_tests.dir
-C:/3307 proj/group13/Vestify/build/tests/CMakeFiles/rebuild_cache.dir
-C:/3307 proj/group13/Vestify/build/tests/CMakeFiles/test.dir
-C:/3307 proj/group13/Vestify/build/tests/CMakeFiles/edit_cache.dir
+/home/maxim/3307/group13/Vestify/build/CMakeFiles/vestify.dir
+/home/maxim/3307/group13/Vestify/build/CMakeFiles/test.dir
+/home/maxim/3307/group13/Vestify/build/CMakeFiles/edit_cache.dir
+/home/maxim/3307/group13/Vestify/build/CMakeFiles/rebuild_cache.dir
+/home/maxim/3307/group13/Vestify/build/_deps/nlohmann_json-build/CMakeFiles/test.dir
+/home/maxim/3307/group13/Vestify/build/_deps/nlohmann_json-build/CMakeFiles/edit_cache.dir
+/home/maxim/3307/group13/Vestify/build/_deps/nlohmann_json-build/CMakeFiles/rebuild_cache.dir
+/home/maxim/3307/group13/Vestify/build/tests/CMakeFiles/csv_loader_tests.dir
+/home/maxim/3307/group13/Vestify/build/tests/CMakeFiles/scoring_tests.dir
+/home/maxim/3307/group13/Vestify/build/tests/CMakeFiles/test.dir
+/home/maxim/3307/group13/Vestify/build/tests/CMakeFiles/edit_cache.dir
+/home/maxim/3307/group13/Vestify/build/tests/CMakeFiles/rebuild_cache.dir

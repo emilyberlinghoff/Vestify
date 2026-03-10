@@ -185,52 +185,94 @@ private:
      * @return Optional stock if the row is valid.
      */
     std::optional<Stock> parseStock(
-        const std::vector<std::string>& fields,
-        const std::unordered_map<std::string, size_t>& header_index
-    ) const {
-        Stock stock;
+    const std::vector<std::string>& fields,
+    const std::unordered_map<std::string, size_t>& header_index
+) const {
+    Stock stock;
 
-        auto getField = [&](const std::vector<std::string>& keys, size_t fallback_index) -> std::optional<std::string> {
-            for (const auto& key : keys) {
-                auto it = header_index.find(key);
-                if (it != header_index.end() && it->second < fields.size()) {
-                    return fields[it->second];
-                }
+    auto getField = [&](const std::vector<std::string>& keys, size_t fallback_index) -> std::optional<std::string> {
+        for (const auto& key : keys) {
+            auto it = header_index.find(key);
+            if (it != header_index.end() && it->second < fields.size()) {
+                return fields[it->second];
             }
-            if (!header_index.empty()) {
-                return std::nullopt;
-            }
-            if (fallback_index < fields.size()) {
-                return fields[fallback_index];
-            }
-            return std::nullopt;
-        };
-
-        auto ticker = getField({"ticker", "symbol"}, 0);
-        auto name = getField({"name", "longname", "shortname"}, 1);
-        auto sector = getField({"sector"}, 2);
-        auto price = getField({"price", "regularmarketprice"}, 3);
-        auto market_cap = getField({"marketcap"}, 4);
-        auto pe_ratio = getField({"peratio", "trailingpe"}, 5);
-        auto dividend_yield = getField({"dividendyield"}, 6);
-
-        if (!ticker.has_value() || ticker->empty()) {
+        }
+        if (!header_index.empty()) {
             return std::nullopt;
         }
-
-        stock.ticker = *ticker;
-        stock.name = name.value_or("");
-        stock.sector = sector.value_or("");
-
-        if (!parseDouble(price, stock.price)) {
-            return std::nullopt;
+        if (fallback_index < fields.size()) {
+            return fields[fallback_index];
         }
-        parseDouble(market_cap, stock.market_cap);
-        parseDouble(pe_ratio, stock.pe_ratio);
-        parseDouble(dividend_yield, stock.dividend_yield);
+        return std::nullopt;
+    };
 
-        return stock;
+    auto ticker = getField({"ticker", "symbol"}, 0);
+    auto name = getField({"name", "longname", "shortname"}, 1);
+    auto sector = getField({"sector"}, 2);
+
+    if (!ticker.has_value() || ticker->empty()) {
+        return std::nullopt;
     }
+
+    stock.ticker = *ticker;
+    stock.name = name.value_or("");
+    stock.sector = sector.value_or("");
+
+    // Market
+    if (!parseDouble(getField({"price", "regularmarketprice"}, 3), stock.price)) return std::nullopt;
+    parseDouble(getField({"sharesoutstanding"}, 4), stock.shares_outstanding);
+    parseDouble(getField({"marketcap"}, 5), stock.market_cap);
+
+    // Income statement
+    parseDouble(getField({"revenue"}, 6), stock.revenue);
+    parseDouble(getField({"grossprofit"}, 7), stock.gross_profit);
+    parseDouble(getField({"operatingincome"}, 8), stock.operating_income);
+    parseDouble(getField({"netincome"}, 9), stock.net_income);
+
+    // Cash flow
+    parseDouble(getField({"operatingcashflow"}, 10), stock.operating_cash_flow);
+    parseDouble(getField({"capitalexpenditures"}, 11), stock.capital_expenditures);
+    parseDouble(getField({"freecashflow"}, 12), stock.free_cash_flow);
+
+    // Balance sheet
+    parseDouble(getField({"totaldebt"}, 13), stock.total_debt);
+    parseDouble(getField({"cash"}, 14), stock.cash);
+    parseDouble(getField({"totalequity"}, 15), stock.total_equity);
+    parseDouble(getField({"totalassets"}, 16), stock.total_assets);
+    parseDouble(getField({"currentassets"}, 17), stock.current_assets);
+    parseDouble(getField({"currentliabilities"}, 18), stock.current_liabilities);
+
+    // Ratios / margins
+    parseDouble(getField({"grossmargin"}, 19), stock.gross_margin);
+    parseDouble(getField({"operatingmargin"}, 20), stock.operating_margin);
+    parseDouble(getField({"netmargin"}, 21), stock.net_margin);
+    parseDouble(getField({"currentratio"}, 22), stock.current_ratio);
+    parseDouble(getField({"debttoequity"}, 23), stock.debt_to_equity);
+
+    // Per-share
+    parseDouble(getField({"bookvaluepershare"}, 24), stock.book_value_per_share);
+    parseDouble(getField({"revenuepershare"}, 25), stock.revenue_per_share);
+    parseDouble(getField({"eps"}, 26), stock.eps);
+    parseDouble(getField({"fcfpershare"}, 27), stock.fcf_per_share);
+
+    // Valuation
+    parseDouble(getField({"peratio"}, 28), stock.pe_ratio);
+    parseDouble(getField({"pbratio"}, 29), stock.pb_ratio);
+    parseDouble(getField({"psratio"}, 30), stock.ps_ratio);
+    parseDouble(getField({"fcfyield"}, 31), stock.fcf_yield);
+
+    // Enterprise value
+    parseDouble(getField({"enterprisevalue"}, 32), stock.enterprise_value);
+    parseDouble(getField({"evtoebit"}, 33), stock.ev_to_ebit);
+    parseDouble(getField({"evtosales"}, 34), stock.ev_to_sales);
+    parseDouble(getField({"evtofcf"}, 35), stock.ev_to_fcf);
+
+    // Profitability
+    parseDouble(getField({"roe"}, 36), stock.roe);
+    parseDouble(getField({"roa"}, 37), stock.roa);
+
+    return stock;
+}
 
     /**
      * @brief Parse a string into a double.
@@ -241,7 +283,8 @@ private:
      */
     bool parseDouble(const std::optional<std::string>& value, double& out) const {
         if (!value.has_value() || value->empty()) {
-            return false;
+            out = 0.0;
+            return true;
         }
         try {
             out = std::stod(*value);

@@ -44,8 +44,3 @@ if (VESTIFY_BUILD_TESTS)
     enable_testing()
     add_subdirectory(tests)
 endif()
-
-add_custom_target(reset
-    COMMAND ${CMAKE_COMMAND} -E rm -rf ${CMAKE_BINARY_DIR}
-    COMMENT "Full build reset"
-)

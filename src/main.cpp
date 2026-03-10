@@ -1,8 +1,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <iomanip>
 #include "core/StockRepository.hpp"
+#include "data/CSVLoader.hpp"
 #include "data/LiveDataProvider.hpp"
 
 /**
@@ -50,28 +51,43 @@ static std::vector<std::string> splitTickers(const std::string& input) {
  * @param stocks Vector of stocks to print.
  */
 static void printStocks(const std::vector<Stock>& stocks) {
+
+    std::cout << std::fixed;
+
     for (const auto& stock : stocks) {
-        std::cout << "Ticker: " << stock.ticker << "\n";
-        if (!stock.name.empty()) {
-            std::cout << "  Name: " << stock.name << "\n";
-        }
-        if (!stock.sector.empty()) {
-            std::cout << "  Sector: " << stock.sector << "\n";
-        }
-        if (stock.price > 0.0) {
-            std::cout << "  Price: " << stock.price << "\n";
-        } else {
-            std::cout << "  Price: N/A\n";
-        }
-        if (stock.market_cap > 0.0) {
-            std::cout << "  Market Cap: " << stock.market_cap << "\n";
-        }
-        if (stock.pe_ratio > 0.0) {
-            std::cout << "  PE Ratio: " << stock.pe_ratio << "\n";
-        }
-        if (stock.dividend_yield > 0.0) {
-            std::cout << "  Dividend Yield: " << stock.dividend_yield << "\n";
-        }
+
+        std::cout << "\n========================================\n";
+        std::cout << stock.ticker << " | " << stock.name << "\n";
+        std::cout << "Sector: " << stock.sector << "\n";
+        std::cout << "========================================\n";
+
+        std::cout << std::setprecision(2);
+        std::cout << "Price: $" << stock.price << "\n";
+
+        std::cout << std::setprecision(0);
+        std::cout << "Market Cap: $" << stock.market_cap << "\n";
+        std::cout << "Revenue: $" << stock.revenue << "\n";
+        std::cout << "Net Income: $" << stock.net_income << "\n";
+        std::cout << "Free Cash Flow: $" << stock.free_cash_flow << "\n";
+
+        std::cout << "\nBalance Sheet\n";
+        std::cout << "Cash: $" << stock.cash << "\n";
+        std::cout << "Total Debt: $" << stock.total_debt << "\n";
+        std::cout << "Equity: $" << stock.total_equity << "\n";
+
+        std::cout << "\nProfitability\n";
+        std::cout << std::setprecision(4);
+        std::cout << "ROE: " << stock.roe << "\n";
+        std::cout << "ROA: " << stock.roa << "\n";
+        std::cout << "Gross Margin: " << stock.gross_margin << "\n";
+
+        std::cout << "\nValuation\n";
+        std::cout << std::setprecision(2);
+        std::cout << "PE: " << stock.pe_ratio << "\n";
+        std::cout << "PB: " << stock.pb_ratio << "\n";
+        std::cout << "PS: " << stock.ps_ratio << "\n";
+        std::cout << "EV/EBIT: " << stock.ev_to_ebit << "\n";
+        std::cout << "EV/FCF: " << stock.ev_to_fcf << "\n";
     }
 }
 
@@ -85,27 +101,31 @@ static void printStocks(const std::vector<Stock>& stocks) {
 int main(int argc, char** argv) {
     if (argc >= 2) {
         std::string arg = argv[1];
+
         if (arg == "--help") {
             printUsage(argv[0]);
             return 0;
         }
+
         if (arg == "--load-csv") {
             if (argc < 3) {
-                std::cerr << "Missing CSV path.\n";
-                printUsage(argv[0]);
+                std::cerr << "--load-csv requires a path\n";
                 return 1;
             }
 
-            StockRepository repo;
-            auto result = repo.loadFromCsv(argv[2]);
+            CSVLoader loader;
+            auto result = loader.loadFile(argv[2]);
+
+            std::cout << "Loaded " << result.stocks.size() << " stocks.\n\n";
+            printStocks(result.stocks);
 
             for (const auto& error : result.errors) {
                 std::cerr << error << "\n";
             }
 
-            std::cout << "Loaded " << result.stocks.size() << " stocks.\n";
             return result.errors.empty() ? 0 : 2;
         }
+
         if (arg == "--live") {
             if (argc < 3) {
                 std::cerr << "Missing ticker list.\n";

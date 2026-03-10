@@ -8,39 +8,48 @@
 #include "data/LiveDataProvider.hpp"
 #include "ui/StockPrinter.hpp"
 
-std::string InteractiveMenu::toUpper(std::string str) {
+std::string InteractiveMenu::toUpper(std::string str)
+{
     std::transform(
         str.begin(),
         str.end(),
         str.begin(),
-        [](unsigned char c) { return static_cast<char>(std::toupper(c)); }
-    );
+        [](unsigned char c)
+        { return static_cast<char>(std::toupper(c)); });
     return str;
 }
 
-std::vector<std::string> InteractiveMenu::splitTickers(const std::string& input) {
+std::vector<std::string> InteractiveMenu::splitTickers(const std::string &input)
+{
     std::vector<std::string> tickers;
     std::string current;
 
-    for (char c : input) {
-        if (c == ',') {
-            if (!current.empty()) {
+    for (char c : input)
+    {
+        if (c == ',')
+        {
+            if (!current.empty())
+            {
                 tickers.push_back(current);
                 current.clear();
             }
-        } else {
+        }
+        else
+        {
             current.push_back(c);
         }
     }
 
-    if (!current.empty()) {
+    if (!current.empty())
+    {
         tickers.push_back(current);
     }
 
     return tickers;
 }
 
-int InteractiveMenu::handleLoadCsv(const std::string& path) {
+int InteractiveMenu::handleLoadCsv(const std::string &path)
+{
     CSVLoader loader;
     auto result = loader.loadFile(path);
 
@@ -48,18 +57,21 @@ int InteractiveMenu::handleLoadCsv(const std::string& path) {
 
     std::cout << "\nLoaded " << loadedStocks_.size() << " stocks.\n";
 
-    for (const auto& error : result.errors) {
+    for (const auto &error : result.errors)
+    {
         std::cerr << error << "\n";
     }
 
     return result.errors.empty() ? 0 : 2;
 }
 
-int InteractiveMenu::handleLiveQuotes(const std::string& tickerList) {
+int InteractiveMenu::handleLiveQuotes(const std::string &tickerList)
+{
     LiveDataProvider provider;
     auto result = provider.fetchQuotes(splitTickers(tickerList));
 
-    for (const auto& error : result.errors) {
+    for (const auto &error : result.errors)
+    {
         std::cerr << error << "\n";
     }
 
@@ -69,20 +81,26 @@ int InteractiveMenu::handleLiveQuotes(const std::string& tickerList) {
     return result.errors.empty() ? 0 : 2;
 }
 
-void InteractiveMenu::updateStockData() {
+void InteractiveMenu::updateStockData()
+{
     std::cout << "\nUpdating stock data...\n";
 
-    int result = std::system(".venv/bin/python scripts/update_data.py");
+    int result = std::system("python3 scripts/update_data.py");
 
-    if (result == 0) {
+    if (result == 0)
+    {
         std::cout << "Stock data updated successfully.\n";
-    } else {
+    }
+    else
+    {
         std::cout << "Stock data update failed.\n";
     }
 }
 
-void InteractiveMenu::searchTicker() {
-    if (loadedStocks_.empty()) {
+void InteractiveMenu::searchTicker()
+{
+    if (loadedStocks_.empty())
+    {
         std::cout << "No stock data loaded.\n";
         return;
     }
@@ -93,8 +111,10 @@ void InteractiveMenu::searchTicker() {
 
     ticker = toUpper(ticker);
 
-    for (const auto& stock : loadedStocks_) {
-        if (toUpper(stock.ticker) == ticker) {
+    for (const auto &stock : loadedStocks_)
+    {
+        if (toUpper(stock.ticker) == ticker)
+        {
             StockPrinter::printStocks({stock});
             return;
         }
@@ -103,10 +123,12 @@ void InteractiveMenu::searchTicker() {
     std::cout << "Ticker not found.\n";
 }
 
-void InteractiveMenu::run() {
+void InteractiveMenu::run()
+{
     bool running = true;
 
-    while (running) {
+    while (running)
+    {
         std::cout << "\nVestify\n";
         std::cout << "1. Load stock data\n";
         std::cout << "2. Update stock data\n";
@@ -120,50 +142,55 @@ void InteractiveMenu::run() {
         int choice;
         std::cin >> choice;
 
-        if (!std::cin) {
+        if (!std::cin)
+        {
             std::cin.clear();
             std::cin.ignore(10000, '\n');
             std::cout << "Invalid input.\n";
             continue;
         }
 
-        switch (choice) {
-            case 1:
-                handleLoadCsv("data/nasdaq100_fundamentals_full.csv");
-                break;
+        switch (choice)
+        {
+        case 1:
+            handleLoadCsv("data/nasdaq100_fundamentals_full.csv");
+            break;
 
-            case 2:
-                updateStockData();
-                break;
+        case 2:
+            updateStockData();
+            break;
 
-            case 3:
-                if (loadedStocks_.empty()) {
-                    std::cout << "No stock data loaded.\n";
-                } else {
-                    StockPrinter::printStocks(loadedStocks_);
-                }
-                break;
+        case 3:
+            if (loadedStocks_.empty())
+            {
+                std::cout << "No stock data loaded.\n";
+            }
+            else
+            {
+                StockPrinter::printStocks(loadedStocks_);
+            }
+            break;
 
-            case 4:
-                searchTicker();
-                break;
+        case 4:
+            searchTicker();
+            break;
 
-            case 5:
-                StockPrinter::printAvailableStocks(loadedStocks_);
-                break;
+        case 5:
+            StockPrinter::printAvailableStocks(loadedStocks_);
+            break;
 
-            case 6:
-                StockPrinter::printTopEVFCF(loadedStocks_, 10);
-                break;
+        case 6:
+            StockPrinter::printTopEVFCF(loadedStocks_, 10);
+            break;
 
-            case 7:
-                std::cout << "Exiting Vestify.\n";
-                running = false;
-                break;
+        case 7:
+            std::cout << "Exiting Vestify.\n";
+            running = false;
+            break;
 
-            default:
-                std::cout << "Invalid option.\n";
-                break;
+        default:
+            std::cout << "Invalid option.\n";
+            break;
         }
     }
 }

@@ -12,7 +12,9 @@ option(VESTIFY_ENABLE_LIVE "Enable live Alpha Vantage data provider" ON)
 add_executable(vestify
     src/main.cpp
     src/core/StockRepository.cpp
+    src/core/WatchList.cpp
     src/data/LiveDataProvider.cpp
+    src/persistence/WatchListRepo.cpp
     src/ui/InteractiveMenu.cpp
     src/ui/StockPrinter.cpp
 )

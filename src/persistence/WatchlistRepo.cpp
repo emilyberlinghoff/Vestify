@@ -1,4 +1,4 @@
-#include "persistence/WatchlistRepo.hpp"
+#include "persistence/WatchListRepo.hpp"
 
 #include <fstream>
 #include <nlohmann/json.hpp>
@@ -8,7 +8,7 @@
  *
  * @return LoadResult with watchlist and any errors.
  */
-WatchlistRepo::LoadResult WatchlistRepo::load() const
+WatchListRepo::LoadResult WatchListRepo::load() const
 {
     LoadResult out;
 
@@ -63,7 +63,7 @@ WatchlistRepo::LoadResult WatchlistRepo::load() const
  * @param wl Watchlist to save.
  * @return SaveResult indicating success or failure.
  */
-WatchlistRepo::SaveResult WatchlistRepo::save(const Watchlist &wl) const
+WatchListRepo::SaveResult WatchListRepo::save(const WatchList &wl) const
 {
     SaveResult res;
 

@@ -12,9 +12,17 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <limits>
 
 #include "data/LiveDataProvider.hpp"
 #include "ui/StockPrinter.hpp"
+
+
+InteractiveMenu::InteractiveMenu()
+    : watchlistRepo_("src/persistence/demo_watchlist.json")
+{
+    loadDemoWatchlist();
+}
 
 /**
  * @brief Prints command-line usage information to stdout.
@@ -256,6 +264,350 @@ void InteractiveMenu::searchTicker() const
     StockPrinter::printStocks({*stock});
 }
 
+std::string InteractiveMenu::readLine(const std::string &prompt)
+{
+    std::string input;
+    std::cout << prompt;
+    std::getline(std::cin, input);
+    return input;
+}
+
+void InteractiveMenu::loadDemoWatchlist()
+{
+    auto result = watchlistRepo_.load();
+
+    for (const auto &error : result.errors)
+    {
+        std::cerr << error << "\n";
+    }
+
+    if (!result.watchlist.empty() || !result.watchlist.getName().empty())
+    {
+        watchlists_.push_back(result.watchlist);
+    }
+}
+
+void InteractiveMenu::saveDemoWatchlist() const
+{
+    if (watchlists_.empty())
+    {
+        return;
+    }
+
+    auto result = watchlistRepo_.save(watchlists_[0]);
+    if (!result.ok)
+    {
+        std::cerr << result.errMsg << "\n";
+    }
+}
+
+
+void InteractiveMenu::printAllWatchlists() const
+{
+    if (watchlists_.empty())
+    {
+        std::cout << "No watchlists created.\n";
+        return;
+    }
+
+    std::cout << "\nWatchlists:\n";
+    for (std::size_t i = 0; i < watchlists_.size(); ++i)
+    {
+        std::cout << i + 1 << ". " << watchlists_[i].getName() << "\n";
+    }
+}
+
+int InteractiveMenu::selectWatchlistIndex() const
+{
+    if (watchlists_.empty())
+    {
+        std::cout << "No watchlists available.\n";
+        return -1;
+    }
+
+    printAllWatchlists();
+    std::cout << "Select watchlist number: ";
+    int choice;
+    std::cin >> choice;
+
+    if (!std::cin)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input.\n";
+        return -1;
+    }
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if (choice < 1 || choice > static_cast<int>(watchlists_.size()))
+    {
+        std::cout << "Invalid watchlist selection.\n";
+        return -1;
+    }
+
+    return choice - 1;
+}
+
+void InteractiveMenu::createWatchlist()
+{
+    std::string name = readLine("Enter watchlist name: ");
+
+    if (name.empty())
+    {
+        std::cout << "Watchlist name cannot be empty.\n";
+        return;
+    }
+
+    for (const auto &watchlist : watchlists_)
+    {
+        if (watchlist.getName() == name)
+        {
+            std::cout << "A watchlist with that name already exists.\n";
+            return;
+        }
+    }
+
+    watchlists_.push_back(WatchList(name));
+    std::cout << "Watchlist created.\n";
+}
+
+void InteractiveMenu::renameWatchlist()
+{
+    int index = selectWatchlistIndex();
+    if (index == -1)
+    {
+        return;
+    }
+
+    std::string newName = readLine("Enter new watchlist name: ");
+
+    if (newName.empty())
+    {
+        std::cout << "Watchlist name cannot be empty.\n";
+        return;
+    }
+
+    watchlists_[index].setName(newName);
+    std::cout << "Watchlist renamed.\n";
+}
+
+void InteractiveMenu::deleteWatchlist()
+{
+    int index = selectWatchlistIndex();
+    if (index == -1)
+    {
+        return;
+    }
+
+    std::cout << "Deleted watchlist: " << watchlists_[index].getName() << "\n";
+    watchlists_.erase(watchlists_.begin() + index);
+}
+
+void InteractiveMenu::addStockToWatchlist()
+{
+    if (repository_.getAll().empty())
+    {
+        std::cout << "No stock data loaded.\n";
+        return;
+    }
+
+    int index = selectWatchlistIndex();
+    if (index == -1)
+    {
+        return;
+    }
+
+    std::string ticker = readLine("Enter ticker to add: ");
+    ticker = toUpper(ticker);
+
+    const Stock *stock = repository_.findByTicker(ticker);
+    if (stock == nullptr)
+    {
+        std::cout << "Ticker not found in loaded stock data.\n";
+        return;
+    }
+
+    watchlists_[index].add(ticker);
+    std::cout << ticker << " added to " << watchlists_[index].getName() << ".\n";
+}
+
+void InteractiveMenu::removeStockFromWatchlist()
+{
+    int index = selectWatchlistIndex();
+    if (index == -1)
+    {
+        return;
+    }
+
+    std::string ticker = readLine("Enter ticker to remove: ");
+    ticker = toUpper(ticker);
+
+    watchlists_[index].remove(ticker);
+    std::cout << ticker << " removed from " << watchlists_[index].getName() << ".\n";
+}
+
+void InteractiveMenu::printWatchlist(const WatchList &watchlist) const
+{
+    const auto &tickers = watchlist.getAll();
+
+    if (tickers.empty())
+    {
+        std::cout << "Watchlist \"" << watchlist.getName() << "\" is empty.\n";
+        return;
+    }
+
+    std::vector<Stock> stocksToPrint;
+
+    for (const auto &ticker : tickers)
+    {
+        const Stock *stock = repository_.findByTicker(ticker);
+        if (stock != nullptr)
+        {
+            stocksToPrint.push_back(*stock);
+        }
+    }
+
+    if (stocksToPrint.empty())
+    {
+        std::cout << "No valid stock data found for this watchlist.\n";
+        return;
+    }
+
+    std::cout << "\nWatchlist: " << watchlist.getName() << "\n";
+    StockPrinter::printStocks(stocksToPrint);
+}
+
+void InteractiveMenu::printAllWatchlistContents() const
+{
+    if (watchlists_.empty())
+    {
+        std::cout << "No watchlists created.\n";
+        return;
+    }
+
+    for (const auto &watchlist : watchlists_)
+    {
+        printWatchlist(watchlist);
+        std::cout << "\n";
+    }
+}
+
+void InteractiveMenu::openSingleWatchlist() const
+{
+    int index = selectWatchlistIndex();
+    if (index == -1)
+    {
+        return;
+    }
+
+    printWatchlist(watchlists_[index]);
+}
+
+void InteractiveMenu::modifyWatchlistMenu()
+{
+    bool modifying = true;
+
+    while (modifying)
+    {
+        std::cout << "\nModify Watchlist\n";
+        std::cout << "1. Add stock\n";
+        std::cout << "2. Remove stock\n";
+        std::cout << "3. Rename watchlist\n";
+        std::cout << "4. Delete watchlist\n";
+        std::cout << "5. Return\n";
+        std::cout << "> ";
+
+        int choice;
+        std::cin >> choice;
+
+        if (!std::cin)
+        {
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            std::cout << "Invalid input.\n";
+            continue;
+        }
+
+        switch (choice)
+        {
+        case 1:
+            addStockToWatchlist();
+            saveDemoWatchlist();
+            break;
+        case 2:
+            removeStockFromWatchlist();
+            saveDemoWatchlist();
+            break;
+        case 3:
+            renameWatchlist();
+            saveDemoWatchlist();
+            break;
+        case 4:
+            deleteWatchlist();
+            saveDemoWatchlist();
+            break;
+        case 5:
+            modifying = false;
+            break;
+        default:
+            std::cout << "Invalid option.\n";
+            break;
+        }
+    }
+}
+
+void InteractiveMenu::watchlistMenu()
+{
+    bool inWatchlistMenu = true;
+
+    while (inWatchlistMenu)
+    {
+        std::cout << "\nWatchlist Menu\n";
+        std::cout << "1. Create watchlist\n";
+        std::cout << "2. Modify watchlist\n";
+        std::cout << "3. Print all watchlists\n";
+        std::cout << "4. Open a watchlist\n";
+        std::cout << "5. Return\n";
+        std::cout << "> ";
+
+        int choice;
+        std::cin >> choice;
+
+        if (!std::cin)
+        {
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            std::cout << "Invalid input.\n";
+            continue;
+        }
+
+        switch (choice)
+        {
+        case 1:
+            createWatchlist();
+            saveDemoWatchlist();
+            break;
+        case 2:
+            modifyWatchlistMenu();
+            saveDemoWatchlist();
+            break;
+        case 3:
+            printAllWatchlistContents();
+            break;
+        case 4:
+            openSingleWatchlist();
+            break;
+        case 5:
+            inWatchlistMenu = false;
+            break;
+        default:
+            std::cout << "Invalid option.\n";
+            break;
+        }
+    }
+}
+
 /**
  * @brief Runs the interactive menu loop.
  *
@@ -276,7 +628,8 @@ void InteractiveMenu::runInteractive()
         std::cout << "4. Search ticker\n";
         std::cout << "5. Print available stocks\n";
         std::cout << "6. Top 10 cheapest (EV/FCF)\n";
-        std::cout << "7. Exit\n";
+        std::cout << "7. Watchlist Menu\n";
+        std::cout << "8. Exit\n";
         std::cout << "> ";
 
         int choice;
@@ -311,6 +664,10 @@ void InteractiveMenu::runInteractive()
             StockPrinter::printTopEVFCF(repository_.getAll(), 10);
             break;
         case 7:
+            watchlistMenu();
+            saveDemoWatchlist();
+            break;
+        case 8:
             std::cout << "Exiting Vestify.\n";
             running = false;
             break;
@@ -320,6 +677,7 @@ void InteractiveMenu::runInteractive()
         }
     }
 }
+
 
 /**
  * @brief Main entry point for the InteractiveMenu system.

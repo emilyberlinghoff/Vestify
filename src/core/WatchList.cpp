@@ -3,12 +3,12 @@
 #include <algorithm>
 #include <cctype>
 
-Watchlist::Watchlist(const std::string &name)
+WatchList::WatchList(const std::string &name)
     : name_(name)
 {
 }
 
-bool Watchlist::add(const std::string &sym)
+bool WatchList::add(const std::string &sym)
 {
     std::string normalized = normalizeSymbol(sym);
 
@@ -21,7 +21,7 @@ bool Watchlist::add(const std::string &sym)
     return true;
 }
 
-bool Watchlist::remove(const std::string &sym)
+bool WatchList::remove(const std::string &sym)
 {
     std::string normalized = normalizeSymbol(sym);
 
@@ -35,43 +35,43 @@ bool Watchlist::remove(const std::string &sym)
     return true;
 }
 
-bool Watchlist::has(const std::string &sym) const
+bool WatchList::has(const std::string &sym) const
 {
     std::string normalized = normalizeSymbol(sym);
     return std::find(symbols_.begin(), symbols_.end(), normalized) != symbols_.end();
 }
 
-const std::vector<std::string> &Watchlist::getAll() const
+const std::vector<std::string> &WatchList::getAll() const
 {
     return symbols_;
 }
 
-size_t Watchlist::size() const
+size_t WatchList::size() const
 {
     return symbols_.size();
 }
 
-bool Watchlist::empty() const
+bool WatchList::empty() const
 {
     return symbols_.empty();
 }
 
-void Watchlist::clear()
+void WatchList::clear()
 {
     symbols_.clear();
 }
 
-const std::string &Watchlist::getName() const
+const std::string &WatchList::getName() const
 {
     return name_;
 }
 
-void Watchlist::setName(const std::string &name)
+void WatchList::setName(const std::string &name)
 {
     name_ = name;
 }
 
-std::string Watchlist::normalizeSymbol(const std::string &sym)
+std::string WatchList::normalizeSymbol(const std::string &sym)
 {
     std::string result = sym;
 

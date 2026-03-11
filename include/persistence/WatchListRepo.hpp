@@ -10,7 +10,7 @@
  *
  * Uses JSON files for persistence.
  */
-class WatchlistRepo
+class WatchListRepo
 {
 public:
 
@@ -19,7 +19,7 @@ public:
      */
     struct LoadResult
     {
-        Watchlist watchlist;
+        WatchList watchlist;
         std::vector<std::string> errors;
     };
 
@@ -39,7 +39,7 @@ public:
      *
      * @param filepath JSON file path for persistence.
      */
-    explicit WatchlistRepo(const std::string& filepath)
+    explicit WatchListRepo(const std::string& filepath)
         : filepath_(filepath) {}
 
     /**
@@ -55,7 +55,7 @@ public:
      * @param wl Watchlist to save.
      * @return SaveResult indicating success or failure.
      */
-    SaveResult save(const Watchlist& wl) const;
+    SaveResult save(const WatchList& wl) const;
 
 private:
 

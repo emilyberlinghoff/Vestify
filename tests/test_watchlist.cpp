@@ -39,7 +39,7 @@ void removeTempFile()
  */
 bool testBasicOps()
 {
-    Watchlist wl;
+    WatchList wl;
 
     bool ok = true;
     ok &= assertTrue(wl.empty(), "New watchlist should be empty");
@@ -69,12 +69,12 @@ bool testSaveAndLoad()
 {
     removeTempFile();
 
-    Watchlist wl;
+    WatchList wl;
     wl.add("AAPL");
     wl.add("MSFT");
     wl.add("GOOG");
 
-    WatchlistRepo repo(TEMP_FILE);
+    WatchListRepo repo(TEMP_FILE);
     auto saved = repo.save(wl);
     bool ok = assertTrue(saved.ok, "Save should succeed");
 
@@ -98,7 +98,7 @@ bool testNoFile()
 {
     removeTempFile();
 
-    WatchlistRepo repo(TEMP_FILE);
+    WatchListRepo repo(TEMP_FILE);
     auto res = repo.load();
 
     bool ok = true;
@@ -121,7 +121,7 @@ bool testCorruptedFile()
         f << "not json at all {{{garbage";
     }
 
-    WatchlistRepo repo(TEMP_FILE);
+    WatchListRepo repo(TEMP_FILE);
     auto res = repo.load();
 
     bool ok = true;
@@ -141,12 +141,12 @@ bool testDataMatchesAfterRoundTrip()
 {
     removeTempFile();
 
-    Watchlist orig;
+    WatchList orig;
     orig.add("TSLA");
     orig.add("NVDA");
     orig.add("AMZN");
 
-    WatchlistRepo repo(TEMP_FILE);
+    WatchListRepo repo(TEMP_FILE);
     repo.save(orig);
 
     auto loaded = repo.load();
@@ -175,8 +175,8 @@ bool testSaveEmpty()
 {
     removeTempFile();
 
-    Watchlist wl;
-    WatchlistRepo repo(TEMP_FILE);
+    WatchList wl;
+    WatchListRepo repo(TEMP_FILE);
 
     auto saved = repo.save(wl);
     bool ok = assertTrue(saved.ok, "Saving empty should work");

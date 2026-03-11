@@ -13,6 +13,8 @@
 #include <vector>
 
 #include "core/StockRepository.hpp"
+#include "core/WatchList.hpp"
+#include "persistence/WatchListRepo.hpp"
 
 /**
  * @brief Main user interface class for the Vestify application.
@@ -25,6 +27,12 @@
 class InteractiveMenu
 {
 public:
+
+    /**
+     * @brief Construct the interactive menu and load the demo watchlist.
+     */
+    InteractiveMenu();
+
     /**
      * @brief Main entry point for the interactive menu system.
      *
@@ -51,6 +59,12 @@ private:
      * @param exe The executable name/path for usage examples.
      */
     static void printUsage(const std::string &exe);
+
+    /** @brief In-memory collection of watchlists. */
+    std::vector<WatchList> watchlists_;
+
+    /** @brief Repo for loading/saving a single demo watchlist file. */
+    WatchListRepo watchlistRepo_;
 
     /**
      * @brief Convert a string to uppercase.
@@ -131,6 +145,27 @@ private:
      * and displays detailed information for the found stock or an error message.
      */
     void searchTicker() const;
+
+    void loadDemoWatchlist();
+    void saveDemoWatchlist() const;
+
+    void watchlistMenu();
+    void modifyWatchlistMenu();
+
+    int readInt();
+    std::string readLine(const std::string &prompt);
+
+    void createWatchlist();
+    void renameWatchlist();
+    void deleteWatchlist();
+    void addStockToWatchlist();
+    void removeStockFromWatchlist();
+
+    void printAllWatchlists() const;
+    void printAllWatchlistContents() const;
+    void openSingleWatchlist() const;
+    void printWatchlist(const WatchList &watchlist) const;
+    int selectWatchlistIndex() const;
 
     /**
      * @brief Run the interactive menu loop.

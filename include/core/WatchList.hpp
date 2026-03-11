@@ -6,7 +6,7 @@
 /**
  * @brief Keeps track of stocks the user wants to watch.
  */
-class Watchlist
+class WatchList
 {
 public:
     /**
@@ -14,7 +14,7 @@ public:
      *
      * @param name Watchlist name.
      */
-    Watchlist(const std::string& name = "");
+    WatchList(const std::string& name = "");
 
     /**
      * @brief Add a ticker to the list.

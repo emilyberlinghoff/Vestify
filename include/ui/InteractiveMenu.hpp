@@ -189,7 +189,7 @@ private:
      *
      * @return Integer value entered by the user.
      */
-    int readInt();
+    static int readInt();
 
     /**
      * @brief Read a full line of input from the user.
@@ -200,47 +200,57 @@ private:
      * @param prompt Message displayed before reading input.
      * @return The entered string.
      */
-    std::string readLine(const std::string &prompt);
+    static std::string readLine(const std::string &prompt);
 
     /**
      * @brief Create a new watchlist.
      *
      * Prompts the user for a watchlist name and adds a new WatchList object
      * to the in-memory collection if the name is valid and not already used.
+     *
+     * @return True if a watchlist was created, false otherwise.
      */
-    void createWatchlist();
+    bool createWatchlist();
 
     /**
      * @brief Rename an existing watchlist.
      *
      * Allows the user to select a watchlist and assign it a new name.
      * Ensures the new name is not empty and updates the watchlist object.
+     *
+     * @return True if the watchlist was renamed, false otherwise.
      */
-    void renameWatchlist();
+    bool renameWatchlist();
 
     /**
      * @brief Delete a watchlist.
      *
      * Prompts the user to select a watchlist and removes it from the
      * in-memory watchlist collection.
+     *
+     * @return True if a watchlist was deleted, false otherwise.
      */
-    void deleteWatchlist();
+    bool deleteWatchlist();
 
     /**
      * @brief Add a stock ticker to a watchlist.
      *
      * Prompts the user for a ticker symbol and adds it to the selected
      * watchlist if the ticker exists in the repository and is not already present.
+     *
+     * @return True if the ticker was added, false otherwise.
      */
-    void addStockToWatchlist();
+    bool addStockToWatchlist();
 
     /**
      * @brief Remove a stock ticker from a watchlist.
      *
      * Prompts the user for a ticker symbol and removes it from the
      * selected watchlist if it exists.
+     *
+     * @return True if the ticker was removed, false otherwise.
      */
-    void removeStockFromWatchlist();
+    bool removeStockFromWatchlist();
 
     /**
      * @brief Display all available watchlists.

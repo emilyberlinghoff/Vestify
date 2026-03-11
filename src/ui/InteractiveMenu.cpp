@@ -17,7 +17,12 @@
 #include "data/LiveDataProvider.hpp"
 #include "ui/StockPrinter.hpp"
 
-
+/**
+ * @brief Construct the interactive menu and initialize watchlist persistence.
+ *
+ * Creates the watchlist repository using the demo watchlist JSON path and
+ * attempts to load any persisted watchlist data into memory.
+ */
 InteractiveMenu::InteractiveMenu()
     : watchlistRepo_("src/persistence/demo_watchlist.json")
 {
@@ -58,6 +63,49 @@ std::string InteractiveMenu::toUpper(std::string str)
         c = static_cast<char>(std::toupper(static_cast<unsigned char>(c)));
     }
     return str;
+}
+
+/**
+ * @brief Reads an integer value from standard input.
+ *
+ * Prompts the user for input and attempts to read an integer. If the input is
+ * invalid, it clears the error state and ignores the rest of the line, then
+ * prompts again until a valid integer is entered.
+ *
+ * @return The integer value entered by the user.
+ */
+int InteractiveMenu::readInt()
+{
+    int value;
+    std::cin >> value;
+
+    while (!std::cin)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Enter a number: ";
+        std::cin >> value;
+    }
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    return value;
+}
+
+/**
+ * @brief Reads a full line of text from standard input.
+ *
+ * Displays the provided prompt and reads the entire user input line,
+ * including spaces, until a newline is encountered.
+ *
+ * @param prompt Message displayed before reading input.
+ * @return The line entered by the user.
+ */
+std::string InteractiveMenu::readLine(const std::string &prompt)
+{
+    std::string input;
+    std::cout << prompt;
+    std::getline(std::cin, input);
+    return input;
 }
 
 /**
@@ -253,6 +301,8 @@ void InteractiveMenu::searchTicker() const
     std::cout << "Enter ticker: ";
     std::cin >> ticker;
 
+    ticker = toUpper(ticker);
+
     const Stock *stock = repository_.findByTicker(ticker);
 
     if (stock == nullptr)
@@ -264,14 +314,13 @@ void InteractiveMenu::searchTicker() const
     StockPrinter::printStocks({*stock});
 }
 
-std::string InteractiveMenu::readLine(const std::string &prompt)
-{
-    std::string input;
-    std::cout << prompt;
-    std::getline(std::cin, input);
-    return input;
-}
-
+/**
+ * @brief Load the persisted demo watchlist from disk.
+ *
+ * Reads the configured watchlist file using the watchlist repository and
+ * appends the loaded watchlist to the in-memory collection if it contains
+ * either a name or ticker data.
+ */
 void InteractiveMenu::loadDemoWatchlist()
 {
     auto result = watchlistRepo_.load();
@@ -287,6 +336,12 @@ void InteractiveMenu::loadDemoWatchlist()
     }
 }
 
+/**
+ * @brief Save the current demo watchlist to disk.
+ *
+ * Persists the first watchlist in the in-memory collection using the
+ * watchlist repository. If no watchlists are present, no save is attempted.
+ */
 void InteractiveMenu::saveDemoWatchlist() const
 {
     if (watchlists_.empty())
@@ -301,7 +356,12 @@ void InteractiveMenu::saveDemoWatchlist() const
     }
 }
 
-
+/**
+ * @brief Print the names of all available watchlists.
+ *
+ * Displays each watchlist in the in-memory collection with a 1-based index.
+ * If no watchlists exist, an informative message is printed instead.
+ */
 void InteractiveMenu::printAllWatchlists() const
 {
     if (watchlists_.empty())
@@ -317,6 +377,14 @@ void InteractiveMenu::printAllWatchlists() const
     }
 }
 
+/**
+ * @brief Prompt the user to choose a watchlist by index.
+ *
+ * Displays all watchlists, reads the user's numeric choice, and validates
+ * that the selection falls within the current range.
+ *
+ * @return Zero-based index of the selected watchlist, or -1 on failure.
+ */
 int InteractiveMenu::selectWatchlistIndex() const
 {
     if (watchlists_.empty())
@@ -327,18 +395,7 @@ int InteractiveMenu::selectWatchlistIndex() const
 
     printAllWatchlists();
     std::cout << "Select watchlist number: ";
-    int choice;
-    std::cin >> choice;
-
-    if (!std::cin)
-    {
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Invalid input.\n";
-        return -1;
-    }
-
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    int choice = readInt();
 
     if (choice < 1 || choice > static_cast<int>(watchlists_.size()))
     {
@@ -349,14 +406,22 @@ int InteractiveMenu::selectWatchlistIndex() const
     return choice - 1;
 }
 
-void InteractiveMenu::createWatchlist()
+/**
+ * @brief Create a new watchlist.
+ *
+ * Prompts the user for a watchlist name and creates a new watchlist if the
+ * name is non-empty and not already used by another watchlist.
+ *
+ * @return True if the watchlist was created, false otherwise.
+ */
+bool InteractiveMenu::createWatchlist()
 {
     std::string name = readLine("Enter watchlist name: ");
 
     if (name.empty())
     {
         std::cout << "Watchlist name cannot be empty.\n";
-        return;
+        return false;
     }
 
     for (const auto &watchlist : watchlists_)
@@ -364,20 +429,29 @@ void InteractiveMenu::createWatchlist()
         if (watchlist.getName() == name)
         {
             std::cout << "A watchlist with that name already exists.\n";
-            return;
+            return false;
         }
     }
 
     watchlists_.push_back(WatchList(name));
     std::cout << "Watchlist created.\n";
+    return true;
 }
 
-void InteractiveMenu::renameWatchlist()
+/**
+ * @brief Rename an existing watchlist.
+ *
+ * Prompts the user to select a watchlist and supply a new name. The rename
+ * succeeds only if the selection is valid and the new name is non-empty and unique.
+ *
+ * @return True if the watchlist was renamed, false otherwise.
+ */
+bool InteractiveMenu::renameWatchlist()
 {
     int index = selectWatchlistIndex();
     if (index == -1)
     {
-        return;
+        return false;
     }
 
     std::string newName = readLine("Enter new watchlist name: ");
@@ -385,37 +459,64 @@ void InteractiveMenu::renameWatchlist()
     if (newName.empty())
     {
         std::cout << "Watchlist name cannot be empty.\n";
-        return;
+        return false;
+    }
+
+    for (std::size_t i = 0; i < watchlists_.size(); ++i)
+    {
+        if (static_cast<int>(i) != index && watchlists_[i].getName() == newName)
+        {
+            std::cout << "A watchlist with that name already exists.\n";
+            return false;
+        }
     }
 
     watchlists_[index].setName(newName);
     std::cout << "Watchlist renamed.\n";
+    return true;
 }
 
-void InteractiveMenu::deleteWatchlist()
+/**
+ * @brief Delete an existing watchlist.
+ *
+ * Prompts the user to select a watchlist and removes it from the
+ * in-memory collection if the selection is valid.
+ *
+ * @return True if the watchlist was deleted, false otherwise.
+ */
+bool InteractiveMenu::deleteWatchlist()
 {
     int index = selectWatchlistIndex();
     if (index == -1)
     {
-        return;
+        return false;
     }
 
     std::cout << "Deleted watchlist: " << watchlists_[index].getName() << "\n";
     watchlists_.erase(watchlists_.begin() + index);
+    return true;
 }
 
-void InteractiveMenu::addStockToWatchlist()
+/**
+ * @brief Add a stock ticker to a selected watchlist.
+ *
+ * Prompts the user to choose a watchlist and enter a ticker symbol. The ticker
+ * must exist in the repository and not already be present in the watchlist.
+ *
+ * @return True if the ticker was added, false otherwise.
+ */
+bool InteractiveMenu::addStockToWatchlist()
 {
     if (repository_.getAll().empty())
     {
         std::cout << "No stock data loaded.\n";
-        return;
+        return false;
     }
 
     int index = selectWatchlistIndex();
     if (index == -1)
     {
-        return;
+        return false;
     }
 
     std::string ticker = readLine("Enter ticker to add: ");
@@ -425,28 +526,57 @@ void InteractiveMenu::addStockToWatchlist()
     if (stock == nullptr)
     {
         std::cout << "Ticker not found in loaded stock data.\n";
-        return;
+        return false;
     }
 
-    watchlists_[index].add(ticker);
+    if (!watchlists_[index].add(ticker))
+    {
+        std::cout << ticker << " is already in " << watchlists_[index].getName() << ".\n";
+        return false;
+    }
+
     std::cout << ticker << " added to " << watchlists_[index].getName() << ".\n";
+    return true;
 }
 
-void InteractiveMenu::removeStockFromWatchlist()
+/**
+ * @brief Remove a stock ticker from a selected watchlist.
+ *
+ * Prompts the user to choose a watchlist and enter a ticker symbol. The ticker
+ * is removed only if it currently exists in the selected watchlist.
+ *
+ * @return True if the ticker was removed, false otherwise.
+ */
+bool InteractiveMenu::removeStockFromWatchlist()
 {
     int index = selectWatchlistIndex();
     if (index == -1)
     {
-        return;
+        return false;
     }
 
     std::string ticker = readLine("Enter ticker to remove: ");
     ticker = toUpper(ticker);
 
-    watchlists_[index].remove(ticker);
+    if (!watchlists_[index].remove(ticker))
+    {
+        std::cout << ticker << " was not found in " << watchlists_[index].getName() << ".\n";
+        return false;
+    }
+
     std::cout << ticker << " removed from " << watchlists_[index].getName() << ".\n";
+    return true;
 }
 
+/**
+ * @brief Print the stock contents of a single watchlist.
+ *
+ * Looks up each ticker in the supplied watchlist against the stock repository
+ * and prints any matching stock records. If the watchlist is empty or none of
+ * its tickers exist in the loaded stock data, an explanatory message is shown.
+ *
+ * @param watchlist The watchlist to display.
+ */
 void InteractiveMenu::printWatchlist(const WatchList &watchlist) const
 {
     const auto &tickers = watchlist.getAll();
@@ -478,6 +608,12 @@ void InteractiveMenu::printWatchlist(const WatchList &watchlist) const
     StockPrinter::printStocks(stocksToPrint);
 }
 
+/**
+ * @brief Print the contents of all watchlists.
+ *
+ * Iterates through every watchlist currently stored in memory and displays
+ * the stocks contained in each one.
+ */
 void InteractiveMenu::printAllWatchlistContents() const
 {
     if (watchlists_.empty())
@@ -493,6 +629,12 @@ void InteractiveMenu::printAllWatchlistContents() const
     }
 }
 
+/**
+ * @brief Open and display a single selected watchlist.
+ *
+ * Prompts the user to choose a watchlist and displays its contents if a
+ * valid selection is made.
+ */
 void InteractiveMenu::openSingleWatchlist() const
 {
     int index = selectWatchlistIndex();
@@ -504,6 +646,13 @@ void InteractiveMenu::openSingleWatchlist() const
     printWatchlist(watchlists_[index]);
 }
 
+/**
+ * @brief Run the watchlist modification submenu.
+ *
+ * Displays options for adding or removing stocks, renaming a watchlist,
+ * deleting a watchlist, or returning to the previous menu. Successful
+ * modifications trigger a save of the persisted demo watchlist.
+ */
 void InteractiveMenu::modifyWatchlistMenu()
 {
     bool modifying = true;
@@ -518,34 +667,33 @@ void InteractiveMenu::modifyWatchlistMenu()
         std::cout << "5. Return\n";
         std::cout << "> ";
 
-        int choice;
-        std::cin >> choice;
-
-        if (!std::cin)
-        {
-            std::cin.clear();
-            std::cin.ignore(10000, '\n');
-            std::cout << "Invalid input.\n";
-            continue;
-        }
+        int choice = readInt();
 
         switch (choice)
         {
         case 1:
-            addStockToWatchlist();
-            saveDemoWatchlist();
+            if (addStockToWatchlist())
+            {
+                saveDemoWatchlist();
+            }
             break;
         case 2:
-            removeStockFromWatchlist();
-            saveDemoWatchlist();
+            if (removeStockFromWatchlist())
+            {
+                saveDemoWatchlist();
+            }
             break;
         case 3:
-            renameWatchlist();
-            saveDemoWatchlist();
+            if (renameWatchlist())
+            {
+                saveDemoWatchlist();
+            }
             break;
         case 4:
-            deleteWatchlist();
-            saveDemoWatchlist();
+            if (deleteWatchlist())
+            {
+                saveDemoWatchlist();
+            }
             break;
         case 5:
             modifying = false;
@@ -557,6 +705,12 @@ void InteractiveMenu::modifyWatchlistMenu()
     }
 }
 
+/**
+ * @brief Run the main watchlist menu.
+ *
+ * Displays options for creating, modifying, printing, or opening watchlists.
+ * Successful creation triggers a save of the persisted demo watchlist.
+ */
 void InteractiveMenu::watchlistMenu()
 {
     bool inWatchlistMenu = true;
@@ -571,26 +725,18 @@ void InteractiveMenu::watchlistMenu()
         std::cout << "5. Return\n";
         std::cout << "> ";
 
-        int choice;
-        std::cin >> choice;
-
-        if (!std::cin)
-        {
-            std::cin.clear();
-            std::cin.ignore(10000, '\n');
-            std::cout << "Invalid input.\n";
-            continue;
-        }
+        int choice = readInt();
 
         switch (choice)
         {
         case 1:
-            createWatchlist();
-            saveDemoWatchlist();
+            if (createWatchlist())
+            {
+                saveDemoWatchlist();
+            }
             break;
         case 2:
             modifyWatchlistMenu();
-            saveDemoWatchlist();
             break;
         case 3:
             printAllWatchlistContents();
@@ -632,16 +778,7 @@ void InteractiveMenu::runInteractive()
         std::cout << "8. Exit\n";
         std::cout << "> ";
 
-        int choice;
-        std::cin >> choice;
-
-        if (!std::cin)
-        {
-            std::cin.clear();
-            std::cin.ignore(10000, '\n');
-            std::cout << "Invalid input.\n";
-            continue;
-        }
+        int choice = readInt();
 
         switch (choice)
         {
@@ -677,7 +814,6 @@ void InteractiveMenu::runInteractive()
         }
     }
 }
-
 
 /**
  * @brief Main entry point for the InteractiveMenu system.

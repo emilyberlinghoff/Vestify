@@ -146,25 +146,145 @@ private:
      */
     void searchTicker() const;
 
+    /**
+     * @brief Load the persisted demo watchlist from disk.
+     *
+     * Attempts to read the watchlist JSON file through the WatchListRepo and
+     * populate the in-memory watchlist collection. Any parsing or file errors
+     * are reported to the console but do not terminate the program.
+     */
     void loadDemoWatchlist();
+
+    /**
+     * @brief Save the current demo watchlist to disk.
+     *
+     * Serializes the first watchlist in memory and writes it to the JSON file
+     * through the WatchListRepo. This is typically called after modifications
+     * such as adding or removing stocks.
+     */
     void saveDemoWatchlist() const;
 
+    /**
+     * @brief Display and manage the watchlist menu.
+     *
+     * Presents the main watchlist interface where users can create watchlists,
+     * modify them, view their contents, or open a specific watchlist.
+     * Runs in a loop until the user chooses to return to the main menu.
+     */
     void watchlistMenu();
+
+    /**
+     * @brief Display the watchlist modification submenu.
+     *
+     * Allows the user to modify an existing watchlist by adding or removing
+     * stocks, renaming the watchlist, or deleting it entirely.
+     */
     void modifyWatchlistMenu();
 
+    /**
+     * @brief Read a validated integer from standard input.
+     *
+     * Reads a number entered by the user and ensures the input stream is valid.
+     * If invalid input is entered, the stream is cleared and the user is prompted again.
+     *
+     * @return Integer value entered by the user.
+     */
     int readInt();
+
+    /**
+     * @brief Read a full line of input from the user.
+     *
+     * Prompts the user with a message and reads a complete line from standard input.
+     * Useful for inputs containing spaces such as watchlist names.
+     *
+     * @param prompt Message displayed before reading input.
+     * @return The entered string.
+     */
     std::string readLine(const std::string &prompt);
 
+    /**
+     * @brief Create a new watchlist.
+     *
+     * Prompts the user for a watchlist name and adds a new WatchList object
+     * to the in-memory collection if the name is valid and not already used.
+     */
     void createWatchlist();
+
+    /**
+     * @brief Rename an existing watchlist.
+     *
+     * Allows the user to select a watchlist and assign it a new name.
+     * Ensures the new name is not empty and updates the watchlist object.
+     */
     void renameWatchlist();
+
+    /**
+     * @brief Delete a watchlist.
+     *
+     * Prompts the user to select a watchlist and removes it from the
+     * in-memory watchlist collection.
+     */
     void deleteWatchlist();
+
+    /**
+     * @brief Add a stock ticker to a watchlist.
+     *
+     * Prompts the user for a ticker symbol and adds it to the selected
+     * watchlist if the ticker exists in the repository and is not already present.
+     */
     void addStockToWatchlist();
+
+    /**
+     * @brief Remove a stock ticker from a watchlist.
+     *
+     * Prompts the user for a ticker symbol and removes it from the
+     * selected watchlist if it exists.
+     */
     void removeStockFromWatchlist();
 
+    /**
+     * @brief Display all available watchlists.
+     *
+     * Prints the names of all watchlists currently stored in memory
+     * along with their index numbers for selection.
+     */
     void printAllWatchlists() const;
+
+    /**
+     * @brief Display the contents of all watchlists.
+     *
+     * Iterates through every watchlist in memory and prints the
+     * associated stocks for each list.
+     */
     void printAllWatchlistContents() const;
+
+    /**
+     * @brief Open and display a specific watchlist.
+     *
+     * Allows the user to select a watchlist and prints all stocks
+     * contained within that list.
+     */
     void openSingleWatchlist() const;
+
+    /**
+     * @brief Display the stocks contained in a watchlist.
+     *
+     * Prints the ticker symbols stored in the specified watchlist
+     * and retrieves the corresponding stock data from the repository
+     * for display.
+     *
+     * @param watchlist The watchlist to display.
+     */
     void printWatchlist(const WatchList &watchlist) const;
+
+    /**
+     * @brief Prompt the user to select a watchlist index.
+     *
+     * Displays the list of available watchlists and asks the user to
+     * choose one by number.
+     *
+     * @return Index of the selected watchlist, or -1 if selection fails.
+     */
     int selectWatchlistIndex() const;
 
     /**

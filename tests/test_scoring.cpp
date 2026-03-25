@@ -13,6 +13,7 @@
 #include <cassert>
 #include <cmath>
 #include <iostream>
+#include <limits>
 #include <string>
 #include <vector>
 
@@ -293,6 +294,140 @@ static void testScoringModels()
 }
 
 /**
+ * @brief Test that scoring results are deterministic and repeatable.
+ *
+ * Runs scoring twice with the same inputs and confirms scores match.
+ */
+static void testDeterministicScoring()
+{
+    std::cout << "\n--- Test: Deterministic scoring ---\n";
+
+    StrategyManager mgr;
+    ValueScoringModel value_model;
+    GrowthScoringModel growth_model;
+    MomentumScoringModel momentum_model;
+    mgr.registerModel(&value_model);
+    mgr.registerModel(&growth_model);
+    mgr.registerModel(&momentum_model);
+
+    auto stocks = makeSampleStocks();
+    mgr.setActiveStrategy("Balanced");
+
+    auto ranked1 = mgr.rankStocks(stocks);
+    auto ranked2 = mgr.rankStocks(stocks);
+
+    CHECK(ranked1.size() == ranked2.size(), "Repeat scoring yields same number of results");
+
+    bool all_equal = true;
+    for (std::size_t i = 0; i < ranked1.size(); ++i)
+    {
+        if (!approxEqual(ranked1[i].composite, ranked2[i].composite))
+        {
+            all_equal = false;
+            break;
+        }
+    }
+    CHECK(all_equal, "Composite scores are repeatable for same inputs");
+}
+
+/**
+ * @brief Test that ranked results are ordered by descending score.
+ */
+static void testRankingOrder()
+{
+    std::cout << "\n--- Test: Ranking order is descending ---\n";
+
+    StrategyManager mgr;
+    ValueScoringModel value_model;
+    GrowthScoringModel growth_model;
+    MomentumScoringModel momentum_model;
+    mgr.registerModel(&value_model);
+    mgr.registerModel(&growth_model);
+    mgr.registerModel(&momentum_model);
+
+    auto ranked = mgr.rankStocks(makeSampleStocks());
+
+    bool ordered = true;
+    for (std::size_t i = 1; i < ranked.size(); ++i)
+    {
+        if (ranked[i - 1].composite < ranked[i].composite)
+        {
+            ordered = false;
+            break;
+        }
+    }
+    CHECK(ordered, "Stocks are ordered from highest to lowest composite score");
+}
+
+/**
+ * @brief Test that score breakdown includes individual factor contributions.
+ */
+static void testBreakdownIncludesFactors()
+{
+    std::cout << "\n--- Test: Breakdown includes factor subscores ---\n";
+
+    StrategyManager mgr;
+    ValueScoringModel value_model;
+    GrowthScoringModel growth_model;
+    MomentumScoringModel momentum_model;
+    mgr.registerModel(&value_model);
+    mgr.registerModel(&growth_model);
+    mgr.registerModel(&momentum_model);
+
+    auto scored = mgr.scoreStock(makeSampleStocks().front());
+    const auto &weights = mgr.getActiveStrategy().weights;
+
+    bool all_present = true;
+    for (const auto &pair : weights)
+    {
+        if (scored.subscores.find(pair.first) == scored.subscores.end())
+        {
+            all_present = false;
+            break;
+        }
+    }
+    CHECK(all_present, "All strategy factors appear in subscore breakdown");
+}
+
+/**
+ * @brief Test that missing or invalid data defaults to zero contributions.
+ */
+static void testMissingDataDefaultsToZero()
+{
+    std::cout << "\n--- Test: Missing data defaults to zero ---\n";
+
+    StrategyManager mgr;
+    ValueScoringModel value_model;
+    GrowthScoringModel growth_model;
+    MomentumScoringModel momentum_model;
+    mgr.registerModel(&value_model);
+    mgr.registerModel(&growth_model);
+    mgr.registerModel(&momentum_model);
+
+    Stock broken{};
+    broken.ticker = "NULL";
+    broken.name = "Missing Data";
+    broken.pe_ratio = std::numeric_limits<double>::quiet_NaN();
+    broken.dividend_yield = std::numeric_limits<double>::quiet_NaN();
+    broken.price = std::numeric_limits<double>::quiet_NaN();
+
+    auto scored = mgr.scoreStock(broken);
+
+    bool all_zero = true;
+    for (const auto &pair : scored.subscores)
+    {
+        if (!approxEqual(pair.second, 0.0))
+        {
+            all_zero = false;
+            break;
+        }
+    }
+
+    CHECK(all_zero, "Invalid factor data yields zero subscores");
+    CHECK(approxEqual(scored.composite, 0.0), "Composite score defaults to 0 with missing data");
+}
+
+/**
  * @brief Main test runner for the scoring strategy test suite.
  *
  * Executes all test functions and reports the results. Returns 0 if all
@@ -312,6 +447,10 @@ int main()
     testDefaultStrategyOnStartup();
     testSwitchWithoutRestart();
     testScoringModels();
+    testDeterministicScoring();
+    testRankingOrder();
+    testBreakdownIncludesFactors();
+    testMissingDataDefaultsToZero();
 
     std::cout << "\n============================================\n";
     std::cout << "  Results: " << passed << " passed, " << failed << " failed\n";

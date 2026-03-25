@@ -174,6 +174,14 @@ private:
     void watchlistMenu();
 
     /**
+     * @brief Score and rank loaded stocks using a weighted scoring model.
+     *
+     * Allows the user to select a scoring strategy, view ranked results,
+     * and inspect a breakdown of factor contributions for a chosen stock.
+     */
+    void scoreAndRankStocks();
+
+    /**
      * @brief Display the watchlist modification submenu.
      *
      * Allows the user to modify an existing watchlist by adding or removing

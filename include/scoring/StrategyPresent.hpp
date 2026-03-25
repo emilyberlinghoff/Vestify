@@ -143,6 +143,25 @@ public:
     }
 
     /**
+     * @brief Create or update a custom strategy and activate it.
+     *
+     * @param name Strategy name.
+     * @param description Strategy description.
+     * @param weights modelName -> weight.
+     * @return True if weights were provided and the strategy was set.
+     */
+    bool setCustomStrategy(const std::string& name,
+                           const std::string& description,
+                           const std::unordered_map<std::string, double>& weights) {
+        if (weights.empty()) {
+            return false;
+        }
+        presets_[name] = ScoringStrategy(name, description, weights);
+        active_strategy_name_ = name;
+        return true;
+    }
+
+    /**
      * @brief Get the currently active strategy.
      *
      * @return Const reference to the active ScoringStrategy.
@@ -185,6 +204,10 @@ public:
             }
 
             double sub_score = model_it->second->calculateScore(stock);
+            if (!std::isfinite(sub_score)) {
+                sub_score = 0.0;
+            }
+            sub_score = std::clamp(sub_score, 0.0, 100.0);
             result.subscores[model_name] = sub_score;
 
             weighted_sum += weight * sub_score;

@@ -5,7 +5,7 @@ build:
 	cmake --build build
 
 run: build
-	find build -type f -executable
+	./build/vestify
 
 clean:
 	rm -rf build

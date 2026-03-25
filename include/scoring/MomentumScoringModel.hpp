@@ -16,6 +16,9 @@
 class MomentumScoringModel : public ScoringModel {
 public:
     double calculateScore(const Stock& stock) const override {
+        if (!std::isfinite(stock.price)) {
+            return 0.0;
+        }
         // log1p(price) * 10 gives a rough 0–100 range for typical stock prices.
         return std::min(100.0, std::log1p(stock.price) * 10.0);
     }

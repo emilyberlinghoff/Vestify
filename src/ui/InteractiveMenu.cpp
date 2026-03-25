@@ -10,11 +10,19 @@
 
 #include "ui/InteractiveMenu.hpp"
 
+#include <algorithm>
 #include <cstdlib>
+#include <iomanip>
 #include <iostream>
 #include <limits>
+#include <sstream>
+#include <unordered_map>
 
 #include "data/LiveDataProvider.hpp"
+#include "scoring/GrowthScoringModel.hpp"
+#include "scoring/MomentumScoringModel.hpp"
+#include "scoring/StrategyPresent.hpp"
+#include "scoring/ValueScoringModel.hpp"
 #include "ui/StockPrinter.hpp"
 
 /**
@@ -755,6 +763,272 @@ void InteractiveMenu::watchlistMenu()
 }
 
 /**
+ * @brief Score and rank loaded stocks using a weighted scoring strategy.
+ *
+ * Allows the user to select a predefined scoring strategy, view ranked results,
+ * and inspect a breakdown of factor contributions for a selected stock.
+ */
+void InteractiveMenu::scoreAndRankStocks()
+{
+    if (repository_.getAll().empty())
+    {
+        std::cout << "No stock data loaded.\n";
+        return;
+    }
+
+    StrategyManager manager;
+    ValueScoringModel valueModel;
+    GrowthScoringModel growthModel;
+    MomentumScoringModel momentumModel;
+    manager.registerModel(&valueModel);
+    manager.registerModel(&growthModel);
+    manager.registerModel(&momentumModel);
+
+    bool rerun = true;
+    while (rerun)
+    {
+        auto strategies = manager.getAvailableStrategies();
+
+        std::cout << "\nScoring Strategies:\n";
+        for (std::size_t i = 0; i < strategies.size(); ++i)
+        {
+            const auto &strategy = manager.getStrategy(strategies[i]);
+            std::cout << i + 1 << ". " << strategy.name << " - " << strategy.description << "\n";
+        }
+        std::cout << "C. Custom weights\n";
+
+        std::string selection = readLine(
+            "Select strategy by number or name (blank for default \"" +
+            manager.getActiveStrategyName() + "\"): ");
+
+        if (!selection.empty())
+        {
+            std::stringstream ss(selection);
+            int index = 0;
+            if (ss >> index)
+            {
+                if (index >= 1 && index <= static_cast<int>(strategies.size()))
+                {
+                    manager.setActiveStrategy(strategies[index - 1]);
+                }
+                else
+                {
+                    std::cout << "Invalid selection. Using default.\n";
+                }
+            }
+            else
+            {
+                std::string upper = toUpper(selection);
+                if (upper == "C" || upper == "CUSTOM")
+                {
+                    std::string name = readLine("Custom strategy name (default \"Custom\"): ");
+                    if (name.empty())
+                    {
+                        name = "Custom";
+                    }
+
+                    const auto &current = manager.getActiveStrategy().weights;
+                    auto readWeight = [&](const std::string &label, double currentValue) {
+                        std::ostringstream prompt;
+                        prompt << "Enter weight for " << label << " (current "
+                               << std::fixed << std::setprecision(2) << currentValue << "): ";
+                        std::string input = readLine(prompt.str());
+                        if (input.empty())
+                        {
+                            return currentValue;
+                        }
+                        std::stringstream weightStream(input);
+                        double value = currentValue;
+                        if (weightStream >> value)
+                        {
+                            if (value < 0.0)
+                            {
+                                std::cout << "Weight cannot be negative. Using 0.\n";
+                                return 0.0;
+                            }
+                            return value;
+                        }
+                        std::cout << "Invalid input. Using current value.\n";
+                        return currentValue;
+                    };
+
+                    double valueWeight = current.count("Value") ? current.at("Value") : 0.0;
+                    double growthWeight = current.count("Growth") ? current.at("Growth") : 0.0;
+                    double momentumWeight = current.count("Momentum") ? current.at("Momentum") : 0.0;
+
+                    valueWeight = readWeight("Value", valueWeight);
+                    growthWeight = readWeight("Growth", growthWeight);
+                    momentumWeight = readWeight("Momentum", momentumWeight);
+
+                    double sum = valueWeight + growthWeight + momentumWeight;
+                    if (sum < 0.95 || sum > 1.05)
+                    {
+                        std::cout << "Warning: weights sum to " << std::fixed << std::setprecision(2)
+                                  << sum << " (expected ~1.00).\n";
+                    }
+
+                    std::unordered_map<std::string, double> weights = {
+                        {"Value", valueWeight},
+                        {"Growth", growthWeight},
+                        {"Momentum", momentumWeight}
+                    };
+
+                    if (!manager.setCustomStrategy(
+                            name,
+                            "User-defined weights for Value/Growth/Momentum.",
+                            weights))
+                    {
+                        std::cout << "Failed to set custom strategy. Using default.\n";
+                    }
+                }
+                else
+                {
+                bool found = false;
+                for (const auto &name : strategies)
+                {
+                    if (toUpper(name) == upper)
+                    {
+                        manager.setActiveStrategy(name);
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    std::cout << "Unknown strategy. Using default.\n";
+                }
+                }
+            }
+        }
+
+        auto ranked = manager.rankStocks(repository_.getAll());
+        if (ranked.empty())
+        {
+            std::cout << "No stocks available to score.\n";
+            return;
+        }
+
+        std::size_t displayCount = std::min<std::size_t>(10, ranked.size());
+        std::string countInput = readLine("Enter number of results to display (default 10): ");
+        if (!countInput.empty())
+        {
+            std::stringstream ss(countInput);
+            int count = 0;
+            if (ss >> count && count > 0)
+            {
+                displayCount = std::min<std::size_t>(static_cast<std::size_t>(count), ranked.size());
+            }
+        }
+
+        std::cout << "\nRanked Stocks (" << manager.getActiveStrategyName() << "):\n";
+        std::cout << std::left << std::setw(6) << "Rank"
+                  << std::setw(8) << "Ticker"
+                  << std::setw(30) << "Company"
+                  << std::setw(8) << "Score"
+                  << "\n";
+
+        std::cout << std::string(52, '-') << "\n";
+
+        std::cout << std::fixed << std::setprecision(2);
+        for (std::size_t i = 0; i < displayCount; ++i)
+        {
+            const auto &entry = ranked[i];
+            std::string name = entry.stock.name;
+            if (name.size() > 28)
+            {
+                name = name.substr(0, 28) + "..";
+            }
+            std::cout << std::left << std::setw(6) << (i + 1)
+                      << std::setw(8) << entry.stock.ticker
+                      << std::setw(30) << name
+                      << std::setw(8) << entry.composite
+                      << "\n";
+        }
+
+        std::string breakdownInput = readLine(
+            "\nView score breakdown by rank number or ticker (blank to return): ");
+        if (!breakdownInput.empty())
+        {
+            const ScoredStock *selected = nullptr;
+            std::stringstream ss(breakdownInput);
+            int index = 0;
+            if (ss >> index)
+            {
+                if (index >= 1 && index <= static_cast<int>(ranked.size()))
+                {
+                    selected = &ranked[index - 1];
+                }
+                else
+                {
+                    std::cout << "Invalid rank selection.\n";
+                }
+            }
+            else
+            {
+                std::string ticker = toUpper(breakdownInput);
+                for (const auto &entry : ranked)
+                {
+                    if (entry.stock.ticker == ticker)
+                    {
+                        selected = &entry;
+                        break;
+                    }
+                }
+                if (selected == nullptr)
+                {
+                    std::cout << "Ticker not found in ranked list.\n";
+                }
+            }
+
+            if (selected != nullptr)
+            {
+                const auto &strategy = manager.getActiveStrategy();
+                std::vector<std::string> factors;
+                factors.reserve(strategy.weights.size());
+                for (const auto &pair : strategy.weights)
+                {
+                    factors.push_back(pair.first);
+                }
+                std::sort(factors.begin(), factors.end());
+
+                std::cout << "\nBreakdown for " << selected->stock.ticker
+                          << " - " << selected->stock.name << "\n";
+                std::cout << std::left << std::setw(12) << "Factor"
+                          << std::setw(10) << "Weight"
+                          << std::setw(10) << "Score"
+                          << std::setw(14) << "Contribution"
+                          << "\n";
+                std::cout << std::string(46, '-') << "\n";
+
+                double totalWeight = 0.0;
+                double weightedSum = 0.0;
+                for (const auto &factor : factors)
+                {
+                    double weight = strategy.weights.at(factor);
+                    totalWeight += weight;
+                    auto it = selected->subscores.find(factor);
+                    double subscore = (it != selected->subscores.end()) ? it->second : 0.0;
+                    double contribution = weight * subscore;
+                    weightedSum += contribution;
+
+                    std::cout << std::left << std::setw(12) << factor
+                              << std::setw(10) << weight
+                              << std::setw(10) << subscore
+                              << std::setw(14) << contribution
+                              << "\n";
+                }
+
+                double composite = (totalWeight > 0.0) ? (weightedSum / totalWeight) : 0.0;
+                std::cout << "Composite score: " << composite << "\n";
+            }
+        }
+
+        std::string again = readLine("Run scoring with another strategy? (y/n): ");
+        rerun = (!again.empty() && (again[0] == 'y' || again[0] == 'Y'));
+    }
+}
+
+/**
  * @brief Runs the interactive menu loop.
  *
  * Displays a menu of options and processes user input in a loop until the
@@ -775,7 +1049,8 @@ void InteractiveMenu::runInteractive()
         std::cout << "5. Print available stocks\n";
         std::cout << "6. Top 10 cheapest (EV/FCF)\n";
         std::cout << "7. Watchlist Menu\n";
-        std::cout << "8. Exit\n";
+        std::cout << "8. Score and Rank Stocks\n";
+        std::cout << "9. Exit\n";
         std::cout << "> ";
 
         int choice = readInt();
@@ -805,6 +1080,9 @@ void InteractiveMenu::runInteractive()
             saveDemoWatchlist();
             break;
         case 8:
+            scoreAndRankStocks();
+            break;
+        case 9:
             std::cout << "Exiting Vestify.\n";
             running = false;
             break;

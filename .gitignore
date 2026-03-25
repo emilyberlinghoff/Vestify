@@ -66,6 +66,3 @@ Thumbs.db
 # Test artifacts
 # =========================
 Testing/
-
-# Local build helper (ignored so developers can keep personal flags)
-scripts/build_local.sh

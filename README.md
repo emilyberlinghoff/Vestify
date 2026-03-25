@@ -42,6 +42,23 @@ Installing `nlohmann-json3-dev` resolves this issue.
 
 ---
 
+## Quick WSL build helper
+
+If you're building under WSL (Ubuntu), there's a small helper script to configure and build the project quickly.
+
+From the project root run:
+
+```bash
+./scripts/build_wsl.sh
+```
+
+This script will create the `build/` directory, run CMake, and build the project using all available CPU cores. After it finishes you can run the program with:
+
+```bash
+./build/vestify
+```
+
+
 # Python Setup (for data update scripts)
 
 Vestify includes Python scripts used to fetch and update stock data.

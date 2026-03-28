@@ -1,3 +1,8 @@
+/**
+ * @file LiveDataProvider.hpp
+ * @brief Alpha Vantage data provider for live quotes and historical prices.
+ */
+
 #pragma once
 
 #include <string>
@@ -102,6 +107,12 @@ private:
 
     /**
      * @brief Build the Alpha Vantage daily time series URL.
+     *
+     * @param ticker Ticker symbol.
+     * @param api_key Alpha Vantage API key.
+     * @param outputsize "compact" or "full".
+     * @param adjusted Use adjusted close if available.
+     * @return URL for the daily time series endpoint.
      */
     std::string buildDailySeriesUrl(const std::string& ticker,
                                     const std::string& api_key,

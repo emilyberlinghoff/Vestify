@@ -75,7 +75,7 @@ static bool approxEqual(double a, double b, double eps = 0.001)
  */
 static std::vector<Stock> makeSampleStocks()
 {
-    // dividend_yield stored as fraction per your Stock struct
+    /// dividend_yield stored as fraction per your Stock struct.
     return {
         {"AAPL", "Apple Inc.", "Technology", 185.0, 2.9e12, 29.0, 0.005},
         {"JNJ", "Johnson & Johnson", "Healthcare", 155.0, 3.7e11, 15.0, 0.030},

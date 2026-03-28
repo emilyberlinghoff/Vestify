@@ -1,3 +1,8 @@
+/**
+ * @file LiveDataProvider.cpp
+ * @brief Implementation of the Alpha Vantage data provider.
+ */
+
 #include "data/LiveDataProvider.hpp"
 
 #include <curl/curl.h>
@@ -312,7 +317,7 @@ LiveDataProvider::HistoricalResult LiveDataProvider::fetchDailySeries(
 
         bool ok = parseSeries(json, adjusted);
         if (!ok && adjusted) {
-            // Fallback to unadjusted if adjusted data is unavailable.
+            /// Fallback to unadjusted if adjusted data is unavailable.
             const std::string fallbackUrl = buildDailySeriesUrl(symbol, api_key, outputsize, false);
             const HttpResponse fallbackResp = httpGet(fallbackUrl);
             const auto fallbackJson = nlohmann::json::parse(fallbackResp.body);

@@ -1,3 +1,8 @@
+/**
+ * @file BacktestEngine.cpp
+ * @brief Implementation of the backtest engine.
+ */
+
 #include "backtest/BacktestEngine.hpp"
 
 #include <algorithm>
@@ -39,7 +44,7 @@ BacktestEngine::Result BacktestEngine::run(const StrategyManager& strategy,
         return out;
     }
 
-    // Build a date list from the first series.
+    /// Build a date list from the first series.
     const auto& firstSeries = config.prices.begin()->second;
     std::vector<std::string> dates;
     dates.reserve(firstSeries.size());
@@ -54,7 +59,7 @@ BacktestEngine::Result BacktestEngine::run(const StrategyManager& strategy,
         return out;
     }
 
-    // Build fast lookup maps for each ticker and validate completeness.
+    /// Build fast lookup maps for each ticker and validate completeness.
     std::unordered_map<std::string, std::unordered_map<std::string, double>> priceByDate;
     for (const auto& [ticker, series] : config.prices) {
         std::unordered_map<std::string, double> map;
@@ -75,7 +80,7 @@ BacktestEngine::Result BacktestEngine::run(const StrategyManager& strategy,
         }
     }
 
-    // Filter stocks to only those with price data.
+    /// Filter stocks to only those with price data.
     std::vector<Stock> candidates;
     candidates.reserve(config.prices.size());
     std::unordered_set<std::string> priceTickers;
@@ -93,7 +98,7 @@ BacktestEngine::Result BacktestEngine::run(const StrategyManager& strategy,
         return out;
     }
 
-    // Precompute ranking order (strategy does not change during a run).
+    /// Precompute ranking order (strategy does not change during a run).
     auto ranked = strategy.rankStocks(candidates);
     if (ranked.empty()) {
         out.error = "Unable to score stocks for backtest.";
@@ -125,7 +130,7 @@ BacktestEngine::Result BacktestEngine::run(const StrategyManager& strategy,
         const std::string& date = dates[i];
 
         if (i > 0 && (i % static_cast<std::size_t>(config.rebalance_interval) == 0)) {
-            // Update portfolio value before rebalancing.
+            /// Update portfolio value before rebalancing.
             double value = 0.0;
             for (const auto& [ticker, qty] : shares) {
                 value += qty * priceByDate[ticker][date];

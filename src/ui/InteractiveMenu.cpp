@@ -173,7 +173,7 @@ std::vector<std::string> InteractiveMenu::splitTickers(const std::string &input)
         {
             if (!current.empty())
             {
-                // trim whitespace
+                /// Trim whitespace.
                 std::string trimmed = current;
                 const auto first = trimmed.find_first_not_of(" \t\r\n");
                 if (first == std::string::npos) {
@@ -1148,7 +1148,7 @@ void InteractiveMenu::runBacktest()
     manager.registerModel(&growthModel);
     manager.registerModel(&momentumModel);
 
-    // Strategy selection (presets or custom weights)
+    /// Strategy selection (presets or custom weights).
     auto strategies = manager.getAvailableStrategies();
     std::cout << "\nScoring Strategies:\n";
     for (std::size_t i = 0; i < strategies.size(); ++i)
@@ -1276,7 +1276,7 @@ void InteractiveMenu::runBacktest()
             return;
         }
 
-        // Use unadjusted daily series to avoid premium endpoint limitations.
+        /// Use unadjusted daily series to avoid premium endpoint limitations.
         auto result = provider.fetchDailySeries(ticker, outputsize, false);
         if (!result.errors.empty())
         {

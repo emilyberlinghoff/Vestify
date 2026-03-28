@@ -1,3 +1,8 @@
+/**
+ * @file StrategyPresent.hpp
+ * @brief Scoring strategies, results, and ranking logic.
+ */
+
 #pragma once
 
 #include <algorithm>
@@ -13,7 +18,7 @@
 #include "scoring/ScoringModel.hpp"
 
 
-//  ScoringStrategy — a named preset with a weight per scoring model
+/// ScoringStrategy — a named preset with a weight per scoring model
 
 /**
  * @brief A named scoring preset mapping model names to weights.
@@ -36,7 +41,7 @@ struct ScoringStrategy {
 };
 
 
-//  ScoredStock — a Stock paired with its scoring breakdown
+/// ScoredStock — a Stock paired with its scoring breakdown
 
 /**
  * @brief A stock together with its per-model scores and composite score.
@@ -53,7 +58,7 @@ struct ScoredStock {
 };
 
 
-//  StrategyManager — owns presets, active strategy, and ranking logic
+/// StrategyManager — owns presets, active strategy, and ranking logic
 
 /**
  * @brief Manages predefined scoring strategy presets and applies them to stocks.
@@ -67,7 +72,7 @@ struct ScoredStock {
  */
 class StrategyManager {
 public:
-    // ── Construction ──────────────────────────────────────────────────
+    /// ── Construction ──────────────────────────────────────────────────
 
     /**
      * @brief Construct the manager with built-in presets.
@@ -79,7 +84,7 @@ public:
         active_strategy_name_ = "Value";
     }
 
-    // ── Model registration ────────────────────────────────────────────
+    /// ── Model registration ────────────────────────────────────────────
 
     /**
      * @brief Register a scoring model the manager can use.
@@ -94,7 +99,7 @@ public:
         }
     }
 
-    // ── Strategy catalogue ────────────────────────────────────────────
+    /// ── Strategy catalogue ────────────────────────────────────────────
 
     /**
      * @brief Get the names of all available presets (sorted alphabetically).
@@ -126,7 +131,7 @@ public:
         return it->second;
     }
 
-    // ── Active strategy management ────────────────────────────────────
+    /// ── Active strategy management ────────────────────────────────────
 
     /**
      * @brief Set the active strategy by name.
@@ -179,7 +184,7 @@ public:
         return active_strategy_name_;
     }
 
-    // ── Scoring & ranking ─────────────────────────────────────────────
+    /// ── Scoring & ranking ─────────────────────────────────────────────
 
     /**
      * @brief Score a single stock under the active strategy.
@@ -243,7 +248,7 @@ public:
     }
 
 private:
-    // ── Preset initialization ─────────────────────────────────────────
+    /// ── Preset initialization ─────────────────────────────────────────
 
     void initPresets() {
         presets_["Value"] = ScoringStrategy(
@@ -271,7 +276,7 @@ private:
         );
     }
 
-    // ── Data ──────────────────────────────────────────────────────────
+    /// ── Data ──────────────────────────────────────────────────────────
 
     /** @brief Registered presets. */
     std::unordered_map<std::string, ScoringStrategy> presets_;

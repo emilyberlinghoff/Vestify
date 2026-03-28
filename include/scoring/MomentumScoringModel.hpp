@@ -1,3 +1,8 @@
+/**
+ * @file MomentumScoringModel.hpp
+ * @brief Momentum scoring model implementation.
+ */
+
 #pragma once
 
 #include "scoring/ScoringModel.hpp"
@@ -19,7 +24,7 @@ public:
         if (!std::isfinite(stock.price)) {
             return 0.0;
         }
-        // log1p(price) * 10 gives a rough 0–100 range for typical stock prices.
+        /// log1p(price) * 10 gives a rough 0-100 range for typical stock prices.
         return std::min(100.0, std::log1p(stock.price) * 10.0);
     }
 

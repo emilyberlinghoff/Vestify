@@ -1,3 +1,8 @@
+/**
+ * @file test_backtest.cpp
+ * @brief Acceptance tests for the backtest engine.
+ */
+
 #include <algorithm>
 #include <iostream>
 #include <string>
@@ -148,7 +153,7 @@ static void testMissingDataHandled()
     config.prices = makePrices();
     config.top_n = 2;
 
-    // Remove one date from BBB to simulate missing data.
+    /// Remove one date from BBB to simulate missing data.
     if (!config.prices["BBB"].empty())
     {
         config.prices["BBB"].pop_back();

@@ -182,6 +182,11 @@ private:
     void scoreAndRankStocks();
 
     /**
+     * @brief Run a historical backtest with periodic rebalancing.
+     */
+    void runBacktest();
+
+    /**
      * @brief Display the watchlist modification submenu.
      *
      * Allows the user to modify an existing watchlist by adding or removing

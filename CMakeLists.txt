@@ -13,6 +13,7 @@ add_executable(vestify
     src/main.cpp
     src/core/StockRepository.cpp
     src/core/WatchList.cpp
+    src/backtest/BacktestEngine.cpp
     src/data/LiveDataProvider.cpp
     src/persistence/WatchListRepo.cpp
     src/ui/InteractiveMenu.cpp

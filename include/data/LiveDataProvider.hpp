@@ -23,6 +23,24 @@ public:
     };
 
     /**
+     * @brief Single historical price point.
+     */
+    struct HistoricalPoint {
+        std::string date;
+        double close = 0.0;
+    };
+
+    /**
+     * @brief Result of a historical price fetch.
+     */
+    struct HistoricalResult {
+        std::string ticker;
+        std::vector<HistoricalPoint> points;
+        std::vector<std::string> errors;
+        bool from_cache = false;
+    };
+
+    /**
      * @brief Construct a provider with a base URL.
      *
      * @param base_url Base URL for Alpha Vantage endpoints.
@@ -36,6 +54,20 @@ public:
      * @return QuoteResult with stocks and errors.
      */
     QuoteResult fetchQuotes(const std::vector<std::string>& tickers) const;
+
+    /**
+     * @brief Fetch daily historical prices for a ticker (cached to disk).
+     *
+     * @param ticker Ticker symbol.
+     * @param outputsize "compact" or "full".
+     * @param adjusted Use adjusted close if available.
+     * @param cache_dir Directory for cached CSV files.
+     * @return HistoricalResult with points and errors.
+     */
+    HistoricalResult fetchDailySeries(const std::string& ticker,
+                                      const std::string& outputsize = "compact",
+                                      bool adjusted = true,
+                                      const std::string& cache_dir = "data/historical") const;
 
 private:
     /** @brief Base URL for Alpha Vantage endpoints. */
@@ -67,6 +99,14 @@ private:
      * @return URL for the Overview endpoint.
      */
     std::string buildOverviewUrl(const std::string& ticker, const std::string& api_key) const;
+
+    /**
+     * @brief Build the Alpha Vantage daily time series URL.
+     */
+    std::string buildDailySeriesUrl(const std::string& ticker,
+                                    const std::string& api_key,
+                                    const std::string& outputsize,
+                                    bool adjusted) const;
 
     /**
      * @brief Join tickers into a comma-separated string.

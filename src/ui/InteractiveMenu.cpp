@@ -17,7 +17,10 @@
 #include <limits>
 #include <sstream>
 #include <unordered_map>
+#include <unordered_set>
+#include <fstream>
 
+#include "backtest/BacktestEngine.hpp"
 #include "data/LiveDataProvider.hpp"
 #include "scoring/GrowthScoringModel.hpp"
 #include "scoring/MomentumScoringModel.hpp"
@@ -31,9 +34,43 @@
  * Creates the watchlist repository using the demo watchlist JSON path and
  * attempts to load any persisted watchlist data into memory.
  */
+static void loadEnvFromFile(const std::string &path)
+{
+    std::ifstream infile(path);
+    if (!infile.is_open())
+    {
+        return;
+    }
+
+    std::string line;
+    while (std::getline(infile, line))
+    {
+        if (line.empty() || line[0] == '#')
+        {
+            continue;
+        }
+        auto pos = line.find('=');
+        if (pos == std::string::npos)
+        {
+            continue;
+        }
+        std::string key = line.substr(0, pos);
+        std::string value = line.substr(pos + 1);
+        if (key.empty() || value.empty())
+        {
+            continue;
+        }
+        if (std::getenv(key.c_str()) == nullptr)
+        {
+            setenv(key.c_str(), value.c_str(), 1);
+        }
+    }
+}
+
 InteractiveMenu::InteractiveMenu()
     : watchlistRepo_("src/persistence/demo_watchlist.json")
 {
+    loadEnvFromFile(".env");
     loadDemoWatchlist();
 }
 
@@ -136,7 +173,21 @@ std::vector<std::string> InteractiveMenu::splitTickers(const std::string &input)
         {
             if (!current.empty())
             {
-                tickers.push_back(current);
+                // trim whitespace
+                std::string trimmed = current;
+                const auto first = trimmed.find_first_not_of(" \t\r\n");
+                if (first == std::string::npos) {
+                    trimmed.clear();
+                } else {
+                    trimmed.erase(0, first);
+                    const auto last = trimmed.find_last_not_of(" \t\r\n");
+                    if (last != std::string::npos) {
+                        trimmed.erase(last + 1);
+                    }
+                }
+                if (!trimmed.empty()) {
+                    tickers.push_back(trimmed);
+                }
                 current.clear();
             }
         }
@@ -148,7 +199,20 @@ std::vector<std::string> InteractiveMenu::splitTickers(const std::string &input)
 
     if (!current.empty())
     {
-        tickers.push_back(current);
+        std::string trimmed = current;
+        const auto first = trimmed.find_first_not_of(" \t\r\n");
+        if (first == std::string::npos) {
+            trimmed.clear();
+        } else {
+            trimmed.erase(0, first);
+            const auto last = trimmed.find_last_not_of(" \t\r\n");
+            if (last != std::string::npos) {
+                trimmed.erase(last + 1);
+            }
+        }
+        if (!trimmed.empty()) {
+            tickers.push_back(trimmed);
+        }
     }
 
     return tickers;
@@ -1028,6 +1092,248 @@ void InteractiveMenu::scoreAndRankStocks()
     }
 }
 
+void InteractiveMenu::runBacktest()
+{
+    if (repository_.getAll().empty())
+    {
+        std::cout << "No stock data loaded. Load fundamentals first.\n";
+        return;
+    }
+
+    std::string tickerInput = readLine("Enter tickers to backtest (comma-separated): ");
+    auto tickers = splitTickers(tickerInput);
+    if (tickers.empty())
+    {
+        std::cout << "No tickers provided.\n";
+        return;
+    }
+
+    std::string startDate = readLine("Start date (YYYY-MM-DD, blank for earliest): ");
+    std::string endDate = readLine("End date (YYYY-MM-DD, blank for latest): ");
+
+    int rebalanceInterval = 20;
+    std::string intervalInput = readLine("Rebalance interval in trading days (default 20): ");
+    if (!intervalInput.empty())
+    {
+        std::stringstream ss(intervalInput);
+        int value = 0;
+        if (ss >> value && value > 0)
+        {
+            rebalanceInterval = value;
+        }
+    }
+
+    std::size_t topN = std::min<std::size_t>(5, tickers.size());
+    std::string topInput = readLine("Top N holdings to keep (default 5): ");
+    if (!topInput.empty())
+    {
+        std::stringstream ss(topInput);
+        int value = 0;
+        if (ss >> value && value > 0)
+        {
+            topN = std::min<std::size_t>(static_cast<std::size_t>(value), tickers.size());
+        }
+    }
+
+    std::string fullInput = readLine("Use full history (slower, API rate limits)? (y/n): ");
+    std::string outputsize = (!fullInput.empty() && (fullInput[0] == 'y' || fullInput[0] == 'Y'))
+                                 ? "full"
+                                 : "compact";
+
+    StrategyManager manager;
+    ValueScoringModel valueModel;
+    GrowthScoringModel growthModel;
+    MomentumScoringModel momentumModel;
+    manager.registerModel(&valueModel);
+    manager.registerModel(&growthModel);
+    manager.registerModel(&momentumModel);
+
+    // Strategy selection (presets or custom weights)
+    auto strategies = manager.getAvailableStrategies();
+    std::cout << "\nScoring Strategies:\n";
+    for (std::size_t i = 0; i < strategies.size(); ++i)
+    {
+        const auto &strategy = manager.getStrategy(strategies[i]);
+        std::cout << i + 1 << ". " << strategy.name << " - " << strategy.description << "\n";
+    }
+    std::cout << "C. Custom weights\n";
+
+    std::string selection = readLine(
+        "Select strategy by number or name (blank for default \"" +
+        manager.getActiveStrategyName() + "\"): ");
+
+    if (!selection.empty())
+    {
+        std::stringstream ss(selection);
+        int index = 0;
+        if (ss >> index)
+        {
+            if (index >= 1 && index <= static_cast<int>(strategies.size()))
+            {
+                manager.setActiveStrategy(strategies[index - 1]);
+            }
+            else
+            {
+                std::cout << "Invalid selection. Using default.\n";
+            }
+        }
+        else
+        {
+            std::string upper = toUpper(selection);
+            if (upper == "C" || upper == "CUSTOM")
+            {
+                std::string name = readLine("Custom strategy name (default \"Custom\"): ");
+                if (name.empty())
+                {
+                    name = "Custom";
+                }
+
+                const auto &current = manager.getActiveStrategy().weights;
+                auto readWeight = [&](const std::string &label, double currentValue) {
+                    std::ostringstream prompt;
+                    prompt << "Enter weight for " << label << " (current "
+                           << std::fixed << std::setprecision(2) << currentValue << "): ";
+                    std::string input = readLine(prompt.str());
+                    if (input.empty())
+                    {
+                        return currentValue;
+                    }
+                    std::stringstream weightStream(input);
+                    double value = currentValue;
+                    if (weightStream >> value)
+                    {
+                        if (value < 0.0)
+                        {
+                            std::cout << "Weight cannot be negative. Using 0.\n";
+                            return 0.0;
+                        }
+                        return value;
+                    }
+                    std::cout << "Invalid input. Using current value.\n";
+                    return currentValue;
+                };
+
+                double valueWeight = current.count("Value") ? current.at("Value") : 0.0;
+                double growthWeight = current.count("Growth") ? current.at("Growth") : 0.0;
+                double momentumWeight = current.count("Momentum") ? current.at("Momentum") : 0.0;
+
+                valueWeight = readWeight("Value", valueWeight);
+                growthWeight = readWeight("Growth", growthWeight);
+                momentumWeight = readWeight("Momentum", momentumWeight);
+
+                double sum = valueWeight + growthWeight + momentumWeight;
+                if (sum < 0.95 || sum > 1.05)
+                {
+                    std::cout << "Warning: weights sum to " << std::fixed << std::setprecision(2)
+                              << sum << " (expected ~1.00).\n";
+                }
+
+                std::unordered_map<std::string, double> weights = {
+                    {"Value", valueWeight},
+                    {"Growth", growthWeight},
+                    {"Momentum", momentumWeight}
+                };
+
+                if (!manager.setCustomStrategy(
+                        name,
+                        "User-defined weights for Value/Growth/Momentum.",
+                        weights))
+                {
+                    std::cout << "Failed to set custom strategy. Using default.\n";
+                }
+            }
+            else
+            {
+                bool found = false;
+                for (const auto &name : strategies)
+                {
+                    if (toUpper(name) == upper)
+                    {
+                        manager.setActiveStrategy(name);
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    std::cout << "Unknown strategy. Using default.\n";
+                }
+            }
+        }
+    }
+
+    std::unordered_map<std::string, std::vector<BacktestEngine::PricePoint>> priceSeries;
+    std::vector<Stock> stocksForBacktest;
+
+    LiveDataProvider provider;
+    for (const auto &rawTicker : tickers)
+    {
+        std::string ticker = toUpper(rawTicker);
+        const Stock *stock = repository_.findByTicker(ticker);
+        if (stock == nullptr)
+        {
+            std::cout << "Ticker not found in fundamentals: " << ticker << "\n";
+            return;
+        }
+
+        // Use unadjusted daily series to avoid premium endpoint limitations.
+        auto result = provider.fetchDailySeries(ticker, outputsize, false);
+        if (!result.errors.empty())
+        {
+            for (const auto &error : result.errors)
+            {
+                std::cerr << error << "\n";
+            }
+            std::cout << "Backtest aborted due to missing historical data.\n";
+            return;
+        }
+
+        if (result.points.empty())
+        {
+            std::cout << "No historical data for " << ticker << ".\n";
+            return;
+        }
+
+        stocksForBacktest.push_back(*stock);
+        std::vector<BacktestEngine::PricePoint> points;
+        points.reserve(result.points.size());
+        for (const auto &pt : result.points)
+        {
+            points.push_back({pt.date, pt.close});
+        }
+        priceSeries[ticker] = std::move(points);
+    }
+
+    BacktestEngine engine;
+    BacktestEngine::Config config;
+    config.stocks = stocksForBacktest;
+    config.prices = priceSeries;
+    config.start_date = startDate;
+    config.end_date = endDate;
+    config.rebalance_interval = rebalanceInterval;
+    config.top_n = topN;
+
+    auto backtest = engine.run(manager, config);
+    if (!backtest.ok)
+    {
+        std::cout << "Backtest failed: " << backtest.error << "\n";
+        return;
+    }
+
+    if (!backtest.equity_curve.empty())
+    {
+        const auto &first = backtest.equity_curve.front();
+        const auto &last = backtest.equity_curve.back();
+        double totalReturn = ((backtest.final_value / backtest.initial_value) - 1.0) * 100.0;
+        std::cout << "\nBacktest Results\n";
+        std::cout << "Strategy: " << manager.getActiveStrategyName() << "\n";
+        std::cout << "Start: " << first.date << "  End: " << last.date << "\n";
+        std::cout << "Initial: " << backtest.initial_value << "  Final: " << backtest.final_value << "\n";
+        std::cout << "Total return: " << std::fixed << std::setprecision(2) << totalReturn << "%\n";
+        std::cout << "Rebalances: " << backtest.rebalances << "\n";
+    }
+}
+
 /**
  * @brief Runs the interactive menu loop.
  *
@@ -1050,7 +1356,8 @@ void InteractiveMenu::runInteractive()
         std::cout << "6. Top 10 cheapest (EV/FCF)\n";
         std::cout << "7. Watchlist Menu\n";
         std::cout << "8. Score and Rank Stocks\n";
-        std::cout << "9. Exit\n";
+        std::cout << "9. Backtest (Historical)\n";
+        std::cout << "10. Exit\n";
         std::cout << "> ";
 
         int choice = readInt();
@@ -1083,6 +1390,9 @@ void InteractiveMenu::runInteractive()
             scoreAndRankStocks();
             break;
         case 9:
+            runBacktest();
+            break;
+        case 10:
             std::cout << "Exiting Vestify.\n";
             running = false;
             break;

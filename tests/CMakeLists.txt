@@ -23,3 +23,15 @@ target_include_directories(watchlist_tests
 target_link_libraries(watchlist_tests PRIVATE nlohmann_json::nlohmann_json)
 
 add_test(NAME watchlist_tests COMMAND watchlist_tests)
+
+add_executable(backtest_tests
+    test_backtest.cpp
+    ../src/backtest/BacktestEngine.cpp
+)
+
+target_include_directories(backtest_tests
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/../include
+)
+
+add_test(NAME backtest_tests COMMAND backtest_tests)

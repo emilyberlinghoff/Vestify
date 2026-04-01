@@ -222,6 +222,7 @@ private:
     if (!parseDouble(getField({"price", "regularmarketprice"}, 3), stock.price)) return std::nullopt;
     parseDouble(getField({"sharesoutstanding"}, 4), stock.shares_outstanding);
     parseDouble(getField({"marketcap"}, 5), stock.market_cap);
+    parseDouble(getField({"dividendyield", "dividend_yield"}, 9999), stock.dividend_yield);
 
     // Income statement
     parseDouble(getField({"revenue"}, 6), stock.revenue);

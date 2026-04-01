@@ -35,3 +35,15 @@ target_include_directories(backtest_tests
 )
 
 add_test(NAME backtest_tests COMMAND backtest_tests)
+
+add_executable(csv_load_tests
+    test_csv_load.cpp
+    ../src/core/StockRepository.cpp
+)
+
+target_include_directories(csv_load_tests
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/../include
+)
+
+add_test(NAME csv_load_tests COMMAND csv_load_tests)

@@ -13,13 +13,12 @@
 class WatchListRepo
 {
 public:
-
     /**
-     * @brief Result returned when loading a watchlist.
+     * @brief Result returned when loading watchlists from disk.
      */
     struct LoadResult
     {
-        WatchList watchlist;
+        std::vector<WatchList> watchlists;
         std::vector<std::string> errors;
     };
 
@@ -33,7 +32,6 @@ public:
     };
 
 public:
-
     /**
      * @brief Create a repo bound to a file path.
      *
@@ -43,22 +41,41 @@ public:
         : filepath_(filepath) {}
 
     /**
-     * @brief Load the watchlist from disk.
+     * @brief Load the first watchlist from disk.
      *
-     * @return LoadResult containing the watchlist and any errors.
+     * Preserves the old single-watchlist style interface.
+     *
+     * @return The first watchlist found, or an empty/default one if none exist.
      */
     LoadResult load() const;
 
     /**
-     * @brief Save the watchlist to disk.
+     * @brief Load all watchlists from disk.
+     *
+     * @return LoadResult containing all watchlists and any errors.
+     */
+    LoadResult loadAll() const;
+
+    /**
+     * @brief Save a single watchlist to disk.
+     *
+     * Preserves the old single-watchlist style interface.
+     * This writes just one watchlist to the file.
      *
      * @param wl Watchlist to save.
      * @return SaveResult indicating success or failure.
      */
     SaveResult save(const WatchList& wl) const;
 
-private:
+    /**
+     * @brief Save all watchlists to disk.
+     *
+     * @param watchlists Watchlists to save.
+     * @return SaveResult indicating success or failure.
+     */
+    SaveResult saveAll(const std::vector<WatchList>& watchlists) const;
 
+private:
     /**
      * @brief File path used for persistence.
      */

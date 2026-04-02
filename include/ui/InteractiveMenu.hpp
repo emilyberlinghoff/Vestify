@@ -153,7 +153,9 @@ private:
      * populate the in-memory watchlist collection. Any parsing or file errors
      * are reported to the console but do not terminate the program.
      */
-    void loadDemoWatchlist();
+    //void loadDemoWatchlist();
+
+    void loadWatchlists();
 
     /**
      * @brief Save the current demo watchlist to disk.
@@ -162,7 +164,9 @@ private:
      * through the WatchListRepo. This is typically called after modifications
      * such as adding or removing stocks.
      */
-    void saveDemoWatchlist() const;
+    //void saveDemoWatchlist() const;
+
+    void saveWatchlists() const;
 
     /**
      * @brief Display and manage the watchlist menu.
@@ -215,6 +219,13 @@ private:
      */
     static std::string readLine(const std::string &prompt);
 
+
+
+    //New member variables supporting multiple watchlists
+
+    // int selectedWatchlistIndex_ = -1;
+    // bool lockWatchlistSelection_ = false;
+
     /**
      * @brief Create a new watchlist.
      *
@@ -226,44 +237,47 @@ private:
     bool createWatchlist();
 
     /**
-     * @brief Rename an existing watchlist.
-     *
-     * Allows the user to select a watchlist and assign it a new name.
-     * Ensures the new name is not empty and updates the watchlist object.
-     *
-     * @return True if the watchlist was renamed, false otherwise.
-     */
-    bool renameWatchlist();
+    * @brief Rename an existing watchlist.
+    *
+    * Allows the user to assign a new name to the specified watchlist.
+    * Ensures the new name is not empty and does not conflict with existing names.
+    *
+    * @param index Zero-based index of the watchlist to rename.
+    * @return True if the watchlist was renamed, false otherwise.
+    */
+    bool renameWatchlist(int index);
 
     /**
-     * @brief Delete a watchlist.
-     *
-     * Prompts the user to select a watchlist and removes it from the
-     * in-memory watchlist collection.
-     *
-     * @return True if a watchlist was deleted, false otherwise.
-     */
-    bool deleteWatchlist();
+    * @brief Delete a watchlist.
+    *
+    * Removes the specified watchlist from the in-memory collection.
+    *
+    * @param index Zero-based index of the watchlist to delete.
+    * @return True if a watchlist was deleted, false otherwise.
+    */
+    bool deleteWatchlist(int index);
 
     /**
-     * @brief Add a stock ticker to a watchlist.
-     *
-     * Prompts the user for a ticker symbol and adds it to the selected
-     * watchlist if the ticker exists in the repository and is not already present.
-     *
-     * @return True if the ticker was added, false otherwise.
-     */
-    bool addStockToWatchlist();
+    * @brief Add a stock ticker to a watchlist.
+    *
+    * Prompts the user for a ticker symbol and adds it to the specified
+    * watchlist if the ticker exists in the repository and is not already present.
+    *
+    * @param index Zero-based index of the watchlist to modify.
+    * @return True if the ticker was added, false otherwise.
+    */
+    bool addStockToWatchlist(int index);
 
     /**
-     * @brief Remove a stock ticker from a watchlist.
-     *
-     * Prompts the user for a ticker symbol and removes it from the
-     * selected watchlist if it exists.
-     *
-     * @return True if the ticker was removed, false otherwise.
-     */
-    bool removeStockFromWatchlist();
+    * @brief Remove a stock ticker from a watchlist.
+    *
+    * Prompts the user for a ticker symbol and removes it from the
+    * specified watchlist if it exists.
+    *
+    * @param index Zero-based index of the watchlist to modify.
+    * @return True if the ticker was removed, false otherwise.
+    */
+    bool removeStockFromWatchlist(int index);
 
     /**
      * @brief Display all available watchlists.

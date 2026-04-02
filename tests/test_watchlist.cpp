@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include "core/Watchlist.hpp"
+#include "core/WatchList.hpp"
 #include "persistence/WatchlistRepo.hpp"
 
 static const std::string TEMP_FILE = "test_wl_tmp.json";
@@ -79,11 +79,11 @@ bool testSaveAndLoad()
     bool ok = assertTrue(saved.ok, "Save should succeed");
 
     auto loaded = repo.load();
-    ok &= assertTrue(loaded.errors.empty(), "No errors on load");
-    ok &= assertTrue(loaded.watchlist.size() == 3, "Should load 3 tickers");
-    ok &= assertTrue(loaded.watchlist.has("AAPL"), "Loaded AAPL");
-    ok &= assertTrue(loaded.watchlist.has("MSFT"), "Loaded MSFT");
-    ok &= assertTrue(loaded.watchlist.has("GOOG"), "Loaded GOOG");
+    ok &= assertTrue(!loaded.watchlists.empty(), "Should load one watchlist");
+    ok &= assertTrue(loaded.watchlists[0].size() == 3, "Should load 3 tickers");
+    ok &= assertTrue(loaded.watchlists[0].has("AAPL"), "Loaded AAPL");
+    ok &= assertTrue(loaded.watchlists[0].has("MSFT"), "Loaded MSFT");
+    ok &= assertTrue(loaded.watchlists[0].has("GOOG"), "Loaded GOOG");
 
     removeTempFile();
     return ok;
@@ -103,7 +103,7 @@ bool testNoFile()
 
     bool ok = true;
     ok &= assertTrue(res.errors.empty(), "No errors when file missing");
-    ok &= assertTrue(res.watchlist.empty(), "Empty watchlist when no file");
+    ok &= assertTrue(res.watchlists.empty(), "Empty watchlist when no file");
     return ok;
 }
 
@@ -126,7 +126,7 @@ bool testCorruptedFile()
 
     bool ok = true;
     ok &= assertTrue(!res.errors.empty(), "Should report parse error");
-    ok &= assertTrue(res.watchlist.empty(), "Watchlist empty on bad file");
+    ok &= assertTrue(res.watchlists.empty(), "Watchlist empty on bad file");
 
     removeTempFile();
     return ok;
@@ -153,7 +153,8 @@ bool testDataMatchesAfterRoundTrip()
     bool ok = assertTrue(loaded.errors.empty(), "Clean load");
 
     const auto &before = orig.getAll();
-    const auto &after = loaded.watchlist.getAll();
+    ok &= assertTrue(!loaded.watchlists.empty(), "Should load one watchlist");
+    const auto &after = loaded.watchlists[0].getAll();
     ok &= assertTrue(before.size() == after.size(), "Same count");
 
     for (size_t i = 0; i < before.size(); i++)
@@ -183,7 +184,8 @@ bool testSaveEmpty()
 
     auto loaded = repo.load();
     ok &= assertTrue(loaded.errors.empty(), "No errors loading empty");
-    ok &= assertTrue(loaded.watchlist.empty(), "Still empty after roundtrip");
+    ok &= assertTrue(!loaded.watchlists.empty(), "Should load one watchlist");
+    ok &= assertTrue(loaded.watchlists[0].empty(), "Still empty after roundtrip");
 
     removeTempFile();
     return ok;

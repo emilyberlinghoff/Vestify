@@ -1,79 +1,152 @@
 #include "persistence/WatchListRepo.hpp"
 
 #include <fstream>
+#include <exception>
 #include <nlohmann/json.hpp>
 
-/**
- * @brief Load the watchlist from the JSON file.
- *
- * @return LoadResult with watchlist and any errors.
- */
 WatchListRepo::LoadResult WatchListRepo::load() const
 {
-    LoadResult out;
+    LoadResult allResult = loadAll();
+
+    // Keep old behaviour conceptually: caller can use the first watchlist.
+    if (allResult.watchlists.empty())
+    {
+        allResult.watchlists.push_back(WatchList("Default"));
+    }
+
+    // Return only the first watchlist in the vector if you want "single" semantics.
+    // Since the struct now stores a vector, caller can use watchlists[0].
+    if (allResult.watchlists.size() > 1)
+    {
+        allResult.watchlists = { allResult.watchlists[0] };
+    }
+
+    return allResult;
+}
+
+WatchListRepo::LoadResult WatchListRepo::loadAll() const
+{
+    LoadResult res;
 
     std::ifstream infile(filepath_);
     if (!infile.is_open())
     {
-        return out;
+        res.errors.push_back("Could not open file for reading: " + filepath_);
+        return res;
     }
-
-    nlohmann::json j;
 
     try
     {
+        nlohmann::json j;
         infile >> j;
-    }
-    catch (const nlohmann::json::parse_error &ex)
-    {
-        out.errors.push_back(
-            "Could not parse watchlist (" + filepath_ + "): " + ex.what());
-        return out;
-    }
 
-    if (j.contains("name") && j["name"].is_string())
-    {
-        out.watchlist.setName(j["name"].get<std::string>());
-    }
-
-    if (!j.contains("tickers") || !j["tickers"].is_array())
-    {
-        out.errors.push_back("Watchlist json missing tickers array: " + filepath_);
-        return out;
-    }
-
-    for (const auto &entry : j["tickers"])
-    {
-        if (entry.is_string())
+        // Support old format:
+        // {
+        //   "name": "Tech",
+        //   "tickers": ["AAPL", "MSFT"]
+        // }
+        if (j.is_object())
         {
-            out.watchlist.add(entry.get<std::string>());
+            if (!j.contains("name") || !j["name"].is_string())
+            {
+                res.errors.push_back("Missing or invalid watchlist name.");
+                return res;
+            }
+
+            WatchList wl(j["name"].get<std::string>());
+
+            if (j.contains("tickers") && j["tickers"].is_array())
+            {
+                for (const auto& ticker : j["tickers"])
+                {
+                    if (ticker.is_string())
+                    {
+                        wl.add(ticker.get<std::string>());
+                    }
+                    else
+                    {
+                        res.errors.push_back("Encountered non-string ticker in single watchlist.");
+                    }
+                }
+            }
+            else
+            {
+                res.errors.push_back("Missing or invalid tickers array in single watchlist.");
+            }
+
+            res.watchlists.push_back(wl);
+            return res;
         }
-        else
+
+        // Support new format:
+        // [
+        //   {"name":"Tech","tickers":["AAPL","MSFT"]},
+        //   {"name":"Banks","tickers":["JPM","BAC"]}
+        // ]
+        if (j.is_array())
         {
-            out.errors.push_back("Skipped non-string entry in watchlist file");
+            for (const auto& item : j)
+            {
+                if (!item.is_object())
+                {
+                    res.errors.push_back("Encountered non-object entry in watchlists array.");
+                    continue;
+                }
+
+                if (!item.contains("name") || !item["name"].is_string())
+                {
+                    res.errors.push_back("A watchlist is missing a valid name.");
+                    continue;
+                }
+
+                WatchList wl(item["name"].get<std::string>());
+
+                if (item.contains("tickers") && item["tickers"].is_array())
+                {
+                    for (const auto& ticker : item["tickers"])
+                    {
+                        if (ticker.is_string())
+                        {
+                            wl.add(ticker.get<std::string>());
+                        }
+                        else
+                        {
+                            res.errors.push_back(
+                                "Encountered non-string ticker in watchlist: " + wl.getName());
+                        }
+                    }
+                }
+                else
+                {
+                    res.errors.push_back(
+                        "Missing or invalid tickers array in watchlist: " + wl.getName());
+                }
+
+                res.watchlists.push_back(wl);
+            }
+
+            return res;
         }
+
+        res.errors.push_back("Invalid JSON format in watchlist file.");
+    }
+    catch (const std::exception& ex)
+    {
+        res.errors.push_back(std::string("Failed to parse JSON: ") + ex.what());
     }
 
-    return out;
+    return res;
 }
 
-/**
- * @brief Write the watchlist to the JSON file.
- *
- * @param wl Watchlist to save.
- * @return SaveResult indicating success or failure.
- */
-WatchListRepo::SaveResult WatchListRepo::save(const WatchList &wl) const
+WatchListRepo::SaveResult WatchListRepo::save(const WatchList& wl) const
 {
     SaveResult res;
 
     nlohmann::json j;
-
     j["name"] = wl.getName();
     j["tickers"] = wl.getAll();
 
     std::ofstream outfile(filepath_);
-
     if (!outfile.is_open())
     {
         res.errMsg = "Cant open file for writing: " + filepath_;
@@ -85,7 +158,41 @@ WatchListRepo::SaveResult WatchListRepo::save(const WatchList &wl) const
         outfile << j.dump(2);
         res.ok = true;
     }
-    catch (const std::exception &ex)
+    catch (const std::exception& ex)
+    {
+        res.errMsg = std::string("Write failed: ") + ex.what();
+    }
+
+    return res;
+}
+
+WatchListRepo::SaveResult WatchListRepo::saveAll(const std::vector<WatchList>& watchlists) const
+{
+    SaveResult res;
+
+    nlohmann::json root = nlohmann::json::array();
+
+    for (const auto& watchlist : watchlists)
+    {
+        nlohmann::json item;
+        item["name"] = watchlist.getName();
+        item["tickers"] = watchlist.getAll();
+        root.push_back(item);
+    }
+
+    std::ofstream outfile(filepath_);
+    if (!outfile.is_open())
+    {
+        res.errMsg = "Cant open file for writing: " + filepath_;
+        return res;
+    }
+
+    try
+    {
+        outfile << root.dump(2);
+        res.ok = true;
+    }
+    catch (const std::exception& ex)
     {
         res.errMsg = std::string("Write failed: ") + ex.what();
     }

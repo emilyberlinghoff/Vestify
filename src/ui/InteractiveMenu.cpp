@@ -71,7 +71,8 @@ InteractiveMenu::InteractiveMenu()
     : watchlistRepo_("src/persistence/demo_watchlist.json")
 {
     loadEnvFromFile(".env");
-    loadDemoWatchlist();
+    //loadDemoWatchlist();
+    loadWatchlists();
 }
 
 /**
@@ -393,18 +394,39 @@ void InteractiveMenu::searchTicker() const
  * appends the loaded watchlist to the in-memory collection if it contains
  * either a name or ticker data.
  */
-void InteractiveMenu::loadDemoWatchlist()
-{
-    auto result = watchlistRepo_.load();
+// void InteractiveMenu::loadDemoWatchlist()
+// {
+//     auto result = watchlistRepo_.load();
 
-    for (const auto &error : result.errors)
+//     for (const auto &error : result.errors)
+//     {
+//         std::cerr << error << "\n";
+//     }
+
+//     if (!result.watchlist.empty() || !result.watchlist.getName().empty())
+//     {
+//         watchlists_.push_back(result.watchlist);
+//     }
+// }
+
+void InteractiveMenu::loadWatchlists()
+{
+    auto result = watchlistRepo_.loadAll();
+
+    if (!result.errors.empty())
     {
-        std::cerr << error << "\n";
+        for (const auto& err : result.errors)
+        {
+            std::cerr << err << "\n";
+        }
     }
 
-    if (!result.watchlist.empty() || !result.watchlist.getName().empty())
+    watchlists_ = result.watchlists;
+
+    // Optional: ensure at least one exists
+    if (watchlists_.empty())
     {
-        watchlists_.push_back(result.watchlist);
+        watchlists_.push_back(WatchList("Default"));
     }
 }
 
@@ -414,19 +436,30 @@ void InteractiveMenu::loadDemoWatchlist()
  * Persists the first watchlist in the in-memory collection using the
  * watchlist repository. If no watchlists are present, no save is attempted.
  */
-void InteractiveMenu::saveDemoWatchlist() const
-{
-    if (watchlists_.empty())
-    {
-        return;
-    }
+// void InteractiveMenu::saveDemoWatchlist() const
+// {
+//     if (watchlists_.empty())
+//     {
+//         return;
+//     }
 
-    auto result = watchlistRepo_.save(watchlists_[0]);
+//     auto result = watchlistRepo_.save(watchlists_[0]);
+//     if (!result.ok)
+//     {
+//         std::cerr << result.errMsg << "\n";
+//     }
+// }
+
+void InteractiveMenu::saveWatchlists() const
+{
+    auto result = watchlistRepo_.saveAll(watchlists_);
+
     if (!result.ok)
     {
         std::cerr << result.errMsg << "\n";
     }
 }
+
 
 /**
  * @brief Print the names of all available watchlists.
@@ -443,6 +476,7 @@ void InteractiveMenu::printAllWatchlists() const
     }
 
     std::cout << "\nWatchlists:\n";
+
     for (std::size_t i = 0; i < watchlists_.size(); ++i)
     {
         std::cout << i + 1 << ". " << watchlists_[i].getName() << "\n";
@@ -518,11 +552,11 @@ bool InteractiveMenu::createWatchlist()
  *
  * @return True if the watchlist was renamed, false otherwise.
  */
-bool InteractiveMenu::renameWatchlist()
+bool InteractiveMenu::renameWatchlist(int index)
 {
-    int index = selectWatchlistIndex();
-    if (index == -1)
+    if (index < 0 || index >= static_cast<int>(watchlists_.size()))
     {
+        std::cout << "Invalid watchlist selection.\n";
         return false;
     }
 
@@ -547,7 +581,6 @@ bool InteractiveMenu::renameWatchlist()
     std::cout << "Watchlist renamed.\n";
     return true;
 }
-
 /**
  * @brief Delete an existing watchlist.
  *
@@ -556,11 +589,11 @@ bool InteractiveMenu::renameWatchlist()
  *
  * @return True if the watchlist was deleted, false otherwise.
  */
-bool InteractiveMenu::deleteWatchlist()
+bool InteractiveMenu::deleteWatchlist(int index)
 {
-    int index = selectWatchlistIndex();
-    if (index == -1)
+    if (index < 0 || index >= static_cast<int>(watchlists_.size()))
     {
+        std::cout << "Invalid watchlist selection.\n";
         return false;
     }
 
@@ -577,7 +610,7 @@ bool InteractiveMenu::deleteWatchlist()
  *
  * @return True if the ticker was added, false otherwise.
  */
-bool InteractiveMenu::addStockToWatchlist()
+bool InteractiveMenu::addStockToWatchlist(int index)
 {
     if (repository_.getAll().empty())
     {
@@ -585,9 +618,9 @@ bool InteractiveMenu::addStockToWatchlist()
         return false;
     }
 
-    int index = selectWatchlistIndex();
-    if (index == -1)
+    if (index < 0 || index >= static_cast<int>(watchlists_.size()))
     {
+        std::cout << "Invalid watchlist selection.\n";
         return false;
     }
 
@@ -619,11 +652,11 @@ bool InteractiveMenu::addStockToWatchlist()
  *
  * @return True if the ticker was removed, false otherwise.
  */
-bool InteractiveMenu::removeStockFromWatchlist()
+bool InteractiveMenu::removeStockFromWatchlist(int index)
 {
-    int index = selectWatchlistIndex();
-    if (index == -1)
+    if (index < 0 || index >= static_cast<int>(watchlists_.size()))
     {
+        std::cout << "Invalid watchlist selection.\n";
         return false;
     }
 
@@ -727,11 +760,38 @@ void InteractiveMenu::openSingleWatchlist() const
  */
 void InteractiveMenu::modifyWatchlistMenu()
 {
+    if (watchlists_.empty())
+    {
+        std::cout << "No watchlists available to modify.\n";
+        return;
+    }
+
+    printAllWatchlists();
+    std::cout << "\nSelect a watchlist to modify (0 to cancel): ";
+    int selection = readInt();
+
+    if (selection == 0)
+    {
+        return;
+    }
+
+    if (selection < 1 || selection > static_cast<int>(watchlists_.size()))
+    {
+        std::cout << "Invalid watchlist selection.\n";
+        return;
+    }
+
+    int index = selection - 1;
     bool modifying = true;
 
     while (modifying)
     {
-        std::cout << "\nModify Watchlist\n";
+        if (watchlists_.empty() || index < 0 || index >= static_cast<int>(watchlists_.size()))
+        {
+            break;
+        }
+
+        std::cout << "\nModify Watchlist: " << watchlists_[index].getName() << "\n";
         std::cout << "1. Add stock\n";
         std::cout << "2. Remove stock\n";
         std::cout << "3. Rename watchlist\n";
@@ -744,32 +804,38 @@ void InteractiveMenu::modifyWatchlistMenu()
         switch (choice)
         {
         case 1:
-            if (addStockToWatchlist())
+            if (addStockToWatchlist(index))
             {
-                saveDemoWatchlist();
+                saveWatchlists();
             }
             break;
+
         case 2:
-            if (removeStockFromWatchlist())
+            if (removeStockFromWatchlist(index))
             {
-                saveDemoWatchlist();
+                saveWatchlists();
             }
             break;
+
         case 3:
-            if (renameWatchlist())
+            if (renameWatchlist(index))
             {
-                saveDemoWatchlist();
+                saveWatchlists();
             }
             break;
+
         case 4:
-            if (deleteWatchlist())
+            if (deleteWatchlist(index))
             {
-                saveDemoWatchlist();
+                saveWatchlists();
+                modifying = false;
             }
             break;
+
         case 5:
             modifying = false;
             break;
+
         default:
             std::cout << "Invalid option.\n";
             break;
@@ -804,7 +870,8 @@ void InteractiveMenu::watchlistMenu()
         case 1:
             if (createWatchlist())
             {
-                saveDemoWatchlist();
+                //saveDemoWatchlist();
+                saveWatchlists();
             }
             break;
         case 2:
@@ -1384,7 +1451,8 @@ void InteractiveMenu::runInteractive()
             break;
         case 7:
             watchlistMenu();
-            saveDemoWatchlist();
+            //saveDemoWatchlist();
+            saveWatchlists();
             break;
         case 8:
             scoreAndRankStocks();

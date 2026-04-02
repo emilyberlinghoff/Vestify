@@ -1,10 +1,21 @@
-{
-  "name": "Tech Growth",
-  "tickers": [
-    "MSFT",
-    "NVDA",
-    "GOOGL",
-    "AMZN",
-    "AAPL"
-  ]
-}
+[
+  {
+    "name": "Tech",
+    "tickers": [
+      "MSFT",
+      "GOOG",
+      "AMZN",
+      "AAPL"
+    ]
+  },
+  {
+    "name": "Finance",
+    "tickers": [
+      "PYPL"
+    ]
+  },
+  {
+    "name": "Demo",
+    "tickers": []
+  }
+]

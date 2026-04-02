@@ -26,6 +26,8 @@
 #include "scoring/MomentumScoringModel.hpp"
 #include "scoring/StrategyPresent.hpp"
 #include "scoring/ValueScoringModel.hpp"
+#include "scoring/QualityScoringModel.hpp"
+#include "scoring/EfficiencyScoringModel.hpp"
 #include "ui/ScreeningMenu.hpp"
 #include "ui/StockPrinter.hpp"
 
@@ -845,6 +847,10 @@ void InteractiveMenu::scoreAndRankStocks()
     ValueScoringModel valueModel;
     GrowthScoringModel growthModel;
     MomentumScoringModel momentumModel;
+    QualityScoringModel qualityModel;
+    EfficiencyScoringModel efficiencyModel;
+    manager.registerModel(&qualityModel);
+    manager.registerModel(&efficiencyModel);
     manager.registerModel(&valueModel);
     manager.registerModel(&growthModel);
     manager.registerModel(&momentumModel);
@@ -1145,6 +1151,10 @@ void InteractiveMenu::runBacktest()
     ValueScoringModel valueModel;
     GrowthScoringModel growthModel;
     MomentumScoringModel momentumModel;
+    QualityScoringModel qualityModel;
+    EfficiencyScoringModel efficiencyModel;
+    manager.registerModel(&qualityModel);
+    manager.registerModel(&efficiencyModel);
     manager.registerModel(&valueModel);
     manager.registerModel(&growthModel);
     manager.registerModel(&momentumModel);

@@ -253,26 +253,37 @@ private:
     void initPresets() {
         presets_["Value"] = ScoringStrategy(
             "Value",
-            "Favours undervalued stocks with strong fundamentals (low P/E, high dividend yield).",
-            {{"Value", 0.60}, {"Growth", 0.20}, {"Momentum", 0.20}}
+            "Favours undervalued stocks (low P/E, high dividend/FCF yield, cheap EV/FCF).",
+            {{"Value", 0.45}, {"Quality", 0.20}, {"Growth", 0.10},
+             {"Momentum", 0.10}, {"Efficiency", 0.15}}
         );
 
         presets_["Growth"] = ScoringStrategy(
             "Growth",
-            "Targets companies with high earnings and revenue growth potential.",
-            {{"Value", 0.15}, {"Growth", 0.60}, {"Momentum", 0.25}}
+            "Targets companies with high margins, strong ROE, and earnings growth potential.",
+            {{"Growth", 0.45}, {"Efficiency", 0.20}, {"Momentum", 0.15},
+             {"Value", 0.10}, {"Quality", 0.10}}
         );
 
         presets_["Momentum"] = ScoringStrategy(
             "Momentum",
-            "Emphasises recent price trends and market momentum.",
-            {{"Value", 0.10}, {"Growth", 0.20}, {"Momentum", 0.70}}
+            "Emphasises profitability trends and cash flow strength.",
+            {{"Momentum", 0.40}, {"Growth", 0.20}, {"Efficiency", 0.20},
+             {"Value", 0.10}, {"Quality", 0.10}}
+        );
+
+        presets_["Quality"] = ScoringStrategy(
+            "Quality",
+            "Prioritises financial health: low debt, strong margins, and high ROE.",
+            {{"Quality", 0.45}, {"Efficiency", 0.20}, {"Value", 0.15},
+             {"Growth", 0.10}, {"Momentum", 0.10}}
         );
 
         presets_["Balanced"] = ScoringStrategy(
             "Balanced",
-            "Equal weighting across all scoring dimensions.",
-            {{"Value", 0.34}, {"Growth", 0.33}, {"Momentum", 0.33}}
+            "Equal weighting across all five scoring dimensions.",
+            {{"Value", 0.20}, {"Growth", 0.20}, {"Momentum", 0.20},
+             {"Quality", 0.20}, {"Efficiency", 0.20}}
         );
     }
 

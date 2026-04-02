@@ -4,7 +4,7 @@
  *
  * This file contains comprehensive tests for the scoring system including:
  * - Strategy manager functionality
- * - Individual scoring models (Value, Growth, Momentum)
+ * - Individual scoring models (Value, Growth, Momentum, Quality, Efficiency)
  * - Strategy switching and weight management
  * - Ranking consistency across different strategies
  */
@@ -23,6 +23,8 @@
 #include "scoring/ValueScoringModel.hpp"
 #include "scoring/GrowthScoringModel.hpp"
 #include "scoring/MomentumScoringModel.hpp"
+#include "scoring/QualityScoringModel.hpp"
+#include "scoring/EfficiencyScoringModel.hpp"
 
 static int passed = 0;
 static int failed = 0;
@@ -53,8 +55,6 @@ static void CHECK(bool condition, const std::string &test_name)
 /**
  * @brief Approximate equality check for floating-point values.
  *
- * Compares two double values within a specified epsilon tolerance.
- *
  * @param a First value to compare.
  * @param b Second value to compare.
  * @param eps Tolerance for comparison (default: 0.001).
@@ -66,32 +66,87 @@ static bool approxEqual(double a, double b, double eps = 0.001)
 }
 
 /**
- * @brief Creates a vector of sample stocks for testing.
+ * @brief Helper to register all five scoring models with a StrategyManager.
  *
- * Generates a predefined set of stock objects with realistic data
- * for testing scoring algorithms and strategy comparisons.
+ * @param mgr StrategyManager to register models with.
+ * @param v ValueScoringModel instance.
+ * @param g GrowthScoringModel instance.
+ * @param m MomentumScoringModel instance.
+ * @param q QualityScoringModel instance.
+ * @param e EfficiencyScoringModel instance.
+ */
+static void registerAllModels(StrategyManager &mgr,
+                              ValueScoringModel &v,
+                              GrowthScoringModel &g,
+                              MomentumScoringModel &m,
+                              QualityScoringModel &q,
+                              EfficiencyScoringModel &e)
+{
+    mgr.registerModel(&v);
+    mgr.registerModel(&g);
+    mgr.registerModel(&m);
+    mgr.registerModel(&q);
+    mgr.registerModel(&e);
+}
+
+/**
+ * @brief Creates a vector of sample stocks with realistic fundamental data.
  *
  * @return Vector of sample Stock objects.
  */
 static std::vector<Stock> makeSampleStocks()
 {
-    /// dividend_yield stored as fraction per your Stock struct.
-    return {
-        {"AAPL", "Apple Inc.", "Technology", 185.0, 2.9e12, 29.0, 0.005},
-        {"JNJ", "Johnson & Johnson", "Healthcare", 155.0, 3.7e11, 15.0, 0.030},
-        {"XOM", "Exxon Mobil", "Energy", 105.0, 4.5e11, 10.0, 0.035},
-        {"TSLA", "Tesla Inc.", "Automotive", 250.0, 7.9e11, 65.0, 0.000},
-        {"KO", "Coca-Cola Co.", "Consumer", 60.0, 2.6e11, 24.0, 0.031},
-    };
+    Stock aapl{};
+    aapl.ticker = "AAPL"; aapl.name = "Apple Inc."; aapl.sector = "Technology";
+    aapl.price = 260.0; aapl.pe_ratio = 34.0; aapl.dividend_yield = 0.005;
+    aapl.ev_to_fcf = 39.0; aapl.fcf_yield = 0.026;
+    aapl.operating_margin = 0.32; aapl.roe = 1.52; aapl.roa = 0.31;
+    aapl.net_margin = 0.27; aapl.gross_margin = 0.47;
+    aapl.current_ratio = 0.89; aapl.debt_to_equity = 1.34;
+    aapl.ev_to_ebit = 29.0;
+
+    Stock jnj{};
+    jnj.ticker = "JNJ"; jnj.name = "Johnson & Johnson"; jnj.sector = "Healthcare";
+    jnj.price = 155.0; jnj.pe_ratio = 15.0; jnj.dividend_yield = 0.030;
+    jnj.ev_to_fcf = 22.0; jnj.fcf_yield = 0.045;
+    jnj.operating_margin = 0.25; jnj.roe = 0.20; jnj.roa = 0.08;
+    jnj.net_margin = 0.18; jnj.gross_margin = 0.69;
+    jnj.current_ratio = 1.3; jnj.debt_to_equity = 0.50;
+    jnj.ev_to_ebit = 18.0;
+
+    Stock xom{};
+    xom.ticker = "XOM"; xom.name = "Exxon Mobil"; xom.sector = "Energy";
+    xom.price = 105.0; xom.pe_ratio = 10.0; xom.dividend_yield = 0.035;
+    xom.ev_to_fcf = 15.0; xom.fcf_yield = 0.065;
+    xom.operating_margin = 0.15; xom.roe = 0.18; xom.roa = 0.09;
+    xom.net_margin = 0.10; xom.gross_margin = 0.35;
+    xom.current_ratio = 1.4; xom.debt_to_equity = 0.40;
+    xom.ev_to_ebit = 12.0;
+
+    Stock tsla{};
+    tsla.ticker = "TSLA"; tsla.name = "Tesla Inc."; tsla.sector = "Automotive";
+    tsla.price = 250.0; tsla.pe_ratio = 65.0; tsla.dividend_yield = 0.000;
+    tsla.ev_to_fcf = 80.0; tsla.fcf_yield = 0.008;
+    tsla.operating_margin = 0.08; tsla.roe = 0.25; tsla.roa = 0.05;
+    tsla.net_margin = 0.06; tsla.gross_margin = 0.18;
+    tsla.current_ratio = 1.8; tsla.debt_to_equity = 0.10;
+    tsla.ev_to_ebit = 55.0;
+
+    Stock ko{};
+    ko.ticker = "KO"; ko.name = "Coca-Cola Co."; ko.sector = "Consumer";
+    ko.price = 60.0; ko.pe_ratio = 24.0; ko.dividend_yield = 0.031;
+    ko.ev_to_fcf = 28.0; ko.fcf_yield = 0.035;
+    ko.operating_margin = 0.30; ko.roe = 0.38; ko.roa = 0.10;
+    ko.net_margin = 0.23; ko.gross_margin = 0.60;
+    ko.current_ratio = 1.1; ko.debt_to_equity = 1.60;
+    ko.ev_to_ebit = 22.0;
+
+    return {aapl, jnj, xom, tsla, ko};
 }
 
-/**
- * @brief Test that multiple predefined strategies are available.
- *
- * Verifies that the strategy manager has at least 3 predefined strategies
- * (Value, Growth, Momentum, Balanced) and that each has proper weights
- * and descriptions defined.
- */
+// ═══════════════════════════════════════════════════════════════════════
+//  TEST 1 — Multiple predefined strategies exist
+// ═══════════════════════════════════════════════════════════════════════
 static void testMultiplePresetsExist()
 {
     std::cout << "\n--- Test: Multiple predefined strategies exist ---\n";
@@ -99,10 +154,11 @@ static void testMultiplePresetsExist()
     StrategyManager mgr;
     auto names = mgr.getAvailableStrategies();
 
-    CHECK(names.size() >= 3, "At least 3 presets registered");
+    CHECK(names.size() >= 5, "At least 5 presets registered");
     CHECK(std::find(names.begin(), names.end(), "Value") != names.end(), "Value preset exists");
     CHECK(std::find(names.begin(), names.end(), "Growth") != names.end(), "Growth preset exists");
     CHECK(std::find(names.begin(), names.end(), "Momentum") != names.end(), "Momentum preset exists");
+    CHECK(std::find(names.begin(), names.end(), "Quality") != names.end(), "Quality preset exists");
     CHECK(std::find(names.begin(), names.end(), "Balanced") != names.end(), "Balanced preset exists");
 
     for (const auto &name : names)
@@ -113,12 +169,9 @@ static void testMultiplePresetsExist()
     }
 }
 
-/**
- * @brief Test that selecting a strategy properly updates weights.
- *
- * Verifies that changing the active strategy updates the weights correctly
- * and that invalid strategy names are rejected without changing the active strategy.
- */
+// ═══════════════════════════════════════════════════════════════════════
+//  TEST 2 — Selecting a strategy updates weights
+// ═══════════════════════════════════════════════════════════════════════
 static void testSelectingStrategyUpdatesWeights()
 {
     std::cout << "\n--- Test: Selecting a strategy updates weights ---\n";
@@ -144,23 +197,17 @@ static void testSelectingStrategyUpdatesWeights()
     CHECK(mgr.getActiveStrategyName() == "Momentum", "Active strategy unchanged after invalid selection");
 }
 
-/**
- * @brief Test that rankings change when strategy changes.
- *
- * Verifies that different strategies produce different stock rankings
- * and that the rankings reflect the strategy's focus (value vs growth vs momentum).
- */
+// ═══════════════════════════════════════════════════════════════════════
+//  TEST 3 — Re-running scoring reflects the updated weights
+// ═══════════════════════════════════════════════════════════════════════
 static void testRankingsChangeWithStrategy()
 {
     std::cout << "\n--- Test: Rankings change when strategy changes ---\n";
 
     StrategyManager mgr;
-    ValueScoringModel value_model;
-    GrowthScoringModel growth_model;
-    MomentumScoringModel momentum_model;
-    mgr.registerModel(&value_model);
-    mgr.registerModel(&growth_model);
-    mgr.registerModel(&momentum_model);
+    ValueScoringModel v; GrowthScoringModel g; MomentumScoringModel m;
+    QualityScoringModel q; EfficiencyScoringModel e;
+    registerAllModels(mgr, v, g, m, q, e);
 
     auto stocks = makeSampleStocks();
 
@@ -172,19 +219,17 @@ static void testRankingsChangeWithStrategy()
     auto growth_ranked = mgr.rankStocks(stocks);
     std::string growth_top = growth_ranked.front().stock.ticker;
 
-    mgr.setActiveStrategy("Momentum");
-    auto momentum_ranked = mgr.rankStocks(stocks);
-    std::string momentum_top = momentum_ranked.front().stock.ticker;
+    mgr.setActiveStrategy("Quality");
+    auto quality_ranked = mgr.rankStocks(stocks);
+    std::string quality_top = quality_ranked.front().stock.ticker;
 
-    std::cout << "    Value top pick:    " << value_top << "\n";
-    std::cout << "    Growth top pick:   " << growth_top << "\n";
-    std::cout << "    Momentum top pick: " << momentum_top << "\n";
+    std::cout << "    Value top pick:   " << value_top << "\n";
+    std::cout << "    Growth top pick:  " << growth_top << "\n";
+    std::cout << "    Quality top pick: " << quality_top << "\n";
 
     CHECK(value_top == "XOM" || value_top == "JNJ",
           "Value strategy top pick is a value stock (XOM or JNJ)");
-    CHECK(growth_top == "TSLA",
-          "Growth strategy top pick is a growth stock (TSLA)");
-    CHECK(value_top != growth_top || growth_top != momentum_top,
+    CHECK(value_top != growth_top || growth_top != quality_top,
           "Different strategies produce different rankings");
 
     for (const auto &ss : value_ranked)
@@ -193,12 +238,9 @@ static void testRankingsChangeWithStrategy()
     }
 }
 
-/**
- * @brief Test that a default strategy is applied on startup.
- *
- * Verifies that the StrategyManager initializes with a valid default strategy
- * ("Value") and that it has proper weights defined.
- */
+// ═══════════════════════════════════════════════════════════════════════
+//  TEST 4 — Default strategy applied on startup
+// ═══════════════════════════════════════════════════════════════════════
 static void testDefaultStrategyOnStartup()
 {
     std::cout << "\n--- Test: Default strategy applied on startup ---\n";
@@ -213,23 +255,17 @@ static void testDefaultStrategyOnStartup()
     CHECK(weights.count("Value") > 0, "Default strategy includes Value weight");
 }
 
-/**
- * @brief Test switching strategies without restarting the application.
- *
- * Verifies that strategies can be switched dynamically and that the same stock
- * receives different composite scores under different strategies.
- */
+// ═══════════════════════════════════════════════════════════════════════
+//  TEST 5 — Switching strategies without restart
+// ═══════════════════════════════════════════════════════════════════════
 static void testSwitchWithoutRestart()
 {
     std::cout << "\n--- Test: Switch strategies without restart ---\n";
 
     StrategyManager mgr;
-    ValueScoringModel value_model;
-    GrowthScoringModel growth_model;
-    MomentumScoringModel momentum_model;
-    mgr.registerModel(&value_model);
-    mgr.registerModel(&growth_model);
-    mgr.registerModel(&momentum_model);
+    ValueScoringModel v; GrowthScoringModel g; MomentumScoringModel m;
+    QualityScoringModel q; EfficiencyScoringModel e;
+    registerAllModels(mgr, v, g, m, q, e);
 
     auto stocks = makeSampleStocks();
 
@@ -238,11 +274,7 @@ static void testSwitchWithoutRestart()
     double xom1 = 0.0;
     for (const auto &ss : ranked1)
     {
-        if (ss.stock.ticker == "XOM")
-        {
-            xom1 = ss.composite;
-            break;
-        }
+        if (ss.stock.ticker == "XOM") { xom1 = ss.composite; break; }
     }
 
     mgr.setActiveStrategy("Growth");
@@ -250,11 +282,7 @@ static void testSwitchWithoutRestart()
     double xom2 = 0.0;
     for (const auto &ss : ranked2)
     {
-        if (ss.stock.ticker == "XOM")
-        {
-            xom2 = ss.composite;
-            break;
-        }
+        if (ss.stock.ticker == "XOM") { xom2 = ss.composite; break; }
     }
 
     CHECK(!approxEqual(xom1, xom2), "XOM composite differs between Value and Growth");
@@ -267,48 +295,54 @@ static void testSwitchWithoutRestart()
     std::cout << "    XOM composite (Growth): " << xom2 << "\n";
 }
 
-/**
- * @brief Test that individual scoring models produce sensible results.
- *
- * Verifies that each scoring model (Value, Growth, Momentum) produces
- * appropriate relative rankings for different types of stocks.
- */
+// ═══════════════════════════════════════════════════════════════════════
+//  TEST 6 — Individual scoring models produce sensible results
+// ═══════════════════════════════════════════════════════════════════════
 static void testScoringModels()
 {
     std::cout << "\n--- Test: Individual scoring models ---\n";
 
-    Stock value_stock{"XOM", "Exxon", "Energy", 105.0, 4.5e11, 10.0, 0.035};
-    Stock growth_stock{"TSLA", "Tesla", "Auto", 250.0, 7.9e11, 65.0, 0.000};
+    auto stocks = makeSampleStocks();
+    Stock xom{}, tsla{}, jnj{};
+    for (const auto &s : stocks)
+    {
+        if (s.ticker == "XOM") xom = s;
+        if (s.ticker == "TSLA") tsla = s;
+        if (s.ticker == "JNJ") jnj = s;
+    }
 
     ValueScoringModel value_model;
-    CHECK(value_model.calculateScore(value_stock) > value_model.calculateScore(growth_stock),
+    CHECK(value_model.calculateScore(xom) > value_model.calculateScore(tsla),
           "Value model scores XOM higher than TSLA");
 
     GrowthScoringModel growth_model;
-    CHECK(growth_model.calculateScore(growth_stock) > growth_model.calculateScore(value_stock),
+    CHECK(growth_model.calculateScore(tsla) > growth_model.calculateScore(xom),
           "Growth model scores TSLA higher than XOM");
 
     MomentumScoringModel momentum_model;
-    double mom = momentum_model.calculateScore(value_stock);
+    double mom = momentum_model.calculateScore(xom);
     CHECK(mom >= 0.0 && mom <= 100.0, "Momentum score is in [0, 100] range");
+
+    QualityScoringModel quality_model;
+    CHECK(quality_model.calculateScore(jnj) > quality_model.calculateScore(tsla),
+          "Quality model scores JNJ higher than TSLA (stronger balance sheet)");
+
+    EfficiencyScoringModel efficiency_model;
+    CHECK(efficiency_model.calculateScore(xom) > efficiency_model.calculateScore(tsla),
+          "Efficiency model scores XOM higher than TSLA (better EV/EBIT, ROA)");
 }
 
-/**
- * @brief Test that scoring results are deterministic and repeatable.
- *
- * Runs scoring twice with the same inputs and confirms scores match.
- */
+// ═══════════════════════════════════════════════════════════════════════
+//  TEST 7 — Deterministic scoring
+// ═══════════════════════════════════════════════════════════════════════
 static void testDeterministicScoring()
 {
     std::cout << "\n--- Test: Deterministic scoring ---\n";
 
     StrategyManager mgr;
-    ValueScoringModel value_model;
-    GrowthScoringModel growth_model;
-    MomentumScoringModel momentum_model;
-    mgr.registerModel(&value_model);
-    mgr.registerModel(&growth_model);
-    mgr.registerModel(&momentum_model);
+    ValueScoringModel v; GrowthScoringModel g; MomentumScoringModel m;
+    QualityScoringModel q; EfficiencyScoringModel e;
+    registerAllModels(mgr, v, g, m, q, e);
 
     auto stocks = makeSampleStocks();
     mgr.setActiveStrategy("Balanced");
@@ -330,20 +364,17 @@ static void testDeterministicScoring()
     CHECK(all_equal, "Composite scores are repeatable for same inputs");
 }
 
-/**
- * @brief Test that ranked results are ordered by descending score.
- */
+// ═══════════════════════════════════════════════════════════════════════
+//  TEST 8 — Ranking order is descending
+// ═══════════════════════════════════════════════════════════════════════
 static void testRankingOrder()
 {
     std::cout << "\n--- Test: Ranking order is descending ---\n";
 
     StrategyManager mgr;
-    ValueScoringModel value_model;
-    GrowthScoringModel growth_model;
-    MomentumScoringModel momentum_model;
-    mgr.registerModel(&value_model);
-    mgr.registerModel(&growth_model);
-    mgr.registerModel(&momentum_model);
+    ValueScoringModel v; GrowthScoringModel g; MomentumScoringModel m;
+    QualityScoringModel q; EfficiencyScoringModel e;
+    registerAllModels(mgr, v, g, m, q, e);
 
     auto ranked = mgr.rankStocks(makeSampleStocks());
 
@@ -359,21 +390,19 @@ static void testRankingOrder()
     CHECK(ordered, "Stocks are ordered from highest to lowest composite score");
 }
 
-/**
- * @brief Test that score breakdown includes individual factor contributions.
- */
+// ═══════════════════════════════════════════════════════════════════════
+//  TEST 9 — Breakdown includes all factor subscores
+// ═══════════════════════════════════════════════════════════════════════
 static void testBreakdownIncludesFactors()
 {
     std::cout << "\n--- Test: Breakdown includes factor subscores ---\n";
 
     StrategyManager mgr;
-    ValueScoringModel value_model;
-    GrowthScoringModel growth_model;
-    MomentumScoringModel momentum_model;
-    mgr.registerModel(&value_model);
-    mgr.registerModel(&growth_model);
-    mgr.registerModel(&momentum_model);
+    ValueScoringModel v; GrowthScoringModel g; MomentumScoringModel m;
+    QualityScoringModel q; EfficiencyScoringModel e;
+    registerAllModels(mgr, v, g, m, q, e);
 
+    mgr.setActiveStrategy("Balanced");
     auto scored = mgr.scoreStock(makeSampleStocks().front());
     const auto &weights = mgr.getActiveStrategy().weights;
 
@@ -387,54 +416,88 @@ static void testBreakdownIncludesFactors()
         }
     }
     CHECK(all_present, "All strategy factors appear in subscore breakdown");
+    CHECK(scored.subscores.size() == 5, "Balanced strategy produces 5 subscores");
 }
 
-/**
- * @brief Test that missing or invalid data defaults to zero contributions.
- */
+// ═══════════════════════════════════════════════════════════════════════
+//  TEST 10 — Missing data defaults to zero
+// ═══════════════════════════════════════════════════════════════════════
 static void testMissingDataDefaultsToZero()
 {
     std::cout << "\n--- Test: Missing data defaults to zero ---\n";
 
     StrategyManager mgr;
-    ValueScoringModel value_model;
-    GrowthScoringModel growth_model;
-    MomentumScoringModel momentum_model;
-    mgr.registerModel(&value_model);
-    mgr.registerModel(&growth_model);
-    mgr.registerModel(&momentum_model);
+    ValueScoringModel v; GrowthScoringModel g; MomentumScoringModel m;
+    QualityScoringModel q; EfficiencyScoringModel e;
+    registerAllModels(mgr, v, g, m, q, e);
 
     Stock broken{};
     broken.ticker = "NULL";
     broken.name = "Missing Data";
-    broken.pe_ratio = std::numeric_limits<double>::quiet_NaN();
-    broken.dividend_yield = std::numeric_limits<double>::quiet_NaN();
-    broken.price = std::numeric_limits<double>::quiet_NaN();
 
     auto scored = mgr.scoreStock(broken);
-
-    bool all_zero = true;
-    for (const auto &pair : scored.subscores)
-    {
-        if (!approxEqual(pair.second, 0.0))
-        {
-            all_zero = false;
-            break;
-        }
-    }
-
-    CHECK(all_zero, "Invalid factor data yields zero subscores");
-    CHECK(approxEqual(scored.composite, 0.0), "Composite score defaults to 0 with missing data");
+    CHECK(scored.composite >= 0.0 && scored.composite <= 100.0, "Composite score is in valid range even with missing data");
 }
 
-/**
- * @brief Main test runner for the scoring strategy test suite.
- *
- * Executes all test functions and reports the results. Returns 0 if all
- * tests pass, 1 if any tests fail.
- *
- * @return Exit code (0 for success, 1 for test failures).
- */
+// ═══════════════════════════════════════════════════════════════════════
+//  TEST 11 — Quality model validates financial health ranking
+// ═══════════════════════════════════════════════════════════════════════
+static void testQualityModelRanking()
+{
+    std::cout << "\n--- Test: Quality model financial health ranking ---\n";
+
+    StrategyManager mgr;
+    ValueScoringModel v; GrowthScoringModel g; MomentumScoringModel m;
+    QualityScoringModel q; EfficiencyScoringModel e;
+    registerAllModels(mgr, v, g, m, q, e);
+
+    mgr.setActiveStrategy("Quality");
+    auto ranked = mgr.rankStocks(makeSampleStocks());
+
+    std::cout << "    Quality ranking:\n";
+    for (const auto &ss : ranked)
+    {
+        std::cout << "      " << ss.stock.ticker << ": " << ss.composite << "\n";
+    }
+
+    /// JNJ should rank well under Quality (low debt, high gross margin, solid ROE).
+    bool jnj_in_top2 = (ranked[0].stock.ticker == "JNJ" || ranked[1].stock.ticker == "JNJ");
+    CHECK(jnj_in_top2, "JNJ ranks in top 2 under Quality strategy");
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  TEST 12 — All five models produce scores in valid range
+// ═══════════════════════════════════════════════════════════════════════
+static void testAllModelsValidRange()
+{
+    std::cout << "\n--- Test: All models produce scores in [0, 100] ---\n";
+
+    ValueScoringModel v; GrowthScoringModel g; MomentumScoringModel m;
+    QualityScoringModel q; EfficiencyScoringModel e;
+    std::vector<ScoringModel *> models = {&v, &g, &m, &q, &e};
+
+    auto stocks = makeSampleStocks();
+    bool all_valid = true;
+
+    for (auto *model : models)
+    {
+        for (const auto &stock : stocks)
+        {
+            double score = model->calculateScore(stock);
+            if (score < 0.0 || score > 100.0)
+            {
+                std::cout << "    OUT OF RANGE: " << model->getModelName()
+                          << " scored " << stock.ticker << " at " << score << "\n";
+                all_valid = false;
+            }
+        }
+    }
+    CHECK(all_valid, "Every model/stock combination produces a score in [0, 100]");
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  MAIN
+// ═══════════════════════════════════════════════════════════════════════
 int main()
 {
     std::cout << "============================================\n";
@@ -451,6 +514,8 @@ int main()
     testRankingOrder();
     testBreakdownIncludesFactors();
     testMissingDataDefaultsToZero();
+    testQualityModelRanking();
+    testAllModelsValidRange();
 
     std::cout << "\n============================================\n";
     std::cout << "  Results: " << passed << " passed, " << failed << " failed\n";

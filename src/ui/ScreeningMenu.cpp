@@ -1,11 +1,50 @@
 #include "ui/ScreeningMenu.hpp"
 
+#include <algorithm>
 #include <iostream>
 #include <sstream>
 #include <vector>
 
 #include "screening/StockScreener.hpp"
 #include "ui/StockPrinter.hpp"
+
+namespace
+{
+std::vector<std::string> collectSectors(const std::vector<Stock> &stocks)
+{
+    std::vector<std::string> sectors;
+    sectors.reserve(stocks.size());
+
+    for (const auto &stock : stocks)
+    {
+        if (!stock.sector.empty())
+        {
+            sectors.push_back(stock.sector);
+        }
+    }
+
+    std::sort(sectors.begin(), sectors.end());
+    sectors.erase(std::unique(sectors.begin(), sectors.end()), sectors.end());
+    return sectors;
+}
+
+void printCriteriaSummary(const std::vector<StockScreener::Criterion> &criteria)
+{
+    auto preview = StockScreener::screen({}, criteria);
+
+    std::cout << "\nCurrent filters:\n";
+    if (preview.appliedCriteria.empty())
+    {
+        std::cout << "None selected.\n";
+        return;
+    }
+
+    for (std::size_t i = 0; i < preview.appliedCriteria.size(); ++i)
+    {
+        std::cout << i + 1 << ". " << preview.appliedCriteria[i] << "\n";
+    }
+}
+} // namespace
 
 void ScreeningMenu::run(
     const std::vector<Stock> &stocks,
@@ -36,8 +75,9 @@ void ScreeningMenu::run(
         std::cout << "10. Max debt-to-equity\n";
         std::cout << "11. Min current ratio\n";
         std::cout << "12. Min dividend yield (%)\n";
-        std::cout << "13. Run screen\n";
-        std::cout << "14. Cancel\n";
+        std::cout << "13. Print current filters\n";
+        std::cout << "14. Run screen\n";
+        std::cout << "15. Cancel\n";
         std::cout << "> ";
 
         const int selection = readInt();
@@ -58,14 +98,29 @@ void ScreeningMenu::run(
         {
         case 1:
         {
-            std::string sector = readLine("Enter sector name: ");
-            if (sector.empty())
+            const auto sectors = collectSectors(stocks);
+            if (sectors.empty())
             {
-                std::cout << "Sector cannot be empty.\n";
+                std::cout << "No sector data is available in the loaded stocks.\n";
                 break;
             }
+
+            std::cout << "\nAvailable sectors:\n";
+            for (std::size_t i = 0; i < sectors.size(); ++i)
+            {
+                std::cout << i + 1 << ". " << sectors[i] << "\n";
+            }
+            std::cout << "Select sector number: ";
+            const int sectorChoice = readInt();
+            if (sectorChoice < 1 || sectorChoice > static_cast<int>(sectors.size()))
+            {
+                std::cout << "Invalid sector selection.\n";
+                break;
+            }
+
+            const std::string &sector = sectors[sectorChoice - 1];
             criteria.push_back({StockScreener::CriterionType::SectorEquals, 0.0, 0.0, sector});
-            std::cout << "Added sector filter.\n";
+            std::cout << "Added sector filter: " << sector << "\n";
             break;
         }
         case 2:
@@ -190,9 +245,12 @@ void ScreeningMenu::run(
             break;
         }
         case 13:
-            addingCriteria = false;
+            printCriteriaSummary(criteria);
             break;
         case 14:
+            addingCriteria = false;
+            break;
+        case 15:
             std::cout << "Screening cancelled.\n";
             return;
         default:

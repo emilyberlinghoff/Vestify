@@ -1,10 +1,10 @@
 /**
  * @file InteractiveMenu.hpp
- * @brief Header for the InteractiveMenu class providing command-line and interactive interfaces.
+ * @brief Header for the InteractiveMenu class providing the interactive terminal interface.
  *
  * This header defines the InteractiveMenu class which serves as the main user interface
- * for the Vestify stock analysis application. It provides both command-line argument
- * processing and an interactive menu system for data loading, analysis, and display operations.
+ * for the Vestify stock analysis application. It provides an interactive menu system
+ * for data loading, analysis, and display operations.
  */
 
 #pragma once
@@ -19,10 +19,9 @@
 /**
  * @brief Main user interface class for the Vestify application.
  *
- * The InteractiveMenu class provides a complete command-line interface for the stock
- * analysis application, supporting both batch processing via command-line arguments
- * and interactive menu-driven operation. It coordinates between user input, data
- * operations, and display output through the StockRepository and various display components.
+ * The InteractiveMenu class provides the interactive terminal interface for the
+ * stock analysis application. It coordinates between user input, data operations,
+ * and display output through the StockRepository and various display components.
  */
 class InteractiveMenu
 {
@@ -36,29 +35,16 @@ public:
     /**
      * @brief Main entry point for the interactive menu system.
      *
-     * Processes command-line arguments if provided, otherwise launches the interactive
-     * menu loop. This method serves as the primary interface between the application
-     * and the user, handling both automated and manual operation modes.
+     * Launches the interactive menu loop and serves as the primary terminal
+     * interface between the application and the user.
      *
-     * @param argc Number of command-line arguments.
-     * @param argv Array of command-line argument strings.
      * @return Exit code (0 for success, non-zero for errors).
      */
-    int run(int argc, char **argv);
+    int run();
 
 private:
     /** @brief Repository for managing stock data. */
     StockRepository repository_;
-
-    /**
-     * @brief Print command-line usage information.
-     *
-     * Displays available command-line options, arguments, and environment variables
-     * required for running the application from the command line.
-     *
-     * @param exe The executable name/path for usage examples.
-     */
-    static void printUsage(const std::string &exe);
 
     /** @brief In-memory collection of watchlists. */
     std::vector<WatchList> watchlists_;
@@ -89,18 +75,6 @@ private:
     static std::vector<std::string> splitTickers(const std::string &input);
 
     /**
-     * @brief Process command-line arguments and execute appropriate actions.
-     *
-     * Parses command-line arguments and dispatches to the corresponding handler
-     * functions based on the provided options (--help, --load-csv, --live).
-     *
-     * @param argc Number of command-line arguments.
-     * @param argv Array of command-line argument strings.
-     * @return Exit code (0 for success, non-zero for errors).
-     */
-    int handleCommandLine(int argc, char **argv);
-
-    /**
      * @brief Load stock data from a CSV file.
      *
      * Attempts to load stock data from the specified CSV file path using the
@@ -110,17 +84,6 @@ private:
      * @return Exit code (0 for success, 2 for loading errors).
      */
     int handleLoadCsv(const std::string &path);
-
-    /**
-     * @brief Fetch live stock quotes for specified tickers.
-     *
-     * Uses the live data provider to fetch current quotes for the given list
-     * of ticker symbols, updates the repository, and displays the results.
-     *
-     * @param tickerList Comma-separated string of ticker symbols.
-     * @return Exit code (0 for success, 2 for fetching errors).
-     */
-    int handleLiveQuotes(const std::string &tickerList);
 
     /**
      * @brief Display detailed information for all loaded stocks.

@@ -1,10 +1,10 @@
 /**
  * @file InteractiveMenu.cpp
- * @brief Implementation of the interactive command-line interface for the Vestify application.
+ * @brief Implementation of the interactive terminal interface for the Vestify application.
  *
- * This file contains the implementation of the InteractiveMenu class which provides
- * both command-line and interactive menu interfaces for the stock analysis application.
- * It handles user input, coordinates data loading and display operations, and manages
+ * This file contains the implementation of the InteractiveMenu class, which
+ * drives the interactive menu for the stock analysis application. It handles
+ * user input, coordinates data loading and display operations, and manages
  * the application workflow.
  */
 
@@ -74,24 +74,6 @@ InteractiveMenu::InteractiveMenu()
     loadEnvFromFile(".env");
     //loadDemoWatchlist();
     loadWatchlists();
-}
-
-/**
- * @brief Prints command-line usage information to stdout.
- *
- * Displays the available command-line options and required environment variables
- * for running the Vestify application from the command line.
- *
- * @param exe The executable name/path to display in usage examples.
- */
-void InteractiveMenu::printUsage(const std::string &exe)
-{
-    std::cout << "Usage:\n";
-    std::cout << "  " << exe << " --load-csv <path>\n";
-    std::cout << "  " << exe << " --live <ticker[,ticker...]>\n";
-    std::cout << "  " << exe << " --help\n";
-    std::cout << "Environment:\n";
-    std::cout << "  ALPHAVANTAGE_API_KEY=your_api_key\n";
 }
 
 /**
@@ -175,19 +157,23 @@ std::vector<std::string> InteractiveMenu::splitTickers(const std::string &input)
         {
             if (!current.empty())
             {
-                /// Trim whitespace.
                 std::string trimmed = current;
                 const auto first = trimmed.find_first_not_of(" \t\r\n");
-                if (first == std::string::npos) {
+                if (first == std::string::npos)
+                {
                     trimmed.clear();
-                } else {
+                }
+                else
+                {
                     trimmed.erase(0, first);
                     const auto last = trimmed.find_last_not_of(" \t\r\n");
-                    if (last != std::string::npos) {
+                    if (last != std::string::npos)
+                    {
                         trimmed.erase(last + 1);
                     }
                 }
-                if (!trimmed.empty()) {
+                if (!trimmed.empty())
+                {
                     tickers.push_back(trimmed);
                 }
                 current.clear();
@@ -203,66 +189,26 @@ std::vector<std::string> InteractiveMenu::splitTickers(const std::string &input)
     {
         std::string trimmed = current;
         const auto first = trimmed.find_first_not_of(" \t\r\n");
-        if (first == std::string::npos) {
+        if (first == std::string::npos)
+        {
             trimmed.clear();
-        } else {
+        }
+        else
+        {
             trimmed.erase(0, first);
             const auto last = trimmed.find_last_not_of(" \t\r\n");
-            if (last != std::string::npos) {
+            if (last != std::string::npos)
+            {
                 trimmed.erase(last + 1);
             }
         }
-        if (!trimmed.empty()) {
+        if (!trimmed.empty())
+        {
             tickers.push_back(trimmed);
         }
     }
 
     return tickers;
-}
-
-/**
- * @brief Processes command-line arguments and executes the appropriate action.
- *
- * Parses command-line arguments and dispatches to the appropriate handler
- * function based on the provided options (--help, --load-csv, --live).
- *
- * @param argc Number of command-line arguments.
- * @param argv Array of command-line argument strings.
- * @return Exit code (0 for success, non-zero for errors).
- */
-int InteractiveMenu::handleCommandLine(int argc, char **argv)
-{
-    std::string arg = argv[1];
-
-    if (arg == "--help")
-    {
-        printUsage(argv[0]);
-        return 0;
-    }
-
-    if (arg == "--load-csv")
-    {
-        if (argc < 3)
-        {
-            std::cerr << "--load-csv requires a path\n";
-            return 1;
-        }
-        return handleLoadCsv(argv[2]);
-    }
-
-    if (arg == "--live")
-    {
-        if (argc < 3)
-        {
-            std::cerr << "--live requires a ticker list\n";
-            return 1;
-        }
-        return handleLiveQuotes(argv[2]);
-    }
-
-    std::cerr << "Unknown argument: " << arg << "\n";
-    printUsage(argv[0]);
-    return 1;
 }
 
 /**
@@ -285,34 +231,6 @@ int InteractiveMenu::handleLoadCsv(const std::string &path)
     {
         std::cerr << error << "\n";
     }
-
-    return result.errors.empty() ? 0 : 2;
-}
-
-/**
- * @brief Fetches live stock quotes for the specified tickers.
- *
- * Uses the LiveDataProvider to fetch current stock quotes for the given
- * list of ticker symbols. Updates the repository with the fetched data
- * and displays the results.
- *
- * @param tickerList Comma-separated string of ticker symbols.
- * @return Exit code (0 for success, 2 if errors occurred during fetching).
- */
-int InteractiveMenu::handleLiveQuotes(const std::string &tickerList)
-{
-    LiveDataProvider provider;
-    auto result = provider.fetchQuotes(splitTickers(tickerList));
-
-    repository_.setStocks(result.stocks);
-
-    for (const auto &error : result.errors)
-    {
-        std::cerr << error << "\n";
-    }
-
-    std::cout << "\nLoaded " << repository_.getAll().size() << " live quotes.\n";
-    StockPrinter::printStocks(repository_.getAll());
 
     return result.errors.empty() ? 0 : 2;
 }
@@ -1494,21 +1412,13 @@ void InteractiveMenu::runInteractive()
 /**
  * @brief Main entry point for the InteractiveMenu system.
  *
- * Determines whether to run in command-line mode (if arguments provided)
- * or interactive mode (if no arguments). This is the primary interface
- * between the application and the user.
+ * Launches the application directly into the interactive menu loop.
+ * This is the primary interface between the application and the user.
  *
- * @param argc Number of command-line arguments.
- * @param argv Array of command-line argument strings.
  * @return Exit code (0 for success, non-zero for errors).
  */
-int InteractiveMenu::run(int argc, char **argv)
+int InteractiveMenu::run()
 {
-    if (argc >= 2)
-    {
-        return handleCommandLine(argc, argv);
-    }
-
     runInteractive();
     return 0;
 }

@@ -1,9 +1,29 @@
 [
   {
-    "name": "test",
+    "name": "Tech",
     "tickers": [
-      "AAPL",
-      "TSLA"
+      "MSFT",
+      "GOOG",
+      "AMZN",
+      "AAPL"
     ]
+  },
+  {
+    "name": "Finance",
+    "tickers": [
+      "PYPL"
+    ]
+  },
+  {
+    "name": "Demo",
+    "tickers": []
+  },
+  {
+    "name": "Watchlist 4",
+    "tickers": []
+  },
+  {
+    "name": "Watchlist 5",
+    "tickers": []
   }
 ]

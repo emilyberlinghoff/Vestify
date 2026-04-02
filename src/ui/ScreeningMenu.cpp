@@ -1,3 +1,8 @@
+/**
+ * @file ScreeningMenu.cpp
+ * @brief Implementation of the interactive stock screening menu flow.
+ */
+
 #include "ui/ScreeningMenu.hpp"
 
 #include <algorithm>
@@ -10,6 +15,12 @@
 
 namespace
 {
+/**
+ * @brief Collect the unique non-empty sector names from loaded stocks.
+ *
+ * @param stocks Loaded stock universe.
+ * @return Sorted vector of unique sector names.
+ */
 std::vector<std::string> collectSectors(const std::vector<Stock> &stocks)
 {
     std::vector<std::string> sectors;
@@ -28,6 +39,11 @@ std::vector<std::string> collectSectors(const std::vector<Stock> &stocks)
     return sectors;
 }
 
+/**
+ * @brief Print the currently selected screening criteria.
+ *
+ * @param criteria Criteria accumulated so far in the current screening session.
+ */
 void printCriteriaSummary(const std::vector<StockScreener::Criterion> &criteria)
 {
     auto preview = StockScreener::screen({}, criteria);
@@ -46,6 +62,13 @@ void printCriteriaSummary(const std::vector<StockScreener::Criterion> &criteria)
 }
 } // namespace
 
+/**
+ * @brief Run the interactive screening prompt loop and display results.
+ *
+ * @param stocks Loaded stocks available for screening.
+ * @param readInt Callback for validated integer input.
+ * @param readLine Callback for line-based prompt input.
+ */
 void ScreeningMenu::run(
     const std::vector<Stock> &stocks,
     const std::function<int()> &readInt,

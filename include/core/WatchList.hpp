@@ -1,3 +1,8 @@
+/**
+ * @file WatchList.hpp
+ * @brief Header for the WatchList class used to track user-selected tickers.
+ */
+
 #pragma once
 
 #include <string>
@@ -91,7 +96,8 @@ private:
      */
     static std::string normalizeSymbol(const std::string& sym);
 
-private:
+    /** @brief Display name of the watchlist. */
     std::string name_;
+    /** @brief Stored ticker symbols in normalized uppercase form. */
     std::vector<std::string> symbols_;
 };

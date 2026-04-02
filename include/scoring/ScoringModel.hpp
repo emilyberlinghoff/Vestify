@@ -1,3 +1,8 @@
+/**
+ * @file ScoringModel.hpp
+ * @brief Abstract interface for individual stock scoring models.
+ */
+
 #pragma once
 
 #include <string>
@@ -12,6 +17,9 @@
  */
 class ScoringModel {
 public:
+    /**
+     * @brief Virtual destructor for polymorphic scoring models.
+     */
     virtual ~ScoringModel() = default;
 
     /**

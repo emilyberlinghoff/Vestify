@@ -1,3 +1,8 @@
+/**
+ * @file ScreeningMenu.hpp
+ * @brief Header for the dedicated interactive stock screening flow.
+ */
+
 #pragma once
 
 #include <functional>

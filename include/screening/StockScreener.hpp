@@ -1,3 +1,8 @@
+/**
+ * @file StockScreener.hpp
+ * @brief Header for reusable multi-criteria stock screening logic.
+ */
+
 #pragma once
 
 #include <string>

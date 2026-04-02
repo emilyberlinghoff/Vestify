@@ -1,9 +1,19 @@
+/**
+ * @file WatchlistRepo.cpp
+ * @brief Implementation of JSON-backed watchlist loading and saving.
+ */
+
 #include "persistence/WatchListRepo.hpp"
 
 #include <fstream>
 #include <exception>
 #include <nlohmann/json.hpp>
 
+/**
+ * @brief Load a single watchlist while preserving legacy behavior.
+ *
+ * @return LoadResult containing at most one watchlist.
+ */
 WatchListRepo::LoadResult WatchListRepo::load() const
 {
     LoadResult allResult = loadAll();
@@ -24,6 +34,11 @@ WatchListRepo::LoadResult WatchListRepo::load() const
     return allResult;
 }
 
+/**
+ * @brief Load all watchlists from the configured JSON file.
+ *
+ * @return LoadResult containing parsed watchlists and any errors.
+ */
 WatchListRepo::LoadResult WatchListRepo::loadAll() const
 {
     LoadResult res;
@@ -138,6 +153,12 @@ WatchListRepo::LoadResult WatchListRepo::loadAll() const
     return res;
 }
 
+/**
+ * @brief Save a single watchlist using the legacy one-watchlist format.
+ *
+ * @param wl Watchlist to persist.
+ * @return SaveResult describing success or failure.
+ */
 WatchListRepo::SaveResult WatchListRepo::save(const WatchList& wl) const
 {
     SaveResult res;
@@ -166,6 +187,12 @@ WatchListRepo::SaveResult WatchListRepo::save(const WatchList& wl) const
     return res;
 }
 
+/**
+ * @brief Save all watchlists using the array-based JSON format.
+ *
+ * @param watchlists Watchlists to persist.
+ * @return SaveResult describing success or failure.
+ */
 WatchListRepo::SaveResult WatchListRepo::saveAll(const std::vector<WatchList>& watchlists) const
 {
     SaveResult res;

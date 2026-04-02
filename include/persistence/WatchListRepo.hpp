@@ -1,3 +1,8 @@
+/**
+ * @file WatchListRepo.hpp
+ * @brief Header for JSON-based watchlist persistence.
+ */
+
 #pragma once
 
 #include <string>
@@ -18,7 +23,9 @@ public:
      */
     struct LoadResult
     {
+        /** @brief Watchlists loaded from disk. */
         std::vector<WatchList> watchlists;
+        /** @brief Human-readable load/parsing errors. */
         std::vector<std::string> errors;
     };
 
@@ -27,7 +34,9 @@ public:
      */
     struct SaveResult
     {
+        /** @brief Whether the save operation succeeded. */
         bool ok = false;
+        /** @brief Error message when saving fails. */
         std::string errMsg;
     };
 

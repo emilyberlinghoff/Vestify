@@ -1,3 +1,8 @@
+/**
+ * @file test_watchlist.cpp
+ * @brief Acceptance tests for watchlist behavior and persistence.
+ */
+
 #include <cstdlib>
 #include <fstream>
 #include <iostream>

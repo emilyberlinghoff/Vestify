@@ -1,3 +1,8 @@
+/**
+ * @file CSVLoader.hpp
+ * @brief CSV parsing utility for loading stock fundamentals from tabular data.
+ */
+
 #pragma once
 
 #include <algorithm>

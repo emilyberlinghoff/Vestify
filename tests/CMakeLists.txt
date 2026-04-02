@@ -59,3 +59,29 @@ target_include_directories(stock_screener_tests
 )
 
 add_test(NAME stock_screener_tests COMMAND stock_screener_tests)
+
+add_executable(stock_printer_tests
+    test_stock_printer.cpp
+    ../src/ui/StockPrinter.cpp
+)
+
+target_include_directories(stock_printer_tests
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/../include
+)
+
+add_test(NAME stock_printer_tests COMMAND stock_printer_tests)
+
+add_executable(screening_menu_tests
+    test_screening_menu.cpp
+    ../src/ui/ScreeningMenu.cpp
+    ../src/screening/StockScreener.cpp
+    ../src/ui/StockPrinter.cpp
+)
+
+target_include_directories(screening_menu_tests
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/../include
+)
+
+add_test(NAME screening_menu_tests COMMAND screening_menu_tests)

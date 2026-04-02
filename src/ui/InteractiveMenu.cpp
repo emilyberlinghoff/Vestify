@@ -26,6 +26,7 @@
 #include "scoring/MomentumScoringModel.hpp"
 #include "scoring/StrategyPresent.hpp"
 #include "scoring/ValueScoringModel.hpp"
+#include "ui/ScreeningMenu.hpp"
 #include "ui/StockPrinter.hpp"
 
 /**
@@ -385,6 +386,20 @@ void InteractiveMenu::searchTicker() const
     }
 
     StockPrinter::printStocks({*stock});
+}
+
+void InteractiveMenu::screenStocks()
+{
+    ScreeningMenu::run(
+        repository_.getAll(),
+        []()
+        {
+            return InteractiveMenu::readInt();
+        },
+        [](const std::string &prompt)
+        {
+            return InteractiveMenu::readLine(prompt);
+        });
 }
 
 /**
@@ -1423,8 +1438,9 @@ void InteractiveMenu::runInteractive()
         std::cout << "6. Top 10 cheapest (EV/FCF)\n";
         std::cout << "7. Watchlist Menu\n";
         std::cout << "8. Score and Rank Stocks\n";
-        std::cout << "9. Backtest (Historical)\n";
-        std::cout << "10. Exit\n";
+        std::cout << "9. Screen Stocks\n";
+        std::cout << "10. Backtest (Historical)\n";
+        std::cout << "11. Exit\n";
         std::cout << "> ";
 
         int choice = readInt();
@@ -1458,9 +1474,12 @@ void InteractiveMenu::runInteractive()
             scoreAndRankStocks();
             break;
         case 9:
-            runBacktest();
+            screenStocks();
             break;
         case 10:
+            runBacktest();
+            break;
+        case 11:
             std::cout << "Exiting Vestify.\n";
             running = false;
             break;

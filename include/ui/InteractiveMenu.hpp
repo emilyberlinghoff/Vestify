@@ -186,6 +186,11 @@ private:
     void scoreAndRankStocks();
 
     /**
+     * @brief Screen loaded stocks using one or more user-selected criteria.
+     */
+    void screenStocks();
+
+    /**
      * @brief Run a historical backtest with periodic rebalancing.
      */
     void runBacktest();

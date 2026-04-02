@@ -1,21 +1,9 @@
 [
   {
-    "name": "Tech",
+    "name": "test",
     "tickers": [
-      "MSFT",
-      "GOOG",
-      "AMZN",
-      "AAPL"
+      "AAPL",
+      "TSLA"
     ]
-  },
-  {
-    "name": "Finance",
-    "tickers": [
-      "PYPL"
-    ]
-  },
-  {
-    "name": "Demo",
-    "tickers": []
   }
 ]

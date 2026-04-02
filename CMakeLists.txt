@@ -16,7 +16,9 @@ add_executable(vestify
     src/backtest/BacktestEngine.cpp
     src/data/LiveDataProvider.cpp
     src/persistence/WatchListRepo.cpp
+    src/screening/StockScreener.cpp
     src/ui/InteractiveMenu.cpp
+    src/ui/ScreeningMenu.cpp
     src/ui/StockPrinter.cpp
 )
 

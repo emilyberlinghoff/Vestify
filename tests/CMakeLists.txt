@@ -47,3 +47,15 @@ target_include_directories(csv_load_tests
 )
 
 add_test(NAME csv_load_tests COMMAND csv_load_tests)
+
+add_executable(stock_screener_tests
+    test_stock_screener.cpp
+    ../src/screening/StockScreener.cpp
+)
+
+target_include_directories(stock_screener_tests
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/../include
+)
+
+add_test(NAME stock_screener_tests COMMAND stock_screener_tests)

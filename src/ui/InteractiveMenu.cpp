@@ -526,8 +526,9 @@ bool InteractiveMenu::createWatchlist()
 
     if (name.empty())
     {
-        std::cout << "Watchlist name cannot be empty.\n";
-        return false;
+        std::cout << "Default watchlist created.\n";
+        watchlists_.push_back(WatchList("Watchlist " + std::to_string(watchlists_.size() + 1)));
+        return true;
     }
 
     for (const auto &watchlist : watchlists_)

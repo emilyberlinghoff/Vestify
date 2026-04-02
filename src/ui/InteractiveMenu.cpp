@@ -329,21 +329,6 @@ void InteractiveMenu::screenStocks()
  * appends the loaded watchlist to the in-memory collection if it contains
  * either a name or ticker data.
  */
-// void InteractiveMenu::loadDemoWatchlist()
-// {
-//     auto result = watchlistRepo_.load();
-
-//     for (const auto &error : result.errors)
-//     {
-//         std::cerr << error << "\n";
-//     }
-
-//     if (!result.watchlist.empty() || !result.watchlist.getName().empty())
-//     {
-//         watchlists_.push_back(result.watchlist);
-//     }
-// }
-
 void InteractiveMenu::loadWatchlists()
 {
     auto result = watchlistRepo_.loadAll();
@@ -371,20 +356,6 @@ void InteractiveMenu::loadWatchlists()
  * Persists the first watchlist in the in-memory collection using the
  * watchlist repository. If no watchlists are present, no save is attempted.
  */
-// void InteractiveMenu::saveDemoWatchlist() const
-// {
-//     if (watchlists_.empty())
-//     {
-//         return;
-//     }
-
-//     auto result = watchlistRepo_.save(watchlists_[0]);
-//     if (!result.ok)
-//     {
-//         std::cerr << result.errMsg << "\n";
-//     }
-// }
-
 void InteractiveMenu::saveWatchlists() const
 {
     auto result = watchlistRepo_.saveAll(watchlists_);

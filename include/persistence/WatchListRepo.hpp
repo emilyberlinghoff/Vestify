@@ -50,31 +50,11 @@ public:
         : filepath_(filepath) {}
 
     /**
-     * @brief Load the first watchlist from disk.
-     *
-     * Preserves the old single-watchlist style interface.
-     *
-     * @return The first watchlist found, or an empty/default one if none exist.
-     */
-    LoadResult load() const;
-
-    /**
      * @brief Load all watchlists from disk.
      *
      * @return LoadResult containing all watchlists and any errors.
      */
     LoadResult loadAll() const;
-
-    /**
-     * @brief Save a single watchlist to disk.
-     *
-     * Preserves the old single-watchlist style interface.
-     * This writes just one watchlist to the file.
-     *
-     * @param wl Watchlist to save.
-     * @return SaveResult indicating success or failure.
-     */
-    SaveResult save(const WatchList& wl) const;
 
     /**
      * @brief Save all watchlists to disk.

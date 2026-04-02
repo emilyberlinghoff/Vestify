@@ -4,8 +4,8 @@
  *
  * This header defines the StockRepository class which serves as the central
  * data store for stock information in the Vestify application. It provides
- * methods for loading stock data from CSV files, storing stocks in memory,
- * and retrieving stocks by various criteria.
+ * methods for loading stock data from CSV files and retrieving stocks by
+ * various criteria.
  */
 
 #pragma once
@@ -51,17 +51,6 @@ public:
      * @return LoadResult with loaded stocks and any error messages.
      */
     LoadResult loadFromCsv(const std::string &path);
-
-    /**
-     * @brief Set the stock collection directly.
-     *
-     * Replaces the current stock collection with the provided vector.
-     * This method is typically used when stock data comes from sources
-     * other than CSV files, such as live data providers.
-     *
-     * @param stocks Vector of Stock objects to store in the repository.
-     */
-    void setStocks(const std::vector<Stock> &stocks);
 
     /**
      * @brief Get a reference to all stocks in the repository.

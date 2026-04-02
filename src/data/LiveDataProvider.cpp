@@ -1,6 +1,6 @@
 /**
  * @file LiveDataProvider.cpp
- * @brief Implementation of the Alpha Vantage data provider.
+ * @brief Implementation of the Alpha Vantage historical data provider.
  */
 
 #include "data/LiveDataProvider.hpp"
@@ -153,94 +153,6 @@ static bool saveCachedSeries(const std::string& path,
 LiveDataProvider::LiveDataProvider(std::string base_url)
     : base_url_(std::move(base_url)) {}
 
-LiveDataProvider::QuoteResult LiveDataProvider::fetchQuotes(const std::vector<std::string>& tickers) const {
-    QuoteResult result;
-    if (tickers.empty()) {
-        result.errors.push_back("No tickers provided.");
-        return result;
-    }
-
-    const char* key_env = std::getenv("ALPHAVANTAGE_API_KEY");
-    if (!key_env || std::string(key_env).empty()) {
-        result.errors.push_back("Missing ALPHAVANTAGE_API_KEY environment variable.");
-        return result;
-    }
-    const std::string api_key = key_env;
-
-    for (const auto& ticker : tickers) {
-        QuoteResult single = fetchQuote(ticker, api_key);
-        result.errors.insert(result.errors.end(), single.errors.begin(), single.errors.end());
-        if (!single.stocks.empty()) {
-            result.stocks.push_back(single.stocks.front());
-        }
-    }
-
-    return result;
-}
-
-LiveDataProvider::QuoteResult LiveDataProvider::fetchQuote(
-    const std::string& ticker,
-    const std::string& api_key
-) const {
-    QuoteResult result;
-    if (ticker.empty()) {
-        result.errors.push_back("Ticker is empty.");
-        return result;
-    }
-
-    Stock stock;
-    stock.ticker = ticker;
-
-    try {
-        const std::string quote_url = buildGlobalQuoteUrl(ticker, api_key);
-        const HttpResponse quote_resp = httpGet(quote_url);
-        const auto quote_json = nlohmann::json::parse(quote_resp.body);
-
-        if (quote_json.contains("Global Quote")) {
-            const auto& q = quote_json["Global Quote"];
-            if (q.contains("05. price")) {
-                stock.price = std::stod(q["05. price"].get<std::string>());
-            }
-        } else if (quote_json.contains("Note")) {
-            result.errors.push_back("Alpha Vantage rate limit: " + quote_json["Note"].get<std::string>());
-        } else if (quote_json.contains("Error Message")) {
-            result.errors.push_back("Alpha Vantage error: " + quote_json["Error Message"].get<std::string>());
-        }
-    } catch (const std::exception& ex) {
-        result.errors.push_back(ex.what());
-    }
-
-    try {
-        const std::string overview_url = buildOverviewUrl(ticker, api_key);
-        const HttpResponse overview_resp = httpGet(overview_url);
-        const auto overview_json = nlohmann::json::parse(overview_resp.body);
-
-        if (overview_json.contains("Name")) {
-            stock.name = overview_json["Name"].get<std::string>();
-        }
-        if (overview_json.contains("Sector")) {
-            stock.sector = overview_json["Sector"].get<std::string>();
-        }
-        if (overview_json.contains("MarketCapitalization")) {
-            stock.market_cap = std::stod(overview_json["MarketCapitalization"].get<std::string>());
-        }
-        if (overview_json.contains("PERatio")) {
-            stock.pe_ratio = std::stod(overview_json["PERatio"].get<std::string>());
-        }
-        if (overview_json.contains("DividendYield")) {
-            stock.dividend_yield = std::stod(overview_json["DividendYield"].get<std::string>());
-        }
-    } catch (const std::exception& ex) {
-        result.errors.push_back(ex.what());
-    }
-
-    if (!stock.ticker.empty()) {
-        result.stocks.push_back(stock);
-    }
-
-    return result;
-}
-
 LiveDataProvider::HistoricalResult LiveDataProvider::fetchDailySeries(
     const std::string& ticker,
     const std::string& outputsize,
@@ -347,28 +259,6 @@ LiveDataProvider::HistoricalResult LiveDataProvider::fetchDailySeries(
     return result;
 }
 
-std::string LiveDataProvider::buildGlobalQuoteUrl(
-    const std::string& ticker,
-    const std::string& api_key
-) const {
-    std::ostringstream url;
-    url << base_url_ << "/query?function=GLOBAL_QUOTE";
-    url << "&symbol=" << urlEncode(ticker);
-    url << "&apikey=" << urlEncode(api_key);
-    return url.str();
-}
-
-std::string LiveDataProvider::buildOverviewUrl(
-    const std::string& ticker,
-    const std::string& api_key
-) const {
-    std::ostringstream url;
-    url << base_url_ << "/query?function=OVERVIEW";
-    url << "&symbol=" << urlEncode(ticker);
-    url << "&apikey=" << urlEncode(api_key);
-    return url.str();
-}
-
 std::string LiveDataProvider::buildDailySeriesUrl(
     const std::string& ticker,
     const std::string& api_key,
@@ -382,17 +272,6 @@ std::string LiveDataProvider::buildDailySeriesUrl(
     url << "&outputsize=" << urlEncode(outputsize);
     url << "&apikey=" << urlEncode(api_key);
     return url.str();
-}
-
-std::string LiveDataProvider::joinTickers(const std::vector<std::string>& tickers) {
-    std::ostringstream out;
-    for (size_t i = 0; i < tickers.size(); ++i) {
-        if (i > 0) {
-            out << ',';
-        }
-        out << tickers[i];
-    }
-    return out.str();
 }
 
 std::string LiveDataProvider::urlEncode(const std::string& value) {

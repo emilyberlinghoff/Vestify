@@ -80,10 +80,11 @@ bool testSaveAndLoad()
     wl.add("GOOG");
 
     WatchListRepo repo(TEMP_FILE);
-    auto saved = repo.save(wl);
+    auto saved = repo.saveAll({wl});
     bool ok = assertTrue(saved.ok, "Save should succeed");
 
-    auto loaded = repo.load();
+    auto loaded = repo.loadAll();
+    ok &= assertTrue(loaded.errors.empty(), "No errors on valid load");
     ok &= assertTrue(!loaded.watchlists.empty(), "Should load one watchlist");
     ok &= assertTrue(loaded.watchlists[0].size() == 3, "Should load 3 tickers");
     ok &= assertTrue(loaded.watchlists[0].has("AAPL"), "Loaded AAPL");
@@ -104,13 +105,11 @@ bool testNoFile()
     removeTempFile();
 
     WatchListRepo repo(TEMP_FILE);
-    auto res = repo.load();
+    auto res = repo.loadAll();
 
     bool ok = true;
     ok &= assertTrue(!res.errors.empty(), "Missing file should report an error");
-    ok &= assertTrue(!res.watchlists.empty(), "Default watchlist is returned for single-load API");
-    ok &= assertTrue(res.watchlists[0].empty(), "Default watchlist should be empty");
-    ok &= assertTrue(res.watchlists[0].getName() == "Default", "Default watchlist should have the default name");
+    ok &= assertTrue(res.watchlists.empty(), "No watchlists should be returned when the file is missing");
     return ok;
 }
 
@@ -129,13 +128,11 @@ bool testCorruptedFile()
     }
 
     WatchListRepo repo(TEMP_FILE);
-    auto res = repo.load();
+    auto res = repo.loadAll();
 
     bool ok = true;
     ok &= assertTrue(!res.errors.empty(), "Should report parse error");
-    ok &= assertTrue(!res.watchlists.empty(), "Default watchlist is returned after parse failure");
-    ok &= assertTrue(res.watchlists[0].empty(), "Default watchlist should be empty on bad file");
-    ok &= assertTrue(res.watchlists[0].getName() == "Default", "Default watchlist should keep the default name");
+    ok &= assertTrue(res.watchlists.empty(), "No watchlists should be returned on bad file");
 
     removeTempFile();
     return ok;
@@ -156,9 +153,9 @@ bool testDataMatchesAfterRoundTrip()
     orig.add("AMZN");
 
     WatchListRepo repo(TEMP_FILE);
-    repo.save(orig);
+    repo.saveAll({orig});
 
-    auto loaded = repo.load();
+    auto loaded = repo.loadAll();
     bool ok = assertTrue(loaded.errors.empty(), "Clean load");
 
     const auto &before = orig.getAll();
@@ -188,10 +185,10 @@ bool testSaveEmpty()
     WatchList wl;
     WatchListRepo repo(TEMP_FILE);
 
-    auto saved = repo.save(wl);
+    auto saved = repo.saveAll({wl});
     bool ok = assertTrue(saved.ok, "Saving empty should work");
 
-    auto loaded = repo.load();
+    auto loaded = repo.loadAll();
     ok &= assertTrue(loaded.errors.empty(), "No errors loading empty");
     ok &= assertTrue(!loaded.watchlists.empty(), "Should load one watchlist");
     ok &= assertTrue(loaded.watchlists[0].empty(), "Still empty after roundtrip");

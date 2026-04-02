@@ -10,31 +10,6 @@
 #include <nlohmann/json.hpp>
 
 /**
- * @brief Load a single watchlist while preserving legacy behavior.
- *
- * @return LoadResult containing at most one watchlist.
- */
-WatchListRepo::LoadResult WatchListRepo::load() const
-{
-    LoadResult allResult = loadAll();
-
-    // Keep old behaviour conceptually: caller can use the first watchlist.
-    if (allResult.watchlists.empty())
-    {
-        allResult.watchlists.push_back(WatchList("Default"));
-    }
-
-    // Return only the first watchlist in the vector if you want "single" semantics.
-    // Since the struct now stores a vector, caller can use watchlists[0].
-    if (allResult.watchlists.size() > 1)
-    {
-        allResult.watchlists = { allResult.watchlists[0] };
-    }
-
-    return allResult;
-}
-
-/**
  * @brief Load all watchlists from the configured JSON file.
  *
  * @return LoadResult containing parsed watchlists and any errors.
@@ -148,40 +123,6 @@ WatchListRepo::LoadResult WatchListRepo::loadAll() const
     catch (const std::exception& ex)
     {
         res.errors.push_back(std::string("Failed to parse JSON: ") + ex.what());
-    }
-
-    return res;
-}
-
-/**
- * @brief Save a single watchlist using the legacy one-watchlist format.
- *
- * @param wl Watchlist to persist.
- * @return SaveResult describing success or failure.
- */
-WatchListRepo::SaveResult WatchListRepo::save(const WatchList& wl) const
-{
-    SaveResult res;
-
-    nlohmann::json j;
-    j["name"] = wl.getName();
-    j["tickers"] = wl.getAll();
-
-    std::ofstream outfile(filepath_);
-    if (!outfile.is_open())
-    {
-        res.errMsg = "Cant open file for writing: " + filepath_;
-        return res;
-    }
-
-    try
-    {
-        outfile << j.dump(2);
-        res.ok = true;
-    }
-    catch (const std::exception& ex)
-    {
-        res.errMsg = std::string("Write failed: ") + ex.what();
     }
 
     return res;

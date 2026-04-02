@@ -107,8 +107,10 @@ bool testNoFile()
     auto res = repo.load();
 
     bool ok = true;
-    ok &= assertTrue(res.errors.empty(), "No errors when file missing");
-    ok &= assertTrue(res.watchlists.empty(), "Empty watchlist when no file");
+    ok &= assertTrue(!res.errors.empty(), "Missing file should report an error");
+    ok &= assertTrue(!res.watchlists.empty(), "Default watchlist is returned for single-load API");
+    ok &= assertTrue(res.watchlists[0].empty(), "Default watchlist should be empty");
+    ok &= assertTrue(res.watchlists[0].getName() == "Default", "Default watchlist should have the default name");
     return ok;
 }
 
@@ -131,7 +133,9 @@ bool testCorruptedFile()
 
     bool ok = true;
     ok &= assertTrue(!res.errors.empty(), "Should report parse error");
-    ok &= assertTrue(res.watchlists.empty(), "Watchlist empty on bad file");
+    ok &= assertTrue(!res.watchlists.empty(), "Default watchlist is returned after parse failure");
+    ok &= assertTrue(res.watchlists[0].empty(), "Default watchlist should be empty on bad file");
+    ok &= assertTrue(res.watchlists[0].getName() == "Default", "Default watchlist should keep the default name");
 
     removeTempFile();
     return ok;

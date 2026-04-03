@@ -1,0 +1,50 @@
+\chapter{std::\+swap\texorpdfstring{$<$}{<}basic\+\_\+json\texorpdfstring{$>$}{>} }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__swap}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__swap}\index{std::swap$<$basic\_json>@{std::swap$<$basic\_json>}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__swap_autotoc_md855}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__swap_autotoc_md855}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{namespace\ }std\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ swap(nlohmann::basic\_json\&\ j1,\ nlohmann::basic\_json\&\ j2);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Exchanges the values of two JSON objects.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__swap_autotoc_md856}{}\doxysection{\texorpdfstring{Parameters}{Parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__swap_autotoc_md856}
+{\ttfamily j1} (in, out) :\+ value to be replaced by {\ttfamily j2}
+
+{\ttfamily j2} (in, out) :\+ value to be replaced by {\ttfamily j1}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__swap_autotoc_md857}{}\doxysection{\texorpdfstring{Possible implementation}{Possible implementation}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__swap_autotoc_md857}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ swap(\doxymbox{\hyperlink{classnlohmann_1_1basic__json}{nlohmann::basic\_json}}\&\ j1,\ \doxymbox{\hyperlink{classnlohmann_1_1basic__json}{nlohmann::basic\_json}}\&\ j2)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ j1.swap(j2);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__swap_autotoc_md858}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__swap_autotoc_md858}
+??? example \begin{DoxyVerb}The following code shows how two values are swapped with `std::swap`.
+
+```cpp
+--8<-- "examples/std_swap.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/std_swap.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__swap_autotoc_md859}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__swap_autotoc_md859}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2swap}{swap}{0}
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__swap_autotoc_md860}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__swap_autotoc_md860}
+
+\begin{DoxyItemize}
+\item Added in version 1.\+0.\+0.
+\item Extended for arbitrary \doxylink{classbasic__json}{basic\+\_\+json} types in version 3.\+10.\+5. 
+\end{DoxyItemize}

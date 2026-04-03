@@ -1,0 +1,33 @@
+\chapter{JSON\+\_\+\+SKIP\+\_\+\+UNSUPPORTED\+\_\+\+COMPILER\+\_\+\+CHECK }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__skip__unsupported__compiler__check}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__skip__unsupported__compiler__check}\index{JSON\_SKIP\_UNSUPPORTED\_COMPILER\_CHECK@{JSON\_SKIP\_UNSUPPORTED\_COMPILER\_CHECK}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__skip__unsupported__compiler__check_autotoc_md1241}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__skip__unsupported__compiler__check_autotoc_md1241}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ JSON\_SKIP\_UNSUPPORTED\_COMPILER\_CHECK}}
+
+\end{DoxyCode}
+
+
+When defined, the library will not create a compile error when a known unsupported compiler is detected. This allows using the library with compilers that do not fully support C++11 and may only work if unsupported features are not used.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__skip__unsupported__compiler__check_autotoc_md1242}{}\doxysection{\texorpdfstring{Default definition}{Default definition}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__skip__unsupported__compiler__check_autotoc_md1242}
+By default, the macro is not defined.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#undef\ JSON\_SKIP\_UNSUPPORTED\_COMPILER\_CHECK}}
+
+\end{DoxyCode}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__skip__unsupported__compiler__check_autotoc_md1243}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__skip__unsupported__compiler__check_autotoc_md1243}
+??? example \begin{DoxyVerb}The code below switches off the check whether the compiler is supported.
+
+```cpp
+#define JSON_SKIP_UNSUPPORTED_COMPILER_CHECK 1
+#include <nlohmann/json.hpp>
+
+...
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__skip__unsupported__compiler__check_autotoc_md1244}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__skip__unsupported__compiler__check_autotoc_md1244}
+Added in version 3.\+2.\+0. 

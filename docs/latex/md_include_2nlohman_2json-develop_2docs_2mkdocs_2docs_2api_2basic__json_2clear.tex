@@ -1,0 +1,60 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize clear }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2clear}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2clear}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$clear@{$<$small$>$nlohmann::basic\_json::$<$/small$>$clear}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2clear_autotoc_md174}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2clear_autotoc_md174}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ clear()\ noexcept;}
+
+\end{DoxyCode}
+
+
+Clears the content of a JSON value and resets it to the default value as if \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2basic__json}{{\ttfamily basic\+\_\+json(value\+\_\+t)}}{0} would have been called with the current value type from \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2type}{{\ttfamily type()}}{0}:\+
+
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Value type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}initial value  \\
+null  &{\ttfamily null}  \\
+boolean  &{\ttfamily false}  \\
+string  &{\ttfamily "{}"{}}  \\
+number  &{\ttfamily 0}  \\
+binary  &An empty byte vector  \\
+object  &{\ttfamily \{\}}  \\
+array  &{\ttfamily \+[]\+}  \\
+\end{DoxyTable}
+
+
+Has the same effect as calling
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{*\textcolor{keyword}{this}\ =\ \doxymbox{\hyperlink{classbasic__json}{basic\_json}}(type());}
+
+\end{DoxyCode}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2clear_autotoc_md175}{}\doxysection{\texorpdfstring{Exception safety}{Exception safety}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2clear_autotoc_md175}
+No-\/throw guarantee:\+ this function never throws exceptions.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2clear_autotoc_md176}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2clear_autotoc_md176}
+Linear in the size of the JSON value.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2clear_autotoc_md177}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2clear_autotoc_md177}
+All iterators, pointers, and references related to this container are invalidated.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2clear_autotoc_md178}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2clear_autotoc_md178}
+??? example \begin{DoxyVerb}The example below shows the effect of `clear()` to different
+JSON types.
+
+```cpp
+--8<-- "examples/clear.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/clear.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2clear_autotoc_md179}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2clear_autotoc_md179}
+
+\begin{DoxyItemize}
+\item Added in version 1.\+0.\+0.
+\item Added support for binary types in version 3.\+8.\+0. 
+\end{DoxyItemize}

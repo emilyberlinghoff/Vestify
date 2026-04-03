@@ -1,0 +1,151 @@
+\chapter{NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE, NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT, NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive}\index{NLOHMANN\_DEFINE\_TYPE\_INTRUSIVE, NLOHMANN\_DEFINE\_TYPE\_INTRUSIVE\_WITH\_DEFAULT, NLOHMANN\_DEFINE\_TYPE\_INTRUSIVE\_ONLY\_SERIALIZE@{NLOHMANN\_DEFINE\_TYPE\_INTRUSIVE, NLOHMANN\_DEFINE\_TYPE\_INTRUSIVE\_WITH\_DEFAULT, NLOHMANN\_DEFINE\_TYPE\_INTRUSIVE\_ONLY\_SERIALIZE}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive_autotoc_md1275}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive_autotoc_md1275}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_TYPE\_INTRUSIVE(type,\ member...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ (1)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_TYPE\_INTRUSIVE\_WITH\_DEFAULT(type,\ member...)\ }\textcolor{comment}{//\ (2)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_TYPE\_INTRUSIVE\_ONLY\_SERIALIZE(type,\ member...)\ }\textcolor{comment}{//\ (3)}}
+
+\end{DoxyCode}
+
+
+These macros can be used to simplify the serialization/\+deserialization of types if you want to use a JSON object as serialization and want to use the member variable names as object keys in that object. \doxylink{requirements_The}{The} macro is to be defined {\bfseries{inside}} the class/\+struct to create code for. Unlike \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__non__intrusive}{{\ttfamily NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE}}{0}, it can access private members. \doxylink{requirements_The}{The} first parameter is the name of the class/\+struct, and all remaining parameters name the members.
+
+
+\begin{DoxyEnumerate}
+\item Will use \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2at}{{\ttfamily at}}{0} during deserialization and will throw \href{../../home/exceptions.md\#jsonexceptionout_of_range403}{\texttt{{\ttfamily out\+\_\+of\+\_\+range.\+403}}} if a key is missing in the JSON object.
+\item Will use \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2value}{{\ttfamily value}}{0} during deserialization and fall back to the default value for the respective type of the member variable if a key in the JSON object is missing. \doxylink{requirements_The}{The} generated {\ttfamily from\+\_\+json()} function default constructs an object and uses its values as the defaults when calling the {\ttfamily value} function.
+\item Only defines the serialization. Useful in cases when the type does not have a default constructor and only serialization is required.
+\end{DoxyEnumerate}
+
+Summary:\+
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Need access to private members  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Need only de-\/serialization  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Allow missing values when de-\/serializing  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}macro  \\
+:\+octicons-\/check-\/circle-\/fill-\/24:\+  &:\+octicons-\/x-\/circle-\/fill-\/24:\+  &:\+octicons-\/x-\/circle-\/fill-\/24:\+  &{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE}}  \\
+:\+octicons-\/check-\/circle-\/fill-\/24:\+  &:\+octicons-\/x-\/circle-\/fill-\/24:\+  &:\+octicons-\/check-\/circle-\/fill-\/24:\+  &{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT}}  \\
+:\+octicons-\/check-\/circle-\/fill-\/24:\+  &:\+octicons-\/check-\/circle-\/fill-\/24:\+  &:\+octicons-\/skip-\/fill-\/24:\+  &{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE}}  \\
+\end{DoxyTable}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive_autotoc_md1276}{}\doxysection{\texorpdfstring{Parameters}{Parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive_autotoc_md1276}
+{\ttfamily type} (in) :\+ name of the type (class, struct) to serialize/\+deserialize
+
+{\ttfamily member} (in) :\+ name of the member variable to serialize/\+deserialize; up to 64 members can be given as a comma-\/separated list\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive_autotoc_md1277}{}\doxysection{\texorpdfstring{Default definition}{Default definition}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive_autotoc_md1277}
+\doxylink{requirements_The}{The} macros add two friend functions to the class which take care of the serialization and deserialization:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\textcolor{keyword}{friend}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&,\ \textcolor{keyword}{const}\ type\&);}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\textcolor{keyword}{friend}\ \textcolor{keywordtype}{void}\ from\_json(\textcolor{keyword}{const}\ BasicJsonType\&,\ type\&);\ \textcolor{comment}{//\ except\ (3)}}
+
+\end{DoxyCode}
+
+
+See the examples below for the concrete generated code.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive_autotoc_md1278}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive_autotoc_md1278}
+!!! info "{}\+Prerequisites"{} \begin{DoxyVerb}1. The type `type` must be default constructible (except (3)). See [How can I use `get()` for non-default
+   constructible/non-copyable types?][GetNonDefNonCopy] for how to overcome this limitation.
+2. The macro must be used inside the type (class/struct).
+\end{DoxyVerb}
+
+
+!!! warning "{}\+Implementation limits"{} \begin{DoxyVerb}- The current implementation is limited to at most 64 member variables. If you want to serialize/deserialize types
+  with more than 64 member variables, you need to define the `to_json`/`from_json` functions manually.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive_autotoc_md1279}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive_autotoc_md1279}
+??? example "{}\+Example (1):\+ NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE"{} \begin{DoxyVerb}Consider the following complete example:
+
+```cpp hl_lines="22"
+--8<-- "examples/nlohmann_define_type_intrusive_macro.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/nlohmann_define_type_intrusive_macro.output"
+```
+
+Notes:
+
+- `ns::person` is default-constructible. This is a requirement for using the macro.
+- `ns::person` has private member variables. This makes `NLOHMANN_DEFINE_TYPE_INTRUSIVE` applicable, but not
+  `NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE`.
+- The macro `NLOHMANN_DEFINE_TYPE_INTRUSIVE` is used _inside_ the class.
+- A missing key "age" in the deserialization yields an exception. To fall back to the default value,
+  `NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT` can be used.
+
+The macro is equivalent to:
+
+```cpp hl_lines="22 23 24 25 26 27 28 29 30 31 32 33 34 35 36"
+--8<-- "examples/nlohmann_define_type_intrusive_explicit.cpp"
+```
+\end{DoxyVerb}
+
+
+??? example "{}\+Example (2):\+ NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT"{} \begin{DoxyVerb}Consider the following complete example:
+
+```cpp hl_lines="22"
+--8<-- "examples/nlohmann_define_type_intrusive_with_default_macro.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/nlohmann_define_type_intrusive_with_default_macro.output"
+```
+
+Notes:
+
+- `ns::person` is default-constructible. This is a requirement for using the macro.
+- `ns::person` has private member variables. This makes `NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT` applicable,
+   but not `NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT`.
+- The macro `NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT` is used _inside_ the class.
+- A missing key "age" in the deserialization does not yield an exception. Instead, the default value `-1` is used.
+
+The macro is equivalent to:
+
+```cpp hl_lines="22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37"
+--8<-- "examples/nlohmann_define_type_intrusive_with_default_explicit.cpp"
+```
+
+Note how a default-initialized `person` object is used in the `from_json` to fill missing values.
+\end{DoxyVerb}
+
+
+??? example "{}\+Example (3):\+ NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE"{} Consider the following complete example:\+
+
+{\ttfamily cpp hl\+\_\+lines="{}22"{} -\/-\/8\texorpdfstring{$<$}{<}-\/-\/ "{}examples/\+nlohmann\+\_\+define\+\_\+type\+\_\+intrusive\+\_\+only\+\_\+serialize\+\_\+macro.\+cpp"{} }
+
+Output:\+
+
+{\ttfamily json -\/-\/8\texorpdfstring{$<$}{<}-\/-\/ "{}examples/\+nlohmann\+\_\+define\+\_\+type\+\_\+intrusive\+\_\+only\+\_\+serialize\+\_\+macro.\+output"{} }
+
+Notes:\+
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \doxylink{structns_1_1person}{ns::\+person}} is non-\/default-\/constructible. This allows this macro to be used instead of {\ttfamily NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE} and {\ttfamily NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT}.
+\item {\ttfamily \doxylink{structns_1_1person}{ns::\+person}} has private member variables. This makes {\ttfamily NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE} applicable, but not {\ttfamily NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE}.
+\item \doxylink{requirements_The}{The} macro {\ttfamily NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE} is used {\itshape inside} the class.
+\end{DoxyItemize}
+
+\doxylink{requirements_The}{The} macro is equivalent to:\+
+
+{\ttfamily cpp hl\+\_\+lines="{}22 22 23 24 25 26 27 28"{} -\/-\/8\texorpdfstring{$<$}{<}-\/-\/ "{}examples/\+nlohmann\+\_\+define\+\_\+type\+\_\+intrusive\+\_\+only\+\_\+serialize\+\_\+explicit.\+cpp"{} }\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive_autotoc_md1280}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive_autotoc_md1280}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__non__intrusive}{NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE, NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT,  NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE}{0} for a similar macro that can be defined {\itshape outside} the type.
+\item \+[NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+INTRUSIVE, NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT, NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE, NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE, NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT, NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE]\+(nlohmann\+\_\+define\+\_\+derived\+\_\+type.\+md) for similar macros for derived types
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2arbitrary__types}{Arbitrary Type Conversions}{0} for an overview.
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive_autotoc_md1281}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive_autotoc_md1281}
+
+\begin{DoxyEnumerate}
+\item Added in version 3.\+9.\+0.
+\item Added in version 3.\+11.\+0.
+\item Added in version 3.\+11.\+3. 
+\end{DoxyEnumerate}

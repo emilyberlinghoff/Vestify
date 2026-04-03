@@ -1,0 +1,38 @@
+\doxysection{json.\+cppm}
+\hypertarget{json_8cppm_source}{}\label{json_8cppm_source}\index{include/nlohman/json-\/develop/src/modules/json.cppm@{include/nlohman/json-\/develop/src/modules/json.cppm}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{keyword}{module};}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <nlohmann/json.hpp>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{export}\ \textcolor{keyword}{module}\ \doxymbox{\hyperlink{module__nlohmann_8json}{nlohmann.json}};}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{export}\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacenlohmann}{nlohmann}}\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keyword}{using\ }::nlohmann::adl\_serializer;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{using\ }::nlohmann::basic\_json;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{using\ }::\doxymbox{\hyperlink{namespacenlohmann_a8ba8c5483f73a36e716558571ff97d57}{nlohmann::json}};}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{using\ }::nlohmann::json\_pointer;}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{using\ }::\doxymbox{\hyperlink{namespacenlohmann_a344a086e69e33b9e402f408a1c15b0e6}{nlohmann::ordered\_json}};}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{using\ }::nlohmann::ordered\_map;}
+\DoxyCodeLine{00014\ \}\ \ \textcolor{comment}{//\ namespace\ nlohmann}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ NLOHMANN\_JSON\_NAMESPACE\_BEGIN}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacedetail}{detail}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{export}\ \textcolor{keyword}{using\ }NLOHMANN\_JSON\_NAMESPACE::detail::json\_sax\_dom\_callback\_parser;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{export}\ \textcolor{keyword}{using\ }NLOHMANN\_JSON\_NAMESPACE::detail::unknown\_size;}
+\DoxyCodeLine{00022\ \}\ \textcolor{comment}{//\ namespace\ detail}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{export}\ \textcolor{keyword}{using\ }NLOHMANN\_JSON\_NAMESPACE::adl\_serializer;}
+\DoxyCodeLine{00025\ \textcolor{keyword}{export}\ \textcolor{keyword}{using\ }NLOHMANN\_JSON\_NAMESPACE::basic\_json;}
+\DoxyCodeLine{00026\ \textcolor{keyword}{export}\ \textcolor{keyword}{using\ }NLOHMANN\_JSON\_NAMESPACE::json;}
+\DoxyCodeLine{00027\ \textcolor{keyword}{export}\ \textcolor{keyword}{using\ }NLOHMANN\_JSON\_NAMESPACE::json\_pointer;}
+\DoxyCodeLine{00028\ \textcolor{keyword}{export}\ \textcolor{keyword}{using\ }NLOHMANN\_JSON\_NAMESPACE::ordered\_json;}
+\DoxyCodeLine{00029\ \textcolor{keyword}{export}\ \textcolor{keyword}{using\ }NLOHMANN\_JSON\_NAMESPACE::ordered\_map;}
+\DoxyCodeLine{00030\ \textcolor{keyword}{export}\ \textcolor{keyword}{using\ }NLOHMANN\_JSON\_NAMESPACE::to\_string;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ NLOHMANN\_JSON\_NAMESPACE\_END}
+
+\end{DoxyCode}

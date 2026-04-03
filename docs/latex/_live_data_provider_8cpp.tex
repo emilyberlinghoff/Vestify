@@ -1,0 +1,113 @@
+\doxysection{src/\+data/\+\+Live\+Data\+Provider.cpp File Reference}
+\hypertarget{_live_data_provider_8cpp}{}\label{_live_data_provider_8cpp}\index{src/data/LiveDataProvider.cpp@{src/data/LiveDataProvider.cpp}}
+
+
+Implementation of the Alpha Vantage historical data provider.  
+
+
+{\ttfamily \+\#include "{}data/\+\+Live\+Data\+Provider.\+hpp"{}}\newline
+{\ttfamily \+\#include $<$curl/\+curl.\+h$>$}\newline
+{\ttfamily \+\#include $<$nlohmann/\+json.\+hpp$>$}\newline
+{\ttfamily \+\#include $<$cstdlib$>$}\newline
+{\ttfamily \+\#include $<$cctype$>$}\newline
+{\ttfamily \+\#include $<$filesystem$>$}\newline
+{\ttfamily \+\#include $<$fstream$>$}\newline
+{\ttfamily \+\#include $<$algorithm$>$}\newline
+{\ttfamily \+\#include $<$sstream$>$}\newline
+{\ttfamily \+\#include $<$stdexcept$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_http_response}{Http\+Response}}
+\begin{DoxyCompactList}\small\item\em HTTP response container. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static size\+\_\+t \doxymbox{\hyperlink{_live_data_provider_8cpp_a69a46b39da6fa95075de95347045a078}{write\+Callback}} (void \texorpdfstring{$\ast$}{*}contents, size\+\_\+t size, size\+\_\+t nmemb, void \texorpdfstring{$\ast$}{*}userp)
+\begin{DoxyCompactList}\small\item\em libcurl write callback to collect response data. \end{DoxyCompactList}\item 
+static \doxymbox{\hyperlink{struct_http_response}{Http\+Response}} \doxymbox{\hyperlink{_live_data_provider_8cpp_a7a2bcb4b8dd4907b3651cd4a572cb9ed}{http\+Get\+With\+Status}} (const std::\+string \&url)
+\begin{DoxyCompactList}\small\item\em Fetch a URL with libcurl and capture status/\+body. \end{DoxyCompactList}\item 
+static \doxymbox{\hyperlink{struct_http_response}{Http\+Response}} \doxymbox{\hyperlink{_live_data_provider_8cpp_a0c4104ac87d16974efe24a5362d56ff4}{http\+Get}} (const std::\+string \&url)
+\begin{DoxyCompactList}\small\item\em Fetch a URL and return body, throwing on error status. \end{DoxyCompactList}\item 
+\Hypertarget{_live_data_provider_8cpp_a17e2c4c985b66d2d8338a96a8a84e6b3}\label{_live_data_provider_8cpp_a17e2c4c985b66d2d8338a96a8a84e6b3} 
+static std::\+string {\bfseries to\+Upper\+Copy} (std::\+string value)
+\item 
+\Hypertarget{_live_data_provider_8cpp_a0fa3c4aca719028e702a5e11764f7f7f}\label{_live_data_provider_8cpp_a0fa3c4aca719028e702a5e11764f7f7f} 
+static bool {\bfseries load\+Cached\+Series} (const std::\+string \&path, std::\+vector$<$ \doxymbox{\hyperlink{struct_live_data_provider_1_1_historical_point}{Live\+Data\+Provider::\+\+Historical\+Point}} $>$ \&out)
+\item 
+\Hypertarget{_live_data_provider_8cpp_afcc2ca496b21b1bf72eea44e840a35b2}\label{_live_data_provider_8cpp_afcc2ca496b21b1bf72eea44e840a35b2} 
+static bool {\bfseries save\+Cached\+Series} (const std::\+string \&path, const std::\+vector$<$ \doxymbox{\hyperlink{struct_live_data_provider_1_1_historical_point}{Live\+Data\+Provider::\+\+Historical\+Point}} $>$ \&points)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the Alpha Vantage historical data provider. 
+
+\begin{DoxyAuthor}{Author}
+Emily Berlinghoff 
+\end{DoxyAuthor}
+
+
+\label{doc-func-members}
+\Hypertarget{_live_data_provider_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_live_data_provider_8cpp_a0c4104ac87d16974efe24a5362d56ff4}\index{LiveDataProvider.cpp@{LiveDataProvider.cpp}!httpGet@{httpGet}}
+\index{httpGet@{httpGet}!LiveDataProvider.cpp@{LiveDataProvider.cpp}}
+\doxysubsubsection{\texorpdfstring{httpGet()}{httpGet()}}
+{\footnotesize\ttfamily \label{_live_data_provider_8cpp_a0c4104ac87d16974efe24a5362d56ff4} 
+\doxymbox{\hyperlink{struct_http_response}{Http\+Response}} http\+Get (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{url}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Fetch a URL and return body, throwing on error status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em url} & URL to fetch. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_http_response}{Http\+Response} with status and body. 
+\end{DoxyReturn}
+\Hypertarget{_live_data_provider_8cpp_a7a2bcb4b8dd4907b3651cd4a572cb9ed}\index{LiveDataProvider.cpp@{LiveDataProvider.cpp}!httpGetWithStatus@{httpGetWithStatus}}
+\index{httpGetWithStatus@{httpGetWithStatus}!LiveDataProvider.cpp@{LiveDataProvider.cpp}}
+\doxysubsubsection{\texorpdfstring{httpGetWithStatus()}{httpGetWithStatus()}}
+{\footnotesize\ttfamily \label{_live_data_provider_8cpp_a7a2bcb4b8dd4907b3651cd4a572cb9ed} 
+\doxymbox{\hyperlink{struct_http_response}{Http\+Response}} http\+Get\+With\+Status (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{url}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Fetch a URL with libcurl and capture status/\+body. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em url} & URL to fetch. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_http_response}{Http\+Response} with status and body. 
+\end{DoxyReturn}
+\Hypertarget{_live_data_provider_8cpp_a69a46b39da6fa95075de95347045a078}\index{LiveDataProvider.cpp@{LiveDataProvider.cpp}!writeCallback@{writeCallback}}
+\index{writeCallback@{writeCallback}!LiveDataProvider.cpp@{LiveDataProvider.cpp}}
+\doxysubsubsection{\texorpdfstring{writeCallback()}{writeCallback()}}
+{\footnotesize\ttfamily \label{_live_data_provider_8cpp_a69a46b39da6fa95075de95347045a078} 
+size\+\_\+t write\+Callback (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{contents}{, }\item[{size\+\_\+t}]{size}{, }\item[{size\+\_\+t}]{nmemb}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{userp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+libcurl write callback to collect response data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em contents} & Response bytes. \\
+\hline
+{\em size} & Size of a byte. \\
+\hline
+{\em nmemb} & Number of bytes. \\
+\hline
+{\em userp} & Pointer to std::\+string buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes handled. 
+\end{DoxyReturn}

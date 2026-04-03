@@ -1,0 +1,52 @@
+\chapter{
+\footnotesize nlohmann::\+json\+\_\+pointer:\+:\+
+\normalsize operator string\+\_\+t }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t}\index{$<$small$>$nlohmann::json\_pointer::$<$/small$>$operator string\_t@{$<$small$>$nlohmann::json\_pointer::$<$/small$>$operator string\_t}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t_autotoc_md1066}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t_autotoc_md1066}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{operator}\ string\_t()\ const}
+
+\end{DoxyCode}
+
+
+Return a string representation of the JSON pointer.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t_autotoc_md1067}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t_autotoc_md1067}
+\doxylink{class_a}{A} string representation of the JSON pointer\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t_autotoc_md1068}{}\doxysection{\texorpdfstring{Possible implementation}{Possible implementation}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t_autotoc_md1068}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{operator}\ string\_t()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\textcolor{keyword}{}\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ to\_string();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t_autotoc_md1069}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t_autotoc_md1069}
+!!! warning "{}\+Deprecation"{} \begin{DoxyVerb}This function is deprecated in favor of [`to_string`](to_string.md) and will be removed in a future major version
+release.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t_autotoc_md1070}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t_autotoc_md1070}
+??? example \begin{DoxyVerb}The example shows how JSON Pointers can be implicitly converted to strings.
+
+```cpp
+--8<-- "examples/json_pointer__operator_string_t.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/json_pointer__operator_string_t.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t_autotoc_md1071}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t_autotoc_md1071}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2string__t}{string\+\_\+t}{0}-\/ type for strings
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t_autotoc_md1072}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t_autotoc_md1072}
+
+\begin{DoxyItemize}
+\item Since version 2.\+0.\+0.
+\item Changed type to {\ttfamily string\+\_\+t} and deprecated in version 3.\+11.\+0. 
+\end{DoxyItemize}

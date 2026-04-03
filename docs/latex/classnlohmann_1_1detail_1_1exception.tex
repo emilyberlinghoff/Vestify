@@ -1,0 +1,63 @@
+\doxysection{nlohmann::\+detail::\+exception Class Reference}
+\hypertarget{classnlohmann_1_1detail_1_1exception}{}\label{classnlohmann_1_1detail_1_1exception}\index{nlohmann::detail::exception@{nlohmann::detail::exception}}
+
+
+general exception of the \doxylink{classbasic__json}{basic\+\_\+json} class  
+
+
+
+
+{\ttfamily \+\#include $<$json\+\_\+v3\+\_\+10\+\_\+5.\+hpp$>$}
+
+Inheritance diagram for nlohmann::\+detail::\+exception:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.680000cm]{classnlohmann_1_1detail_1_1exception}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1exception_ad863f4455f8bb2ea006a78e6fcf0b090}\label{classnlohmann_1_1detail_1_1exception_ad863f4455f8bb2ea006a78e6fcf0b090} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries what} () const noexcept override
+\begin{DoxyCompactList}\small\item\em returns the explanatory string \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1exception_a0d4589a3fb54e81646d986c05efa3b9a}\label{classnlohmann_1_1detail_1_1exception_a0d4589a3fb54e81646d986c05efa3b9a} 
+const int {\bfseries id}
+\begin{DoxyCompactList}\small\item\em the id of the exception \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1exception_ae323ad0d53bc724414c2233164e65657}\label{classnlohmann_1_1detail_1_1exception_ae323ad0d53bc724414c2233164e65657} 
+{\bfseries exception} (int id\+\_\+, const char \texorpdfstring{$\ast$}{*}what\+\_\+arg)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1exception_abf41a7e9178356314082284e6cfea278}\label{classnlohmann_1_1detail_1_1exception_abf41a7e9178356314082284e6cfea278} 
+static std::\+string {\bfseries name} (const std::\+string \&ename, int id\+\_\+)
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1exception_aa353a7dba4fd179f7224b8a2a238a264}\label{classnlohmann_1_1detail_1_1exception_aa353a7dba4fd179f7224b8a2a238a264} 
+{\footnotesize template$<$typename Basic\+Json\+Type$>$ }\\static std::\+string {\bfseries diagnostics} (const Basic\+Json\+Type \&leaf\+\_\+element)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1exception_ad54778dc4f125488cbce8ec276dfdde2}\label{classnlohmann_1_1detail_1_1exception_ad54778dc4f125488cbce8ec276dfdde2} 
+std::\+runtime\+\_\+error {\bfseries m}
+\begin{DoxyCompactList}\small\item\em an exception object as storage for error messages \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+general exception of the \doxylink{classbasic__json}{basic\+\_\+json} class 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://json.nlohmann.me/api/basic_json/exception/}{\texttt{https:\+/\+/\+json.\+nlohmann.\+me/\+api/\+basic\+\_\+json/\+exception/\+}} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+abi/\+include/\+nlohmann/\+json\+\_\+v3\+\_\+10\+\_\+5.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,46 @@
+\chapter{
+\footnotesize nlohmann:\+:\+
+\normalsize adl\+\_\+serializer }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2adl__serializer_2index}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2adl__serializer_2index}\index{$<$small$>$nlohmann::$<$/small$>$adl\_serializer@{$<$small$>$nlohmann::$<$/small$>$adl\_serializer}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2adl__serializer_2index_autotoc_md66}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2adl__serializer_2index_autotoc_md66}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename},\ \textcolor{keyword}{typename}>}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structadl__serializer}{adl\_serializer}};}
+
+\end{DoxyCode}
+
+
+Serializer that uses ADL (\href{https://en.cppreference.com/w/cpp/language/adl}{\texttt{Argument-\/\+Dependent Lookup}}) to choose {\ttfamily to\+\_\+json}/\+{\ttfamily from\+\_\+json} functions from the types\textquotesingle{} namespaces.
+
+It is implemented similarly to
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ValueType>}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structadl__serializer}{adl\_serializer}}\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structadl__serializer_a0216149429fe899cf45cbf14e08e2166}{to\_json}}(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ T\&\ value)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ calls\ the\ "{}to\_json"{}\ method\ in\ T's\ namespace}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structadl__serializer_a5645c63fe43bd9b4ebc9917f9c99d0fd}{from\_json}}(\textcolor{keyword}{const}\ BasicJsonType\&\ j,\ T\&\ value)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ same\ thing,\ but\ with\ the\ "{}from\_json"{}\ method}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2adl__serializer_2index_autotoc_md67}{}\doxysection{\texorpdfstring{Member functions}{Member functions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2adl__serializer_2index_autotoc_md67}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2adl__serializer_2from__json}{{\bfseries{from\+\_\+json}}}{0} -\/ convert a JSON value to any value type
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2adl__serializer_2to__json}{{\bfseries{to\+\_\+json}}}{0} -\/ convert any value type to a JSON value
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2adl__serializer_2index_autotoc_md68}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2adl__serializer_2index_autotoc_md68}
+
+\begin{DoxyItemize}
+\item Added in version 2.\+1.\+0. 
+\end{DoxyItemize}

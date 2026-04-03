@@ -1,0 +1,67 @@
+\doxysection{nlohmann::\+detail::\+json\+\_\+reverse\+\_\+iterator\texorpdfstring{$<$}{<} Base \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator}{}\label{classnlohmann_1_1detail_1_1json__reverse__iterator}\index{nlohmann::detail::json\_reverse\_iterator$<$ Base $>$@{nlohmann::detail::json\_reverse\_iterator$<$ Base $>$}}
+Inheritance diagram for nlohmann::\+detail::\+json\+\_\+reverse\+\_\+iterator\texorpdfstring{$<$}{<} Base \texorpdfstring{$>$}{>}:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classnlohmann_1_1detail_1_1json__reverse__iterator}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_a9ab55987c05ec6427ad36082e351cc45}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_a9ab55987c05ec6427ad36082e351cc45} 
+using {\bfseries difference\+\_\+type} = std::\+ptrdiff\+\_\+t
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_a6b2ef1d632fe49bfcc22fbd1abd62395}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_a6b2ef1d632fe49bfcc22fbd1abd62395} 
+using {\bfseries base\+\_\+iterator} = std::\+reverse\+\_\+iterator$<$Base$>$
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_a42f51a69bac7b2aebb613b2164e457f1}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_a42f51a69bac7b2aebb613b2164e457f1} 
+using {\bfseries reference} = typename Base::\+reference
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_ac8b85365a506d04d09c95e2d9bb8eac8}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_ac8b85365a506d04d09c95e2d9bb8eac8} 
+\texorpdfstring{$\ast$}{*}create reverse iterator from iterator {\bfseries json\+\_\+reverse\+\_\+iterator} (const typename base\+\_\+iterator::\+iterator\+\_\+type \&it) noexcept
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_a7aba667627ad19a2c95631447f683cc6}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_a7aba667627ad19a2c95631447f683cc6} 
+\texorpdfstring{$\ast$}{*}create reverse iterator from base class explicit {\bfseries json\+\_\+reverse\+\_\+iterator} (const base\+\_\+iterator \&it) noexcept
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_ad3ec50a541c3aab32828107b91a6b3cc}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_ad3ec50a541c3aab32828107b91a6b3cc} 
+\texorpdfstring{$\ast$}{*}post {\bfseries increment} (it++) json\+\_\+reverse\+\_\+iterator const operator++(int)
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_aa45b67b66dfd0f071981d5f3d8e1c85b}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_aa45b67b66dfd0f071981d5f3d8e1c85b} 
+\texorpdfstring{$\ast$}{*}pre {\bfseries increment} (++it) json\+\_\+reverse\+\_\+iterator \&operator++()
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_a868524f0730cd68c0d07cef42cd588c3}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_a868524f0730cd68c0d07cef42cd588c3} 
+\texorpdfstring{$\ast$}{*}post {\bfseries decrement} (it-\/-\/) json\+\_\+reverse\+\_\+iterator const operator-\/-\/(int)
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_a1b5e362787a8ceac16132c1a39dd05b6}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_a1b5e362787a8ceac16132c1a39dd05b6} 
+\texorpdfstring{$\ast$}{*}pre {\bfseries decrement} (-\/-\/it) json\+\_\+reverse\+\_\+iterator \&operator-\/-\/()
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_ab3d161e61787d4f0dc17869e869b72c4}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_ab3d161e61787d4f0dc17869e869b72c4} 
+\texorpdfstring{$\ast$}{*}add to iterator json\+\_\+reverse\+\_\+iterator \& {\bfseries operator+=} (difference\+\_\+type i)
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_ad735e215eae27070c82bc6a9b40ef031}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_ad735e215eae27070c82bc6a9b40ef031} 
+\texorpdfstring{$\ast$}{*}add to iterator json\+\_\+reverse\+\_\+iterator {\bfseries operator+} (difference\+\_\+type i) const
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_aac2b638794259932e2335b39e17bdace}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_aac2b638794259932e2335b39e17bdace} 
+\texorpdfstring{$\ast$}{*}subtract from iterator json\+\_\+reverse\+\_\+iterator {\bfseries operator-\/} (difference\+\_\+type i) const
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_aa0fabf1a4779a1450853d095b93f0f94}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_aa0fabf1a4779a1450853d095b93f0f94} 
+\texorpdfstring{$\ast$}{*}return difference difference\+\_\+type {\bfseries operator-\/} (const json\+\_\+reverse\+\_\+iterator \&other) const
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_a14e97c799d361ae8c6779709e9ce41e0}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_a14e97c799d361ae8c6779709e9ce41e0} 
+\texorpdfstring{$\ast$}{*}access to successor reference {\bfseries operator\+[$\,$]\+} (difference\+\_\+type n) const
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_acaadff5e8a435f017d066d7e3efce248}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_acaadff5e8a435f017d066d7e3efce248} 
+\texorpdfstring{$\ast$}{*}return the key of an \doxymbox{\hyperlink{classobject}{object}} iterator auto {\bfseries key} () const -\/$>$ decltype(std::\+declval$<$ Base $>$().key())
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_a1bb05df8f4e035ea23fa630ded2d2b87}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_a1bb05df8f4e035ea23fa630ded2d2b87} 
+\texorpdfstring{$\ast$}{*}return the value of an iterator reference {\bfseries value} () const
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+abi/\+include/\+nlohmann/\+json\+\_\+v3\+\_\+10\+\_\+5.\+hpp\end{DoxyCompactItemize}

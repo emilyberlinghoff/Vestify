@@ -1,0 +1,57 @@
+\chapter{
+\footnotesize nlohmann:\+:\+
+\normalsize operator"{}"{}\+\_\+json\+\_\+pointer }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer}\index{$<$small$>$nlohmann::$<$/small$>$operator"{}"{}\_json\_pointer@{$<$small$>$nlohmann::$<$/small$>$operator""""\_json\_pointer}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1332}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1332}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{classjson__pointer}{json\_pointer}}\ \textcolor{keyword}{operator}\ \textcolor{stringliteral}{"{}"{}}\_json\_pointer(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ s,\ std::size\_t\ n);}
+\DoxyCodeLine{\doxymbox{\hyperlink{classjson__pointer}{json\_pointer}}\ \textcolor{keyword}{operator}\ \textcolor{stringliteral}{"{}"{}}\_json\_pointer(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char8\_t}*\ s,\ std::size\_t\ n);\ \ \textcolor{comment}{//\ since\ C++20}}
+
+\end{DoxyCode}
+
+
+This operator implements a user-\/defined string literal for JSON Pointers. It can be used by adding {\ttfamily \#!cpp \+\_\+json\+\_\+pointer} to a string literal and returns a \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index}{{\ttfamily json\+\_\+pointer}}{0} object if no parse error occurred.
+
+It is recommended to bring the operator into scope using any of the following lines:\+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{using\ }nlohmann::literals::operator\ \textcolor{stringliteral}{"{}"{}}\_json\_pointer;}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }nlohmann::literals;}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }nlohmann::json\_literals;}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }nlohmann::literals::json\_literals;}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }\doxymbox{\hyperlink{namespacenlohmann}{nlohmann}};}
+
+\end{DoxyCode}
+ This is suggested to ease migration to the next major version release of the library. See \href{macros/json_use_global_udls.md\#notes}{\texttt{{\ttfamily JSON\+\_\+\+USE\+\_\+\+GLOBAL\+\_\+\+UDLS}}} for details.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1333}{}\doxysection{\texorpdfstring{Parameters}{Parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1333}
+{\ttfamily s} (in) :\+ a string representation of a JSON Pointer
+
+{\ttfamily n} (in) :\+ length of string {\ttfamily s}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1334}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1334}
+\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index}{{\ttfamily json\+\_\+pointer}}{0} value parsed from {\ttfamily s}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1335}{}\doxysection{\texorpdfstring{Exceptions}{Exceptions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1335}
+\doxylink{requirements_The}{The} function can throw anything that \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index}{{\ttfamily json\+\_\+pointer::\+json\+\_\+pointer}}{0} would throw.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1336}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1336}
+Linear.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1337}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1337}
+??? example \begin{DoxyVerb}The following code shows how to create JSON Pointers from string literals.
+
+```cpp
+--8<-- "examples/operator_literal_json_pointer.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/operator_literal_json_pointer.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1338}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1338}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index}{json\+\_\+pointer}{0} -\/ type to represent JSON Pointers
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1339}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer_autotoc_md1339}
+
+\begin{DoxyItemize}
+\item Added in version 2.\+0.\+0.
+\item Moved to namespace {\ttfamily nlohmann::\+literals::\+json\+\_\+literals} in 3.\+11.\+0.
+\item Added {\ttfamily char8\+\_\+t\texorpdfstring{$\ast$}{*}} overload in 3.\+12.\+1. 
+\end{DoxyItemize}

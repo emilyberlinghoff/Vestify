@@ -1,0 +1,111 @@
+\chapter{JSON\+\_\+\+DIAGNOSTIC\+\_\+\+POSITIONS }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions}\index{JSON\_DIAGNOSTIC\_POSITIONS@{JSON\_DIAGNOSTIC\_POSITIONS}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions_autotoc_md1186}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions_autotoc_md1186}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ JSON\_DIAGNOSTIC\_POSITIONS\ }\textcolor{comment}{/*\ value\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}
+
+
+This macro enables position diagnostics for generated JSON objects.
+
+When enabled, two new member functions \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2start__pos}{{\ttfamily start\+\_\+pos()}}{0} and \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos}{{\ttfamily end\+\_\+pos()}}{0} are added to \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index}{{\ttfamily basic\+\_\+json}}{0} values. If the value was created by calling the\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parse}{{\ttfamily parse}}{0} function, then these functions allow querying the byte positions of the value in the input it was parsed from. In case the value was constructed by other means, {\ttfamily std::\+string::\+npos} is returned.
+
+\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2start__pos}{{\ttfamily start\+\_\+pos()}}{0} returns the position of the first character of a given value in the original JSON string, while \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos}{{\ttfamily end\+\_\+pos()}}{0} returns the position of the character {\itshape following} the last character. For objects and arrays, the first and last characters correspond to the opening or closing braces/\+brackets, respectively. For primitive values, the first and last character represents the opening and closing quotes (strings) or the first and last character of the field\textquotesingle{}s numerical or predefined value ({\ttfamily true}, {\ttfamily false}, {\ttfamily null}), respectively.
+
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}JSON type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}return value \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2start__pos}{{\ttfamily start\+\_\+pos()}}{0}  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}return value \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos}{{\ttfamily end\+\_\+pos()}}{0}  \\
+object  &position of the opening {\ttfamily \{}  &position after the closing {\ttfamily \}}  \\
+array  &position of the opening {\ttfamily \+[}  &position after the closing {\ttfamily ]\+}  \\
+string  &position of the opening {\ttfamily "{}}  &position after the closing {\ttfamily "{}}  \\
+number  &position of the first character  &position after the last character  \\
+boolean  &position of {\ttfamily t} for {\ttfamily true} and {\ttfamily f} for {\ttfamily false}  &position after {\ttfamily e}  \\
+null  &position of {\ttfamily n}  &position after {\ttfamily l}  \\
+\end{DoxyTable}
+
+
+Given the above, \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos}{{\ttfamily end\+\_\+pos()}}{0}{\ttfamily  -\/ }\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2start__pos}{{\ttfamily start\+\_\+pos()}}{0} for a JSON value provides the length of the parsed JSON string for that value, including the opening or closing braces, brackets, or quotes.
+
+Note that enabling this macro increases the size of every JSON value by two {\ttfamily std::\+size\+\_\+t} fields and adds slight runtime overhead to parsing, copying JSON value objects, and the generation of error messages for exceptions. It also causes these values to be reported in those error messages.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions_autotoc_md1187}{}\doxysection{\texorpdfstring{Default definition}{Default definition}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions_autotoc_md1187}
+\doxylink{requirements_The}{The} default value is {\ttfamily 0} (position diagnostics are switched off).
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ JSON\_DIAGNOSTIC\_POSITIONS\ 0}}
+
+\end{DoxyCode}
+
+
+When the macro is not defined, the library will define it to its default value.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions_autotoc_md1188}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions_autotoc_md1188}
+!!! note "{}\+CMake option"{} \begin{DoxyVerb}Diagnostic positions can also be controlled with the CMake option
+[`JSON_Diagnostic_Positions`](../../integration/cmake.md#json_diagnostic_positions) (`OFF` by default)
+which defines `JSON_DIAGNOSTIC_POSITIONS` accordingly.
+\end{DoxyVerb}
+
+
+!!! note "{}\+Availability"{} \begin{DoxyVerb}Diagnostic positions are only available if the value was created by the [`parse`](../basic_json/parse.md) function.
+The [`sax_parse`](../basic_json/sax_parse.md) function or all other means to create a JSON value **do not** set the
+diagnostic positions and [`start_pos()`](../basic_json/start_pos.md) and [`end_pos()`](../basic_json/end_pos.md)
+will only return `std::string::npos` for these values.
+\end{DoxyVerb}
+
+
+!!! warning "{}\+Invalidation"{} \begin{DoxyVerb}The returned positions are only valid as long as the JSON value is not changed. The positions are *not* updated
+when the JSON value is changed.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions_autotoc_md1189}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions_autotoc_md1189}
+??? example "{}\+Example:\+ retrieving positions"{} \begin{DoxyVerb}```cpp
+--8<-- "examples/diagnostic_positions.cpp"
+```
+
+Output:
+
+```
+--8<-- "examples/diagnostic_positions.output"
+```
+
+The output shows the start/end positions of all the objects and fields in the JSON string.
+\end{DoxyVerb}
+
+
+??? example "{}\+Example 2:\+ using only diagnostic positions in exceptions"{} \begin{DoxyVerb}```cpp
+--8<-- "examples/diagnostic_positions_exception.cpp"
+```
+
+Output:
+
+```
+--8<-- "examples/diagnostic_positions_exception.output"
+```
+
+    The output shows the exception with start/end positions only.
+\end{DoxyVerb}
+
+
+??? example "{}\+Example 3:\+ using extended diagnostics with positions enabled in exceptions"{} \begin{DoxyVerb}```cpp
+--8<-- "examples/diagnostics_extended_positions.cpp"
+```
+
+Output:
+
+```
+--8<-- "examples/diagnostics_extended_positions.output"
+```
+
+    The output shows the exception with diagnostic path info and start/end positions.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions_autotoc_md1190}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions_autotoc_md1190}
+
+\begin{DoxyItemize}
+\item \href{../../integration/cmake.md\#json_diagnostic_positions}{\texttt{:\+simple-\/cmake:\+ JSON\+\_\+\+Diagnostic\+\_\+\+Positions}} -\/ CMake option to control the macro
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostics}{JSON\+\_\+\+DIAGNOSTICS}{0} -\/ macro to control extended diagnostics
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions_autotoc_md1191}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions_autotoc_md1191}
+
+\begin{DoxyItemize}
+\item Added in version 3.\+12.\+0. 
+\end{DoxyItemize}

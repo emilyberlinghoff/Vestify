@@ -1,0 +1,36 @@
+\chapter{
+\footnotesize nlohmann::\+json\+\_\+sax:\+:\+
+\normalsize start\+\_\+object }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__object}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__object}\index{$<$small$>$nlohmann::json\_sax::$<$/small$>$start\_object@{$<$small$>$nlohmann::json\_sax::$<$/small$>$start\_object}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__object_autotoc_md1156}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__object_autotoc_md1156}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ start\_object(std::size\_t\ elements)\ =\ 0;}
+
+\end{DoxyCode}
+
+
+\doxylink{requirements_The}{The} beginning of an object was read.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__object_autotoc_md1157}{}\doxysection{\texorpdfstring{Parameters}{Parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__object_autotoc_md1157}
+{\ttfamily elements} (in) :\+ number of object elements or {\ttfamily \#!cpp -\/1} if unknown\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__object_autotoc_md1158}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__object_autotoc_md1158}
+Whether parsing should proceed.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__object_autotoc_md1159}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__object_autotoc_md1159}
+Binary formats may report the number of elements.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__object_autotoc_md1160}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__object_autotoc_md1160}
+??? example \begin{DoxyVerb}The example below shows how the SAX interface is used.
+
+```cpp
+--8<-- "examples/sax_parse.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/sax_parse.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__object_autotoc_md1161}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__object_autotoc_md1161}
+
+\begin{DoxyItemize}
+\item Added in version 3.\+2.\+0. 
+\end{DoxyItemize}

@@ -1,0 +1,52 @@
+\chapter{Comments }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2comments}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2comments}\index{Comments@{Comments}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2comments_autotoc_md1427}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2comments_autotoc_md1427}%
+
+
+This library does not support comments {\itshape by default}. It does so for three reasons:\+
+
+
+\begin{DoxyEnumerate}
+\item Comments are not part of the \href{https://tools.ietf.org/html/rfc8259}{\texttt{JSON specification}}. You may argue that {\ttfamily /\+/\+} or {\ttfamily /\+\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}/\+} are allowed in Java\+Script, but JSON is not Java\+Script.
+\item This was not an oversight:\+ Douglas Crockford \href{https://plus.google.com/118095276221607585885/posts/RK8qyGVaGSr}{\texttt{wrote on this}} in May 2012:\+
+\end{DoxyEnumerate}
+
+\begin{quote}
+I removed comments from JSON because I saw people were using them to hold parsing directives, a practice which would have destroyed interoperability. I know that the lack of comments makes some people sad, but it shouldn\textquotesingle{}t. \end{quote}
+\begin{DoxyVerb}> Suppose you are using JSON to keep configuration files, which you would like to annotate. Go ahead and insert all the comments you like. Then pipe it through JSMin before handing it to your JSON parser.
+\end{DoxyVerb}
+
+
+
+\begin{DoxyEnumerate}
+\item It is dangerous for interoperability if some libraries add comment support while others do not. Please check \href{https://tools.ietf.org/html/draft-iab-protocol-maintenance-01}{\texttt{\doxylink{requirements_The}{The} Harmful Consequences of the Robustness Principle}} on this.
+\end{DoxyEnumerate}
+
+However, you can set parameter {\ttfamily ignore\+\_\+comments} to {\ttfamily \#!cpp true} in the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parse}{{\ttfamily parse}}{0} function to ignore {\ttfamily /\+/\+} or {\ttfamily /\+\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}/\+} comments. Comments will then be treated as whitespace.
+
+For more information, see \href{https://nigeltao.github.io/blog/2021/json-with-commas-comments.html}{\texttt{JSON With Commas and Comments (JWCC)}}.
+
+!!! example \begin{DoxyVerb}Consider the following JSON with comments.
+
+```json
+{
+    // update in 2006: removed Pluto
+    "planets": ["Mercury", "Venus", "Earth", "Mars",
+                "Jupiter", "Uranus", "Neptune" /*, "Pluto" */]
+}
+```
+
+When calling `parse` without additional argument, a parse error exception is thrown. If `ignore_comments` is set to `#! true`, the comments are ignored during parsing:
+
+```cpp
+--8<-- "examples/comments.cpp"
+```
+
+Output:
+
+```
+--8<-- "examples/comments.output"
+```
+\end{DoxyVerb}
+ 

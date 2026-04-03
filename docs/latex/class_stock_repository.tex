@@ -1,0 +1,138 @@
+\doxysection{Stock\+Repository Class Reference}
+\hypertarget{class_stock_repository}{}\label{class_stock_repository}\index{StockRepository@{StockRepository}}
+
+
+Repository class for managing collections of stock data.  
+
+
+
+
+{\ttfamily \+\#include $<$Stock\+Repository.\+hpp$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_stock_repository_1_1_load_result}{Load\+Result}}
+\begin{DoxyCompactList}\small\item\em Result structure for data loading operations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{struct_stock_repository_1_1_load_result}{Load\+Result}} \doxymbox{\hyperlink{class_stock_repository_a9c7663867b0fb9d1de7674078350fdfa}{load\+From\+Csv}} (const std::\+string \&path)
+\begin{DoxyCompactList}\small\item\em Load stock data from a CSV file. \end{DoxyCompactList}\item 
+const std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ \& \doxymbox{\hyperlink{class_stock_repository_ad65166086af85c29600468cd41eb2a0f}{get\+All}} () const
+\begin{DoxyCompactList}\small\item\em Get a reference to all stocks in the repository. \end{DoxyCompactList}\item 
+const \doxymbox{\hyperlink{struct_stock}{Stock}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{class_stock_repository_a52650eb765d3c4e4025b0c083f08d5d5}{find\+By\+Ticker}} (const std::\+string \&ticker) const
+\begin{DoxyCompactList}\small\item\em Find a stock by its ticker symbol. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_stock_repository_ab275a10cd4edb8634fa19f67feb3a406}\label{class_stock_repository_ab275a10cd4edb8634fa19f67feb3a406} 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ {\bfseries stocks\+\_\+}
+\begin{DoxyCompactList}\small\item\em Internal storage for the stock collection. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Repository class for managing collections of stock data. 
+
+The \doxylink{class_stock_repository}{Stock\+Repository} class provides a centralized interface for stock data management, including loading from external sources, in-\/memory storage, and efficient retrieval operations. It serves as the data access layer between data providers and the rest of the application.
+
+\begin{DoxyAuthor}{Author}
+Emily Berlinghoff 
+\end{DoxyAuthor}
+
+
+\label{doc-func-members}
+\Hypertarget{class_stock_repository_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_stock_repository_a52650eb765d3c4e4025b0c083f08d5d5}\index{StockRepository@{StockRepository}!findByTicker@{findByTicker}}
+\index{findByTicker@{findByTicker}!StockRepository@{StockRepository}}
+\doxysubsubsection{\texorpdfstring{findByTicker()}{findByTicker()}}
+{\footnotesize\ttfamily \label{class_stock_repository_a52650eb765d3c4e4025b0c083f08d5d5} 
+const \doxymbox{\hyperlink{struct_stock}{Stock}} \texorpdfstring{$\ast$}{*} Stock\+Repository::\+find\+By\+Ticker (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{ticker}{}\end{DoxyParamCaption}) const}
+
+
+
+Find a stock by its ticker symbol. 
+
+Finds a stock by its ticker symbol.
+
+Searches for a stock with the specified ticker symbol (case-\/insensitive). Returns a pointer to the found stock, or nullptr if no matching stock is found.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ticker} & The ticker symbol to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the found \doxylink{struct_stock}{Stock} object, or nullptr if not found.
+\end{DoxyReturn}
+Searches through the stored stocks to find one with a matching ticker symbol. The search is case-\/insensitive. Returns a pointer to the found stock, or nullptr if no stock with the given ticker is found.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ticker} & The ticker symbol to search for (case-\/insensitive). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the found \doxylink{struct_stock}{Stock} object, or nullptr if not found. 
+\end{DoxyReturn}
+\Hypertarget{class_stock_repository_ad65166086af85c29600468cd41eb2a0f}\index{StockRepository@{StockRepository}!getAll@{getAll}}
+\index{getAll@{getAll}!StockRepository@{StockRepository}}
+\doxysubsubsection{\texorpdfstring{getAll()}{getAll()}}
+{\footnotesize\ttfamily \label{class_stock_repository_ad65166086af85c29600468cd41eb2a0f} 
+const std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ \& Stock\+Repository::\+get\+All (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Get a reference to all stocks in the repository. 
+
+Returns a reference to all stocks in the repository.
+
+Provides read-\/only access to the complete collection of stocks. The returned reference remains valid as long as the repository exists and no operations modify the stock collection.
+
+\begin{DoxyReturn}{Returns}
+Const reference to the vector of all stored stocks.
+\end{DoxyReturn}
+Provides read-\/only access to the complete collection of stocks currently stored in the repository. The returned reference is valid as long as the repository exists and no operations modify the stock collection.
+
+\begin{DoxyReturn}{Returns}
+Const reference to the vector of all stored stocks. 
+\end{DoxyReturn}
+\Hypertarget{class_stock_repository_a9c7663867b0fb9d1de7674078350fdfa}\index{StockRepository@{StockRepository}!loadFromCsv@{loadFromCsv}}
+\index{loadFromCsv@{loadFromCsv}!StockRepository@{StockRepository}}
+\doxysubsubsection{\texorpdfstring{loadFromCsv()}{loadFromCsv()}}
+{\footnotesize\ttfamily \label{class_stock_repository_a9c7663867b0fb9d1de7674078350fdfa} 
+\doxymbox{\hyperlink{struct_stock_repository_1_1_load_result}{Stock\+Repository::\+\+Load\+Result}} Stock\+Repository::\+load\+From\+Csv (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{path}{}\end{DoxyParamCaption})}
+
+
+
+Load stock data from a CSV file. 
+
+Loads stock data from a CSV file.
+
+Parses the specified CSV file and loads stock data into the repository. Returns a \doxylink{struct_stock_repository_1_1_load_result}{Load\+Result} containing both successfully loaded stocks and any parsing errors that occurred.
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & File path to the CSV file containing stock data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_stock_repository_1_1_load_result}{Load\+Result} with loaded stocks and any error messages.
+\end{DoxyReturn}
+Uses the \doxylink{class_c_s_v_loader}{CSVLoader} to parse the specified file and stores the loaded stocks in the repository. Returns a \doxylink{struct_stock_repository_1_1_load_result}{Load\+Result} containing both the successfully loaded stocks and any errors that occurred during loading.
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & Path to the CSV file containing stock data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_stock_repository_1_1_load_result}{Load\+Result} structure with loaded stocks and any error messages. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+include/\+core/\+\doxymbox{\hyperlink{_stock_repository_8hpp}{Stock\+Repository.\+hpp}}\item 
+src/\+core/\+\doxymbox{\hyperlink{_stock_repository_8cpp}{Stock\+Repository.\+cpp}}\end{DoxyCompactItemize}

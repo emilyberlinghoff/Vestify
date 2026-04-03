@@ -1,0 +1,34 @@
+\doxysection{include/\+scoring/\+\+Strategy\+Present.hpp File Reference}
+\hypertarget{_strategy_present_8hpp}{}\label{_strategy_present_8hpp}\index{include/scoring/StrategyPresent.hpp@{include/scoring/StrategyPresent.hpp}}
+
+
+Scoring strategies, results, and ranking logic.  
+
+
+{\ttfamily \+\#include $<$algorithm$>$}\newline
+{\ttfamily \+\#include $<$iostream$>$}\newline
+{\ttfamily \+\#include $<$string$>$}\newline
+{\ttfamily \+\#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \+\#include $<$vector$>$}\newline
+{\ttfamily \+\#include $<$stdexcept$>$}\newline
+{\ttfamily \+\#include $<$cmath$>$}\newline
+{\ttfamily \+\#include $<$memory$>$}\newline
+{\ttfamily \+\#include "{}core/\+\+Stock.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}scoring/\+\+Scoring\+Model.\+hpp"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_scoring_strategy}{Scoring\+Strategy}}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_scoring_strategy}{Scoring\+Strategy} — a named preset with a weight per scoring model. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct_scored_stock}{Scored\+Stock}}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_scored_stock}{Scored\+Stock} — a \doxylink{struct_stock}{Stock} paired with its scoring breakdown. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_strategy_manager}{Strategy\+Manager}}
+\begin{DoxyCompactList}\small\item\em \doxylink{class_strategy_manager}{Strategy\+Manager} — owns presets, active strategy, and ranking logic. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Scoring strategies, results, and ranking logic. 
+
+\begin{DoxyAuthor}{Author}
+Melvin Roger 
+\end{DoxyAuthor}

@@ -1,0 +1,66 @@
+\doxysection{Screening\+Menu Class Reference}
+\hypertarget{class_screening_menu}{}\label{class_screening_menu}\index{ScreeningMenu@{ScreeningMenu}}
+
+
+Dedicated UI flow for interactive stock screening.  
+
+
+
+
+{\ttfamily \+\#include $<$Screening\+Menu.\+hpp$>$}
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \doxymbox{\hyperlink{class_screening_menu_a2730c2aca6b22413591b9d6a9c905eee}{run}} (const std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ \&stocks, const std::\+function$<$ int()$>$ \&read\+Int, const std::\+function$<$ std::\+string(const std::\+string \&)$>$ \&read\+Line)
+\begin{DoxyCompactList}\small\item\em Run the stock screening prompt flow. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Dedicated UI flow for interactive stock screening. 
+
+This class isolates the screening-\/specific prompt flow from the main menu so users can build, inspect, and execute multi-\/criteria screens without increasing the complexity of {\ttfamily \doxylink{class_interactive_menu}{Interactive\+Menu}}.
+
+\begin{DoxyAuthor}{Author}
+Maxime Lavoie 
+\end{DoxyAuthor}
+
+
+\label{doc-func-members}
+\Hypertarget{class_screening_menu_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_screening_menu_a2730c2aca6b22413591b9d6a9c905eee}\index{ScreeningMenu@{ScreeningMenu}!run@{run}}
+\index{run@{run}!ScreeningMenu@{ScreeningMenu}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{class_screening_menu_a2730c2aca6b22413591b9d6a9c905eee} 
+void Screening\+Menu::\+run (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ \&}]{stocks}{, }\item[{const std::\+function$<$ int()$>$ \&}]{read\+Int}{, }\item[{const std::\+function$<$ std::\+string(const std::\+string \&)$>$ \&}]{read\+Line}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Run the stock screening prompt flow. 
+
+Run the interactive screening prompt loop and display results.
+
+Presents the available filter menu, lets the user stack multiple criteria, prints the current filter list on demand, and displays the matching stocks after the screen is executed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stocks} & Loaded stocks available for screening. \\
+\hline
+{\em read\+Int} & Callback for validated integer input. \\
+\hline
+{\em read\+Line} & Callback for line-\/based prompt input.\\
+\hline
+{\em stocks} & Loaded stocks available for screening. \\
+\hline
+{\em read\+Int} & Callback for validated integer input. \\
+\hline
+{\em read\+Line} & Callback for line-\/based prompt input. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+include/\+ui/\+\doxymbox{\hyperlink{_screening_menu_8hpp}{Screening\+Menu.\+hpp}}\item 
+src/\+ui/\+\doxymbox{\hyperlink{_screening_menu_8cpp}{Screening\+Menu.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,42 @@
+\doxysection{Watch\+List.\+hpp}
+\hypertarget{_watch_list_8hpp_source}{}\label{_watch_list_8hpp_source}\index{include/core/WatchList.hpp@{include/core/WatchList.hpp}}
+\doxymbox{\hyperlink{_watch_list_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_watch_list_adb0f3d5d3c99f5eb5988d2e613866bd0}{WatchList}}}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \doxymbox{\hyperlink{class_watch_list_adb0f3d5d3c99f5eb5988d2e613866bd0}{WatchList}}(\textcolor{keyword}{const}\ std::string\&\ name\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_watch_list_a70901b692812377a24e488018b7949f3}{add}}(\textcolor{keyword}{const}\ std::string\&\ sym);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_watch_list_ab08e090efed9d30b3a492fd3d0ee541e}{remove}}(\textcolor{keyword}{const}\ std::string\&\ sym);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_watch_list_afc66cda31a512466a20797665fd17e4a}{has}}(\textcolor{keyword}{const}\ std::string\&\ sym)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::string>\&\ \doxymbox{\hyperlink{class_watch_list_a5217ee5bf34414e75467989efe8b20d8}{getAll}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{class_watch_list_abdeb8dea3f04abbd94b576cb8085935c}{size}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_watch_list_aa978982ca03752516029be5627ca2aed}{empty}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_watch_list_a33291f5cadc042aa202f80605feef5a4}{clear}}();}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ \doxymbox{\hyperlink{class_watch_list_abcd836cc2e3d241e0782d630d7f7abd3}{getName}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_watch_list_a4cc46f9e643c11e0e8a83b3e70539aae}{setName}}(\textcolor{keyword}{const}\ std::string\&\ name);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \doxymbox{\hyperlink{class_watch_list_a685f61c1e9f583f44c7a0061fbd66d1d}{normalizeSymbol}}(\textcolor{keyword}{const}\ std::string\&\ sym);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00106\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_watch_list_a2a6565e4ef8f17f05c97b94a04258dea}{name\_}};}
+\DoxyCodeLine{00108\ \ \ \ \ std::vector<std::string>\ \doxymbox{\hyperlink{class_watch_list_af2458e78a886eca525bf603e1513cccf}{symbols\_}};}
+\DoxyCodeLine{00109\ \};}
+
+\end{DoxyCode}

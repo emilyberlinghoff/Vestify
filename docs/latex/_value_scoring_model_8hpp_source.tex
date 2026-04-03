@@ -1,0 +1,46 @@
+\doxysection{Value\+Scoring\+Model.\+hpp}
+\hypertarget{_value_scoring_model_8hpp_source}{}\label{_value_scoring_model_8hpp_source}\index{include/scoring/ValueScoringModel.hpp@{include/scoring/ValueScoringModel.hpp}}
+\doxymbox{\hyperlink{_value_scoring_model_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_scoring_model_8hpp}{scoring/ScoringModel.hpp}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_value_scoring_model}{ValueScoringModel}}\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_scoring_model}{ScoringModel}}\ \{}
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{class_value_scoring_model_a06565dbd6077a03365905989c62235e0}{calculateScore}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_stock}{Stock}}\&\ stock)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ total\ =\ 0.0;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ components\ =\ 0;}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isfinite(stock.\doxymbox{\hyperlink{struct_stock_aeb3445238461ccde40ddadc7d40e2060}{pe\_ratio}})\ \&\&\ stock.\doxymbox{\hyperlink{struct_stock_aeb3445238461ccde40ddadc7d40e2060}{pe\_ratio}}\ >\ 0.0)\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ total\ +=\ std::max(0.0,\ 100.0\ -\/\ (stock.\doxymbox{\hyperlink{struct_stock_aeb3445238461ccde40ddadc7d40e2060}{pe\_ratio}}\ *\ 2.0));}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ ++components;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isfinite(stock.\doxymbox{\hyperlink{struct_stock_a8246454bea0b850caaf173d0d7702439}{dividend\_yield}})\ \&\&\ stock.\doxymbox{\hyperlink{struct_stock_a8246454bea0b850caaf173d0d7702439}{dividend\_yield}}\ >=\ 0.0)\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ total\ +=\ std::min(100.0,\ stock.\doxymbox{\hyperlink{struct_stock_a8246454bea0b850caaf173d0d7702439}{dividend\_yield}}\ *\ 1250.0);}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ ++components;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isfinite(stock.\doxymbox{\hyperlink{struct_stock_a675870dc9d4aba6c109961202e0e010a}{ev\_to\_fcf}})\ \&\&\ stock.\doxymbox{\hyperlink{struct_stock_a675870dc9d4aba6c109961202e0e010a}{ev\_to\_fcf}}\ >\ 0.0)\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ total\ +=\ std::max(0.0,\ 100.0\ -\/\ (stock.\doxymbox{\hyperlink{struct_stock_a675870dc9d4aba6c109961202e0e010a}{ev\_to\_fcf}}\ *\ 2.0));}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ ++components;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isfinite(stock.\doxymbox{\hyperlink{struct_stock_a7d215816c02bceebae3132e886a69c15}{fcf\_yield}})\ \&\&\ stock.\doxymbox{\hyperlink{struct_stock_a7d215816c02bceebae3132e886a69c15}{fcf\_yield}}\ >\ 0.0)\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ total\ +=\ std::min(100.0,\ stock.\doxymbox{\hyperlink{struct_stock_a7d215816c02bceebae3132e886a69c15}{fcf\_yield}}\ *\ 1000.0);}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ ++components;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (components\ >\ 0)\ ?\ (total\ /\ components)\ :\ 0.0;}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00084\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_value_scoring_model_a55bc1f6aac01b64b78b6bb710a5a47fc}{getModelName}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Value"{}};\ \}}
+\DoxyCodeLine{00085\ \};}
+
+\end{DoxyCode}

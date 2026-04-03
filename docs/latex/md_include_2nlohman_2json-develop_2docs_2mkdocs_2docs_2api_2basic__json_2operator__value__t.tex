@@ -1,0 +1,54 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize operator value\+\_\+t }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__value__t}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__value__t}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$operator value\_t@{$<$small$>$nlohmann::basic\_json::$<$/small$>$operator value\_t}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__value__t_autotoc_md735}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__value__t_autotoc_md735}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{constexpr}\ \textcolor{keyword}{operator}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}()\ const\ noexcept;}
+
+\end{DoxyCode}
+
+
+Return the type of the JSON value as a value from the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2value__t}{{\ttfamily value\+\_\+t}}{0} enumeration.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__value__t_autotoc_md736}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__value__t_autotoc_md736}
+the type of the JSON value
+
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Value type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}return value  \\
+{\ttfamily \#!json null}  &{\ttfamily value\+\_\+t::\+null}  \\
+boolean  &{\ttfamily value\+\_\+t::\+boolean}  \\
+string  &{\ttfamily value\+\_\+t::\+string}  \\
+number (integer)  &{\ttfamily value\+\_\+t::\+number\+\_\+integer}  \\
+number (unsigned integer)  &{\ttfamily value\+\_\+t::\+number\+\_\+unsigned}  \\
+number (floating-\/point)  &{\ttfamily value\+\_\+t::\+number\+\_\+float}  \\
+object  &{\ttfamily value\+\_\+t::\+object}  \\
+array  &{\ttfamily value\+\_\+t::\+array}  \\
+binary  &{\ttfamily value\+\_\+t::\+binary}  \\
+discarded  &{\ttfamily value\+\_\+t::\+discarded}  \\
+\end{DoxyTable}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__value__t_autotoc_md737}{}\doxysection{\texorpdfstring{Exception safety}{Exception safety}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__value__t_autotoc_md737}
+No-\/throw guarantee:\+ this member function never throws exceptions.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__value__t_autotoc_md738}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__value__t_autotoc_md738}
+Constant.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__value__t_autotoc_md739}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__value__t_autotoc_md739}
+??? example \begin{DoxyVerb}The following code exemplifies `operator value_t()` for all JSON types.
+
+```cpp
+--8<-- "examples/operator__value_t.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/operator__value_t.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__value__t_autotoc_md740}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__value__t_autotoc_md740}
+
+\begin{DoxyItemize}
+\item Added in version 1.\+0.\+0.
+\item Added unsigned integer type in version 2.\+0.\+0.
+\item Added binary type in version 3.\+8.\+0. 
+\end{DoxyItemize}

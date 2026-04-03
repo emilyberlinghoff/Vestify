@@ -1,0 +1,47 @@
+\chapter{
+\footnotesize nlohmann:\+:\+
+\normalsize json\+\_\+sax }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2index}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2index}\index{$<$small$>$nlohmann::$<$/small$>$json\_sax@{$<$small$>$nlohmann::$<$/small$>$json\_sax}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2index_autotoc_md1115}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2index_autotoc_md1115}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structjson__sax}{json\_sax}};}
+
+\end{DoxyCode}
+
+
+This class describes the SAX interface used by \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2sax__parse}{sax\+\_\+parse}{0}. Each function is called in different situations while the input is parsed. \doxylink{requirements_The}{The} boolean return value informs the parser whether to continue processing the input.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2index_autotoc_md1116}{}\doxysection{\texorpdfstring{Template parameters}{Template parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2index_autotoc_md1116}
+{\ttfamily Basic\+Json\+Type} :\+ a specialization of \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index}{{\ttfamily basic\+\_\+json}}{0}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2index_autotoc_md1117}{}\doxysection{\texorpdfstring{Member types}{Member types}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2index_autotoc_md1117}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2number__integer__t}{{\bfseries{number\+\_\+integer\+\_\+t}}}{0} -\/ {\ttfamily Basic\+Json\+Type}\textquotesingle{}s type for numbers (integer)
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2number__unsigned__t}{{\bfseries{number\+\_\+unsigned\+\_\+t}}}{0} -\/ {\ttfamily Basic\+Json\+Type}\textquotesingle{}s type for numbers (unsigned)
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2number__float__t}{{\bfseries{number\+\_\+float\+\_\+t}}}{0} -\/ {\ttfamily Basic\+Json\+Type}\textquotesingle{}s type for numbers (floating-\/point)
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2string__t}{{\bfseries{string\+\_\+t}}}{0} -\/ {\ttfamily Basic\+Json\+Type}\textquotesingle{}s type for strings
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2binary__t}{{\bfseries{binary\+\_\+t}}}{0} -\/ {\ttfamily Basic\+Json\+Type}\textquotesingle{}s type for binary arrays
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2index_autotoc_md1118}{}\doxysection{\texorpdfstring{Member functions}{Member functions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2index_autotoc_md1118}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2binary}{{\bfseries{binary}}}{0} ({\itshape virtual}) -\/ a binary value was read
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2boolean}{{\bfseries{boolean}}}{0} ({\itshape virtual}) -\/ a boolean value was read
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2end__array}{{\bfseries{end\+\_\+array}}}{0} ({\itshape virtual}) -\/ the end of an array was read
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2end__object}{{\bfseries{end\+\_\+object}}}{0} ({\itshape virtual}) -\/ the end of an object was read
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2key}{{\bfseries{key}}}{0} ({\itshape virtual}) -\/ an object key was read
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2null}{{\bfseries{null}}}{0} ({\itshape virtual}) -\/ a null value was read
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2number__float}{{\bfseries{number\+\_\+float}}}{0} ({\itshape virtual}) -\/ a floating-\/point number was read
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2number__integer}{{\bfseries{number\+\_\+integer}}}{0} ({\itshape virtual}) -\/ an integer number was read
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2number__unsigned}{{\bfseries{number\+\_\+unsigned}}}{0} ({\itshape virtual}) -\/ an unsigned integer number was read
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2parse__error}{{\bfseries{parse\+\_\+error}}}{0} ({\itshape virtual}) -\/ a parse error occurred
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__array}{{\bfseries{start\+\_\+array}}}{0} ({\itshape virtual}) -\/ the beginning of an array was read
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2start__object}{{\bfseries{start\+\_\+object}}}{0} ({\itshape virtual}) -\/ the beginning of an object was read
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2string}{{\bfseries{string}}}{0} ({\itshape virtual}) -\/ a string value was read
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2index_autotoc_md1119}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2index_autotoc_md1119}
+
+\begin{DoxyItemize}
+\item Added in version 3.\+2.\+0.
+\item Support for binary values ({\ttfamily binary\+\_\+t}, {\ttfamily binary}) added in version 3.\+8.\+0. 
+\end{DoxyItemize}

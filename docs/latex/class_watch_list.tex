@@ -1,0 +1,300 @@
+\doxysection{Watch\+List Class Reference}
+\hypertarget{class_watch_list}{}\label{class_watch_list}\index{WatchList@{WatchList}}
+
+
+Keeps track of stocks the user wants to watch.  
+
+
+
+
+{\ttfamily \+\#include $<$Watch\+List.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_watch_list_adb0f3d5d3c99f5eb5988d2e613866bd0}{Watch\+List}} (const std::\+string \&name="{}"{})
+\begin{DoxyCompactList}\small\item\em Construct a watchlist with a name. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_watch_list_a70901b692812377a24e488018b7949f3}{add}} (const std::\+string \&sym)
+\begin{DoxyCompactList}\small\item\em Add a ticker to the list. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_watch_list_ab08e090efed9d30b3a492fd3d0ee541e}{remove}} (const std::\+string \&sym)
+\begin{DoxyCompactList}\small\item\em Take a ticker off the list. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_watch_list_afc66cda31a512466a20797665fd17e4a}{has}} (const std::\+string \&sym) const
+\begin{DoxyCompactList}\small\item\em Check if a ticker is on the watchlist. \end{DoxyCompactList}\item 
+const std::\+vector$<$ std::\+string $>$ \& \doxymbox{\hyperlink{class_watch_list_a5217ee5bf34414e75467989efe8b20d8}{get\+All}} () const
+\begin{DoxyCompactList}\small\item\em Get all the tickers. \end{DoxyCompactList}\item 
+size\+\_\+t \doxymbox{\hyperlink{class_watch_list_abdeb8dea3f04abbd94b576cb8085935c}{size}} () const
+\begin{DoxyCompactList}\small\item\em How many tickers are being tracked. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_watch_list_aa978982ca03752516029be5627ca2aed}{empty}} () const
+\begin{DoxyCompactList}\small\item\em Check if there is nothing in the watchlist. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_watch_list_a33291f5cadc042aa202f80605feef5a4}{clear}} ()
+\begin{DoxyCompactList}\small\item\em Wipe the whole watchlist. \end{DoxyCompactList}\item 
+const std::\+string \& \doxymbox{\hyperlink{class_watch_list_abcd836cc2e3d241e0782d630d7f7abd3}{get\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Get the watchlist name. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_watch_list_a4cc46f9e643c11e0e8a83b3e70539aae}{set\+Name}} (const std::\+string \&name)
+\begin{DoxyCompactList}\small\item\em Change the watchlist name. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std::\+string \doxymbox{\hyperlink{class_watch_list_a685f61c1e9f583f44c7a0061fbd66d1d}{normalize\+Symbol}} (const std::\+string \&sym)
+\begin{DoxyCompactList}\small\item\em Convert ticker symbols to uppercase. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_watch_list_a2a6565e4ef8f17f05c97b94a04258dea}\label{class_watch_list_a2a6565e4ef8f17f05c97b94a04258dea} 
+std::\+string {\bfseries name\+\_\+}
+\begin{DoxyCompactList}\small\item\em Display name of the watchlist. \end{DoxyCompactList}\item 
+\Hypertarget{class_watch_list_af2458e78a886eca525bf603e1513cccf}\label{class_watch_list_af2458e78a886eca525bf603e1513cccf} 
+std::\+vector$<$ std::\+string $>$ {\bfseries symbols\+\_\+}
+\begin{DoxyCompactList}\small\item\em Stored ticker symbols in normalized uppercase form. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Keeps track of stocks the user wants to watch. 
+
+Encapsulates a named collection of normalized ticker symbols and provides convenience operations for maintaining and querying that collection.
+
+\begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+
+
+\label{doc-constructors}
+\Hypertarget{class_watch_list_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_watch_list_adb0f3d5d3c99f5eb5988d2e613866bd0}\index{WatchList@{WatchList}!WatchList@{WatchList}}
+\index{WatchList@{WatchList}!WatchList@{WatchList}}
+\doxysubsubsection{\texorpdfstring{WatchList()}{WatchList()}}
+{\footnotesize\ttfamily \label{class_watch_list_adb0f3d5d3c99f5eb5988d2e613866bd0} 
+Watch\+List::\+\+Watch\+List (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{name}{ = {\ttfamily "{}"{}}}\end{DoxyParamCaption})}
+
+
+
+Construct a watchlist with a name. 
+
+Construct a watchlist with an optional display name.
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Watchlist name. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_watch_list_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_watch_list_a70901b692812377a24e488018b7949f3}\index{WatchList@{WatchList}!add@{add}}
+\index{add@{add}!WatchList@{WatchList}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily \label{class_watch_list_a70901b692812377a24e488018b7949f3} 
+bool Watch\+List::\+add (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{sym}{}\end{DoxyParamCaption})}
+
+
+
+Add a ticker to the list. 
+
+Add a ticker symbol if it is not already present.
+
+Won\textquotesingle{}t add if it is already there.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sym} & Ticker symbol like "{}\+AAPL"{}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if it got added, false if duplicate.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em sym} & Raw ticker symbol. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the symbol was added, false if it already existed. 
+\end{DoxyReturn}
+\Hypertarget{class_watch_list_a33291f5cadc042aa202f80605feef5a4}\index{WatchList@{WatchList}!clear@{clear}}
+\index{clear@{clear}!WatchList@{WatchList}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily \label{class_watch_list_a33291f5cadc042aa202f80605feef5a4} 
+void Watch\+List::\+clear (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Wipe the whole watchlist. 
+
+Remove all tracked symbols from the watchlist. \Hypertarget{class_watch_list_aa978982ca03752516029be5627ca2aed}\index{WatchList@{WatchList}!empty@{empty}}
+\index{empty@{empty}!WatchList@{WatchList}}
+\doxysubsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily \label{class_watch_list_aa978982ca03752516029be5627ca2aed} 
+bool Watch\+List::\+empty (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Check if there is nothing in the watchlist. 
+
+Check whether the watchlist contains no symbols.
+
+\begin{DoxyReturn}{Returns}
+True if empty.
+
+True if the watchlist is empty. 
+\end{DoxyReturn}
+\Hypertarget{class_watch_list_a5217ee5bf34414e75467989efe8b20d8}\index{WatchList@{WatchList}!getAll@{getAll}}
+\index{getAll@{getAll}!WatchList@{WatchList}}
+\doxysubsubsection{\texorpdfstring{getAll()}{getAll()}}
+{\footnotesize\ttfamily \label{class_watch_list_a5217ee5bf34414e75467989efe8b20d8} 
+const std::\+vector$<$ std::\+string $>$ \& Watch\+List::\+get\+All (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Get all the tickers. 
+
+Get all tracked symbols.
+
+\begin{DoxyReturn}{Returns}
+Reference to the stored symbols.
+
+Const reference to the internal symbol vector. 
+\end{DoxyReturn}
+\Hypertarget{class_watch_list_abcd836cc2e3d241e0782d630d7f7abd3}\index{WatchList@{WatchList}!getName@{getName}}
+\index{getName@{getName}!WatchList@{WatchList}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily \label{class_watch_list_abcd836cc2e3d241e0782d630d7f7abd3} 
+const std::\+string \& Watch\+List::\+get\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Get the watchlist name. 
+
+Get the watchlist display name.
+
+\begin{DoxyReturn}{Returns}
+The watchlist name.
+
+Const reference to the current watchlist name. 
+\end{DoxyReturn}
+\Hypertarget{class_watch_list_afc66cda31a512466a20797665fd17e4a}\index{WatchList@{WatchList}!has@{has}}
+\index{has@{has}!WatchList@{WatchList}}
+\doxysubsubsection{\texorpdfstring{has()}{has()}}
+{\footnotesize\ttfamily \label{class_watch_list_afc66cda31a512466a20797665fd17e4a} 
+bool Watch\+List::\+has (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{sym}{}\end{DoxyParamCaption}) const}
+
+
+
+Check if a ticker is on the watchlist. 
+
+Check whether a ticker symbol is currently tracked.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sym} & Ticker to look for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if it is in there.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em sym} & Raw ticker symbol. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the symbol exists in the watchlist. 
+\end{DoxyReturn}
+\Hypertarget{class_watch_list_a685f61c1e9f583f44c7a0061fbd66d1d}\index{WatchList@{WatchList}!normalizeSymbol@{normalizeSymbol}}
+\index{normalizeSymbol@{normalizeSymbol}!WatchList@{WatchList}}
+\doxysubsubsection{\texorpdfstring{normalizeSymbol()}{normalizeSymbol()}}
+{\footnotesize\ttfamily \label{class_watch_list_a685f61c1e9f583f44c7a0061fbd66d1d} 
+std::\+string Watch\+List::\+normalize\+Symbol (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{sym}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Convert ticker symbols to uppercase. 
+
+Normalize a ticker symbol to uppercase form.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sym} & Input symbol. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Uppercase version.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em sym} & Raw ticker symbol. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Uppercase ticker symbol. 
+\end{DoxyReturn}
+\Hypertarget{class_watch_list_ab08e090efed9d30b3a492fd3d0ee541e}\index{WatchList@{WatchList}!remove@{remove}}
+\index{remove@{remove}!WatchList@{WatchList}}
+\doxysubsubsection{\texorpdfstring{remove()}{remove()}}
+{\footnotesize\ttfamily \label{class_watch_list_ab08e090efed9d30b3a492fd3d0ee541e} 
+bool Watch\+List::\+remove (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{sym}{}\end{DoxyParamCaption})}
+
+
+
+Take a ticker off the list. 
+
+Remove a ticker symbol from the watchlist.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sym} & Ticker to remove. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if it was there and got removed.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em sym} & Raw ticker symbol. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the symbol was removed, false if it was not found. 
+\end{DoxyReturn}
+\Hypertarget{class_watch_list_a4cc46f9e643c11e0e8a83b3e70539aae}\index{WatchList@{WatchList}!setName@{setName}}
+\index{setName@{setName}!WatchList@{WatchList}}
+\doxysubsubsection{\texorpdfstring{setName()}{setName()}}
+{\footnotesize\ttfamily \label{class_watch_list_a4cc46f9e643c11e0e8a83b3e70539aae} 
+void Watch\+List::\+set\+Name (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{name}{}\end{DoxyParamCaption})}
+
+
+
+Change the watchlist name. 
+
+Update the watchlist display name.
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & New watchlist name. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_watch_list_abdeb8dea3f04abbd94b576cb8085935c}\index{WatchList@{WatchList}!size@{size}}
+\index{size@{size}!WatchList@{WatchList}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily \label{class_watch_list_abdeb8dea3f04abbd94b576cb8085935c} 
+size\+\_\+t Watch\+List::\+size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+How many tickers are being tracked. 
+
+Get the number of tracked symbols.
+
+\begin{DoxyReturn}{Returns}
+Count of tickers.
+
+Number of tickers in the watchlist. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+include/\+core/\+\doxymbox{\hyperlink{_watch_list_8hpp}{Watch\+List.\+hpp}}\item 
+src/\+core/\+\doxymbox{\hyperlink{_watch_list_8cpp}{Watch\+List.\+cpp}}\end{DoxyCompactItemize}

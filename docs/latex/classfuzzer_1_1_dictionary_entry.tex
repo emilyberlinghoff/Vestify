@@ -1,0 +1,55 @@
+\doxysection{fuzzer::\+Dictionary\+Entry Class Reference}
+\hypertarget{classfuzzer_1_1_dictionary_entry}{}\label{classfuzzer_1_1_dictionary_entry}\index{fuzzer::DictionaryEntry@{fuzzer::DictionaryEntry}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_entry_a5e297f9aeeb401316a64e5bf19b18ac1}\label{classfuzzer_1_1_dictionary_entry_a5e297f9aeeb401316a64e5bf19b18ac1} 
+{\bfseries Dictionary\+Entry} (Word W)
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_entry_a227b77b999b2e714db792d36350eb970}\label{classfuzzer_1_1_dictionary_entry_a227b77b999b2e714db792d36350eb970} 
+{\bfseries Dictionary\+Entry} (Word W, size\+\_\+t Position\+Hint)
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_entry_ab558eebaa898b41de86f4ce8aa4112e8}\label{classfuzzer_1_1_dictionary_entry_ab558eebaa898b41de86f4ce8aa4112e8} 
+const Word \& {\bfseries GetW} () const
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_entry_aef31554f5e06b0ea9c504400d32f5948}\label{classfuzzer_1_1_dictionary_entry_aef31554f5e06b0ea9c504400d32f5948} 
+bool {\bfseries Has\+Position\+Hint} () const
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_entry_ac13669a76798a5255cf4de5df3f94a8c}\label{classfuzzer_1_1_dictionary_entry_ac13669a76798a5255cf4de5df3f94a8c} 
+size\+\_\+t {\bfseries Get\+Position\+Hint} () const
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_entry_ad44342736684a6ba2587440fc0c7a9a5}\label{classfuzzer_1_1_dictionary_entry_ad44342736684a6ba2587440fc0c7a9a5} 
+void {\bfseries Inc\+Use\+Count} ()
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_entry_a1e3b55a806cec039ea453f088d7f26f5}\label{classfuzzer_1_1_dictionary_entry_a1e3b55a806cec039ea453f088d7f26f5} 
+void {\bfseries Inc\+Success\+Count} ()
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_entry_a92db3fde5416ecd216bf96628db4382a}\label{classfuzzer_1_1_dictionary_entry_a92db3fde5416ecd216bf96628db4382a} 
+size\+\_\+t {\bfseries Get\+Use\+Count} () const
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_entry_ad82ccad7635080cb88772dc41df54bef}\label{classfuzzer_1_1_dictionary_entry_ad82ccad7635080cb88772dc41df54bef} 
+size\+\_\+t {\bfseries Get\+Success\+Count} () const
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_entry_a7b5d7ff5db0c5f0478df3c3787fa3e49}\label{classfuzzer_1_1_dictionary_entry_a7b5d7ff5db0c5f0478df3c3787fa3e49} 
+void {\bfseries Print} (const char \texorpdfstring{$\ast$}{*}Print\+After="{}\textbackslash{}n"{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_entry_a3285ee49aac01a4133e6f5cd4b0b038e}\label{classfuzzer_1_1_dictionary_entry_a3285ee49aac01a4133e6f5cd4b0b038e} 
+Word {\bfseries W}
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_entry_a39ac7f37be42c1c3fc8ddcbb28a77b12}\label{classfuzzer_1_1_dictionary_entry_a39ac7f37be42c1c3fc8ddcbb28a77b12} 
+size\+\_\+t {\bfseries Position\+Hint} = std::\+numeric\+\_\+limits$<$size\+\_\+t$>$::\+max()
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_entry_adca282b6b3ab01cbbab8bb5009e740fe}\label{classfuzzer_1_1_dictionary_entry_adca282b6b3ab01cbbab8bb5009e740fe} 
+size\+\_\+t {\bfseries Use\+Count} = 0
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_entry_af1f236f7a746c6de9b4a5a22b66afa1c}\label{classfuzzer_1_1_dictionary_entry_af1f236f7a746c6de9b4a5a22b66afa1c} 
+size\+\_\+t {\bfseries Success\+Count} = 0
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+thirdparty/\+\+Fuzzer/\+Fuzzer\+Dictionary.\+h\end{DoxyCompactItemize}

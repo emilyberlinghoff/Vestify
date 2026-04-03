@@ -1,0 +1,279 @@
+\doxysection{detail::\+json\+\_\+sax\+\_\+dom\+\_\+parser\texorpdfstring{$<$}{<} Basic\+Json\+Type, Input\+Adapter\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classdetail_1_1json__sax__dom__parser}{}\label{classdetail_1_1json__sax__dom__parser}\index{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$@{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$}}
+
+
+SAX implementation to create a JSON value from SAX events.  
+
+
+
+
+{\ttfamily \+\#include $<$json\+\_\+sax.\+hpp$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a67fb98ac139bc25c42a2d34d1a3931a8}\label{classdetail_1_1json__sax__dom__parser_a67fb98ac139bc25c42a2d34d1a3931a8} 
+using {\bfseries number\+\_\+integer\+\_\+t} = typename Basic\+Json\+Type::\+number\+\_\+integer\+\_\+t
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a8ed9bfb1db3dc5188bf3cc59fb1cd4e1}\label{classdetail_1_1json__sax__dom__parser_a8ed9bfb1db3dc5188bf3cc59fb1cd4e1} 
+using {\bfseries number\+\_\+unsigned\+\_\+t} = typename Basic\+Json\+Type::\+number\+\_\+unsigned\+\_\+t
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_ab57933dbe364e72e7df474f366e9f8ac}\label{classdetail_1_1json__sax__dom__parser_ab57933dbe364e72e7df474f366e9f8ac} 
+using {\bfseries number\+\_\+float\+\_\+t} = typename Basic\+Json\+Type::\+number\+\_\+float\+\_\+t
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a74627140f406a413f4fc0bae2369ad60}\label{classdetail_1_1json__sax__dom__parser_a74627140f406a413f4fc0bae2369ad60} 
+using {\bfseries string\+\_\+t} = typename Basic\+Json\+Type::\+string\+\_\+t
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a596e9e0fe721e62e84e6de2d610419d9}\label{classdetail_1_1json__sax__dom__parser_a596e9e0fe721e62e84e6de2d610419d9} 
+using {\bfseries binary\+\_\+t} = typename Basic\+Json\+Type::\+binary\+\_\+t
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_aaa3f9f2e99ee783e5790c069e4138c02}\label{classdetail_1_1json__sax__dom__parser_aaa3f9f2e99ee783e5790c069e4138c02} 
+using {\bfseries lexer\+\_\+t} = \doxymbox{\hyperlink{classdetail_1_1lexer}{lexer}}$<$Basic\+Json\+Type, Input\+Adapter\+Type$>$
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a67fb98ac139bc25c42a2d34d1a3931a8}\label{classdetail_1_1json__sax__dom__parser_a67fb98ac139bc25c42a2d34d1a3931a8} 
+using {\bfseries number\+\_\+integer\+\_\+t} = typename Basic\+Json\+Type::\+number\+\_\+integer\+\_\+t
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a8ed9bfb1db3dc5188bf3cc59fb1cd4e1}\label{classdetail_1_1json__sax__dom__parser_a8ed9bfb1db3dc5188bf3cc59fb1cd4e1} 
+using {\bfseries number\+\_\+unsigned\+\_\+t} = typename Basic\+Json\+Type::\+number\+\_\+unsigned\+\_\+t
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_ab57933dbe364e72e7df474f366e9f8ac}\label{classdetail_1_1json__sax__dom__parser_ab57933dbe364e72e7df474f366e9f8ac} 
+using {\bfseries number\+\_\+float\+\_\+t} = typename Basic\+Json\+Type::\+number\+\_\+float\+\_\+t
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a74627140f406a413f4fc0bae2369ad60}\label{classdetail_1_1json__sax__dom__parser_a74627140f406a413f4fc0bae2369ad60} 
+using {\bfseries string\+\_\+t} = typename Basic\+Json\+Type::\+string\+\_\+t
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a596e9e0fe721e62e84e6de2d610419d9}\label{classdetail_1_1json__sax__dom__parser_a596e9e0fe721e62e84e6de2d610419d9} 
+using {\bfseries binary\+\_\+t} = typename Basic\+Json\+Type::\+binary\+\_\+t
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_aaa3f9f2e99ee783e5790c069e4138c02}\label{classdetail_1_1json__sax__dom__parser_aaa3f9f2e99ee783e5790c069e4138c02} 
+using {\bfseries lexer\+\_\+t} = \doxymbox{\hyperlink{classdetail_1_1lexer}{lexer}}$<$Basic\+Json\+Type, Input\+Adapter\+Type$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}{json\+\_\+sax\+\_\+dom\+\_\+parser}} (Basic\+Json\+Type \&r, const bool allow\+\_\+exceptions\+\_\+=true, lexer\+\_\+t \texorpdfstring{$\ast$}{*}lexer\+\_\+=nullptr)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a34ca560890d1126e7a57683f3c9296c8}\label{classdetail_1_1json__sax__dom__parser_a34ca560890d1126e7a57683f3c9296c8} 
+{\bfseries json\+\_\+sax\+\_\+dom\+\_\+parser} (const json\+\_\+sax\+\_\+dom\+\_\+parser \&)=delete
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_ad00e9f38b0a249aaf0ea09ee2a69c8c7}\label{classdetail_1_1json__sax__dom__parser_ad00e9f38b0a249aaf0ea09ee2a69c8c7} 
+{\bfseries json\+\_\+sax\+\_\+dom\+\_\+parser} (json\+\_\+sax\+\_\+dom\+\_\+parser \&\&)=default
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a4af2b7ba4bc3f5bfad700e5c5c6d9b1d}\label{classdetail_1_1json__sax__dom__parser_a4af2b7ba4bc3f5bfad700e5c5c6d9b1d} 
+\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}{json\+\_\+sax\+\_\+dom\+\_\+parser}} \& {\bfseries operator=} (const \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}{json\+\_\+sax\+\_\+dom\+\_\+parser}} \&)=delete
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_afa4acacedffa23e3ec3372405a56ed5e}\label{classdetail_1_1json__sax__dom__parser_afa4acacedffa23e3ec3372405a56ed5e} 
+\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}{json\+\_\+sax\+\_\+dom\+\_\+parser}} \& {\bfseries operator=} (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}{json\+\_\+sax\+\_\+dom\+\_\+parser}} \&\&)=default
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_aed582a4634500ffbcbb14700065c495f}\label{classdetail_1_1json__sax__dom__parser_aed582a4634500ffbcbb14700065c495f} 
+bool {\bfseries null} ()
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_aade357014847160c7504b959cfa529e6}\label{classdetail_1_1json__sax__dom__parser_aade357014847160c7504b959cfa529e6} 
+bool {\bfseries boolean} (bool val)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_aff0a7042f9b30315b9a60e5e607d367f}\label{classdetail_1_1json__sax__dom__parser_aff0a7042f9b30315b9a60e5e607d367f} 
+bool {\bfseries number\+\_\+integer} (number\+\_\+integer\+\_\+t val)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a32ea55c68ef713bbec26c9cf6723ee14}\label{classdetail_1_1json__sax__dom__parser_a32ea55c68ef713bbec26c9cf6723ee14} 
+bool {\bfseries number\+\_\+unsigned} (number\+\_\+unsigned\+\_\+t val)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a31a6dd249ce0640bfd738b5bf44b46a1}\label{classdetail_1_1json__sax__dom__parser_a31a6dd249ce0640bfd738b5bf44b46a1} 
+bool {\bfseries number\+\_\+float} (number\+\_\+float\+\_\+t val, const string\+\_\+t \&)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_aeea528b61bffcae34d8a93560ac2b7c7}\label{classdetail_1_1json__sax__dom__parser_aeea528b61bffcae34d8a93560ac2b7c7} 
+bool {\bfseries string} (string\+\_\+t \&val)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a4e64a47a56527417ce976a9a14688be2}\label{classdetail_1_1json__sax__dom__parser_a4e64a47a56527417ce976a9a14688be2} 
+bool {\bfseries binary} (binary\+\_\+t \&val)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a65c9afecd60c3774278a37efe4f34518}\label{classdetail_1_1json__sax__dom__parser_a65c9afecd60c3774278a37efe4f34518} 
+bool {\bfseries start\+\_\+object} (std::\+size\+\_\+t len)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a6a8ecf215c3259c980ba025c42e56268}\label{classdetail_1_1json__sax__dom__parser_a6a8ecf215c3259c980ba025c42e56268} 
+bool {\bfseries key} (string\+\_\+t \&val)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a711aab65ea615f5f8fa97ce2db9f876d}\label{classdetail_1_1json__sax__dom__parser_a711aab65ea615f5f8fa97ce2db9f876d} 
+bool {\bfseries end\+\_\+object} ()
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_ab47560ea9aebc6a25c0e2939bc8c95d0}\label{classdetail_1_1json__sax__dom__parser_ab47560ea9aebc6a25c0e2939bc8c95d0} 
+bool {\bfseries start\+\_\+array} (std::\+size\+\_\+t len)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_ac231a6daa1ea84f5d21cc1c6855dd3b5}\label{classdetail_1_1json__sax__dom__parser_ac231a6daa1ea84f5d21cc1c6855dd3b5} 
+bool {\bfseries end\+\_\+array} ()
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a9227facf2424614f060607ed83f96a7d}\label{classdetail_1_1json__sax__dom__parser_a9227facf2424614f060607ed83f96a7d} 
+{\footnotesize template$<$class Exception$>$ }\\bool {\bfseries parse\+\_\+error} (std::\+size\+\_\+t, const std::\+string \&, const Exception \&ex)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_ae259ef999328a5342198d364676b1cbf}\label{classdetail_1_1json__sax__dom__parser_ae259ef999328a5342198d364676b1cbf} 
+constexpr bool {\bfseries is\+\_\+errored} () const
+\item 
+\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}{json\+\_\+sax\+\_\+dom\+\_\+parser}} (Basic\+Json\+Type \&r, const bool allow\+\_\+exceptions\+\_\+=true, lexer\+\_\+t \texorpdfstring{$\ast$}{*}lexer\+\_\+=nullptr)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a34ca560890d1126e7a57683f3c9296c8}\label{classdetail_1_1json__sax__dom__parser_a34ca560890d1126e7a57683f3c9296c8} 
+{\bfseries json\+\_\+sax\+\_\+dom\+\_\+parser} (const json\+\_\+sax\+\_\+dom\+\_\+parser \&)=delete
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_ad00e9f38b0a249aaf0ea09ee2a69c8c7}\label{classdetail_1_1json__sax__dom__parser_ad00e9f38b0a249aaf0ea09ee2a69c8c7} 
+{\bfseries json\+\_\+sax\+\_\+dom\+\_\+parser} (json\+\_\+sax\+\_\+dom\+\_\+parser \&\&)=default
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a4af2b7ba4bc3f5bfad700e5c5c6d9b1d}\label{classdetail_1_1json__sax__dom__parser_a4af2b7ba4bc3f5bfad700e5c5c6d9b1d} 
+\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}{json\+\_\+sax\+\_\+dom\+\_\+parser}} \& {\bfseries operator=} (const \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}{json\+\_\+sax\+\_\+dom\+\_\+parser}} \&)=delete
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_afa4acacedffa23e3ec3372405a56ed5e}\label{classdetail_1_1json__sax__dom__parser_afa4acacedffa23e3ec3372405a56ed5e} 
+\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}{json\+\_\+sax\+\_\+dom\+\_\+parser}} \& {\bfseries operator=} (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}{json\+\_\+sax\+\_\+dom\+\_\+parser}} \&\&)=default
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_aed582a4634500ffbcbb14700065c495f}\label{classdetail_1_1json__sax__dom__parser_aed582a4634500ffbcbb14700065c495f} 
+bool {\bfseries null} ()
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_aade357014847160c7504b959cfa529e6}\label{classdetail_1_1json__sax__dom__parser_aade357014847160c7504b959cfa529e6} 
+bool {\bfseries boolean} (bool val)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_aff0a7042f9b30315b9a60e5e607d367f}\label{classdetail_1_1json__sax__dom__parser_aff0a7042f9b30315b9a60e5e607d367f} 
+bool {\bfseries number\+\_\+integer} (number\+\_\+integer\+\_\+t val)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a32ea55c68ef713bbec26c9cf6723ee14}\label{classdetail_1_1json__sax__dom__parser_a32ea55c68ef713bbec26c9cf6723ee14} 
+bool {\bfseries number\+\_\+unsigned} (number\+\_\+unsigned\+\_\+t val)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a31a6dd249ce0640bfd738b5bf44b46a1}\label{classdetail_1_1json__sax__dom__parser_a31a6dd249ce0640bfd738b5bf44b46a1} 
+bool {\bfseries number\+\_\+float} (number\+\_\+float\+\_\+t val, const string\+\_\+t \&)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_aeea528b61bffcae34d8a93560ac2b7c7}\label{classdetail_1_1json__sax__dom__parser_aeea528b61bffcae34d8a93560ac2b7c7} 
+bool {\bfseries string} (string\+\_\+t \&val)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a4e64a47a56527417ce976a9a14688be2}\label{classdetail_1_1json__sax__dom__parser_a4e64a47a56527417ce976a9a14688be2} 
+bool {\bfseries binary} (binary\+\_\+t \&val)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a65c9afecd60c3774278a37efe4f34518}\label{classdetail_1_1json__sax__dom__parser_a65c9afecd60c3774278a37efe4f34518} 
+bool {\bfseries start\+\_\+object} (std::\+size\+\_\+t len)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a6a8ecf215c3259c980ba025c42e56268}\label{classdetail_1_1json__sax__dom__parser_a6a8ecf215c3259c980ba025c42e56268} 
+bool {\bfseries key} (string\+\_\+t \&val)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a711aab65ea615f5f8fa97ce2db9f876d}\label{classdetail_1_1json__sax__dom__parser_a711aab65ea615f5f8fa97ce2db9f876d} 
+bool {\bfseries end\+\_\+object} ()
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_ab47560ea9aebc6a25c0e2939bc8c95d0}\label{classdetail_1_1json__sax__dom__parser_ab47560ea9aebc6a25c0e2939bc8c95d0} 
+bool {\bfseries start\+\_\+array} (std::\+size\+\_\+t len)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_ac231a6daa1ea84f5d21cc1c6855dd3b5}\label{classdetail_1_1json__sax__dom__parser_ac231a6daa1ea84f5d21cc1c6855dd3b5} 
+bool {\bfseries end\+\_\+array} ()
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a9227facf2424614f060607ed83f96a7d}\label{classdetail_1_1json__sax__dom__parser_a9227facf2424614f060607ed83f96a7d} 
+{\footnotesize template$<$class Exception$>$ }\\bool {\bfseries parse\+\_\+error} (std::\+size\+\_\+t, const std::\+string \&, const Exception \&ex)
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_ae259ef999328a5342198d364676b1cbf}\label{classdetail_1_1json__sax__dom__parser_ae259ef999328a5342198d364676b1cbf} 
+constexpr bool {\bfseries is\+\_\+errored} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Value$>$ }\\JSON\+\_\+\+HEDLEY\+\_\+\+RETURNS\+\_\+\+NON\+\_\+\+NULL Basic\+Json\+Type \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_abac209029dfdb96ae076e5c906f133c7}{handle\+\_\+value}} (Value \&\&v)
+\item 
+{\footnotesize template$<$typename Value$>$ }\\JSON\+\_\+\+HEDLEY\+\_\+\+RETURNS\+\_\+\+NON\+\_\+\+NULL Basic\+Json\+Type \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_abac209029dfdb96ae076e5c906f133c7}{handle\+\_\+value}} (Value \&\&v)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_ad239a6e9f4e743338d67348cfea71047}\label{classdetail_1_1json__sax__dom__parser_ad239a6e9f4e743338d67348cfea71047} 
+Basic\+Json\+Type \& {\bfseries root}
+\begin{DoxyCompactList}\small\item\em the parsed JSON value \end{DoxyCompactList}\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_ac10a461ec4eb10f9242eda0ebf8145b8}\label{classdetail_1_1json__sax__dom__parser_ac10a461ec4eb10f9242eda0ebf8145b8} 
+std::\+vector$<$ Basic\+Json\+Type \texorpdfstring{$\ast$}{*} $>$ {\bfseries ref\+\_\+stack} \{\}
+\begin{DoxyCompactList}\small\item\em stack to model hierarchy of values \end{DoxyCompactList}\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_aaedda8d2090b473fc325e8274df45287}\label{classdetail_1_1json__sax__dom__parser_aaedda8d2090b473fc325e8274df45287} 
+Basic\+Json\+Type \texorpdfstring{$\ast$}{*} {\bfseries object\+\_\+element} = nullptr
+\begin{DoxyCompactList}\small\item\em helper to hold the reference for the next object element \end{DoxyCompactList}\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_ad91ca3e908cd9e1556881ab931568515}\label{classdetail_1_1json__sax__dom__parser_ad91ca3e908cd9e1556881ab931568515} 
+bool {\bfseries errored} = false
+\begin{DoxyCompactList}\small\item\em whether a syntax error occurred \end{DoxyCompactList}\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_aaf695b67e6f8499bd358c240ce89f3ad}\label{classdetail_1_1json__sax__dom__parser_aaf695b67e6f8499bd358c240ce89f3ad} 
+const bool {\bfseries allow\+\_\+exceptions} = true
+\begin{DoxyCompactList}\small\item\em whether to throw exceptions in case of errors \end{DoxyCompactList}\item 
+\Hypertarget{classdetail_1_1json__sax__dom__parser_afaa0af845821c3185053d9854a661829}\label{classdetail_1_1json__sax__dom__parser_afaa0af845821c3185053d9854a661829} 
+lexer\+\_\+t \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+lexer\+\_\+ref} = nullptr
+\begin{DoxyCompactList}\small\item\em the lexer reference to obtain the current position \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$\newline
+class detail::\+json\+\_\+sax\+\_\+dom\+\_\+parser$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$}
+SAX implementation to create a JSON value from SAX events. 
+
+This class implements the \doxylink{structjson__sax}{json\+\_\+sax} interface and processes the SAX events to create a JSON value which makes it basically a DOM parser. \doxylink{requirements_The}{The} structure or hierarchy of the JSON value is managed by the stack {\ttfamily \doxylink{classdetail_1_1json__sax__dom__parser_ac10a461ec4eb10f9242eda0ebf8145b8}{ref\+\_\+stack}} which contains a pointer to the respective array or object for each recursion depth.
+
+After successful parsing, the value that is passed by reference to the constructor contains the parsed value.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Basic\+Json\+Type} & the JSON type \\
+\hline
+\end{DoxyTemplParams}
+
+
+\label{doc-constructors}
+\Hypertarget{classdetail_1_1json__sax__dom__parser_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}\index{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$@{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$}!json\_sax\_dom\_parser@{json\_sax\_dom\_parser}}
+\index{json\_sax\_dom\_parser@{json\_sax\_dom\_parser}!detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$@{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$}}
+\doxysubsubsection{\texorpdfstring{json\_sax\_dom\_parser()}{json\_sax\_dom\_parser()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c} 
+template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$ \\
+\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser}{detail::\+json\+\_\+sax\+\_\+dom\+\_\+parser}}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$::\+json\+\_\+sax\+\_\+dom\+\_\+parser (\begin{DoxyParamCaption}\item[{Basic\+Json\+Type \&}]{r}{, }\item[{const bool}]{allow\+\_\+exceptions\+\_\+}{ = {\ttfamily true}, }\item[{lexer\+\_\+t \texorpdfstring{$\ast$}{*}}]{lexer\+\_\+}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in,out}}  & {\em r} & reference to a JSON value that is manipulated while parsing \\
+\hline
+\doxymbox{\texttt{in}}  & {\em allow\+\_\+exceptions\+\_\+} & whether parse errors yield exceptions \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}\index{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$@{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$}!json\_sax\_dom\_parser@{json\_sax\_dom\_parser}}
+\index{json\_sax\_dom\_parser@{json\_sax\_dom\_parser}!detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$@{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$}}
+\doxysubsubsection{\texorpdfstring{json\_sax\_dom\_parser()}{json\_sax\_dom\_parser()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c} 
+template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$ \\
+\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser}{detail::\+json\+\_\+sax\+\_\+dom\+\_\+parser}}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$::\+json\+\_\+sax\+\_\+dom\+\_\+parser (\begin{DoxyParamCaption}\item[{Basic\+Json\+Type \&}]{r}{, }\item[{const bool}]{allow\+\_\+exceptions\+\_\+}{ = {\ttfamily true}, }\item[{lexer\+\_\+t \texorpdfstring{$\ast$}{*}}]{lexer\+\_\+}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in,out}}  & {\em r} & reference to a JSON value that is manipulated while parsing \\
+\hline
+\doxymbox{\texttt{in}}  & {\em allow\+\_\+exceptions\+\_\+} & whether parse errors yield exceptions \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{classdetail_1_1json__sax__dom__parser_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetail_1_1json__sax__dom__parser_abac209029dfdb96ae076e5c906f133c7}\index{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$@{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$}!handle\_value@{handle\_value}}
+\index{handle\_value@{handle\_value}!detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$@{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$}}
+\doxysubsubsection{\texorpdfstring{handle\_value()}{handle\_value()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classdetail_1_1json__sax__dom__parser_abac209029dfdb96ae076e5c906f133c7} 
+template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$ \\
+template$<$typename Value$>$ \\
+JSON\+\_\+\+HEDLEY\+\_\+\+RETURNS\+\_\+\+NON\+\_\+\+NULL Basic\+Json\+Type \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser}{detail::\+json\+\_\+sax\+\_\+dom\+\_\+parser}}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$::\+handle\+\_\+value (\begin{DoxyParamCaption}\item[{Value \&\&}]{v}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\begin{DoxyInvariant}{Invariant}
+If the ref stack is empty, then the passed value will be the new root. 
+
+If the ref stack contains a value, then it is an array or an object to which we can add elements 
+\end{DoxyInvariant}
+\Hypertarget{classdetail_1_1json__sax__dom__parser_abac209029dfdb96ae076e5c906f133c7}\index{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$@{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$}!handle\_value@{handle\_value}}
+\index{handle\_value@{handle\_value}!detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$@{detail::json\_sax\_dom\_parser$<$ BasicJsonType, InputAdapterType $>$}}
+\doxysubsubsection{\texorpdfstring{handle\_value()}{handle\_value()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classdetail_1_1json__sax__dom__parser_abac209029dfdb96ae076e5c906f133c7} 
+template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$ \\
+template$<$typename Value$>$ \\
+JSON\+\_\+\+HEDLEY\+\_\+\+RETURNS\+\_\+\+NON\+\_\+\+NULL Basic\+Json\+Type \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser}{detail::\+json\+\_\+sax\+\_\+dom\+\_\+parser}}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$::\+handle\+\_\+value (\begin{DoxyParamCaption}\item[{Value \&\&}]{v}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\begin{DoxyInvariant}{Invariant}
+If the ref stack is empty, then the passed value will be the new root. 
+
+If the ref stack contains a value, then it is an array or an object to which we can add elements 
+\end{DoxyInvariant}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+include/\+nlohmann/\+detail/\+input/\+json\+\_\+sax.\+hpp\item 
+include/\+nlohman/\+json-\/develop/\+single\+\_\+include/\+nlohmann/\+json.\+hpp\end{DoxyCompactItemize}

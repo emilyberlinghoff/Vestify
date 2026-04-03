@@ -1,0 +1,25 @@
+var annotated_dup =
+[
+    [ "BacktestEngine", "class_backtest_engine.html", "class_backtest_engine" ],
+    [ "CSVLoader", "class_c_s_v_loader.html", "class_c_s_v_loader" ],
+    [ "EfficiencyScoringModel", "class_efficiency_scoring_model.html", "class_efficiency_scoring_model" ],
+    [ "FakeInput", "struct_fake_input.html", null ],
+    [ "GrowthScoringModel", "class_growth_scoring_model.html", "class_growth_scoring_model" ],
+    [ "HttpResponse", "struct_http_response.html", "struct_http_response" ],
+    [ "InteractiveMenu", "class_interactive_menu.html", "class_interactive_menu" ],
+    [ "LiveDataProvider", "class_live_data_provider.html", "class_live_data_provider" ],
+    [ "MomentumScoringModel", "class_momentum_scoring_model.html", "class_momentum_scoring_model" ],
+    [ "QualityScoringModel", "class_quality_scoring_model.html", "class_quality_scoring_model" ],
+    [ "ScoredStock", "struct_scored_stock.html", "struct_scored_stock" ],
+    [ "ScoringModel", "class_scoring_model.html", "class_scoring_model" ],
+    [ "ScoringStrategy", "struct_scoring_strategy.html", "struct_scoring_strategy" ],
+    [ "ScreeningMenu", "class_screening_menu.html", "class_screening_menu" ],
+    [ "Stock", "struct_stock.html", "struct_stock" ],
+    [ "StockPrinter", "class_stock_printer.html", "class_stock_printer" ],
+    [ "StockRepository", "class_stock_repository.html", "class_stock_repository" ],
+    [ "StockScreener", "class_stock_screener.html", "class_stock_screener" ],
+    [ "StrategyManager", "class_strategy_manager.html", "class_strategy_manager" ],
+    [ "ValueScoringModel", "class_value_scoring_model.html", "class_value_scoring_model" ],
+    [ "WatchList", "class_watch_list.html", "class_watch_list" ],
+    [ "WatchListRepo", "class_watch_list_repo.html", "class_watch_list_repo" ]
+];

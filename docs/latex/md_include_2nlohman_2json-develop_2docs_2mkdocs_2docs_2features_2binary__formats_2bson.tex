@@ -1,0 +1,97 @@
+\chapter{BSON }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2bson}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2bson}\index{BSON@{BSON}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2bson_autotoc_md1401}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2bson_autotoc_md1401}%
+
+
+BSON, short for Binary JSON, is a binary-\/encoded serialization of JSON-\/like documents. Like JSON, BSON supports the embedding of documents and arrays within other documents and arrays. BSON also contains extensions that allow representation of data types that are not part of the JSON spec. For example, BSON has a Date type and a Bin\+Data type.
+
+!!! abstract "{}\+References"{} \begin{DoxyVerb}- [BSON Website](http://bsonspec.org) - the main source on BSON
+- [BSON Specification](http://bsonspec.org/spec.html) - the specification
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2bson_autotoc_md1402}{}\doxysection{\texorpdfstring{Serialization}{Serialization}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2bson_autotoc_md1402}
+\doxylink{requirements_The}{The} library uses the following mapping from JSON values types to BSON types:\+
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}JSON value type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}value/\+range  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}BSON type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}marker  \\
+null  &{\ttfamily null}  &null  &0x0A  \\
+boolean  &{\ttfamily true}, {\ttfamily false}  &boolean  &0x08  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/9223372036854775808..-\/2147483649  &int64  &0x12  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/2147483648..2147483647  &int32  &0x10  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &2147483648..9223372036854775807  &int64  &0x12  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &0..2147483647  &int32  &0x10  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &2147483648..9223372036854775807  &int64  &0x12  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &9223372036854775808..18446744073709551615  &uint64  &0x11  \\
+\doxylink{classnumber__float}{number\+\_\+float}  &{\itshape any value}  &double  &0x01  \\
+string  &{\itshape any value}  &string  &0x02  \\
+array  &{\itshape any value}  &document  &0x04  \\
+object  &{\itshape any value}  &document  &0x03  \\
+binary  &{\itshape any value}  &binary  &0x05  \\
+\end{DoxyTable}
+
+
+!!! warning "{}\+Incomplete mapping"{} \begin{DoxyVerb}The mapping is **incomplete**, since only JSON-objects (and things contained therein) can be serialized to BSON.
+Also, keys may not contain U+0000, since they are serialized a zero-terminated c-strings.
+\end{DoxyVerb}
+
+
+??? example \begin{DoxyVerb}```cpp
+--8<-- "examples/to_bson.cpp"
+```
+
+Output:
+
+```c
+--8<-- "examples/to_bson.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2bson_autotoc_md1403}{}\doxysection{\texorpdfstring{Deserialization}{Deserialization}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2bson_autotoc_md1403}
+\doxylink{requirements_The}{The} library maps BSON record types to JSON value types as follows:\+
+
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}BSON type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}BSON marker byte  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}JSON value type  \\
+double  &0x01  &\doxylink{classnumber__float}{number\+\_\+float}  \\
+string  &0x02  &string  \\
+document  &0x03  &object  \\
+array  &0x04  &array  \\
+binary  &0x05  &binary  \\
+undefined  &0x06  &{\itshape unsupported}  \\
+Object\+Id  &0x07  &{\itshape unsupported}  \\
+boolean  &0x08  &boolean  \\
+UTC Date-\/\+Time  &0x09  &{\itshape unsupported}  \\
+null  &0x0A  &null  \\
+Regular Expr.  &0x0B  &{\itshape unsupported}  \\
+DB Pointer  &0x0C  &{\itshape unsupported}  \\
+Java\+Script Code  &0x0D  &{\itshape unsupported}  \\
+Symbol  &0x0E  &{\itshape unsupported}  \\
+Java\+Script Code  &0x0F  &{\itshape unsupported}  \\
+int32  &0x10  &\doxylink{classnumber__integer}{number\+\_\+integer}  \\
+uint64(\+Timestamp)  &0x11  &\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  \\
+128-\/bit decimal float  &0x13  &{\itshape unsupported}  \\
+Max Key  &0x7F  &{\itshape unsupported}  \\
+Min Key  &0x\+FF  &{\itshape unsupported}  \\
+\end{DoxyTable}
+
+
+!!! warning "{}\+Incomplete mapping"{} \begin{DoxyVerb}The mapping is **incomplete**. The unsupported mappings are indicated in the table above.
+\end{DoxyVerb}
+
+
+!!! note "{}\+Handling of BSON type 0x11"{} \begin{DoxyVerb}BSON type 0x11 is used to represent uint64 numbers. This library treats these values purely as uint64 numbers 
+and does not parse them into date-related formats.
+\end{DoxyVerb}
+
+
+??? example \begin{DoxyVerb}```cpp
+--8<-- "examples/from_bson.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/from_bson.output"
+```
+\end{DoxyVerb}
+ 

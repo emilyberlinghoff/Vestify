@@ -1,0 +1,56 @@
+\chapter{Access with default value:\+ value }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2element__access_2default__value}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2element__access_2default__value}\index{Access with default value: value@{Access with default value: value}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2element__access_2default__value_autotoc_md1432}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2element__access_2default__value_autotoc_md1432}%
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2element__access_2default__value_autotoc_md1433}{}\doxysection{\texorpdfstring{Overview}{Overview}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2element__access_2default__value_autotoc_md1433}
+In many situations, such as configuration files, missing values are not exceptional, but may be treated as if a default value was present. For this case, use \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2value}{{\ttfamily value(key, default\+\_\+value)}}{0} which takes the key you want to access and a default value in case there is no value stored with that key.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2element__access_2default__value_autotoc_md1434}{}\doxysection{\texorpdfstring{Example}{Example}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2element__access_2default__value_autotoc_md1434}
+??? example \begin{DoxyVerb}Consider the following JSON value:
+
+```json
+{
+    "logOutput": "result.log",
+    "append": true
+}
+```
+
+Assume the value is parsed to a `json` variable `j`.
+
+| expression                                  | value                                                |
+|---------------------------------------------|------------------------------------------------------|
+| `#!cpp j`                                   | `#!json {"logOutput": "result.log", "append": true}` |
+| `#!cpp j.value("logOutput", "logfile.log")` | `#!json "result.log"`                                |
+| `#!cpp j.value("append", true)`             | `#!json true`                                        |
+| `#!cpp j.value("append", false)`            | `#!json true`                                        |
+| `#!cpp j.value("logLevel", "verbose")`      | `#!json "verbose"`                                   |
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2element__access_2default__value_autotoc_md1435}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2element__access_2default__value_autotoc_md1435}
+!!! failure "{}\+Exceptions"{} \begin{DoxyVerb}- `value` can only be used with objects. For other types, a [`basic_json::type_error`](../../home/exceptions.md#jsonexceptiontype_error306) is thrown.
+\end{DoxyVerb}
+
+
+!!! warning "{}\+Return type"{} \begin{DoxyVerb}The value function is a template, and the return type of the function is determined by the type of the provided
+default value unless otherwise specified. This can have unexpected effects. In the example below, we store a 64-bit
+unsigned integer. We get exactly that value when using [`operator[]`](../../api/basic_json/operator[].md). However,
+when we call `value` and provide `#!c 0` as default value, then `#!c -1` is returned. The occurs, because `#!c 0`
+has type `#!c int` which overflows when handling the value `#!c 18446744073709551615`.
+
+To address this issue, either provide a correctly typed default value or use the template parameter to specify the
+desired return type. Note that this issue occurs even when a value is stored at the provided key, and the default
+value is not used as the return value.
+
+```cpp
+--8<-- "examples/value__return_type.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/value__return_type.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2element__access_2default__value_autotoc_md1436}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2element__access_2default__value_autotoc_md1436}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2value}{{\ttfamily value}}{0} for access with default value
+\item documentation on \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2element__access_2checked__access}{checked access}{0} 
+\end{DoxyItemize}

@@ -1,0 +1,485 @@
+\doxysection{to\+\_\+json.\+hpp}
+\hypertarget{to__json_8hpp_source}{}\label{to__json_8hpp_source}\index{include/nlohman/json-\/develop/include/nlohmann/detail/conversions/to\_json.hpp@{include/nlohman/json-\/develop/include/nlohmann/detail/conversions/to\_json.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \_\_\ \_\_\_\_\_\ \_\_\_\_\_\ \_\_\_\_\_}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ \ \_\_|\ \ |\ \ \ \_\_|\ \ \ \ \ |\ \ \ |\ |\ \ JSON\ for\ Modern\ C++}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ |\ \ |\ \ |\_\_\ \ \ |\ \ |\ \ |\ |\ |\ |\ \ version\ 3.12.0}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ |\_\_\_\_\_|\_\_\_\_\_|\_\_\_\_\_|\_|\_\_\_|\ \ https://github.com/nlohmann/json}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ SPDX-\/FileCopyrightText:\ 2013-\/2026\ Niels\ Lohmann\ <https://nlohmann.me>}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ SPDX-\/License-\/Identifier:\ MIT}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/macro\_scope.hpp>}\ \textcolor{comment}{//\ JSON\_HAS\_CPP\_17}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifdef\ JSON\_HAS\_CPP\_17}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ \ \ \#include\ <optional>}\ \textcolor{comment}{//\ optional}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <algorithm>}\ \textcolor{comment}{//\ copy}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <iterator>}\ \textcolor{comment}{//\ begin,\ end}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <memory>}\ \textcolor{comment}{//\ allocator\_traits}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <string>}\ \textcolor{comment}{//\ \ basic\_string,\ char\_traits}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <tuple>}\ \textcolor{comment}{//\ tuple,\ get}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <type\_traits>}\ \textcolor{comment}{//\ is\_same,\ is\_constructible,\ is\_floating\_point,\ is\_enum,\ underlying\_type}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <utility>}\ \textcolor{comment}{//\ move,\ forward,\ declval,\ pair}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <valarray>}\ \textcolor{comment}{//\ valarray}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <vector>}\ \textcolor{comment}{//\ vector}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/iterators/iteration\_proxy.hpp>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/meta/cpp\_future.hpp>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/meta/std\_fs.hpp>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/meta/type\_traits.hpp>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/value\_t.hpp>}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ NLOHMANN\_JSON\_NAMESPACE\_BEGIN}
+\DoxyCodeLine{00033\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacedetail}{detail}}}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ constructors\ //}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ Note\ all\ external\_constructor<>::construct\ functions\ need\ to\ call}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *\ j.m\_data.m\_value.destroy(j.m\_data.m\_type)\ to\ avoid\ a\ memory\ leak\ in\ case\ j\ contains\ an}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ *\ allocated\ value\ (e.g.,\ a\ string).\ See\ bug\ issue}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *\ https://github.com/nlohmann/json/issues/2865\ for\ more\ information.}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{template}<value\_t>\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor}};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00050\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor}}<\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}::\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a84e2c64f38f78ba3ea5c905ab5a2da27}{boolean}}>}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{typename}\ BasicJsonType::boolean\_t\ b)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00054\ \ \ \ \ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a84e2c64f38f78ba3ea5c905ab5a2da27}{value\_t::boolean}};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ j.m\_data.m\_value\ =\ b;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ \};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00063\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor}}<\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}::\doxymbox{\hyperlink{classstring}{string}}>}
+\DoxyCodeLine{00064\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ \textcolor{keyword}{typename}\ BasicJsonType::string\_t\&\ s)}
+\DoxyCodeLine{00067\ \ \ \ \ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ab45cffe084dd3d20d928bee85e7b0f21}{value\_t::string}};}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ j.m\_data.m\_value\ =\ s;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{typename}\ BasicJsonType::string\_t\&\&\ s)}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ab45cffe084dd3d20d928bee85e7b0f21}{value\_t::string}};}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ j.m\_data.m\_value\ =\ std::move(s);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{template}\ <\ \textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleStringType,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ enable\_if\_t\ <\ !std::is\_same<CompatibleStringType,\ typename\ BasicJsonType::string\_t>::value,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ >\ =\ 0\ >}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ CompatibleStringType\&\ str)}
+\DoxyCodeLine{00087\ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ab45cffe084dd3d20d928bee85e7b0f21}{value\_t::string}};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.string\ =\ j.template\ create<typename\ BasicJsonType::string\_t>(str);}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ \};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00096\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor}}<\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}::\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{binary}}>}
+\DoxyCodeLine{00097\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ \textcolor{keyword}{typename}\ BasicJsonType::binary\_t\&\ b)}
+\DoxyCodeLine{00100\ \ \ \ \ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{value\_t::binary}};}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ j.m\_data.m\_value\ =\ \textcolor{keyword}{typename}\ BasicJsonType::binary\_t(b);}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{typename}\ BasicJsonType::binary\_t\&\&\ b)}
+\DoxyCodeLine{00109\ \ \ \ \ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{value\_t::binary}};}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ j.m\_data.m\_value\ =\ \textcolor{keyword}{typename}\ BasicJsonType::binary\_t(std::move(b));}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00118\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor}}<\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}::\doxymbox{\hyperlink{classnumber__float}{number\_float}}>}
+\DoxyCodeLine{00119\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{typename}\ BasicJsonType::number\_float\_t\ val)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00122\ \ \ \ \ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ad9966ecb59667235a57b4b999a649eef}{value\_t::number\_float}};}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ j.m\_data.m\_value\ =\ val;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \};}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00131\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor}}<\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}::\doxymbox{\hyperlink{classnumber__unsigned}{number\_unsigned}}>}
+\DoxyCodeLine{00132\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{typename}\ BasicJsonType::number\_unsigned\_t\ val)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00135\ \ \ \ \ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632adce7cc8ec29055c4158828921f2f265e}{value\_t::number\_unsigned}};}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ j.m\_data.m\_value\ =\ val;}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \};}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00144\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor}}<\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}::\doxymbox{\hyperlink{classnumber__integer}{number\_integer}}>}
+\DoxyCodeLine{00145\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{typename}\ BasicJsonType::number\_integer\_t\ val)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00148\ \ \ \ \ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a5763da164f8659d94a56e29df64b4bcc}{value\_t::number\_integer}};}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ j.m\_data.m\_value\ =\ val;}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00153\ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \};}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00157\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor}}<\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}::\doxymbox{\hyperlink{classarray}{array}}>}
+\DoxyCodeLine{00158\ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ \textcolor{keyword}{typename}\ BasicJsonType::array\_t\&\ arr)}
+\DoxyCodeLine{00161\ \ \ \ \ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{value\_t::array}};}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ j.m\_data.m\_value\ =\ arr;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ j.set\_parents();}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00167\ \ \ \ \ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{typename}\ BasicJsonType::array\_t\&\&\ arr)}
+\DoxyCodeLine{00171\ \ \ \ \ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{value\_t::array}};}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ j.m\_data.m\_value\ =\ std::move(arr);}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ j.set\_parents();}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00177\ \ \ \ \ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keyword}{template}\ <\ \textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleArrayType,}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ enable\_if\_t\ <\ !std::is\_same<CompatibleArrayType,\ typename\ BasicJsonType::array\_t>::value,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ >\ =\ 0\ >}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ CompatibleArrayType\&\ arr)}
+\DoxyCodeLine{00183\ \ \ \ \ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }std::begin;}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }std::end;}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{value\_t::array}};}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.array\ =\ j.template\ create<typename\ BasicJsonType::array\_t>(begin(arr),\ end(arr));}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ j.set\_parents();}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00192\ \ \ \ \ \}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ std::vector<bool>\&\ arr)}
+\DoxyCodeLine{00196\ \ \ \ \ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{value\_t::array}};}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ j.m\_data.m\_value\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{value\_t::array}};}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.array-\/>reserve(arr.size());}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ x\ :\ arr)}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ j.m\_data.m\_value.array-\/>push\_back(x);}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ j.set\_parent(j.m\_data.m\_value.array-\/>back());}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00207\ \ \ \ \ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ T,}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ enable\_if\_t<std::is\_convertible<T,\ BasicJsonType>::value,\ \textcolor{keywordtype}{int}>\ =\ 0>}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ std::valarray<T>\&\ arr)}
+\DoxyCodeLine{00212\ \ \ \ \ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{value\_t::array}};}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ j.m\_data.m\_value\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{value\_t::array}};}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.array-\/>resize(arr.size());}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (arr.size()\ >\ 0)}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ std::copy(std::begin(arr),\ std::end(arr),\ j.m\_data.m\_value.array-\/>begin());}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ j.set\_parents();}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00223\ \ \ \ \ \}}
+\DoxyCodeLine{00224\ \};}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00227\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor}}<\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}::\doxymbox{\hyperlink{classobject}{object}}>}
+\DoxyCodeLine{00228\ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ \textcolor{keyword}{typename}\ BasicJsonType::object\_t\&\ obj)}
+\DoxyCodeLine{00231\ \ \ \ \ \{}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{value\_t::object}};}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ j.m\_data.m\_value\ =\ obj;}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ j.set\_parents();}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00237\ \ \ \ \ \}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{typename}\ BasicJsonType::object\_t\&\&\ obj)}
+\DoxyCodeLine{00241\ \ \ \ \ \{}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{value\_t::object}};}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ j.m\_data.m\_value\ =\ std::move(obj);}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ j.set\_parents();}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00247\ \ \ \ \ \}}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keyword}{template}\ <\ \textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleObjectType,}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ enable\_if\_t\ <\ !std::is\_same<CompatibleObjectType,\ typename\ BasicJsonType::object\_t>::value,\ \textcolor{keywordtype}{int}\ >\ =\ 0\ >}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ construct(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ CompatibleObjectType\&\ obj)}
+\DoxyCodeLine{00252\ \ \ \ \ \{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }std::begin;}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }std::end;}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.destroy(j.m\_data.m\_type);}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ j.m\_data.m\_type\ =\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{value\_t::object}};}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ j.m\_data.m\_value.object\ =\ j.template\ create<typename\ BasicJsonType::object\_t>(begin(obj),\ end(obj));}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ j.set\_parents();}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ j.assert\_invariant();}
+\DoxyCodeLine{00261\ \ \ \ \ \}}
+\DoxyCodeLine{00262\ \};}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00265\ \textcolor{comment}{//\ to\_json\ //}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#ifdef\ JSON\_HAS\_CPP\_17}}
+\DoxyCodeLine{00269\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ T,}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ enable\_if\_t<std::is\_constructible<BasicJsonType,\ T>::value,\ \textcolor{keywordtype}{int}>\ =\ 0>}
+\DoxyCodeLine{00271\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ std::optional<T>\&\ opt)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00272\ \{}
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{keywordflow}{if}\ (opt.has\_value())}
+\DoxyCodeLine{00274\ \ \ \ \ \{}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ j\ =\ *opt;}
+\DoxyCodeLine{00276\ \ \ \ \ \}}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00278\ \ \ \ \ \{}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ j\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00280\ \ \ \ \ \}}
+\DoxyCodeLine{00281\ \}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ T,}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ enable\_if\_t<std::is\_same<T,\ typename\ BasicJsonType::boolean\_t>::value,\ \textcolor{keywordtype}{int}>\ =\ 0>}
+\DoxyCodeLine{00286\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ T\ b)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00287\ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<value\_t::boolean>::construct}}(j,\ b);}
+\DoxyCodeLine{00289\ \}}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \textcolor{keyword}{template}\ <\ \textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ BoolRef,}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ enable\_if\_t\ <}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((std::is\_same<std::vector<bool>::reference,\ BoolRef>::value}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ !std::is\_same\ <std::vector<bool>::reference,\ \textcolor{keyword}{typename}\ BasicJsonType::boolean\_t\&>::value)}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ (std::is\_same<std::vector<bool>::const\_reference,\ BoolRef>::value}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ !std::is\_same\ <detail::uncvref\_t<std::vector<bool>::const\_reference>,}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ BasicJsonType::boolean\_t\ >::value))}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ std::is\_convertible<const\ BoolRef\&,\ typename\ BasicJsonType::boolean\_t>::value,\ \textcolor{keywordtype}{int}\ >\ =\ 0\ >}
+\DoxyCodeLine{00299\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ BoolRef\&\ b)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00300\ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<value\_t::boolean>::construct}}(j,\ \textcolor{keyword}{static\_cast<}typename\ BasicJsonType::boolean\_t\textcolor{keyword}{>}(b));}
+\DoxyCodeLine{00302\ \}}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleString,}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ enable\_if\_t<std::is\_constructible<typename\ BasicJsonType::string\_t,\ CompatibleString>::value,\ \textcolor{keywordtype}{int}>\ =\ 0>}
+\DoxyCodeLine{00306\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ CompatibleString\&\ s)}
+\DoxyCodeLine{00307\ \{}
+\DoxyCodeLine{00308\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<value\_t::string>::construct}}(j,\ s);}
+\DoxyCodeLine{00309\ \}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00312\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{typename}\ BasicJsonType::string\_t\&\&\ s)}
+\DoxyCodeLine{00313\ \{}
+\DoxyCodeLine{00314\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<value\_t::string>::construct}}(j,\ std::move(s));}
+\DoxyCodeLine{00315\ \}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ FloatType,}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ enable\_if\_t<std::is\_floating\_point<FloatType>::value,\ \textcolor{keywordtype}{int}>\ =\ 0>}
+\DoxyCodeLine{00319\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ FloatType\ val)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00320\ \{}
+\DoxyCodeLine{00321\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<value\_t::number\_float>::construct}}(j,\ \textcolor{keyword}{static\_cast<}typename\ BasicJsonType::number\_float\_t\textcolor{keyword}{>}(val));}
+\DoxyCodeLine{00322\ \}}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleNumberUnsignedType,}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ enable\_if\_t<is\_compatible\_integer\_type<typename\ BasicJsonType::number\_unsigned\_t,\ CompatibleNumberUnsignedType>::value,\ \textcolor{keywordtype}{int}>\ =\ 0>}
+\DoxyCodeLine{00326\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ CompatibleNumberUnsignedType\ val)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00327\ \{}
+\DoxyCodeLine{00328\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<value\_t::number\_unsigned>::construct}}(j,\ \textcolor{keyword}{static\_cast<}typename\ BasicJsonType::number\_unsigned\_t\textcolor{keyword}{>}(val));}
+\DoxyCodeLine{00329\ \}}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleNumberIntegerType,}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ enable\_if\_t<is\_compatible\_integer\_type<typename\ BasicJsonType::number\_integer\_t,\ CompatibleNumberIntegerType>::value,\ \textcolor{keywordtype}{int}>\ =\ 0>}
+\DoxyCodeLine{00333\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ CompatibleNumberIntegerType\ val)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00334\ \{}
+\DoxyCodeLine{00335\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<value\_t::number\_integer>::construct}}(j,\ \textcolor{keyword}{static\_cast<}typename\ BasicJsonType::number\_integer\_t\textcolor{keyword}{>}(val));}
+\DoxyCodeLine{00336\ \}}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#if\ !JSON\_DISABLE\_ENUM\_SERIALIZATION}}
+\DoxyCodeLine{00339\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ EnumType,}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ enable\_if\_t<std::is\_enum<EnumType>::value,\ \textcolor{keywordtype}{int}>\ =\ 0>}
+\DoxyCodeLine{00341\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ EnumType\ e)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00342\ \{}
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keyword}{using\ }underlying\_type\ =\ \textcolor{keyword}{typename}\ std::underlying\_type<EnumType>::type;}
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}\ integral\_value\_t\ =\ std::is\_unsigned<underlying\_type>::value\ ?\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632adce7cc8ec29055c4158828921f2f265e}{value\_t::number\_unsigned}}\ :\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a5763da164f8659d94a56e29df64b4bcc}{value\_t::number\_integer}};}
+\DoxyCodeLine{00345\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<integral\_value\_t>::construct}}(j,\ \textcolor{keyword}{static\_cast<}underlying\_type\textcolor{keyword}{>}(e));}
+\DoxyCodeLine{00346\ \}}
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ JSON\_DISABLE\_ENUM\_SERIALIZATION}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00350\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ std::vector<bool>\&\ e)}
+\DoxyCodeLine{00351\ \{}
+\DoxyCodeLine{00352\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<value\_t::array>::construct}}(j,\ e);}
+\DoxyCodeLine{00353\ \}}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \textcolor{keyword}{template}\ <\ \textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleArrayType,}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ enable\_if\_t\ <\ \doxymbox{\hyperlink{structdetail_1_1is__compatible__array__type}{is\_compatible\_array\_type}}<BasicJsonType,}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CompatibleArrayType>::value\&\&}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ !\doxymbox{\hyperlink{structdetail_1_1is__compatible__object__type}{is\_compatible\_object\_type<BasicJsonType,\ CompatibleArrayType>::value}}\&\&}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ !is\_compatible\_string\_type<BasicJsonType,\ CompatibleArrayType>::value\&\&}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ !std::is\_same<typename\ BasicJsonType::binary\_t,\ CompatibleArrayType>::value\&\&}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ !\doxymbox{\hyperlink{structdetail_1_1is__basic__json}{is\_basic\_json<CompatibleArrayType>::value}},}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ >\ =\ 0\ >}
+\DoxyCodeLine{00363\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ CompatibleArrayType\&\ arr)}
+\DoxyCodeLine{00364\ \{}
+\DoxyCodeLine{00365\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<value\_t::array>::construct}}(j,\ arr);}
+\DoxyCodeLine{00366\ \}}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00369\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ \textcolor{keyword}{typename}\ BasicJsonType::binary\_t\&\ bin)}
+\DoxyCodeLine{00370\ \{}
+\DoxyCodeLine{00371\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<value\_t::binary>::construct}}(j,\ bin);}
+\DoxyCodeLine{00372\ \}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ T,}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ enable\_if\_t<std::is\_convertible<T,\ BasicJsonType>::value,\ \textcolor{keywordtype}{int}>\ =\ 0>}
+\DoxyCodeLine{00376\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ std::valarray<T>\&\ arr)}
+\DoxyCodeLine{00377\ \{}
+\DoxyCodeLine{00378\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<value\_t::array>::construct}}(j,\ std::move(arr));}
+\DoxyCodeLine{00379\ \}}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00382\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{typename}\ BasicJsonType::array\_t\&\&\ arr)}
+\DoxyCodeLine{00383\ \{}
+\DoxyCodeLine{00384\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<value\_t::array>::construct}}(j,\ std::move(arr));}
+\DoxyCodeLine{00385\ \}}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00387\ \textcolor{keyword}{template}\ <\ \textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleObjectType,}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ enable\_if\_t\ <\ is\_compatible\_object\_type<BasicJsonType,\ CompatibleObjectType>::value\&\&\ !\doxymbox{\hyperlink{structdetail_1_1is__basic__json}{is\_basic\_json<CompatibleObjectType>::value}},\ \textcolor{keywordtype}{int}\ >\ =\ 0\ >}
+\DoxyCodeLine{00389\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ CompatibleObjectType\&\ obj)}
+\DoxyCodeLine{00390\ \{}
+\DoxyCodeLine{00391\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<value\_t::object>::construct}}(j,\ obj);}
+\DoxyCodeLine{00392\ \}}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00395\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{typename}\ BasicJsonType::object\_t\&\&\ obj)}
+\DoxyCodeLine{00396\ \{}
+\DoxyCodeLine{00397\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<value\_t::object>::construct}}(j,\ std::move(obj));}
+\DoxyCodeLine{00398\ \}}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ T,\ std::size\_t\ N,}
+\DoxyCodeLine{00402\ \ \ \ \ enable\_if\_t\ <\ !std::is\_constructible<\textcolor{keyword}{typename}\ BasicJsonType::string\_t,}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T(\&)[N]>::value,\ \textcolor{comment}{//\ NOLINT(cppcoreguidelines-\/avoid-\/c-\/arrays,hicpp-\/avoid-\/c-\/arrays,modernize-\/avoid-\/c-\/arrays)}}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ >\ =\ 0\ >}
+\DoxyCodeLine{00405\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ T(\&arr)[N])\ \textcolor{comment}{//\ NOLINT(cppcoreguidelines-\/avoid-\/c-\/arrays,hicpp-\/avoid-\/c-\/arrays,modernize-\/avoid-\/c-\/arrays)}}
+\DoxyCodeLine{00406\ \{}
+\DoxyCodeLine{00407\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1external__constructor}{external\_constructor<value\_t::array>::construct}}(j,\ arr);}
+\DoxyCodeLine{00408\ \}}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ template\ <\ typename\ BasicJsonType,\ typename\ T1,\ typename\ T2,\ enable\_if\_t\ <\ std::is\_constructible<BasicJsonType,\ T1>::value\&\&\ std::is\_constructible<BasicJsonType,\ T2>::value,\ \textcolor{keywordtype}{int}\ >\ =\ 0\ >}
+\DoxyCodeLine{00411\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ std::pair<T1,\ T2>\&\ p)}
+\DoxyCodeLine{00412\ \{}
+\DoxyCodeLine{00413\ \ \ \ \ j\ =\ \{\ p.first,\ p.second\ \};}
+\DoxyCodeLine{00414\ \}}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \textcolor{comment}{//\ for\ https://github.com/nlohmann/json/pull/1134}}
+\DoxyCodeLine{00417\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ T,}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ enable\_if\_t<std::is\_same<T,\ iteration\_proxy\_value<typename\ BasicJsonType::iterator>>::value,\ \textcolor{keywordtype}{int}>\ =\ 0>}
+\DoxyCodeLine{00419\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ T\&\ b)}
+\DoxyCodeLine{00420\ \{}
+\DoxyCodeLine{00421\ \ \ \ \ j\ =\ \{\ \{b.key(),\ b.value()\}\ \};}
+\DoxyCodeLine{00422\ \}}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ Tuple,\ std::size\_t...\ Idx>}
+\DoxyCodeLine{00425\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json\_tuple\_impl(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ Tuple\&\ t,\ index\_sequence<Idx...>\ \textcolor{comment}{/*unused*/})}
+\DoxyCodeLine{00426\ \{}
+\DoxyCodeLine{00427\ \ \ \ \ j\ =\ \{\ std::get<Idx>(t)...\ \};}
+\DoxyCodeLine{00428\ \}}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00430\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ Tuple>}
+\DoxyCodeLine{00431\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json\_tuple\_impl(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ Tuple\&\ \textcolor{comment}{/*unused*/},\ index\_sequence<>\ \textcolor{comment}{/*unused*/})}
+\DoxyCodeLine{00432\ \{}
+\DoxyCodeLine{00433\ \ \ \ \ \textcolor{keyword}{using\ }array\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::array\_t;}
+\DoxyCodeLine{00434\ \ \ \ \ j\ =\ array\_t();}
+\DoxyCodeLine{00435\ \}}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ template<typename\ BasicJsonType,\ typename\ T,\ enable\_if\_t<is\_constructible\_tuple<BasicJsonType,\ T>::value,\ \textcolor{keywordtype}{int}\ >\ =\ 0>}
+\DoxyCodeLine{00438\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ T\&\ t)}
+\DoxyCodeLine{00439\ \{}
+\DoxyCodeLine{00440\ \ \ \ \ to\_json\_tuple\_impl(j,\ t,\ make\_index\_sequence<std::tuple\_size<T>::value>\ \{\});}
+\DoxyCodeLine{00441\ \}}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \textcolor{preprocessor}{\#if\ JSON\_HAS\_FILESYSTEM\ ||\ JSON\_HAS\_EXPERIMENTAL\_FILESYSTEM}}
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\#if\ defined(\_\_cpp\_lib\_char8\_t)}}
+\DoxyCodeLine{00445\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ Tr,\ \textcolor{keyword}{typename}\ Allocator>}
+\DoxyCodeLine{00446\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ std::basic\_string<char8\_t,\ Tr,\ Allocator>\&\ s)}
+\DoxyCodeLine{00447\ \{}
+\DoxyCodeLine{00448\ \ \ \ \ \textcolor{keyword}{using\ }OtherAllocator\ =\ \textcolor{keyword}{typename}\ std::allocator\_traits<Allocator>::template\ rebind\_alloc<char>;}
+\DoxyCodeLine{00449\ \ \ \ \ j\ =\ std::basic\_string<char,\ std::char\_traits<char>,\ OtherAllocator>(s.begin(),\ s.end(),\ s.get\_allocator());}
+\DoxyCodeLine{00450\ \}}
+\DoxyCodeLine{00451\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00454\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ std\_fs::path\&\ p)}
+\DoxyCodeLine{00455\ \{}
+\DoxyCodeLine{00456\ \ \ \ \ \textcolor{comment}{//\ Returns\ either\ a\ std::string\ or\ a\ std::u8string\ depending\ whether\ library}}
+\DoxyCodeLine{00457\ \ \ \ \ \textcolor{comment}{//\ support\ for\ char8\_t\ is\ enabled.}}
+\DoxyCodeLine{00458\ \ \ \ \ j\ =\ p.u8string();}
+\DoxyCodeLine{00459\ \}}
+\DoxyCodeLine{00460\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00462\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1to__json__fn}{to\_json\_fn}}}
+\DoxyCodeLine{00463\ \{}
+\DoxyCodeLine{00464\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00465\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(BasicJsonType\&\ j,\ T\&\&\ val)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}(\textcolor{keyword}{noexcept}(to\_json(j,\ std::forward<T>(val))))}
+\DoxyCodeLine{00466\ \ \ \ \ -\/>\ \textcolor{keyword}{decltype}(to\_json(j,\ std::forward<T>(val)),\ \textcolor{keywordtype}{void}())}
+\DoxyCodeLine{00467\ \ \ \ \ \{}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ to\_json(j,\ std::forward<T>(val));}
+\DoxyCodeLine{00469\ \ \ \ \ \}}
+\DoxyCodeLine{00470\ \};}
+\DoxyCodeLine{00471\ \}\ \ \textcolor{comment}{//\ namespace\ detail}}
+\DoxyCodeLine{00472\ }
+\DoxyCodeLine{00473\ \textcolor{preprocessor}{\#ifndef\ JSON\_HAS\_CPP\_17}}
+\DoxyCodeLine{00477\ \textcolor{keyword}{namespace\ }\textcolor{comment}{//\ NOLINT(cert-\/dcl59-\/cpp,fuchsia-\/header-\/anon-\/namespaces,google-\/build-\/namespaces)}}
+\DoxyCodeLine{00478\ \{}
+\DoxyCodeLine{00479\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00480\ JSON\_INLINE\_VARIABLE\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ to\_json\ =\ \textcolor{comment}{//\ NOLINT(misc-\/definitions-\/in-\/headers)}}
+\DoxyCodeLine{00481\ \ \ \ \ detail::static\_const<detail::to\_json\_fn>::value;}
+\DoxyCodeLine{00482\ \textcolor{preprocessor}{\#ifndef\ JSON\_HAS\_CPP\_17}}
+\DoxyCodeLine{00483\ \}\ \ \textcolor{comment}{//\ namespace}}
+\DoxyCodeLine{00484\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00486\ NLOHMANN\_JSON\_NAMESPACE\_END}
+
+\end{DoxyCode}

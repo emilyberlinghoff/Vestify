@@ -1,0 +1,376 @@
+\doxysection{Parser\+Impl Struct Reference}
+\hypertarget{struct_parser_impl}{}\label{struct_parser_impl}\index{ParserImpl@{ParserImpl}}
+Inheritance diagram for Parser\+Impl:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_parser_impl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \doxymbox{\hyperlink{struct_parser_impl_aa9b4414ad8dd4e281d097a7e21df647d}{null}} () override
+\begin{DoxyCompactList}\small\item\em a null value was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{struct_parser_impl_a6397d3d49b9b1f432d441359c22c0a57}{boolean}} (bool) override
+\begin{DoxyCompactList}\small\item\em a boolean value was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{struct_parser_impl_ab47a38087c999a02a6018176b6d613b6}{number\+\_\+integer}} (json::\+number\+\_\+integer\+\_\+t) override
+\begin{DoxyCompactList}\small\item\em an integer number was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{struct_parser_impl_a042750ab8beb4aa15fc1573ed3ac1a3c}{number\+\_\+unsigned}} (json::\+number\+\_\+unsigned\+\_\+t) override
+\begin{DoxyCompactList}\small\item\em an unsigned integer number was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{struct_parser_impl_aa9b098894894cc49a478f08a73eb1989}{number\+\_\+float}} (json::\+number\+\_\+float\+\_\+t, const json::\+string\+\_\+t \&s) override
+\begin{DoxyCompactList}\small\item\em a floating-\/point number was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{struct_parser_impl_a55f14bdc7254b2619a8e7a8709429e0e}{string}} (json::\+string\+\_\+t \&) override
+\begin{DoxyCompactList}\small\item\em a string value was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{struct_parser_impl_a7ca2749092d12431b806af87fd286709}{binary}} (json::\+binary\+\_\+t \&) override
+\begin{DoxyCompactList}\small\item\em a binary value was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{struct_parser_impl_a4dccefc08aa84d4e8729c4a661f69fa7}{start\+\_\+object}} (std::\+size\+\_\+t) override
+\begin{DoxyCompactList}\small\item\em the beginning of an object was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{struct_parser_impl_a642a17426b09ca84de9640df76bae67a}{key}} (json::\+string\+\_\+t \&) override
+\begin{DoxyCompactList}\small\item\em an object key was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{struct_parser_impl_a4f86c7f2594f5d01e6978ade91a01894}{end\+\_\+object}} () override
+\begin{DoxyCompactList}\small\item\em the end of an object was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{struct_parser_impl_af5be812719b90372cac8aa8c44f775fe}{start\+\_\+array}} (std::\+size\+\_\+t) override
+\begin{DoxyCompactList}\small\item\em the beginning of an array was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{struct_parser_impl_a0c0657ce33e54809f6d0f4d174fdad09}{end\+\_\+array}} () override
+\begin{DoxyCompactList}\small\item\em the end of an array was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{struct_parser_impl_ab4a13c9b05fb1e7ebf64debb712791d4}{parse\+\_\+error}} (std::\+size\+\_\+t, const std::\+string \&, const \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1exception}{nlohmann::\+detail::\+exception}} \&) override
+\begin{DoxyCompactList}\small\item\em a parse error occurred \end{DoxyCompactList}\item 
+\Hypertarget{struct_parser_impl_a1902ab847931908c37e7b605143148f5}\label{struct_parser_impl_a1902ab847931908c37e7b605143148f5} 
+{\bfseries Parser\+Impl} (const \doxymbox{\hyperlink{struct_parser_impl}{Parser\+Impl}} \&other)
+\item 
+\Hypertarget{struct_parser_impl_a66fc8c7c8e886132c79a71a3de69f235}\label{struct_parser_impl_a66fc8c7c8e886132c79a71a3de69f235} 
+{\bfseries Parser\+Impl} (\doxymbox{\hyperlink{struct_parser_impl}{Parser\+Impl}} \&\&other) noexcept
+\item 
+\Hypertarget{struct_parser_impl_ad44c683b449fde40bd6ba9e6c1d38335}\label{struct_parser_impl_ad44c683b449fde40bd6ba9e6c1d38335} 
+\doxymbox{\hyperlink{struct_parser_impl}{Parser\+Impl}} \& {\bfseries operator=} (const \doxymbox{\hyperlink{struct_parser_impl}{Parser\+Impl}} \&other)
+\item 
+\Hypertarget{struct_parser_impl_a7344de14510addffd5345dd98f9a9444}\label{struct_parser_impl_a7344de14510addffd5345dd98f9a9444} 
+\doxymbox{\hyperlink{struct_parser_impl}{Parser\+Impl}} \& {\bfseries operator=} (\doxymbox{\hyperlink{struct_parser_impl}{Parser\+Impl}} \&\&other) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{structnlohmann_1_1json__sax}{nlohmann::\+json\+\_\+sax$<$ json $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{structjson__sax}{json\+\_\+sax}} \& {\bfseries operator=} (const \doxymbox{\hyperlink{structjson__sax}{json\+\_\+sax}} \&)=default
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_parser_impl_a44e2a81b0d83f10340cc1b71a0d5fe28}\label{struct_parser_impl_a44e2a81b0d83f10340cc1b71a0d5fe28} 
+json::\+string\+\_\+t {\bfseries float\+\_\+string\+\_\+copy}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \doxymbox{\hyperlink{structnlohmann_1_1json__sax}{nlohmann::\+json\+\_\+sax$<$ json $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries number\+\_\+integer\+\_\+t}
+\item 
+using {\bfseries number\+\_\+unsigned\+\_\+t}
+\item 
+using {\bfseries number\+\_\+float\+\_\+t}
+\item 
+using {\bfseries string\+\_\+t}
+\item 
+using {\bfseries binary\+\_\+t}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{struct_parser_impl_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_parser_impl_a7ca2749092d12431b806af87fd286709}\index{ParserImpl@{ParserImpl}!binary@{binary}}
+\index{binary@{binary}!ParserImpl@{ParserImpl}}
+\doxysubsubsection{\texorpdfstring{binary()}{binary()}}
+{\footnotesize\ttfamily \label{struct_parser_impl_a7ca2749092d12431b806af87fd286709} 
+bool Parser\+Impl::\+binary (\begin{DoxyParamCaption}\item[{json::\+binary\+\_\+t \&}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+a binary value was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & binary value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+It is safe to move the passed binary value. 
+\end{DoxyNote}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a38c2dbde07138cc436ea7fbf22c1e92d}{nlohmann::\+json\+\_\+sax$<$ json $>$}}.
+
+\Hypertarget{struct_parser_impl_a6397d3d49b9b1f432d441359c22c0a57}\index{ParserImpl@{ParserImpl}!boolean@{boolean}}
+\index{boolean@{boolean}!ParserImpl@{ParserImpl}}
+\doxysubsubsection{\texorpdfstring{boolean()}{boolean()}}
+{\footnotesize\ttfamily \label{struct_parser_impl_a6397d3d49b9b1f432d441359c22c0a57} 
+bool Parser\+Impl::\+boolean (\begin{DoxyParamCaption}\item[{bool}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+a boolean value was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & boolean value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a82ed080814fa656191a537284bb0c575}{nlohmann::\+json\+\_\+sax$<$ json $>$}}.
+
+\Hypertarget{struct_parser_impl_a0c0657ce33e54809f6d0f4d174fdad09}\index{ParserImpl@{ParserImpl}!end\_array@{end\_array}}
+\index{end\_array@{end\_array}!ParserImpl@{ParserImpl}}
+\doxysubsubsection{\texorpdfstring{end\_array()}{end\_array()}}
+{\footnotesize\ttfamily \label{struct_parser_impl_a0c0657ce33e54809f6d0f4d174fdad09} 
+bool Parser\+Impl::\+end\+\_\+array (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+the end of an array was read 
+
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a235ee975617f28e6a996d1e36a282312}{nlohmann::\+json\+\_\+sax$<$ json $>$}}.
+
+\Hypertarget{struct_parser_impl_a4f86c7f2594f5d01e6978ade91a01894}\index{ParserImpl@{ParserImpl}!end\_object@{end\_object}}
+\index{end\_object@{end\_object}!ParserImpl@{ParserImpl}}
+\doxysubsubsection{\texorpdfstring{end\_object()}{end\_object()}}
+{\footnotesize\ttfamily \label{struct_parser_impl_a4f86c7f2594f5d01e6978ade91a01894} 
+bool Parser\+Impl::\+end\+\_\+object (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+the end of an object was read 
+
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_ad0c722d53ff97be700ccf6a9468bd456}{nlohmann::\+json\+\_\+sax$<$ json $>$}}.
+
+\Hypertarget{struct_parser_impl_a642a17426b09ca84de9640df76bae67a}\index{ParserImpl@{ParserImpl}!key@{key}}
+\index{key@{key}!ParserImpl@{ParserImpl}}
+\doxysubsubsection{\texorpdfstring{key()}{key()}}
+{\footnotesize\ttfamily \label{struct_parser_impl_a642a17426b09ca84de9640df76bae67a} 
+bool Parser\+Impl::\+key (\begin{DoxyParamCaption}\item[{json::\+string\+\_\+t \&}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+an object key was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & object key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+It is safe to move the passed string. 
+\end{DoxyNote}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a2e0c7ecd80b18d18a8cc76f71cfc2028}{nlohmann::\+json\+\_\+sax$<$ json $>$}}.
+
+\Hypertarget{struct_parser_impl_aa9b4414ad8dd4e281d097a7e21df647d}\index{ParserImpl@{ParserImpl}!null@{null}}
+\index{null@{null}!ParserImpl@{ParserImpl}}
+\doxysubsubsection{\texorpdfstring{null()}{null()}}
+{\footnotesize\ttfamily \label{struct_parser_impl_aa9b4414ad8dd4e281d097a7e21df647d} 
+bool Parser\+Impl::\+null (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+a null value was read 
+
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a0ad26edef3f8d530dcec3192bba82df6}{nlohmann::\+json\+\_\+sax$<$ json $>$}}.
+
+\Hypertarget{struct_parser_impl_aa9b098894894cc49a478f08a73eb1989}\index{ParserImpl@{ParserImpl}!number\_float@{number\_float}}
+\index{number\_float@{number\_float}!ParserImpl@{ParserImpl}}
+\doxysubsubsection{\texorpdfstring{number\_float()}{number\_float()}}
+{\footnotesize\ttfamily \label{struct_parser_impl_aa9b098894894cc49a478f08a73eb1989} 
+bool Parser\+Impl::\+number\+\_\+float (\begin{DoxyParamCaption}\item[{json::\+number\+\_\+float\+\_\+t}]{val}{, }\item[{const json::\+string\+\_\+t \&}]{s}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+a floating-\/point number was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & floating-\/point value \\
+\hline
+\doxymbox{\texttt{in}}  & {\em s} & raw token value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_ae7c31614e8a82164d2d7f8dbf4671b25}{nlohmann::\+json\+\_\+sax$<$ json $>$}}.
+
+\Hypertarget{struct_parser_impl_ab47a38087c999a02a6018176b6d613b6}\index{ParserImpl@{ParserImpl}!number\_integer@{number\_integer}}
+\index{number\_integer@{number\_integer}!ParserImpl@{ParserImpl}}
+\doxysubsubsection{\texorpdfstring{number\_integer()}{number\_integer()}}
+{\footnotesize\ttfamily \label{struct_parser_impl_ab47a38087c999a02a6018176b6d613b6} 
+bool Parser\+Impl::\+number\+\_\+integer (\begin{DoxyParamCaption}\item[{json::\+number\+\_\+integer\+\_\+t}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+an integer number was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & integer value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_affa7a78b8e9cc9cc3ac99927143142a5}{nlohmann::\+json\+\_\+sax$<$ json $>$}}.
+
+\Hypertarget{struct_parser_impl_a042750ab8beb4aa15fc1573ed3ac1a3c}\index{ParserImpl@{ParserImpl}!number\_unsigned@{number\_unsigned}}
+\index{number\_unsigned@{number\_unsigned}!ParserImpl@{ParserImpl}}
+\doxysubsubsection{\texorpdfstring{number\_unsigned()}{number\_unsigned()}}
+{\footnotesize\ttfamily \label{struct_parser_impl_a042750ab8beb4aa15fc1573ed3ac1a3c} 
+bool Parser\+Impl::\+number\+\_\+unsigned (\begin{DoxyParamCaption}\item[{json::\+number\+\_\+unsigned\+\_\+t}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+an unsigned integer number was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & unsigned integer value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_ad9b253083e0509923ba195136f49face}{nlohmann::\+json\+\_\+sax$<$ json $>$}}.
+
+\Hypertarget{struct_parser_impl_ab4a13c9b05fb1e7ebf64debb712791d4}\index{ParserImpl@{ParserImpl}!parse\_error@{parse\_error}}
+\index{parse\_error@{parse\_error}!ParserImpl@{ParserImpl}}
+\doxysubsubsection{\texorpdfstring{parse\_error()}{parse\_error()}}
+{\footnotesize\ttfamily \label{struct_parser_impl_ab4a13c9b05fb1e7ebf64debb712791d4} 
+bool Parser\+Impl::\+parse\+\_\+error (\begin{DoxyParamCaption}\item[{std::\+size\+\_\+t}]{position}{, }\item[{const std::\+string \&}]{last\+\_\+token}{, }\item[{const \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1exception}{nlohmann::\+detail::\+exception}} \&}]{ex}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+a parse error occurred 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em position} & the position in the input where the error occurs \\
+\hline
+\doxymbox{\texttt{in}}  & {\em last\+\_\+token} & the last read token \\
+\hline
+\doxymbox{\texttt{in}}  & {\em ex} & an exception object describing the error \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed (must return false) 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a60287e3bd85f489e04c83f7e3b76e613}{nlohmann::\+json\+\_\+sax$<$ json $>$}}.
+
+\Hypertarget{struct_parser_impl_af5be812719b90372cac8aa8c44f775fe}\index{ParserImpl@{ParserImpl}!start\_array@{start\_array}}
+\index{start\_array@{start\_array}!ParserImpl@{ParserImpl}}
+\doxysubsubsection{\texorpdfstring{start\_array()}{start\_array()}}
+{\footnotesize\ttfamily \label{struct_parser_impl_af5be812719b90372cac8aa8c44f775fe} 
+bool Parser\+Impl::\+start\+\_\+array (\begin{DoxyParamCaption}\item[{std::\+size\+\_\+t}]{elements}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+the beginning of an array was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em elements} & number of array elements or -\/1 if unknown \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+binary formats may report the number of elements 
+\end{DoxyNote}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a5c53878cf08d463eb4e7ca0270532572}{nlohmann::\+json\+\_\+sax$<$ json $>$}}.
+
+\Hypertarget{struct_parser_impl_a4dccefc08aa84d4e8729c4a661f69fa7}\index{ParserImpl@{ParserImpl}!start\_object@{start\_object}}
+\index{start\_object@{start\_object}!ParserImpl@{ParserImpl}}
+\doxysubsubsection{\texorpdfstring{start\_object()}{start\_object()}}
+{\footnotesize\ttfamily \label{struct_parser_impl_a4dccefc08aa84d4e8729c4a661f69fa7} 
+bool Parser\+Impl::\+start\+\_\+object (\begin{DoxyParamCaption}\item[{std::\+size\+\_\+t}]{elements}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+the beginning of an object was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em elements} & number of object elements or -\/1 if unknown \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+binary formats may report the number of elements 
+\end{DoxyNote}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a0671528b0debb5a348169d61f0382a0f}{nlohmann::\+json\+\_\+sax$<$ json $>$}}.
+
+\Hypertarget{struct_parser_impl_a55f14bdc7254b2619a8e7a8709429e0e}\index{ParserImpl@{ParserImpl}!string@{string}}
+\index{string@{string}!ParserImpl@{ParserImpl}}
+\doxysubsubsection{\texorpdfstring{string()}{string()}}
+{\footnotesize\ttfamily \label{struct_parser_impl_a55f14bdc7254b2619a8e7a8709429e0e} 
+bool Parser\+Impl::\+string (\begin{DoxyParamCaption}\item[{json::\+string\+\_\+t \&}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+a string value was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & string value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+It is safe to move the passed string value. 
+\end{DoxyNote}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a07eab82f6c82d606787eee9ad73d2bda}{nlohmann::\+json\+\_\+sax$<$ json $>$}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+src/\+unit-\/locale-\/cpp.\+cpp\end{DoxyCompactItemize}

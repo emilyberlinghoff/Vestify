@@ -1,0 +1,30 @@
+\doxysection{CSVLoader::\+Load\+Result Struct Reference}
+\hypertarget{struct_c_s_v_loader_1_1_load_result}{}\label{struct_c_s_v_loader_1_1_load_result}\index{CSVLoader::LoadResult@{CSVLoader::LoadResult}}
+
+
+Result of a CSV load operation.  
+
+
+
+
+{\ttfamily \+\#include $<$CSVLoader.\+hpp$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_c_s_v_loader_1_1_load_result_a1d27771bbf1008dc26c689d2ffbd6c60}\label{struct_c_s_v_loader_1_1_load_result_a1d27771bbf1008dc26c689d2ffbd6c60} 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ {\bfseries stocks}
+\begin{DoxyCompactList}\small\item\em Parsed stocks. \end{DoxyCompactList}\item 
+\Hypertarget{struct_c_s_v_loader_1_1_load_result_a3081cd1b7858df01f0ab647dc84c553e}\label{struct_c_s_v_loader_1_1_load_result_a3081cd1b7858df01f0ab647dc84c553e} 
+std::\+vector$<$ std::\+string $>$ {\bfseries errors}
+\begin{DoxyCompactList}\small\item\em Human-\/readable error messages for skipped rows or failures. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Result of a CSV load operation. 
+
+Combines every successfully parsed stock with a list of human-\/readable parse or file-\/access errors encountered during loading. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+data/\+\doxymbox{\hyperlink{_c_s_v_loader_8hpp}{CSVLoader.\+hpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,43 @@
+\doxysection{string\+\_\+utils.\+hpp}
+\hypertarget{string__utils_8hpp_source}{}\label{string__utils_8hpp_source}\index{include/nlohman/json-\/develop/include/nlohmann/detail/string\_utils.hpp@{include/nlohman/json-\/develop/include/nlohmann/detail/string\_utils.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \_\_\ \_\_\_\_\_\ \_\_\_\_\_\ \_\_\_\_\_}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ \ \_\_|\ \ |\ \ \ \_\_|\ \ \ \ \ |\ \ \ |\ |\ \ JSON\ for\ Modern\ C++}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ |\ \ |\ \ |\_\_\ \ \ |\ \ |\ \ |\ |\ |\ |\ \ version\ 3.12.0}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ |\_\_\_\_\_|\_\_\_\_\_|\_\_\_\_\_|\_|\_\_\_|\ \ https://github.com/nlohmann/json}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ SPDX-\/FileCopyrightText:\ 2013-\/2026\ Niels\ Lohmann\ <https://nlohmann.me>}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ SPDX-\/License-\/Identifier:\ MIT}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <cstddef>}\ \textcolor{comment}{//\ size\_t}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string>}\ \textcolor{comment}{//\ string,\ to\_string}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/abi\_macros.hpp>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ NLOHMANN\_JSON\_NAMESPACE\_BEGIN}
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacedetail}{detail}}}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ StringType>}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}\ int\_to\_string(StringType\&\ target,\ std::size\_t\ value)}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{//\ For\ ADL}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{using\ }std::to\_string;}
+\DoxyCodeLine{00025\ \ \ \ \ target\ =\ to\_string(value);}
+\DoxyCodeLine{00026\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ StringType>}
+\DoxyCodeLine{00029\ StringType\ to\_string(std::size\_t\ value)}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ StringType\ result;}
+\DoxyCodeLine{00032\ \ \ \ \ int\_to\_string(result,\ value);}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00034\ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \}\ \ \textcolor{comment}{//\ namespace\ detail}}
+\DoxyCodeLine{00037\ NLOHMANN\_JSON\_NAMESPACE\_END}
+
+\end{DoxyCode}

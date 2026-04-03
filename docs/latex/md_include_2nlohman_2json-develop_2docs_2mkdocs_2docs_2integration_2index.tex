@@ -1,0 +1,21 @@
+\chapter{Header only }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2index}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2index}\index{Header only@{Header only}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2index_autotoc_md1825}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2index_autotoc_md1825}%
+
+
+\href{https://github.com/nlohmann/json/blob/develop/single_include/nlohmann/json.hpp}{\texttt{{\ttfamily json.\+hpp}}} is the single required file in {\ttfamily single\+\_\+include/\+nlohmann} or \href{https://github.com/nlohmann/json/releases}{\texttt{released here}}. You need to add
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <nlohmann/json.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ for\ convenience}}
+\DoxyCodeLine{\textcolor{keyword}{using\ }json\ =\ \doxymbox{\hyperlink{namespacenlohmann_a8ba8c5483f73a36e716558571ff97d57}{nlohmann::json}};}
+
+\end{DoxyCode}
+
+
+to the files you want to process JSON and set the necessary switches to enable C++11 (e.\+g., {\ttfamily -\/std=c++11} for GCC and Clang).
+
+You can further use file \href{https://github.com/nlohmann/json/blob/develop/single_include/nlohmann/json_fwd.hpp}{\texttt{{\ttfamily single\+\_\+include/\+nlohmann/\+json\+\_\+fwd.\+hpp}}} for forward declarations. 

@@ -1,0 +1,55 @@
+\chapter{
+\footnotesize nlohmann:\+:\+
+\normalsize operator"{}"{}\+\_\+json }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json}\index{$<$small$>$nlohmann::$<$/small$>$operator"{}"{}\_json@{$<$small$>$nlohmann::$<$/small$>$operator""""\_json}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json_autotoc_md1325}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json_autotoc_md1325}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{json\ \textcolor{keyword}{operator}\ \textcolor{stringliteral}{"{}"{}}\_json(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ s,\ std::size\_t\ n);}
+\DoxyCodeLine{json\ \textcolor{keyword}{operator}\ \textcolor{stringliteral}{"{}"{}}\_json(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char8\_t}*\ s,\ std::size\_t\ n);\ \ \textcolor{comment}{//\ since\ C++20}}
+
+\end{DoxyCode}
+
+
+This operator implements a user-\/defined string literal for JSON objects. It can be used by adding {\ttfamily \#!cpp \+\_\+json} to a string literal and returns a \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json}{{\ttfamily json}}{0} object if no parse error occurred.
+
+It is recommended to bring the operator into scope using any of the following lines:\+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{using\ }nlohmann::literals::operator\ \textcolor{stringliteral}{"{}"{}}\_json;}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }nlohmann::literals;}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }nlohmann::json\_literals;}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }nlohmann::literals::json\_literals;}
+\DoxyCodeLine{\textcolor{keyword}{using\ namespace\ }\doxymbox{\hyperlink{namespacenlohmann}{nlohmann}};}
+
+\end{DoxyCode}
+
+
+This is suggested to ease migration to the next major version release of the library. See \href{macros/json_use_global_udls.md\#notes}{\texttt{{\ttfamily JSON\+\_\+\+USE\+\_\+\+GLOBAL\+\_\+\+UDLS}}} for details.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json_autotoc_md1326}{}\doxysection{\texorpdfstring{Parameters}{Parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json_autotoc_md1326}
+{\ttfamily s} (in) :\+ a string representation of a JSON object
+
+{\ttfamily n} (in) :\+ length of string {\ttfamily s}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json_autotoc_md1327}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json_autotoc_md1327}
+\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json}{{\ttfamily json}}{0} value parsed from {\ttfamily s}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json_autotoc_md1328}{}\doxysection{\texorpdfstring{Exceptions}{Exceptions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json_autotoc_md1328}
+\doxylink{requirements_The}{The} function can throw anything that \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parse}{{\ttfamily parse(s, s+n)}}{0} would throw.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json_autotoc_md1329}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json_autotoc_md1329}
+Linear.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json_autotoc_md1330}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json_autotoc_md1330}
+??? example \begin{DoxyVerb}The following code shows how to create JSON values from string literals.
+
+```cpp
+--8<-- "examples/operator_literal_json.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/operator_literal_json.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json_autotoc_md1331}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json_autotoc_md1331}
+
+\begin{DoxyItemize}
+\item Added in version 1.\+0.\+0.
+\item Moved to namespace {\ttfamily nlohmann::\+literals::\+json\+\_\+literals} in 3.\+11.\+0.
+\item Added {\ttfamily char8\+\_\+t\texorpdfstring{$\ast$}{*}} overload in 3.\+12.\+1. 
+\end{DoxyItemize}

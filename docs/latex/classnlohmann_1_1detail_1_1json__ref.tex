@@ -1,0 +1,58 @@
+\doxysection{nlohmann::\+detail::\+json\+\_\+ref\texorpdfstring{$<$}{<} Basic\+Json\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classnlohmann_1_1detail_1_1json__ref}{}\label{classnlohmann_1_1detail_1_1json__ref}\index{nlohmann::detail::json\_ref$<$ BasicJsonType $>$@{nlohmann::detail::json\_ref$<$ BasicJsonType $>$}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__ref_a78d76cf288141049568c0d670ed670ef}\label{classnlohmann_1_1detail_1_1json__ref_a78d76cf288141049568c0d670ed670ef} 
+using {\bfseries value\+\_\+type} = Basic\+Json\+Type
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__ref_ae1adf5bcee8b6fa0c358710604fb1938}\label{classnlohmann_1_1detail_1_1json__ref_ae1adf5bcee8b6fa0c358710604fb1938} 
+{\bfseries json\+\_\+ref} (value\+\_\+type \&\&value)
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__ref_a8c3eb3c6e952ed0cd7eece586ab4047c}\label{classnlohmann_1_1detail_1_1json__ref_a8c3eb3c6e952ed0cd7eece586ab4047c} 
+{\bfseries json\+\_\+ref} (const value\+\_\+type \&value)
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__ref_adfba2db547283a7c6a5df9a32e72efc5}\label{classnlohmann_1_1detail_1_1json__ref_adfba2db547283a7c6a5df9a32e72efc5} 
+{\bfseries json\+\_\+ref} (std::\+initializer\+\_\+list$<$ json\+\_\+ref $>$ init)
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__ref_a8a31d6c588d6c3c06b62008fd5d36c6c}\label{classnlohmann_1_1detail_1_1json__ref_a8a31d6c588d6c3c06b62008fd5d36c6c} 
+{\footnotesize template$<$class... Args, enable\+\_\+if\+\_\+t$<$ std::\+is\+\_\+constructible$<$ value\+\_\+type, Args... $>$::\+value, int $>$ = 0$>$ }\\{\bfseries json\+\_\+ref} (Args \&\&... args)
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__ref_a4ec90f097b33e7ea8ea7473b6b6c4015}\label{classnlohmann_1_1detail_1_1json__ref_a4ec90f097b33e7ea8ea7473b6b6c4015} 
+{\bfseries json\+\_\+ref} (json\+\_\+ref \&\&) noexcept=default
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__ref_a4c68db46934e03588bbd73b00147c0dd}\label{classnlohmann_1_1detail_1_1json__ref_a4c68db46934e03588bbd73b00147c0dd} 
+{\bfseries json\+\_\+ref} (const json\+\_\+ref \&)=delete
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__ref_a1b22795281e9894e68b927801a69f1ab}\label{classnlohmann_1_1detail_1_1json__ref_a1b22795281e9894e68b927801a69f1ab} 
+json\+\_\+ref \& {\bfseries operator=} (const json\+\_\+ref \&)=delete
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__ref_ab6fb80bb6a10e626ff58bdd98af7dc52}\label{classnlohmann_1_1detail_1_1json__ref_ab6fb80bb6a10e626ff58bdd98af7dc52} 
+json\+\_\+ref \& {\bfseries operator=} (json\+\_\+ref \&\&)=delete
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__ref_ae39e523218bf05cac3fb5b5b1cd5efb6}\label{classnlohmann_1_1detail_1_1json__ref_ae39e523218bf05cac3fb5b5b1cd5efb6} 
+value\+\_\+type {\bfseries moved\+\_\+or\+\_\+copied} () const
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__ref_a660e373deab1b74e03952dce889cb33d}\label{classnlohmann_1_1detail_1_1json__ref_a660e373deab1b74e03952dce889cb33d} 
+value\+\_\+type const \& {\bfseries operator\texorpdfstring{$\ast$}{*}} () const
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__ref_ab4991f0e0f33cb906267b8dccbf2406b}\label{classnlohmann_1_1detail_1_1json__ref_ab4991f0e0f33cb906267b8dccbf2406b} 
+value\+\_\+type const \texorpdfstring{$\ast$}{*} {\bfseries operator-\/$>$} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__ref_a5d7bd67a5ab713d9be1e248cf9d509cd}\label{classnlohmann_1_1detail_1_1json__ref_a5d7bd67a5ab713d9be1e248cf9d509cd} 
+value\+\_\+type {\bfseries owned\+\_\+value} = nullptr
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1json__ref_a45391e581543480fc02007de08d95705}\label{classnlohmann_1_1detail_1_1json__ref_a45391e581543480fc02007de08d95705} 
+value\+\_\+type const  \texorpdfstring{$\ast$}{*} {\bfseries value\+\_\+ref} = nullptr
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+abi/\+include/\+nlohmann/\+json\+\_\+v3\+\_\+10\+\_\+5.\+hpp\end{DoxyCompactItemize}

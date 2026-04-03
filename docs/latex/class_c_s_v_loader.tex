@@ -1,0 +1,233 @@
+\doxysection{CSVLoader Class Reference}
+\hypertarget{class_c_s_v_loader}{}\label{class_c_s_v_loader}\index{CSVLoader@{CSVLoader}}
+
+
+CSV loader for stock datasets.  
+
+
+
+
+{\ttfamily \+\#include $<$CSVLoader.\+hpp$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_c_s_v_loader_1_1_options}{Options}}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_c_s_v_loader_1_1_options}{Options} for CSV parsing. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct_c_s_v_loader_1_1_load_result}{Load\+Result}}
+\begin{DoxyCompactList}\small\item\em Result of a CSV load operation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_c_s_v_loader_af5808dd8dc04663a51aa315dc3822f30}{CSVLoader}} ()=default
+\begin{DoxyCompactList}\small\item\em Construct a CSV loader. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_c_s_v_loader_ab1f11e9479616156bb9f398dc20a3407}{CSVLoader}} (\doxymbox{\hyperlink{struct_c_s_v_loader_1_1_options}{Options}} options)
+\begin{DoxyCompactList}\small\item\em Construct a CSV loader with custom options. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{struct_c_s_v_loader_1_1_load_result}{Load\+Result}} \doxymbox{\hyperlink{class_c_s_v_loader_ae863bcc3ebb3908bee1be3fe815b46c9}{load\+File}} (const std::\+string \&path) const
+\begin{DoxyCompactList}\small\item\em Load stocks from a CSV file on disk. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{struct_c_s_v_loader_1_1_load_result}{Load\+Result}} \doxymbox{\hyperlink{class_c_s_v_loader_a06c396f81321e434803a3e1d9e18f1ca}{load\+Stream}} (std::\+istream \&in) const
+\begin{DoxyCompactList}\small\item\em Load stocks from an input stream. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std::\+vector$<$ std::\+string $>$ \doxymbox{\hyperlink{class_c_s_v_loader_acad8f99cc2d815b46a45af0ac16c4d6e}{parse\+Csv\+Line}} (const std::\+string \&line) const
+\begin{DoxyCompactList}\small\item\em Parse a single CSV line into fields. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_c_s_v_loader_a3dd176c546f40768d355378c943e369d}{normalize\+Header}} (const std::\+string \&header) const
+\begin{DoxyCompactList}\small\item\em Normalize header names for matching. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_c_s_v_loader_acc3998dfcf2b6df0df96d54aec39be9d}{trim}} (const std::\+string \&value) const
+\begin{DoxyCompactList}\small\item\em Trim leading and trailing whitespace. \end{DoxyCompactList}\item 
+std::\+optional$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ \doxymbox{\hyperlink{class_c_s_v_loader_a443f4cc23c838f1b1748e794199de291}{parse\+Stock}} (const std::\+vector$<$ std::\+string $>$ \&fields, const std::\+unordered\+\_\+map$<$ std::\+string, size\+\_\+t $>$ \&header\+\_\+index) const
+\begin{DoxyCompactList}\small\item\em Parse a stock from CSV fields. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parse\+Double}} (const std::\+optional$<$ std::\+string $>$ \&value, double \&out) const
+\begin{DoxyCompactList}\small\item\em Parse a string into a double. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_s_v_loader_a3e003dd6dbaaea6edca769528223a445}\label{class_c_s_v_loader_a3e003dd6dbaaea6edca769528223a445} 
+\doxymbox{\hyperlink{struct_c_s_v_loader_1_1_options}{Options}} {\bfseries options\+\_\+}
+\begin{DoxyCompactList}\small\item\em Parsing options. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+CSV loader for stock datasets. 
+
+Reads the project\textquotesingle{}s fundamentals CSV format, normalizes headers, parses numeric fields into a {\ttfamily \doxylink{struct_stock}{Stock}} record, and reports recoverable row-\/level errors without aborting the whole import.
+
+\begin{DoxyAuthor}{Author}
+Emily Berlinghoff 
+\end{DoxyAuthor}
+
+
+\label{doc-constructors}
+\Hypertarget{class_c_s_v_loader_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_c_s_v_loader_af5808dd8dc04663a51aa315dc3822f30}\index{CSVLoader@{CSVLoader}!CSVLoader@{CSVLoader}}
+\index{CSVLoader@{CSVLoader}!CSVLoader@{CSVLoader}}
+\doxysubsubsection{\texorpdfstring{CSVLoader()}{CSVLoader()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_c_s_v_loader_af5808dd8dc04663a51aa315dc3822f30} 
+CSVLoader::\+\+CSVLoader (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Construct a CSV loader. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em options} & Parsing options.\\
+\hline
+\end{DoxyParams}
+Construct a CSV loader with default options. \Hypertarget{class_c_s_v_loader_ab1f11e9479616156bb9f398dc20a3407}\index{CSVLoader@{CSVLoader}!CSVLoader@{CSVLoader}}
+\index{CSVLoader@{CSVLoader}!CSVLoader@{CSVLoader}}
+\doxysubsubsection{\texorpdfstring{CSVLoader()}{CSVLoader()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_c_s_v_loader_ab1f11e9479616156bb9f398dc20a3407} 
+CSVLoader::\+\+CSVLoader (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_c_s_v_loader_1_1_options}{Options}}}]{options}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Construct a CSV loader with custom options. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em options} & Parsing options. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_c_s_v_loader_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_c_s_v_loader_ae863bcc3ebb3908bee1be3fe815b46c9}\index{CSVLoader@{CSVLoader}!loadFile@{loadFile}}
+\index{loadFile@{loadFile}!CSVLoader@{CSVLoader}}
+\doxysubsubsection{\texorpdfstring{loadFile()}{loadFile()}}
+{\footnotesize\ttfamily \label{class_c_s_v_loader_ae863bcc3ebb3908bee1be3fe815b46c9} 
+\doxymbox{\hyperlink{struct_c_s_v_loader_1_1_load_result}{Load\+Result}} CSVLoader::\+load\+File (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{path}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Load stocks from a CSV file on disk. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & Path to the CSV file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_c_s_v_loader_1_1_load_result}{Load\+Result} containing parsed stocks and any errors. 
+\end{DoxyReturn}
+\Hypertarget{class_c_s_v_loader_a06c396f81321e434803a3e1d9e18f1ca}\index{CSVLoader@{CSVLoader}!loadStream@{loadStream}}
+\index{loadStream@{loadStream}!CSVLoader@{CSVLoader}}
+\doxysubsubsection{\texorpdfstring{loadStream()}{loadStream()}}
+{\footnotesize\ttfamily \label{class_c_s_v_loader_a06c396f81321e434803a3e1d9e18f1ca} 
+\doxymbox{\hyperlink{struct_c_s_v_loader_1_1_load_result}{Load\+Result}} CSVLoader::\+load\+Stream (\begin{DoxyParamCaption}\item[{std::\+istream \&}]{in}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Load stocks from an input stream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & Input stream. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_c_s_v_loader_1_1_load_result}{Load\+Result} containing parsed stocks and any errors. 
+\end{DoxyReturn}
+\Hypertarget{class_c_s_v_loader_a3dd176c546f40768d355378c943e369d}\index{CSVLoader@{CSVLoader}!normalizeHeader@{normalizeHeader}}
+\index{normalizeHeader@{normalizeHeader}!CSVLoader@{CSVLoader}}
+\doxysubsubsection{\texorpdfstring{normalizeHeader()}{normalizeHeader()}}
+{\footnotesize\ttfamily \label{class_c_s_v_loader_a3dd176c546f40768d355378c943e369d} 
+std::\+string CSVLoader::\+normalize\+Header (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{header}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Normalize header names for matching. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em header} & Raw header string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Normalized header. 
+\end{DoxyReturn}
+\Hypertarget{class_c_s_v_loader_acad8f99cc2d815b46a45af0ac16c4d6e}\index{CSVLoader@{CSVLoader}!parseCsvLine@{parseCsvLine}}
+\index{parseCsvLine@{parseCsvLine}!CSVLoader@{CSVLoader}}
+\doxysubsubsection{\texorpdfstring{parseCsvLine()}{parseCsvLine()}}
+{\footnotesize\ttfamily \label{class_c_s_v_loader_acad8f99cc2d815b46a45af0ac16c4d6e} 
+std::\+vector$<$ std::\+string $>$ CSVLoader::\+parse\+Csv\+Line (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{line}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Parse a single CSV line into fields. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em line} & Input line. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector of fields. 
+\end{DoxyReturn}
+\Hypertarget{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}\index{CSVLoader@{CSVLoader}!parseDouble@{parseDouble}}
+\index{parseDouble@{parseDouble}!CSVLoader@{CSVLoader}}
+\doxysubsubsection{\texorpdfstring{parseDouble()}{parseDouble()}}
+{\footnotesize\ttfamily \label{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5} 
+bool CSVLoader::\+parse\+Double (\begin{DoxyParamCaption}\item[{const std::\+optional$<$ std::\+string $>$ \&}]{value}{, }\item[{double \&}]{out}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Parse a string into a double. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & String value. \\
+\hline
+{\em out} & Parsed double. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if parsed successfully. 
+\end{DoxyReturn}
+\Hypertarget{class_c_s_v_loader_a443f4cc23c838f1b1748e794199de291}\index{CSVLoader@{CSVLoader}!parseStock@{parseStock}}
+\index{parseStock@{parseStock}!CSVLoader@{CSVLoader}}
+\doxysubsubsection{\texorpdfstring{parseStock()}{parseStock()}}
+{\footnotesize\ttfamily \label{class_c_s_v_loader_a443f4cc23c838f1b1748e794199de291} 
+std::\+optional$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ CSVLoader::\+parse\+Stock (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ std::\+string $>$ \&}]{fields}{, }\item[{const std::\+unordered\+\_\+map$<$ std::\+string, size\+\_\+t $>$ \&}]{header\+\_\+index}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Parse a stock from CSV fields. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fields} & Fields from the CSV row. \\
+\hline
+{\em header\+\_\+index} & Map of normalized header name to index. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Optional stock if the row is valid. 
+\end{DoxyReturn}
+\Hypertarget{class_c_s_v_loader_acc3998dfcf2b6df0df96d54aec39be9d}\index{CSVLoader@{CSVLoader}!trim@{trim}}
+\index{trim@{trim}!CSVLoader@{CSVLoader}}
+\doxysubsubsection{\texorpdfstring{trim()}{trim()}}
+{\footnotesize\ttfamily \label{class_c_s_v_loader_acc3998dfcf2b6df0df96d54aec39be9d} 
+std::\+string CSVLoader::\+trim (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{value}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Trim leading and trailing whitespace. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Raw string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Trimmed string. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+data/\+\doxymbox{\hyperlink{_c_s_v_loader_8hpp}{CSVLoader.\+hpp}}\end{DoxyCompactItemize}

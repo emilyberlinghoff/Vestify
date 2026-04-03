@@ -1,0 +1,35 @@
+\doxysection{Scored\+Stock Struct Reference}
+\hypertarget{struct_scored_stock}{}\label{struct_scored_stock}\index{ScoredStock@{ScoredStock}}
+
+
+\doxylink{struct_scored_stock}{Scored\+Stock} — a \doxylink{struct_stock}{Stock} paired with its scoring breakdown.  
+
+
+
+
+{\ttfamily \+\#include $<$Strategy\+Present.\+hpp$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_scored_stock_a34a5028ffe2df8d7de4e6654cb6d1ac8}\label{struct_scored_stock_a34a5028ffe2df8d7de4e6654cb6d1ac8} 
+\doxymbox{\hyperlink{struct_stock}{Stock}} {\bfseries stock}
+\begin{DoxyCompactList}\small\item\em The original stock data. \end{DoxyCompactList}\item 
+\Hypertarget{struct_scored_stock_aea951b17e87ddf0bffed693cf61d6b65}\label{struct_scored_stock_aea951b17e87ddf0bffed693cf61d6b65} 
+std::\+unordered\+\_\+map$<$ std::\+string, double $>$ {\bfseries subscores}
+\begin{DoxyCompactList}\small\item\em model\+Name -\/\texorpdfstring{$>$}{>} sub-\/score computed by that model. \end{DoxyCompactList}\item 
+\Hypertarget{struct_scored_stock_aca4d12573934e1713498a9ee51cfce8d}\label{struct_scored_stock_aca4d12573934e1713498a9ee51cfce8d} 
+double {\bfseries composite} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Weighted composite score. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{struct_scored_stock}{Scored\+Stock} — a \doxylink{struct_stock}{Stock} paired with its scoring breakdown. 
+
+A stock together with its per-\/model scores and composite score.
+
+Keeps the original \doxylink{struct_stock}{Stock} struct untouched (no added fields needed). 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+scoring/\+\doxymbox{\hyperlink{_strategy_present_8hpp}{Strategy\+Present.\+hpp}}\end{DoxyCompactItemize}

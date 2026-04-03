@@ -1,0 +1,60 @@
+\chapter{JSON\+\_\+\+USE\+\_\+\+IMPLICIT\+\_\+\+CONVERSIONS }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions}\index{JSON\_USE\_IMPLICIT\_CONVERSIONS@{JSON\_USE\_IMPLICIT\_CONVERSIONS}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions_autotoc_md1257}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions_autotoc_md1257}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ JSON\_USE\_IMPLICIT\_CONVERSIONS\ }\textcolor{comment}{/*\ value\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}
+
+
+When defined to {\ttfamily 0}, implicit conversions are switched off. By default, implicit conversions are switched on. \doxylink{requirements_The}{The} value directly affects \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type}{{\ttfamily operator Value\+Type}}{0}.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions_autotoc_md1258}{}\doxysection{\texorpdfstring{Default definition}{Default definition}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions_autotoc_md1258}
+By default, implicit conversions are enabled.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ JSON\_USE\_IMPLICIT\_CONVERSIONS\ 1}}
+
+\end{DoxyCode}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions_autotoc_md1259}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions_autotoc_md1259}
+!!! info "{}\+Future behavior change"{} \begin{DoxyVerb}Implicit conversions will be switched off by default in the next major release of the library.
+
+You can prepare existing code by already defining `JSON_USE_IMPLICIT_CONVERSIONS` to `0` and replace any implicit
+conversions with calls to [`get`](../basic_json/get.md).
+\end{DoxyVerb}
+
+
+!!! hint "{}\+CMake option"{} \begin{DoxyVerb}Implicit conversions can also be controlled with the CMake option
+[`JSON_ImplicitConversions`](../../integration/cmake.md#json_implicitconversions)
+(`ON` by default) which defines `JSON_USE_IMPLICIT_CONVERSIONS` accordingly.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions_autotoc_md1260}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions_autotoc_md1260}
+??? example \begin{DoxyVerb}This is an example for an implicit conversion:
+
+```cpp
+json j = "Hello, world!";
+std::string s = j;
+```
+
+When `JSON_USE_IMPLICIT_CONVERSIONS` is defined to `0`, the code above does no longer compile. Instead, it must be
+written like this:
+
+```cpp
+json j = "Hello, world!";
+auto s = j.get<std::string>();
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions_autotoc_md1261}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions_autotoc_md1261}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type}{{\bfseries{operator Value\+Type}}}{0} -\/ get a value (implicit)
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get}{{\bfseries{get}}}{0} -\/ get a value (explicit)
+\item \href{../../integration/cmake.md\#json_implicitconversions}{\texttt{:\+simple-\/cmake:\+ JSON\+\_\+\+Implicit\+Conversions}} -\/ CMake option to control the macro
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions_autotoc_md1262}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions_autotoc_md1262}
+
+\begin{DoxyItemize}
+\item Added in version 3.\+9.\+0. 
+\end{DoxyItemize}

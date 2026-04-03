@@ -1,0 +1,106 @@
+\doxysection{Quality\+Scoring\+Model Class Reference}
+\hypertarget{class_quality_scoring_model}{}\label{class_quality_scoring_model}\index{QualityScoringModel@{QualityScoringModel}}
+
+
+Scores stocks on financial quality and balance sheet health.  
+
+
+
+
+{\ttfamily \+\#include $<$Quality\+Scoring\+Model.\+hpp$>$}
+
+Inheritance diagram for Quality\+Scoring\+Model:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_quality_scoring_model}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \doxymbox{\hyperlink{class_quality_scoring_model_a396c37aae90ad1d471b9a9fe99c4df3c}{calculate\+Score}} (const \doxymbox{\hyperlink{struct_stock}{Stock}} \&stock) const override
+\begin{DoxyCompactList}\small\item\em Calculate a quality score for one stock. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_quality_scoring_model_ad508ccd832cfd7df3ea0977f48257e26}{get\+Model\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em Return the display name for this model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_scoring_model}{Scoring\+Model}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \doxymbox{\hyperlink{class_scoring_model_a9b9bf1dac68c407b2c2e0be03dec48b0}{\texorpdfstring{$\sim$}{\string~}\+Scoring\+Model}} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor for polymorphic scoring models. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Scores stocks on financial quality and balance sheet health. 
+
+Evaluates four quality dimensions:\+
+\begin{DoxyItemize}
+\item Current ratio (ability to meet short-\/term obligations)
+\item Debt-\/to-\/equity (lower leverage is safer)
+\item Gross margin (pricing power and competitive advantage)
+\item ROE (management effectiveness, capped to avoid distortion)
+\end{DoxyItemize}
+
+Each component maps to a 0-\/100 sub-\/score, then averaged. This model complements valuation and growth screens by emphasizing durable balance-\/sheet strength and profitability quality.
+
+\begin{DoxyAuthor}{Author}
+Melvin Rogers 
+\end{DoxyAuthor}
+
+
+\label{doc-func-members}
+\Hypertarget{class_quality_scoring_model_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_quality_scoring_model_a396c37aae90ad1d471b9a9fe99c4df3c}\index{QualityScoringModel@{QualityScoringModel}!calculateScore@{calculateScore}}
+\index{calculateScore@{calculateScore}!QualityScoringModel@{QualityScoringModel}}
+\doxysubsubsection{\texorpdfstring{calculateScore()}{calculateScore()}}
+{\footnotesize\ttfamily \label{class_quality_scoring_model_a396c37aae90ad1d471b9a9fe99c4df3c} 
+double Quality\+Scoring\+Model::\+calculate\+Score (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_stock}{Stock}} \&}]{stock}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Calculate a quality score for one stock. 
+
+Converts the stock\textquotesingle{}s liquidity, leverage, margin, and return-\/on-\/equity metrics into normalized sub-\/scores, then averages only the valid inputs to avoid distorting the result with missing data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stock} & \doxylink{struct_stock}{Stock} fundamentals to evaluate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Quality score in the range \+[0, 100]\+. 
+\end{DoxyReturn}
+Current ratio:\+ higher is better (can pay short-\/term debts). Map 0-\/3.\+0 -\/\texorpdfstring{$>$}{>} 0-\/100. Above 3 is maxed out.
+
+Debt-\/to-\/equity:\+ lower is better (less leveraged). Map 0-\/2.\+0 -\/\texorpdfstring{$>$}{>} 100-\/0.
+
+Gross margin:\+ higher signals pricing power and moat. Stored as fraction. Map 0-\/0.\+80 (80\%) -\/\texorpdfstring{$>$}{>} 0-\/100.
+
+ROE:\+ higher is better, but cap at 100\% to avoid distorted values. Stored as fraction. Map 0-\/0.\+40 (40\%) -\/\texorpdfstring{$>$}{>} 0-\/100.
+
+Implements \doxymbox{\hyperlink{class_scoring_model_a5a6301eb2a281ebb14ae07603fb2f261}{Scoring\+Model}}.
+
+\Hypertarget{class_quality_scoring_model_ad508ccd832cfd7df3ea0977f48257e26}\index{QualityScoringModel@{QualityScoringModel}!getModelName@{getModelName}}
+\index{getModelName@{getModelName}!QualityScoringModel@{QualityScoringModel}}
+\doxysubsubsection{\texorpdfstring{getModelName()}{getModelName()}}
+{\footnotesize\ttfamily \label{class_quality_scoring_model_ad508ccd832cfd7df3ea0977f48257e26} 
+std::\+string Quality\+Scoring\+Model::\+get\+Model\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Return the display name for this model. 
+
+The strategy manager uses this stable string as the lookup key for weights, sub-\/score breakdowns, and active-\/strategy reporting.
+
+\begin{DoxyReturn}{Returns}
+The model name string "{}\+Quality"{}. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_scoring_model_a4b9b6b56036e41f15d59c3cdd9a49826}{Scoring\+Model}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+scoring/\+\doxymbox{\hyperlink{_quality_scoring_model_8hpp}{Quality\+Scoring\+Model.\+hpp}}\end{DoxyCompactItemize}

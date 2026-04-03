@@ -1,0 +1,70 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize operator Value\+Type }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$operator ValueType@{$<$small$>$nlohmann::basic\_json::$<$/small$>$operator ValueType}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md741}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md741}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ValueType>}
+\DoxyCodeLine{JSON\_EXPLICIT\ \textcolor{keyword}{operator}\ ValueType()\ \textcolor{keyword}{const};}
+
+\end{DoxyCode}
+
+
+Implicit type conversion between the JSON value and a compatible value. \doxylink{requirements_The}{The} call is realized by calling \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get}{{\ttfamily get()}}{0}. See Notes for the meaning of {\ttfamily JSON\+\_\+\+EXPLICIT}.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md742}{}\doxysection{\texorpdfstring{Template parameters}{Template parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md742}
+{\ttfamily Value\+Type} :\+ the value type to return\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md743}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md743}
+copy of the JSON value, converted to {\ttfamily Value\+Type}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md744}{}\doxysection{\texorpdfstring{Exceptions}{Exceptions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md744}
+Depends on what {\ttfamily json\+\_\+serializer\texorpdfstring{$<$}{<}Value\+Type\texorpdfstring{$>$}{>}} {\ttfamily from\+\_\+json()} method throws\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md745}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md745}
+Linear in the size of the JSON value.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md746}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md746}
+!!! note "{}\+Definition of \`{}\+JSON\+\_\+\+EXPLICIT\`{}"{} \begin{DoxyVerb}By default `JSON_EXPLICIT` is defined to the empty string, so the signature is:
+
+```cpp
+template<typename ValueType>
+operator ValueType() const;
+```
+
+If [`JSON_USE_IMPLICIT_CONVERSIONS`](../macros/json_use_implicit_conversions.md) is set to `0`,
+`JSON_EXPLICIT` is defined to `#!cpp explicit`:
+
+```cpp
+template<typename ValueType>
+explicit operator ValueType() const;
+```
+
+That is, implicit conversions can be switched off by defining
+[`JSON_USE_IMPLICIT_CONVERSIONS`](../macros/json_use_implicit_conversions.md) to `0`.
+\end{DoxyVerb}
+
+
+!!! info "{}\+Future behavior change"{} \begin{DoxyVerb}Implicit conversions will be switched off by default in the next major release of the library. That is,
+`JSON_EXPLICIT` will be set to `#!cpp explicit` by default.
+
+You can prepare existing code by already defining
+[`JSON_USE_IMPLICIT_CONVERSIONS`](../macros/json_use_implicit_conversions.md) to `0` and replace any implicit
+conversions with calls to [`get`](../basic_json/get.md).
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md747}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md747}
+??? example \begin{DoxyVerb}The example below shows several conversions from JSON values to other types. There are a few things to note: (1)
+Floating-point numbers can be converted to integers, (2) A JSON array can be converted to a standard
+`std::vector<short>`, (3) A JSON object can be converted to C++ associative containers such as
+`std::unordered_map<std::string, json>`.
+
+```cpp
+--8<-- "examples/operator__ValueType.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/operator__ValueType.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md748}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type_autotoc_md748}
+
+\begin{DoxyItemize}
+\item Since version 1.\+0.\+0.
+\item Macros {\ttfamily JSON\+\_\+\+EXPLICIT}/\+\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions}{{\ttfamily JSON\+\_\+\+USE\+\_\+\+IMPLICIT\+\_\+\+CONVERSIONS}}{0} added in version 3.\+9.\+0. 
+\end{DoxyItemize}

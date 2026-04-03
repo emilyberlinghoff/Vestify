@@ -1,0 +1,42 @@
+\doxysection{nlohmann::\+fifo\+\_\+map\+\_\+compare\texorpdfstring{$<$}{<} Key \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classnlohmann_1_1fifo__map__compare}{}\label{classnlohmann_1_1fifo__map__compare}\index{nlohmann::fifo\_map\_compare$<$ Key $>$@{nlohmann::fifo\_map\_compare$<$ Key $>$}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map__compare_aab17e1040a1d3860c96aac6faf5c705c}\label{classnlohmann_1_1fifo__map__compare_aab17e1040a1d3860c96aac6faf5c705c} 
+{\bfseries fifo\+\_\+map\+\_\+compare} (std::\+unordered\+\_\+map$<$ Key, std::\+size\+\_\+t $>$ \texorpdfstring{$\ast$}{*}k)
+\begin{DoxyCompactList}\small\item\em constructor given a pointer to a key storage \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classnlohmann_1_1fifo__map__compare_a148fc9007e182fe0646e919dc53c466a}{operator()}} (const Key \&lhs, const Key \&rhs) const
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map__compare_a1eeddfac59afab194e1b9ec45e9d8ea3}\label{classnlohmann_1_1fifo__map__compare_a1eeddfac59afab194e1b9ec45e9d8ea3} 
+void {\bfseries add\+\_\+key} (const Key \&key)
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map__compare_a28b87a4c0ad0928c94c0bf407fe8e54c}\label{classnlohmann_1_1fifo__map__compare_a28b87a4c0ad0928c94c0bf407fe8e54c} 
+void {\bfseries remove\+\_\+key} (const Key \&key)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map__compare_a08694accaf28b1381e55598acb6f34f3}\label{classnlohmann_1_1fifo__map__compare_a08694accaf28b1381e55598acb6f34f3} 
+std::\+unordered\+\_\+map$<$ Key, std::\+size\+\_\+t $>$ \texorpdfstring{$\ast$}{*} {\bfseries keys} = nullptr
+\begin{DoxyCompactList}\small\item\em pointer to a mapping from keys to insertion timestamps \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map__compare_a70c16e8ba861e67ab384b81b98de7704}\label{classnlohmann_1_1fifo__map__compare_a70c16e8ba861e67ab384b81b98de7704} 
+size\+\_\+t {\bfseries timestamp} = 1
+\begin{DoxyCompactList}\small\item\em the next valid insertion timestamp \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{classnlohmann_1_1fifo__map__compare_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classnlohmann_1_1fifo__map__compare_a148fc9007e182fe0646e919dc53c466a}\index{nlohmann::fifo\_map\_compare$<$ Key $>$@{nlohmann::fifo\_map\_compare$<$ Key $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!nlohmann::fifo\_map\_compare$<$ Key $>$@{nlohmann::fifo\_map\_compare$<$ Key $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily \label{classnlohmann_1_1fifo__map__compare_a148fc9007e182fe0646e919dc53c466a} 
+template$<$class Key$>$ \\
+bool \doxymbox{\hyperlink{classnlohmann_1_1fifo__map__compare}{nlohmann::\+fifo\+\_\+map\+\_\+compare}}$<$ Key $>$::\+operator() (\begin{DoxyParamCaption}\item[{const Key \&}]{lhs}{, }\item[{const Key \&}]{rhs}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function compares two keys with respect to the order in which they were added to the container. For this, the mapping keys is used. 
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+thirdparty/\+fifo\+\_\+map/\+fifo\+\_\+map.\+hpp\end{DoxyCompactItemize}

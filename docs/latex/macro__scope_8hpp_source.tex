@@ -1,0 +1,530 @@
+\doxysection{macro\+\_\+scope.\+hpp}
+\hypertarget{macro__scope_8hpp_source}{}\label{macro__scope_8hpp_source}\index{include/nlohman/json-\/develop/include/nlohmann/detail/macro\_scope.hpp@{include/nlohman/json-\/develop/include/nlohmann/detail/macro\_scope.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \_\_\ \_\_\_\_\_\ \_\_\_\_\_\ \_\_\_\_\_}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ \ \_\_|\ \ |\ \ \ \_\_|\ \ \ \ \ |\ \ \ |\ |\ \ JSON\ for\ Modern\ C++}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ |\ \ |\ \ |\_\_\ \ \ |\ \ |\ \ |\ |\ |\ |\ \ version\ 3.12.0}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ |\_\_\_\_\_|\_\_\_\_\_|\_\_\_\_\_|\_|\_\_\_|\ \ https://github.com/nlohmann/json}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ SPDX-\/FileCopyrightText:\ 2013-\/2026\ Niels\ Lohmann\ <https://nlohmann.me>}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ SPDX-\/License-\/Identifier:\ MIT}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <utility>}\ \textcolor{comment}{//\ declval,\ pair}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/meta/detected.hpp>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <nlohmann/thirdparty/hedley/hedley.hpp>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ This\ file\ contains\ all\ internal\ macro\ definitions\ (except\ those\ affecting\ ABI)}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ You\ MUST\ include\ macro\_unscope.hpp\ at\ the\ end\ of\ json.hpp\ to\ undef\ all\ of\ them}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/abi\_macros.hpp>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ exclude\ unsupported\ compilers}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#if\ !defined(JSON\_SKIP\_UNSUPPORTED\_COMPILER\_CHECK)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_\_clang\_\_)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ (\_\_clang\_major\_\_\ *\ 10000\ +\ \_\_clang\_minor\_\_\ *\ 100\ +\ \_\_clang\_patchlevel\_\_)\ <\ 30400}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#error\ "{}unsupported\ Clang\ version\ -\/\ see\ https://github.com/nlohmann/json\#supported-\/compilers"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_GNUC\_\_)\ \&\&\ !(defined(\_\_ICC)\ ||\ defined(\_\_INTEL\_COMPILER))}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ (\_\_GNUC\_\_\ *\ 10000\ +\ \_\_GNUC\_MINOR\_\_\ *\ 100\ +\ \_\_GNUC\_PATCHLEVEL\_\_)\ <\ 40800}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#error\ "{}unsupported\ GCC\ version\ -\/\ see\ https://github.com/nlohmann/json\#supported-\/compilers"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ C++\ language\ standard\ detection}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ if\ the\ user\ manually\ specified\ the\ used\ C++\ version,\ this\ is\ skipped}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#if\ !defined(JSON\_HAS\_CPP\_26)\ \&\&\ !defined(JSON\_HAS\_CPP\_23)\ \&\&\ !defined(JSON\_HAS\_CPP\_20)\ \&\&\ !defined(JSON\_HAS\_CPP\_17)\ \&\&\ !defined(JSON\_HAS\_CPP\_14)\ \&\&\ !defined(JSON\_HAS\_CPP\_11)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\ \ \ \ \#if\ (defined(\_\_cplusplus)\ \&\&\ \_\_cplusplus\ >\ 202302L)\ ||\ (defined(\_MSVC\_LANG)\ \&\&\ \_MSVC\_LANG\ >\ 202302L)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_CPP\_26}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_CPP\_23}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_CPP\_20}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_CPP\_17}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_CPP\_14}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\ \ \ \ \#elif\ (defined(\_\_cplusplus)\ \&\&\ \_\_cplusplus\ >\ 202002L)\ ||\ (defined(\_MSVC\_LANG)\ \&\&\ \_MSVC\_LANG\ >\ 202002L)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_CPP\_23}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_CPP\_20}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_CPP\_17}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_CPP\_14}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\ \ \ \ \#elif\ (defined(\_\_cplusplus)\ \&\&\ \_\_cplusplus\ >\ 201703L)\ ||\ (defined(\_MSVC\_LANG)\ \&\&\ \_MSVC\_LANG\ >\ 201703L)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_CPP\_20}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_CPP\_17}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_CPP\_14}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\ \ \ \ \#elif\ (defined(\_\_cplusplus)\ \&\&\ \_\_cplusplus\ >\ 201402L)\ ||\ (defined(\_HAS\_CXX17)\ \&\&\ \_HAS\_CXX17\ ==\ 1)\ }\textcolor{comment}{//\ fix\ for\ issue\ \#464}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_CPP\_17}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_CPP\_14}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\ \ \ \ \#elif\ (defined(\_\_cplusplus)\ \&\&\ \_\_cplusplus\ >\ 201103L)\ ||\ (defined(\_HAS\_CXX14)\ \&\&\ \_HAS\_CXX14\ ==\ 1)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_CPP\_14}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{//\ the\ cpp\ 11\ flag\ is\ always\ specified\ because\ it\ is\ the\ minimal\ required\ version}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_HAS\_CPP\_11}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#ifdef\ \_\_has\_include}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \ \ \#if\ \_\_has\_include(<version>)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <version>}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#if\ !defined(JSON\_HAS\_FILESYSTEM)\ \&\&\ !defined(JSON\_HAS\_EXPERIMENTAL\_FILESYSTEM)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ JSON\_HAS\_CPP\_17}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ defined(\_\_cpp\_lib\_filesystem)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_FILESYSTEM\ 1}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ defined(\_\_cpp\_lib\_experimental\_filesystem)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_EXPERIMENTAL\_FILESYSTEM\ 1}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ !defined(\_\_has\_include)}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_EXPERIMENTAL\_FILESYSTEM\ 1}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ \_\_has\_include(<filesystem>)}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_FILESYSTEM\ 1}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#elif\ \_\_has\_include(<experimental/filesystem>)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_EXPERIMENTAL\_FILESYSTEM\ 1}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::filesystem\ does\ not\ work\ on\ MinGW\ GCC\ 8:\ https://sourceforge.net/p/mingw-\/w64/bugs/737/}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ defined(\_\_MINGW32\_\_)\ \&\&\ defined(\_\_GNUC\_\_)\ \&\&\ \_\_GNUC\_\_\ ==\ 8}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#undef\ JSON\_HAS\_FILESYSTEM}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#undef\ JSON\_HAS\_EXPERIMENTAL\_FILESYSTEM}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no\ filesystem\ support\ before\ GCC\ 8:\ https://en.cppreference.com/w/cpp/compiler\_support}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ defined(\_\_GNUC\_\_)\ \&\&\ !defined(\_\_clang\_\_)\ \&\&\ \_\_GNUC\_\_\ <\ 8}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#undef\ JSON\_HAS\_FILESYSTEM}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#undef\ JSON\_HAS\_EXPERIMENTAL\_FILESYSTEM}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no\ filesystem\ support\ before\ Clang\ 7:\ https://en.cppreference.com/w/cpp/compiler\_support}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ defined(\_\_clang\_major\_\_)\ \&\&\ \_\_clang\_major\_\_\ <\ 7}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#undef\ JSON\_HAS\_FILESYSTEM}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#undef\ JSON\_HAS\_EXPERIMENTAL\_FILESYSTEM}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no\ filesystem\ support\ before\ MSVC\ 19.14:\ https://en.cppreference.com/w/cpp/compiler\_support}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ defined(\_MSC\_VER)\ \&\&\ \_MSC\_VER\ <\ 1914}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#undef\ JSON\_HAS\_FILESYSTEM}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#undef\ JSON\_HAS\_EXPERIMENTAL\_FILESYSTEM}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no\ filesystem\ support\ before\ iOS\ 13}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ defined(\_\_IPHONE\_OS\_VERSION\_MIN\_REQUIRED)\ \&\&\ \_\_IPHONE\_OS\_VERSION\_MIN\_REQUIRED\ <\ 130000}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#undef\ JSON\_HAS\_FILESYSTEM}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#undef\ JSON\_HAS\_EXPERIMENTAL\_FILESYSTEM}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no\ filesystem\ support\ before\ macOS\ Catalina}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ defined(\_\_MAC\_OS\_X\_VERSION\_MIN\_REQUIRED)\ \&\&\ \_\_MAC\_OS\_X\_VERSION\_MIN\_REQUIRED\ <\ 101500}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#undef\ JSON\_HAS\_FILESYSTEM}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#undef\ JSON\_HAS\_EXPERIMENTAL\_FILESYSTEM}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#ifndef\ JSON\_HAS\_EXPERIMENTAL\_FILESYSTEM}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_HAS\_EXPERIMENTAL\_FILESYSTEM\ 0}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#ifndef\ JSON\_HAS\_FILESYSTEM}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_HAS\_FILESYSTEM\ 0}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#ifndef\ JSON\_HAS\_THREE\_WAY\_COMPARISON}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_\_cpp\_impl\_three\_way\_comparison)\ \&\&\ \_\_cpp\_impl\_three\_way\_comparison\ >=\ 201907L\ \(\backslash\)}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \&\&\ defined(\_\_cpp\_lib\_three\_way\_comparison)\ \&\&\ \_\_cpp\_lib\_three\_way\_comparison\ >=\ 201907L}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_THREE\_WAY\_COMPARISON\ 1}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_THREE\_WAY\_COMPARISON\ 0}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#ifndef\ JSON\_HAS\_RANGES}}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{comment}{//\ ranges\ header\ shipping\ in\ GCC\ 11.1.0\ (released\ 2021-\/04-\/27)\ has\ a\ syntax\ error}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(\_\_GLIBCXX\_\_)\ \&\&\ \_\_GLIBCXX\_\_\ ==\ 20210427}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_RANGES\ 0}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(\_\_cpp\_lib\_ranges)}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_RANGES\ 1}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_RANGES\ 0}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#ifndef\ JSON\_HAS\_STATIC\_RTTI}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\ \ \ \ \#if\ !defined(\_HAS\_STATIC\_RTTI)\ ||\ \_HAS\_STATIC\_RTTI\ !=\ 0}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_STATIC\_RTTI\ 1}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ JSON\_HAS\_STATIC\_RTTI\ 0}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#ifdef\ JSON\_HAS\_CPP\_17}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_INLINE\_VARIABLE\ inline}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_INLINE\_VARIABLE}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#if\ JSON\_HEDLEY\_HAS\_ATTRIBUTE(no\_unique\_address)}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_NO\_UNIQUE\_ADDRESS\ [[no\_unique\_address]]}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_NO\_UNIQUE\_ADDRESS}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{comment}{//\ disable\ documentation\ warnings\ on\ clang}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#if\ defined(\_\_clang\_\_)}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ clang\ diagnostic\ push}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wdocumentation"{}}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wdocumentation-\/unknown-\/command"{}}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{comment}{//\ allow\ disabling\ exceptions}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#if\ (defined(\_\_cpp\_exceptions)\ ||\ defined(\_\_EXCEPTIONS)\ ||\ defined(\_CPPUNWIND))\ \&\&\ !defined(JSON\_NOEXCEPTION)}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_THROW(exception)\ throw\ exception}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_TRY\ try}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_CATCH(exception)\ catch(exception)}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_INTERNAL\_CATCH(exception)\ catch(exception)}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\ \ \ \ \#include\ <cstdlib>}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_THROW(exception)\ std::abort()}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_TRY\ if(true)}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_CATCH(exception)\ if(false)}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_INTERNAL\_CATCH(exception)\ if(false)}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{comment}{//\ override\ exception\ macros}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#if\ defined(JSON\_THROW\_USER)}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\ \ \ \ \#undef\ JSON\_THROW}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_THROW\ JSON\_THROW\_USER}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#if\ defined(JSON\_TRY\_USER)}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\ \ \ \ \#undef\ JSON\_TRY}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_TRY\ JSON\_TRY\_USER}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#if\ defined(JSON\_CATCH\_USER)}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\ \ \ \ \#undef\ JSON\_CATCH}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_CATCH\ JSON\_CATCH\_USER}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\ \ \ \ \#undef\ JSON\_INTERNAL\_CATCH}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_INTERNAL\_CATCH\ JSON\_CATCH\_USER}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#if\ defined(JSON\_INTERNAL\_CATCH\_USER)}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\ \ \ \ \#undef\ JSON\_INTERNAL\_CATCH}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_INTERNAL\_CATCH\ JSON\_INTERNAL\_CATCH\_USER}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \textcolor{comment}{//\ allow\ overriding\ assert}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#if\ !defined(JSON\_ASSERT)}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\ \ \ \ \#include\ <cassert>}\ \textcolor{comment}{//\ assert}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_ASSERT(x)\ assert(x)}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{comment}{//\ allow\ accessing\ some\ private\ functions\ (needed\ by\ the\ test\ suite)}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#if\ defined(JSON\_TESTS\_PRIVATE)}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_PRIVATE\_UNLESS\_TESTED\ public}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_PRIVATE\_UNLESS\_TESTED\ private}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_SERIALIZE\_ENUM(ENUM\_TYPE,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\ \ \ \ inline\ void\ to\_json(BasicJsonType\&\ j,\ const\ ENUM\_TYPE\&\ e)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ NOLINTNEXTLINE(modernize-\/type-\/traits)\ we\ use\ C++11\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ static\_assert(std::is\_enum<ENUM\_TYPE>::value,\ \#ENUM\_TYPE\ "{}\ must\ be\ an\ enum!"{});\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ NOLINTNEXTLINE(modernize-\/avoid-\/c-\/arrays)\ we\ don't\ want\ to\ depend\ on\ <array>\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ static\ const\ std::pair<ENUM\_TYPE,\ BasicJsonType>\ m[]\ =\ \_\_VA\_ARGS\_\_;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ auto\ it\ =\ std::find\_if(std::begin(m),\ std::end(m),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [e](const\ std::pair<ENUM\_TYPE,\ BasicJsonType>\&\ ej\_pair)\ -\/>\ bool\ \ \(\backslash\)}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ return\ ej\_pair.first\ ==\ e;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ j\ =\ ((it\ !=\ std::end(m))\ ?\ it\ :\ std::begin(m))-\/>second;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\ \ \ \ inline\ void\ from\_json(const\ BasicJsonType\&\ j,\ ENUM\_TYPE\&\ e)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ NOLINTNEXTLINE(modernize-\/type-\/traits)\ we\ use\ C++11\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ static\_assert(std::is\_enum<ENUM\_TYPE>::value,\ \#ENUM\_TYPE\ "{}\ must\ be\ an\ enum!"{});\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ NOLINTNEXTLINE(modernize-\/avoid-\/c-\/arrays)\ we\ don't\ want\ to\ depend\ on\ <array>\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ static\ const\ std::pair<ENUM\_TYPE,\ BasicJsonType>\ m[]\ =\ \_\_VA\_ARGS\_\_;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ auto\ it\ =\ std::find\_if(std::begin(m),\ std::end(m),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&j](const\ std::pair<ENUM\_TYPE,\ BasicJsonType>\&\ ej\_pair)\ -\/>\ bool\ \(\backslash\)}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ return\ ej\_pair.second\ ==\ j;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ e\ =\ ((it\ !=\ std::end(m))\ ?\ it\ :\ std::begin(m))-\/>first;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \textcolor{comment}{//\ Ugly\ macros\ to\ avoid\ uglier\ copy-\/paste\ when\ specializing\ basic\_json.\ They}}
+\DoxyCodeLine{00257\ \textcolor{comment}{//\ may\ be\ removed\ in\ the\ future\ once\ the\ class\ is\ split.}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#define\ NLOHMANN\_BASIC\_JSON\_TPL\_DECLARATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\ \ \ \ template<template<typename,\ typename,\ typename...>\ class\ ObjectType,\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ template<typename,\ typename...>\ class\ ArrayType,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ class\ StringType,\ class\ BooleanType,\ class\ NumberIntegerType,\ \(\backslash\)}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ class\ NumberUnsignedType,\ class\ NumberFloatType,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ template<typename>\ class\ AllocatorType,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ template<typename,\ typename\ =\ void>\ class\ JSONSerializer,\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ class\ BinaryType,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ class\ CustomBaseClass>}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#define\ NLOHMANN\_BASIC\_JSON\_TPL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\ \ \ \ basic\_json<ObjectType,\ ArrayType,\ StringType,\ BooleanType,\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\ \ \ \ NumberIntegerType,\ NumberUnsignedType,\ NumberFloatType,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\ \ \ \ AllocatorType,\ JSONSerializer,\ BinaryType,\ CustomBaseClass>}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \textcolor{comment}{//\ Macros\ to\ simplify\ conversion\ from/to\ types}}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_EXPAND(\ x\ )\ x}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_GET\_MACRO(\_1,\ \_2,\ \_3,\ \_4,\ \_5,\ \_6,\ \_7,\ \_8,\ \_9,\ \_10,\ \_11,\ \_12,\ \_13,\ \_14,\ \_15,\ \_16,\ \_17,\ \_18,\ \_19,\ \_20,\ \_21,\ \_22,\ \_23,\ \_24,\ \_25,\ \_26,\ \_27,\ \_28,\ \_29,\ \_30,\ \_31,\ \_32,\ \_33,\ \_34,\ \_35,\ \_36,\ \_37,\ \_38,\ \_39,\ \_40,\ \_41,\ \_42,\ \_43,\ \_44,\ \_45,\ \_46,\ \_47,\ \_48,\ \_49,\ \_50,\ \_51,\ \_52,\ \_53,\ \_54,\ \_55,\ \_56,\ \_57,\ \_58,\ \_59,\ \_60,\ \_61,\ \_62,\ \_63,\ \_64,\ NAME,...)\ NAME}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE(...)\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_GET\_MACRO(\_\_VA\_ARGS\_\_,\ \(\backslash\)}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE64,\ \(\backslash\)}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE63,\ \(\backslash\)}}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE62,\ \(\backslash\)}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE61,\ \(\backslash\)}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE60,\ \(\backslash\)}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE59,\ \(\backslash\)}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE58,\ \(\backslash\)}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE57,\ \(\backslash\)}}
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE56,\ \(\backslash\)}}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE55,\ \(\backslash\)}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE54,\ \(\backslash\)}}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE53,\ \(\backslash\)}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE52,\ \(\backslash\)}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE51,\ \(\backslash\)}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE50,\ \(\backslash\)}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE49,\ \(\backslash\)}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE48,\ \(\backslash\)}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE47,\ \(\backslash\)}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE46,\ \(\backslash\)}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE45,\ \(\backslash\)}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE44,\ \(\backslash\)}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE43,\ \(\backslash\)}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE42,\ \(\backslash\)}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE41,\ \(\backslash\)}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE40,\ \(\backslash\)}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE39,\ \(\backslash\)}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE38,\ \(\backslash\)}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE37,\ \(\backslash\)}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE36,\ \(\backslash\)}}
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE35,\ \(\backslash\)}}
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE34,\ \(\backslash\)}}
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE33,\ \(\backslash\)}}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE32,\ \(\backslash\)}}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE31,\ \(\backslash\)}}
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE30,\ \(\backslash\)}}
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE29,\ \(\backslash\)}}
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE28,\ \(\backslash\)}}
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE27,\ \(\backslash\)}}
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE26,\ \(\backslash\)}}
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE25,\ \(\backslash\)}}
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE24,\ \(\backslash\)}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE23,\ \(\backslash\)}}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE22,\ \(\backslash\)}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE21,\ \(\backslash\)}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE20,\ \(\backslash\)}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE19,\ \(\backslash\)}}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE18,\ \(\backslash\)}}
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE17,\ \(\backslash\)}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE16,\ \(\backslash\)}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE15,\ \(\backslash\)}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE14,\ \(\backslash\)}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE13,\ \(\backslash\)}}
+\DoxyCodeLine{00331\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE12,\ \(\backslash\)}}
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE11,\ \(\backslash\)}}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE10,\ \(\backslash\)}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE9,\ \(\backslash\)}}
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE8,\ \(\backslash\)}}
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE7,\ \(\backslash\)}}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE6,\ \(\backslash\)}}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE5,\ \(\backslash\)}}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE4,\ \(\backslash\)}}
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE3,\ \(\backslash\)}}
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE2,\ \(\backslash\)}}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NLOHMANN\_JSON\_PASTE1)(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{00343\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ func(v1)}}
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE3(func,\ v1,\ v2)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE2(func,\ v2)}}
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE4(func,\ v1,\ v2,\ v3)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE3(func,\ v2,\ v3)}}
+\DoxyCodeLine{00346\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE5(func,\ v1,\ v2,\ v3,\ v4)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE4(func,\ v2,\ v3,\ v4)}}
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE6(func,\ v1,\ v2,\ v3,\ v4,\ v5)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE5(func,\ v2,\ v3,\ v4,\ v5)}}
+\DoxyCodeLine{00348\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE7(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE6(func,\ v2,\ v3,\ v4,\ v5,\ v6)}}
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE8(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE7(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7)}}
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE9(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE8(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8)}}
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE10(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE9(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9)}}
+\DoxyCodeLine{00352\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE11(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE10(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10)}}
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE12(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE11(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11)}}
+\DoxyCodeLine{00354\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE13(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE12(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12)}}
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE14(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE13(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13)}}
+\DoxyCodeLine{00356\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE15(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE14(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14)}}
+\DoxyCodeLine{00357\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE16(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE15(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15)}}
+\DoxyCodeLine{00358\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE17(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE16(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16)}}
+\DoxyCodeLine{00359\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE18(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE17(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17)}}
+\DoxyCodeLine{00360\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE19(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE18(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18)}}
+\DoxyCodeLine{00361\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE20(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE19(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19)}}
+\DoxyCodeLine{00362\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE21(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE20(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20)}}
+\DoxyCodeLine{00363\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE22(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE21(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21)}}
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE23(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE22(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22)}}
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE24(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE23(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23)}}
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE25(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE24(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24)}}
+\DoxyCodeLine{00367\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE26(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE25(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25)}}
+\DoxyCodeLine{00368\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE27(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE26(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26)}}
+\DoxyCodeLine{00369\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE28(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE27(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27)}}
+\DoxyCodeLine{00370\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE29(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE28(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28)}}
+\DoxyCodeLine{00371\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE30(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE29(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29)}}
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE31(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE30(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30)}}
+\DoxyCodeLine{00373\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE32(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE31(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31)}}
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE33(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE32(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32)}}
+\DoxyCodeLine{00375\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE34(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE33(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33)}}
+\DoxyCodeLine{00376\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE35(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE34(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34)}}
+\DoxyCodeLine{00377\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE36(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE35(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35)}}
+\DoxyCodeLine{00378\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE37(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE36(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36)}}
+\DoxyCodeLine{00379\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE38(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE37(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37)}}
+\DoxyCodeLine{00380\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE39(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE38(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38)}}
+\DoxyCodeLine{00381\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE40(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE39(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39)}}
+\DoxyCodeLine{00382\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE41(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE40(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40)}}
+\DoxyCodeLine{00383\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE42(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE41(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41)}}
+\DoxyCodeLine{00384\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE43(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE42(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42)}}
+\DoxyCodeLine{00385\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE44(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE43(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43)}}
+\DoxyCodeLine{00386\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE45(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE44(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44)}}
+\DoxyCodeLine{00387\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE46(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE45(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45)}}
+\DoxyCodeLine{00388\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE47(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE46(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46)}}
+\DoxyCodeLine{00389\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE48(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE47(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47)}}
+\DoxyCodeLine{00390\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE49(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE48(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48)}}
+\DoxyCodeLine{00391\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE50(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE49(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49)}}
+\DoxyCodeLine{00392\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE51(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE50(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50)}}
+\DoxyCodeLine{00393\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE52(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE51(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51)}}
+\DoxyCodeLine{00394\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE53(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE52(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52)}}
+\DoxyCodeLine{00395\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE54(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE53(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53)}}
+\DoxyCodeLine{00396\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE55(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE54(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54)}}
+\DoxyCodeLine{00397\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE56(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE55(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55)}}
+\DoxyCodeLine{00398\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE57(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE56(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56)}}
+\DoxyCodeLine{00399\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE58(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56,\ v57)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE57(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56,\ v57)}}
+\DoxyCodeLine{00400\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE59(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56,\ v57,\ v58)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE58(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56,\ v57,\ v58)}}
+\DoxyCodeLine{00401\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE60(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56,\ v57,\ v58,\ v59)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE59(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56,\ v57,\ v58,\ v59)}}
+\DoxyCodeLine{00402\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE61(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56,\ v57,\ v58,\ v59,\ v60)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE60(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56,\ v57,\ v58,\ v59,\ v60)}}
+\DoxyCodeLine{00403\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE62(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56,\ v57,\ v58,\ v59,\ v60,\ v61)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE61(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56,\ v57,\ v58,\ v59,\ v60,\ v61)}}
+\DoxyCodeLine{00404\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE63(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56,\ v57,\ v58,\ v59,\ v60,\ v61,\ v62)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE62(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56,\ v57,\ v58,\ v59,\ v60,\ v61,\ v62)}}
+\DoxyCodeLine{00405\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_PASTE64(func,\ v1,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56,\ v57,\ v58,\ v59,\ v60,\ v61,\ v62,\ v63)\ NLOHMANN\_JSON\_PASTE2(func,\ v1)\ NLOHMANN\_JSON\_PASTE63(func,\ v2,\ v3,\ v4,\ v5,\ v6,\ v7,\ v8,\ v9,\ v10,\ v11,\ v12,\ v13,\ v14,\ v15,\ v16,\ v17,\ v18,\ v19,\ v20,\ v21,\ v22,\ v23,\ v24,\ v25,\ v26,\ v27,\ v28,\ v29,\ v30,\ v31,\ v32,\ v33,\ v34,\ v35,\ v36,\ v37,\ v38,\ v39,\ v40,\ v41,\ v42,\ v43,\ v44,\ v45,\ v46,\ v47,\ v48,\ v49,\ v50,\ v51,\ v52,\ v53,\ v54,\ v55,\ v56,\ v57,\ v58,\ v59,\ v60,\ v61,\ v62,\ v63)}}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_TO(v1)\ nlohmann\_json\_j[\#v1]\ =\ nlohmann\_json\_t.v1;}}
+\DoxyCodeLine{00408\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_FROM(v1)\ nlohmann\_json\_j.at(\#v1).get\_to(nlohmann\_json\_t.v1);}}
+\DoxyCodeLine{00409\ \textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_FROM\_WITH\_DEFAULT(v1)\ nlohmann\_json\_t.v1\ =\ !nlohmann\_json\_j.is\_null()\ ?\ nlohmann\_json\_j.value(\#v1,\ nlohmann\_json\_default\_obj.v1)\ :\ nlohmann\_json\_default\_obj.v1;}}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00417\ \textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_TYPE\_INTRUSIVE(Type,\ ...)\ \ \(\backslash\)}}
+\DoxyCodeLine{00418\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00419\ \textcolor{preprocessor}{\ \ \ \ friend\ void\ to\_json(BasicJsonType\&\ nlohmann\_json\_j,\ const\ Type\&\ nlohmann\_json\_t)\ \{\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_TO,\ \_\_VA\_ARGS\_\_))\ \}\ \(\backslash\)}}
+\DoxyCodeLine{00420\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00421\ \textcolor{preprocessor}{\ \ \ \ friend\ void\ from\_json(const\ BasicJsonType\&\ nlohmann\_json\_j,\ Type\&\ nlohmann\_json\_t)\ \{\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_FROM,\ \_\_VA\_ARGS\_\_))\ \}}}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00429\ \textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_TYPE\_INTRUSIVE\_WITH\_DEFAULT(Type,\ ...)\ \ \(\backslash\)}}
+\DoxyCodeLine{00430\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00431\ \textcolor{preprocessor}{\ \ \ \ friend\ void\ to\_json(BasicJsonType\&\ nlohmann\_json\_j,\ const\ Type\&\ nlohmann\_json\_t)\ \{\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_TO,\ \_\_VA\_ARGS\_\_))\ \}\ \(\backslash\)}}
+\DoxyCodeLine{00432\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00433\ \textcolor{preprocessor}{\ \ \ \ friend\ void\ from\_json(const\ BasicJsonType\&\ nlohmann\_json\_j,\ Type\&\ nlohmann\_json\_t)\ \{\ const\ Type\ nlohmann\_json\_default\_obj\{\};\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_FROM\_WITH\_DEFAULT,\ \_\_VA\_ARGS\_\_))\ \}}}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00441\ \textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_TYPE\_INTRUSIVE\_ONLY\_SERIALIZE(Type,\ ...)\ \ \(\backslash\)}}
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00443\ \textcolor{preprocessor}{\ \ \ \ friend\ void\ to\_json(BasicJsonType\&\ nlohmann\_json\_j,\ const\ Type\&\ nlohmann\_json\_t)\ \{\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_TO,\ \_\_VA\_ARGS\_\_))\ \}}}
+\DoxyCodeLine{00444\ }
+\DoxyCodeLine{00451\ \textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_TYPE\_NON\_INTRUSIVE(Type,\ ...)\ \ \(\backslash\)}}
+\DoxyCodeLine{00452\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00453\ \textcolor{preprocessor}{\ \ \ \ void\ to\_json(BasicJsonType\&\ nlohmann\_json\_j,\ const\ Type\&\ nlohmann\_json\_t)\ \{\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_TO,\ \_\_VA\_ARGS\_\_))\ \}\ \(\backslash\)}}
+\DoxyCodeLine{00454\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00455\ \textcolor{preprocessor}{\ \ \ \ void\ from\_json(const\ BasicJsonType\&\ nlohmann\_json\_j,\ Type\&\ nlohmann\_json\_t)\ \{\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_FROM,\ \_\_VA\_ARGS\_\_))\ \}}}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00463\ \textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_TYPE\_NON\_INTRUSIVE\_WITH\_DEFAULT(Type,\ ...)\ \ \(\backslash\)}}
+\DoxyCodeLine{00464\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00465\ \textcolor{preprocessor}{\ \ \ \ void\ to\_json(BasicJsonType\&\ nlohmann\_json\_j,\ const\ Type\&\ nlohmann\_json\_t)\ \{\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_TO,\ \_\_VA\_ARGS\_\_))\ \}\ \(\backslash\)}}
+\DoxyCodeLine{00466\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00467\ \textcolor{preprocessor}{\ \ \ \ void\ from\_json(const\ BasicJsonType\&\ nlohmann\_json\_j,\ Type\&\ nlohmann\_json\_t)\ \{\ const\ Type\ nlohmann\_json\_default\_obj\{\};\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_FROM\_WITH\_DEFAULT,\ \_\_VA\_ARGS\_\_))\ \}}}
+\DoxyCodeLine{00468\ }
+\DoxyCodeLine{00475\ \textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_TYPE\_NON\_INTRUSIVE\_ONLY\_SERIALIZE(Type,\ ...)\ \ \(\backslash\)}}
+\DoxyCodeLine{00476\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00477\ \textcolor{preprocessor}{\ \ \ \ void\ to\_json(BasicJsonType\&\ nlohmann\_json\_j,\ const\ Type\&\ nlohmann\_json\_t)\ \{\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_TO,\ \_\_VA\_ARGS\_\_))\ \}}}
+\DoxyCodeLine{00478\ }
+\DoxyCodeLine{00485\ \textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_DERIVED\_TYPE\_INTRUSIVE(Type,\ BaseType,\ ...)\ \ \(\backslash\)}}
+\DoxyCodeLine{00486\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00487\ \textcolor{preprocessor}{\ \ \ \ friend\ void\ to\_json(BasicJsonType\&\ nlohmann\_json\_j,\ const\ Type\&\ nlohmann\_json\_t)\ \{\ nlohmann::to\_json(nlohmann\_json\_j,\ static\_cast<const\ BaseType\ \&>(nlohmann\_json\_t));\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_TO,\ \_\_VA\_ARGS\_\_))\ \}\ \(\backslash\)}}
+\DoxyCodeLine{00488\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00489\ \textcolor{preprocessor}{\ \ \ \ friend\ void\ from\_json(const\ BasicJsonType\&\ nlohmann\_json\_j,\ Type\&\ nlohmann\_json\_t)\ \{\ nlohmann::from\_json(nlohmann\_json\_j,\ static\_cast<BaseType\&>(nlohmann\_json\_t));\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_FROM,\ \_\_VA\_ARGS\_\_))\ \}}}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00497\ \textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_DERIVED\_TYPE\_INTRUSIVE\_WITH\_DEFAULT(Type,\ BaseType,\ ...)\ \ \(\backslash\)}}
+\DoxyCodeLine{00498\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00499\ \textcolor{preprocessor}{\ \ \ \ friend\ void\ to\_json(BasicJsonType\&\ nlohmann\_json\_j,\ const\ Type\&\ nlohmann\_json\_t)\ \{\ nlohmann::to\_json(nlohmann\_json\_j,\ static\_cast<const\ BaseType\&>(nlohmann\_json\_t));\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_TO,\ \_\_VA\_ARGS\_\_))\ \}\ \(\backslash\)}}
+\DoxyCodeLine{00500\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00501\ \textcolor{preprocessor}{\ \ \ \ friend\ void\ from\_json(const\ BasicJsonType\&\ nlohmann\_json\_j,\ Type\&\ nlohmann\_json\_t)\ \{\ nlohmann::from\_json(nlohmann\_json\_j,\ static\_cast<BaseType\&>(nlohmann\_json\_t));\ const\ Type\ nlohmann\_json\_default\_obj\{\};\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_FROM\_WITH\_DEFAULT,\ \_\_VA\_ARGS\_\_))\ \}}}
+\DoxyCodeLine{00502\ }
+\DoxyCodeLine{00509\ \textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_DERIVED\_TYPE\_INTRUSIVE\_ONLY\_SERIALIZE(Type,\ BaseType,\ ...)\ \ \(\backslash\)}}
+\DoxyCodeLine{00510\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00511\ \textcolor{preprocessor}{\ \ \ \ friend\ void\ to\_json(BasicJsonType\&\ nlohmann\_json\_j,\ const\ Type\&\ nlohmann\_json\_t)\ \{\ nlohmann::to\_json(nlohmann\_json\_j,\ static\_cast<const\ BaseType\ \&>(nlohmann\_json\_t));\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_TO,\ \_\_VA\_ARGS\_\_))\ \}}}
+\DoxyCodeLine{00512\ }
+\DoxyCodeLine{00519\ \textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_DERIVED\_TYPE\_NON\_INTRUSIVE(Type,\ BaseType,\ ...)\ \ \(\backslash\)}}
+\DoxyCodeLine{00520\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00521\ \textcolor{preprocessor}{\ \ \ \ void\ to\_json(BasicJsonType\&\ nlohmann\_json\_j,\ const\ Type\&\ nlohmann\_json\_t)\ \{\ nlohmann::to\_json(nlohmann\_json\_j,\ static\_cast<const\ BaseType\ \&>(nlohmann\_json\_t));\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_TO,\ \_\_VA\_ARGS\_\_))\ \}\ \(\backslash\)}}
+\DoxyCodeLine{00522\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00523\ \textcolor{preprocessor}{\ \ \ \ void\ from\_json(const\ BasicJsonType\&\ nlohmann\_json\_j,\ Type\&\ nlohmann\_json\_t)\ \{\ nlohmann::from\_json(nlohmann\_json\_j,\ static\_cast<BaseType\&>(nlohmann\_json\_t));\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_FROM,\ \_\_VA\_ARGS\_\_))\ \}}}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00531\ \textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_DERIVED\_TYPE\_NON\_INTRUSIVE\_WITH\_DEFAULT(Type,\ BaseType,\ ...)\ \ \(\backslash\)}}
+\DoxyCodeLine{00532\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00533\ \textcolor{preprocessor}{\ \ \ \ void\ to\_json(BasicJsonType\&\ nlohmann\_json\_j,\ const\ Type\&\ nlohmann\_json\_t)\ \{\ nlohmann::to\_json(nlohmann\_json\_j,\ static\_cast<const\ BaseType\ \&>(nlohmann\_json\_t));\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_TO,\ \_\_VA\_ARGS\_\_))\ \}\ \(\backslash\)}}
+\DoxyCodeLine{00534\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00535\ \textcolor{preprocessor}{\ \ \ \ void\ from\_json(const\ BasicJsonType\&\ nlohmann\_json\_j,\ Type\&\ nlohmann\_json\_t)\ \{\ nlohmann::from\_json(nlohmann\_json\_j,\ static\_cast<BaseType\&>(nlohmann\_json\_t));\ const\ Type\ nlohmann\_json\_default\_obj\{\};\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_FROM\_WITH\_DEFAULT,\ \_\_VA\_ARGS\_\_))\ \}}}
+\DoxyCodeLine{00536\ }
+\DoxyCodeLine{00543\ \textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_DERIVED\_TYPE\_NON\_INTRUSIVE\_ONLY\_SERIALIZE(Type,\ BaseType,\ ...)\ \ \(\backslash\)}}
+\DoxyCodeLine{00544\ \textcolor{preprocessor}{\ \ \ \ template<typename\ BasicJsonType,\ nlohmann::detail::enable\_if\_t<nlohmann::detail::is\_basic\_json<BasicJsonType>::value,\ int>\ =\ 0>\ \(\backslash\)}}
+\DoxyCodeLine{00545\ \textcolor{preprocessor}{\ \ \ \ void\ to\_json(BasicJsonType\&\ nlohmann\_json\_j,\ const\ Type\&\ nlohmann\_json\_t)\ \{\ nlohmann::to\_json(nlohmann\_json\_j,\ static\_cast<const\ BaseType\ \&>(nlohmann\_json\_t));\ NLOHMANN\_JSON\_EXPAND(NLOHMANN\_JSON\_PASTE(NLOHMANN\_JSON\_TO,\ \_\_VA\_ARGS\_\_))\ \}}}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00547\ \textcolor{comment}{//\ inspired\ from\ https://stackoverflow.com/a/26745591}}
+\DoxyCodeLine{00548\ \textcolor{comment}{//\ allows\ calling\ any\ std\ function\ as\ if\ (e.g.,\ with\ begin):}}
+\DoxyCodeLine{00549\ \textcolor{comment}{//\ using\ std::begin;\ begin(x);}}
+\DoxyCodeLine{00550\ \textcolor{comment}{//}}
+\DoxyCodeLine{00551\ \textcolor{comment}{//\ it\ allows\ using\ the\ detected\ idiom\ to\ retrieve\ the\ return\ type}}
+\DoxyCodeLine{00552\ \textcolor{comment}{//\ of\ such\ an\ expression}}
+\DoxyCodeLine{00553\ \textcolor{preprocessor}{\#define\ NLOHMANN\_CAN\_CALL\_STD\_FUNC\_IMPL(std\_name)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00554\ \textcolor{preprocessor}{\ \ \ \ namespace\ detail\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00555\ \textcolor{preprocessor}{\ \ \ \ using\ std::std\_name;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00556\ \textcolor{preprocessor}{\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00557\ \textcolor{preprocessor}{\ \ \ \ template<typename...\ T>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00558\ \textcolor{preprocessor}{\ \ \ \ using\ result\_of\_\#\#std\_name\ =\ decltype(std\_name(std::declval<T>()...));\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00559\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00560\ \textcolor{preprocessor}{\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00561\ \textcolor{preprocessor}{\ \ \ \ namespace\ detail2\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00562\ \textcolor{preprocessor}{\ \ \ \ struct\ std\_name\#\#\_tag\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00563\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00564\ \textcolor{preprocessor}{\ \ \ \ \};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00565\ \textcolor{preprocessor}{\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00566\ \textcolor{preprocessor}{\ \ \ \ template<typename...\ T>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00567\ \textcolor{preprocessor}{\ \ \ \ std\_name\#\#\_tag\ std\_name(T\&\&...);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00568\ \textcolor{preprocessor}{\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00569\ \textcolor{preprocessor}{\ \ \ \ template<typename...\ T>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00570\ \textcolor{preprocessor}{\ \ \ \ using\ result\_of\_\#\#std\_name\ =\ decltype(std\_name(std::declval<T>()...));\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00571\ \textcolor{preprocessor}{\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00572\ \textcolor{preprocessor}{\ \ \ \ template<typename...\ T>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00573\ \textcolor{preprocessor}{\ \ \ \ struct\ would\_call\_std\_\#\#std\_name\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00574\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00575\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ static\ constexpr\ auto\ const\ value\ =\ ::nlohmann::detail::\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00576\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_detected\_exact<std\_name\#\#\_tag,\ result\_of\_\#\#std\_name,\ T...>::value;\ \(\backslash\)}}
+\DoxyCodeLine{00577\ \textcolor{preprocessor}{\ \ \ \ \};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00578\ \textcolor{preprocessor}{\ \ \ \ \}\ }\textcolor{comment}{/*\ namespace\ detail2\ */}\textcolor{preprocessor}{\ \(\backslash\)}}
+\DoxyCodeLine{00579\ \textcolor{preprocessor}{\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00580\ \textcolor{preprocessor}{\ \ \ \ template<typename...\ T>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00581\ \textcolor{preprocessor}{\ \ \ \ struct\ would\_call\_std\_\#\#std\_name\ :\ detail2::would\_call\_std\_\#\#std\_name<T...>\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00582\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00583\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00584\ }
+\DoxyCodeLine{00585\ \textcolor{preprocessor}{\#ifndef\ JSON\_USE\_IMPLICIT\_CONVERSIONS}}
+\DoxyCodeLine{00586\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_USE\_IMPLICIT\_CONVERSIONS\ 1}}
+\DoxyCodeLine{00587\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00589\ \textcolor{preprocessor}{\#if\ JSON\_USE\_IMPLICIT\_CONVERSIONS}}
+\DoxyCodeLine{00590\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_EXPLICIT}}
+\DoxyCodeLine{00591\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00592\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_EXPLICIT\ explicit}}
+\DoxyCodeLine{00593\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \textcolor{preprocessor}{\#ifndef\ JSON\_DISABLE\_ENUM\_SERIALIZATION}}
+\DoxyCodeLine{00596\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_DISABLE\_ENUM\_SERIALIZATION\ 0}}
+\DoxyCodeLine{00597\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00599\ \textcolor{preprocessor}{\#ifndef\ JSON\_USE\_GLOBAL\_UDLS}}
+\DoxyCodeLine{00600\ \textcolor{preprocessor}{\ \ \ \ \#define\ JSON\_USE\_GLOBAL\_UDLS\ 1}}
+\DoxyCodeLine{00601\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

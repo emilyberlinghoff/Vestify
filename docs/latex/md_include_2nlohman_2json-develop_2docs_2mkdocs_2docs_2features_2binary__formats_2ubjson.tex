@@ -1,0 +1,129 @@
+\chapter{UBJSON }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2ubjson}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2ubjson}\index{UBJSON@{UBJSON}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2ubjson_autotoc_md1415}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2ubjson_autotoc_md1415}%
+
+
+Universal Binary JSON (UBJSON) is a binary form directly imitating JSON, but requiring fewer bytes of data. It aims to achieve the generality of JSON, combined with being much easier to process than JSON.
+
+!!! abstract "{}\+References"{} \begin{DoxyVerb}- [UBJSON Website](http://ubjson.org)
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2ubjson_autotoc_md1416}{}\doxysection{\texorpdfstring{Serialization}{Serialization}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2ubjson_autotoc_md1416}
+\doxylink{requirements_The}{The} library uses the following mapping from JSON values types to UBJSON types according to the UBJSON specification:\+
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}JSON value type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}value/\+range  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}UBJSON type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}marker  \\
+null  &{\ttfamily null}  &null  &{\ttfamily Z}  \\
+boolean  &{\ttfamily true}  &true  &{\ttfamily T}  \\
+boolean  &{\ttfamily false}  &false  &{\ttfamily F}  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/9223372036854775808..-\/2147483649  &int64  &{\ttfamily L}  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/2147483648..-\/32769  &int32  &{\ttfamily l}  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/32768..-\/129  &int16  &{\ttfamily I}  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/128..127  &int8  &{\ttfamily i}  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &128..255  &uint8  &{\ttfamily U}  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &256..32767  &int16  &{\ttfamily I}  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &32768..2147483647  &int32  &{\ttfamily l}  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &2147483648..9223372036854775807  &int64  &{\ttfamily L}  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &0..127  &int8  &{\ttfamily i}  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &128..255  &uint8  &{\ttfamily U}  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &256..32767  &int16  &{\ttfamily I}  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &32768..2147483647  &int32  &{\ttfamily l}  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &2147483648..9223372036854775807  &int64  &{\ttfamily L}  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &2147483649..18446744073709551615  &high-\/precision  &{\ttfamily H}  \\
+\doxylink{classnumber__float}{number\+\_\+float}  &{\itshape any value}  &float64  &{\ttfamily D}  \\
+string  &{\itshape with shortest length indicator}  &string  &{\ttfamily S}  \\
+array  &{\itshape see notes on optimized format}  &array  &{\ttfamily \+[}  \\
+object  &{\itshape see notes on optimized format}  &map  &{\ttfamily \{}  \\
+\end{DoxyTable}
+
+
+!!! success "{}\+Complete mapping"{} \begin{DoxyVerb}The mapping is **complete** in the sense that any JSON value type can be converted to a UBJSON value.
+
+Any UBJSON output created by `to_ubjson` can be successfully parsed by `from_ubjson`.
+\end{DoxyVerb}
+
+
+!!! warning "{}\+Size constraints"{} \begin{DoxyVerb}The following values can **not** be converted to a UBJSON value:
+
+  - strings with more than 9223372036854775807 bytes (theoretical)
+\end{DoxyVerb}
+
+
+!!! info "{}\+Unused UBJSON markers"{} \begin{DoxyVerb}The following markers are not used in the conversion:
+
+- `Z`: no-op values are not created.
+- `C`: single-byte strings are serialized with `S` markers.
+\end{DoxyVerb}
+
+
+!!! info "{}\+Na\+N/\+infinity handling"{} \begin{DoxyVerb}If NaN or Infinity are stored inside a JSON number, they are serialized properly. This behavior differs from the
+`dump()` function which serializes NaN or Infinity to `null`.
+\end{DoxyVerb}
+
+
+!!! info "{}\+Optimized formats"{} \begin{DoxyVerb}The optimized formats for containers are supported: Parameter `use_size` adds size information to the beginning of a
+container and removes the closing marker. Parameter `use_type` further checks whether all elements of a container
+have the same type and adds the type marker to the beginning of the container. The `use_type` parameter must only be
+used together with `use_size = true`.
+
+Note that `use_size = true` alone may result in larger representations - the benefit of this parameter is that the
+receiving side is immediately informed on the number of elements of the container.
+\end{DoxyVerb}
+
+
+!!! info "{}\+Binary values"{} \begin{DoxyVerb}If the JSON data contains the binary type, the value stored is a list of integers, as suggested by the UBJSON
+documentation.  In particular, this means that serialization and the deserialization of a JSON containing binary
+values into UBJSON and back will result in a different JSON object.
+\end{DoxyVerb}
+
+
+??? example \begin{DoxyVerb}```cpp
+--8<-- "examples/to_ubjson.cpp"
+```
+
+Output:
+
+```c
+--8<-- "examples/to_ubjson.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2ubjson_autotoc_md1417}{}\doxysection{\texorpdfstring{Deserialization}{Deserialization}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2ubjson_autotoc_md1417}
+\doxylink{requirements_The}{The} library maps UBJSON types to JSON value types as follows:\+
+
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}UBJSON type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}JSON value type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}marker  \\
+no-\/op  &{\itshape no value, next value is read}  &{\ttfamily N}  \\
+null  &{\ttfamily null}  &{\ttfamily Z}  \\
+false  &{\ttfamily false}  &{\ttfamily F}  \\
+true  &{\ttfamily true}  &{\ttfamily T}  \\
+float32  &\doxylink{classnumber__float}{number\+\_\+float}  &{\ttfamily d}  \\
+float64  &\doxylink{classnumber__float}{number\+\_\+float}  &{\ttfamily D}  \\
+uint8  &\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &{\ttfamily U}  \\
+int8  &\doxylink{classnumber__integer}{number\+\_\+integer}  &{\ttfamily i}  \\
+int16  &\doxylink{classnumber__integer}{number\+\_\+integer}  &{\ttfamily I}  \\
+int32  &\doxylink{classnumber__integer}{number\+\_\+integer}  &{\ttfamily l}  \\
+int64  &\doxylink{classnumber__integer}{number\+\_\+integer}  &{\ttfamily L}  \\
+string  &string  &{\ttfamily S}  \\
+char  &string  &{\ttfamily C}  \\
+array  &array (optimized values are supported)  &{\ttfamily \+[}  \\
+object  &object (optimized values are supported)  &{\ttfamily \{}  \\
+\end{DoxyTable}
+
+
+!!! success "{}\+Complete mapping"{} \begin{DoxyVerb}The mapping is **complete** in the sense that any UBJSON value can be converted to a JSON value.
+\end{DoxyVerb}
+
+
+??? example \begin{DoxyVerb}```cpp
+--8<-- "examples/from_ubjson.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/from_ubjson.output"
+```
+\end{DoxyVerb}
+ 

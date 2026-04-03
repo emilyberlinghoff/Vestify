@@ -1,0 +1,595 @@
+\doxysection{sax\+\_\+event\+\_\+consumer Class Reference}
+\hypertarget{classsax__event__consumer}{}\label{classsax__event__consumer}\index{sax\_event\_consumer@{sax\_event\_consumer}}
+Inheritance diagram for sax\+\_\+event\+\_\+consumer:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classsax__event__consumer}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a54b0a7add388bcb42573aa141ed4981f}{null}} () override
+\begin{DoxyCompactList}\small\item\em a null value was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a23bf864c69450068fac1f16525fd1232}{boolean}} (bool val) override
+\begin{DoxyCompactList}\small\item\em a boolean value was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a2f696ad23ee7fa44087e530f741213eb}{number\+\_\+integer}} (number\+\_\+integer\+\_\+t val) override
+\begin{DoxyCompactList}\small\item\em an integer number was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_ad38d1b1a3e2d0b822f6a9cadc0da612f}{number\+\_\+unsigned}} (number\+\_\+unsigned\+\_\+t val) override
+\begin{DoxyCompactList}\small\item\em an unsigned integer number was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a7cc4d544f352209bd68784e854d99ce3}{number\+\_\+float}} (number\+\_\+float\+\_\+t val, const string\+\_\+t \&s) override
+\begin{DoxyCompactList}\small\item\em a floating-\/point number was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a73cecdcc9e85ec15c7b19520649497c2}{string}} (string\+\_\+t \&val) override
+\begin{DoxyCompactList}\small\item\em a string value was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_abc98dfb15156decdcd251d46744ddc6f}{start\+\_\+object}} (std::\+size\+\_\+t elements) override
+\begin{DoxyCompactList}\small\item\em the beginning of an object was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a7d39f2bad2b448367e28ebb156c8a26b}{end\+\_\+object}} () override
+\begin{DoxyCompactList}\small\item\em the end of an object was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a4a695b6d8e6f680a0609c87dd82fca24}{start\+\_\+array}} (std::\+size\+\_\+t elements) override
+\begin{DoxyCompactList}\small\item\em the beginning of an array was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a659a7e92f87b43ca720b83ec3fb9cdeb}{end\+\_\+array}} () override
+\begin{DoxyCompactList}\small\item\em the end of an array was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a2a66ff7ba6048d75e4fe3e02a58f2cb8}{key}} (string\+\_\+t \&val) override
+\begin{DoxyCompactList}\small\item\em an object key was read \end{DoxyCompactList}\item 
+\Hypertarget{classsax__event__consumer_aff805e09cbdb59474ed809187924cd9a}\label{classsax__event__consumer_aff805e09cbdb59474ed809187924cd9a} 
+bool {\bfseries binary} (json::\+binary\+\_\+t \&val) override
+\item 
+\Hypertarget{classsax__event__consumer_a47b630c637d98e61bf3211145391b1a1}\label{classsax__event__consumer_a47b630c637d98e61bf3211145391b1a1} 
+bool {\bfseries parse\+\_\+error} (std::\+size\+\_\+t position, const std::\+string \&last\+\_\+token, const json::\+exception \&ex) override
+\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a54b0a7add388bcb42573aa141ed4981f}{null}} () override
+\begin{DoxyCompactList}\small\item\em a null value was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a23bf864c69450068fac1f16525fd1232}{boolean}} (bool val) override
+\begin{DoxyCompactList}\small\item\em a boolean value was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a2f696ad23ee7fa44087e530f741213eb}{number\+\_\+integer}} (number\+\_\+integer\+\_\+t val) override
+\begin{DoxyCompactList}\small\item\em an integer number was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_ad38d1b1a3e2d0b822f6a9cadc0da612f}{number\+\_\+unsigned}} (number\+\_\+unsigned\+\_\+t val) override
+\begin{DoxyCompactList}\small\item\em an unsigned integer number was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a7cc4d544f352209bd68784e854d99ce3}{number\+\_\+float}} (number\+\_\+float\+\_\+t val, const string\+\_\+t \&s) override
+\begin{DoxyCompactList}\small\item\em a floating-\/point number was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a73cecdcc9e85ec15c7b19520649497c2}{string}} (string\+\_\+t \&val) override
+\begin{DoxyCompactList}\small\item\em a string value was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_abc98dfb15156decdcd251d46744ddc6f}{start\+\_\+object}} (std::\+size\+\_\+t elements) override
+\begin{DoxyCompactList}\small\item\em the beginning of an object was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a7d39f2bad2b448367e28ebb156c8a26b}{end\+\_\+object}} () override
+\begin{DoxyCompactList}\small\item\em the end of an object was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a4a695b6d8e6f680a0609c87dd82fca24}{start\+\_\+array}} (std::\+size\+\_\+t elements) override
+\begin{DoxyCompactList}\small\item\em the beginning of an array was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a659a7e92f87b43ca720b83ec3fb9cdeb}{end\+\_\+array}} () override
+\begin{DoxyCompactList}\small\item\em the end of an array was read \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classsax__event__consumer_a2a66ff7ba6048d75e4fe3e02a58f2cb8}{key}} (string\+\_\+t \&val) override
+\begin{DoxyCompactList}\small\item\em an object key was read \end{DoxyCompactList}\item 
+\Hypertarget{classsax__event__consumer_aff805e09cbdb59474ed809187924cd9a}\label{classsax__event__consumer_aff805e09cbdb59474ed809187924cd9a} 
+bool {\bfseries binary} (json::\+binary\+\_\+t \&val) override
+\item 
+\Hypertarget{classsax__event__consumer_a47b630c637d98e61bf3211145391b1a1}\label{classsax__event__consumer_a47b630c637d98e61bf3211145391b1a1} 
+bool {\bfseries parse\+\_\+error} (std::\+size\+\_\+t position, const std::\+string \&last\+\_\+token, const json::\+exception \&ex) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{structnlohmann_1_1json__sax}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual bool \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a38c2dbde07138cc436ea7fbf22c1e92d}{binary}} (binary\+\_\+t \&val)=0
+\begin{DoxyCompactList}\small\item\em a binary value was read \end{DoxyCompactList}\item 
+virtual bool \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a60287e3bd85f489e04c83f7e3b76e613}{parse\+\_\+error}} (std::\+size\+\_\+t position, const std::\+string \&last\+\_\+token, const \doxymbox{\hyperlink{classdetail_1_1exception}{detail::\+exception}} \&ex)=0
+\begin{DoxyCompactList}\small\item\em a parse error occurred \end{DoxyCompactList}\item 
+{\bfseries json\+\_\+sax} (const \doxymbox{\hyperlink{structjson__sax}{json\+\_\+sax}} \&)=default
+\item 
+{\bfseries json\+\_\+sax} (\doxymbox{\hyperlink{structjson__sax}{json\+\_\+sax}} \&\&) noexcept=default
+\item 
+\doxymbox{\hyperlink{structjson__sax}{json\+\_\+sax}} \& {\bfseries operator=} (const \doxymbox{\hyperlink{structjson__sax}{json\+\_\+sax}} \&)=default
+\item 
+\doxymbox{\hyperlink{structjson__sax}{json\+\_\+sax}} \& {\bfseries operator=} (\doxymbox{\hyperlink{structjson__sax}{json\+\_\+sax}} \&\&) noexcept=default
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsax__event__consumer_a5016a1ca7989adcca63ab8ed618e3f6e}\label{classsax__event__consumer_a5016a1ca7989adcca63ab8ed618e3f6e} 
+std::\+vector$<$ std::\+string $>$ {\bfseries events}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \doxymbox{\hyperlink{structnlohmann_1_1json__sax}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries number\+\_\+integer\+\_\+t}
+\item 
+using {\bfseries number\+\_\+unsigned\+\_\+t}
+\item 
+using {\bfseries number\+\_\+float\+\_\+t}
+\item 
+using {\bfseries string\+\_\+t}
+\item 
+using {\bfseries binary\+\_\+t}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{classsax__event__consumer_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsax__event__consumer_a23bf864c69450068fac1f16525fd1232}\index{sax\_event\_consumer@{sax\_event\_consumer}!boolean@{boolean}}
+\index{boolean@{boolean}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{boolean()}{boolean()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a23bf864c69450068fac1f16525fd1232} 
+bool sax\+\_\+event\+\_\+consumer::\+boolean (\begin{DoxyParamCaption}\item[{bool}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+a boolean value was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & boolean value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a82ed080814fa656191a537284bb0c575}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a23bf864c69450068fac1f16525fd1232}\index{sax\_event\_consumer@{sax\_event\_consumer}!boolean@{boolean}}
+\index{boolean@{boolean}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{boolean()}{boolean()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a23bf864c69450068fac1f16525fd1232} 
+bool sax\+\_\+event\+\_\+consumer::\+boolean (\begin{DoxyParamCaption}\item[{bool}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+a boolean value was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & boolean value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a82ed080814fa656191a537284bb0c575}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a659a7e92f87b43ca720b83ec3fb9cdeb}\index{sax\_event\_consumer@{sax\_event\_consumer}!end\_array@{end\_array}}
+\index{end\_array@{end\_array}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{end\_array()}{end\_array()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a659a7e92f87b43ca720b83ec3fb9cdeb} 
+bool sax\+\_\+event\+\_\+consumer::\+end\+\_\+array (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+the end of an array was read 
+
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a235ee975617f28e6a996d1e36a282312}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a659a7e92f87b43ca720b83ec3fb9cdeb}\index{sax\_event\_consumer@{sax\_event\_consumer}!end\_array@{end\_array}}
+\index{end\_array@{end\_array}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{end\_array()}{end\_array()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a659a7e92f87b43ca720b83ec3fb9cdeb} 
+bool sax\+\_\+event\+\_\+consumer::\+end\+\_\+array (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+the end of an array was read 
+
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a235ee975617f28e6a996d1e36a282312}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a7d39f2bad2b448367e28ebb156c8a26b}\index{sax\_event\_consumer@{sax\_event\_consumer}!end\_object@{end\_object}}
+\index{end\_object@{end\_object}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{end\_object()}{end\_object()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a7d39f2bad2b448367e28ebb156c8a26b} 
+bool sax\+\_\+event\+\_\+consumer::\+end\+\_\+object (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+the end of an object was read 
+
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_ad0c722d53ff97be700ccf6a9468bd456}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a7d39f2bad2b448367e28ebb156c8a26b}\index{sax\_event\_consumer@{sax\_event\_consumer}!end\_object@{end\_object}}
+\index{end\_object@{end\_object}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{end\_object()}{end\_object()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a7d39f2bad2b448367e28ebb156c8a26b} 
+bool sax\+\_\+event\+\_\+consumer::\+end\+\_\+object (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+the end of an object was read 
+
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_ad0c722d53ff97be700ccf6a9468bd456}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a2a66ff7ba6048d75e4fe3e02a58f2cb8}\index{sax\_event\_consumer@{sax\_event\_consumer}!key@{key}}
+\index{key@{key}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{key()}{key()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a2a66ff7ba6048d75e4fe3e02a58f2cb8} 
+bool sax\+\_\+event\+\_\+consumer::\+key (\begin{DoxyParamCaption}\item[{string\+\_\+t \&}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+an object key was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & object key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+It is safe to move the passed string. 
+\end{DoxyNote}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a2e0c7ecd80b18d18a8cc76f71cfc2028}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a2a66ff7ba6048d75e4fe3e02a58f2cb8}\index{sax\_event\_consumer@{sax\_event\_consumer}!key@{key}}
+\index{key@{key}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{key()}{key()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a2a66ff7ba6048d75e4fe3e02a58f2cb8} 
+bool sax\+\_\+event\+\_\+consumer::\+key (\begin{DoxyParamCaption}\item[{string\+\_\+t \&}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+an object key was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & object key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+It is safe to move the passed string. 
+\end{DoxyNote}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a2e0c7ecd80b18d18a8cc76f71cfc2028}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a54b0a7add388bcb42573aa141ed4981f}\index{sax\_event\_consumer@{sax\_event\_consumer}!null@{null}}
+\index{null@{null}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{null()}{null()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a54b0a7add388bcb42573aa141ed4981f} 
+bool sax\+\_\+event\+\_\+consumer::\+null (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+a null value was read 
+
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a0ad26edef3f8d530dcec3192bba82df6}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a54b0a7add388bcb42573aa141ed4981f}\index{sax\_event\_consumer@{sax\_event\_consumer}!null@{null}}
+\index{null@{null}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{null()}{null()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a54b0a7add388bcb42573aa141ed4981f} 
+bool sax\+\_\+event\+\_\+consumer::\+null (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+a null value was read 
+
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a0ad26edef3f8d530dcec3192bba82df6}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a7cc4d544f352209bd68784e854d99ce3}\index{sax\_event\_consumer@{sax\_event\_consumer}!number\_float@{number\_float}}
+\index{number\_float@{number\_float}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{number\_float()}{number\_float()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a7cc4d544f352209bd68784e854d99ce3} 
+bool sax\+\_\+event\+\_\+consumer::\+number\+\_\+float (\begin{DoxyParamCaption}\item[{number\+\_\+float\+\_\+t}]{val}{, }\item[{const string\+\_\+t \&}]{s}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+a floating-\/point number was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & floating-\/point value \\
+\hline
+\doxymbox{\texttt{in}}  & {\em s} & raw token value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_ae7c31614e8a82164d2d7f8dbf4671b25}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a7cc4d544f352209bd68784e854d99ce3}\index{sax\_event\_consumer@{sax\_event\_consumer}!number\_float@{number\_float}}
+\index{number\_float@{number\_float}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{number\_float()}{number\_float()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a7cc4d544f352209bd68784e854d99ce3} 
+bool sax\+\_\+event\+\_\+consumer::\+number\+\_\+float (\begin{DoxyParamCaption}\item[{number\+\_\+float\+\_\+t}]{val}{, }\item[{const string\+\_\+t \&}]{s}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+a floating-\/point number was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & floating-\/point value \\
+\hline
+\doxymbox{\texttt{in}}  & {\em s} & raw token value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_ae7c31614e8a82164d2d7f8dbf4671b25}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a2f696ad23ee7fa44087e530f741213eb}\index{sax\_event\_consumer@{sax\_event\_consumer}!number\_integer@{number\_integer}}
+\index{number\_integer@{number\_integer}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{number\_integer()}{number\_integer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a2f696ad23ee7fa44087e530f741213eb} 
+bool sax\+\_\+event\+\_\+consumer::\+number\+\_\+integer (\begin{DoxyParamCaption}\item[{number\+\_\+integer\+\_\+t}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+an integer number was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & integer value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_affa7a78b8e9cc9cc3ac99927143142a5}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a2f696ad23ee7fa44087e530f741213eb}\index{sax\_event\_consumer@{sax\_event\_consumer}!number\_integer@{number\_integer}}
+\index{number\_integer@{number\_integer}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{number\_integer()}{number\_integer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a2f696ad23ee7fa44087e530f741213eb} 
+bool sax\+\_\+event\+\_\+consumer::\+number\+\_\+integer (\begin{DoxyParamCaption}\item[{number\+\_\+integer\+\_\+t}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+an integer number was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & integer value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_affa7a78b8e9cc9cc3ac99927143142a5}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_ad38d1b1a3e2d0b822f6a9cadc0da612f}\index{sax\_event\_consumer@{sax\_event\_consumer}!number\_unsigned@{number\_unsigned}}
+\index{number\_unsigned@{number\_unsigned}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{number\_unsigned()}{number\_unsigned()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_ad38d1b1a3e2d0b822f6a9cadc0da612f} 
+bool sax\+\_\+event\+\_\+consumer::\+number\+\_\+unsigned (\begin{DoxyParamCaption}\item[{number\+\_\+unsigned\+\_\+t}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+an unsigned integer number was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & unsigned integer value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_ad9b253083e0509923ba195136f49face}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_ad38d1b1a3e2d0b822f6a9cadc0da612f}\index{sax\_event\_consumer@{sax\_event\_consumer}!number\_unsigned@{number\_unsigned}}
+\index{number\_unsigned@{number\_unsigned}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{number\_unsigned()}{number\_unsigned()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_ad38d1b1a3e2d0b822f6a9cadc0da612f} 
+bool sax\+\_\+event\+\_\+consumer::\+number\+\_\+unsigned (\begin{DoxyParamCaption}\item[{number\+\_\+unsigned\+\_\+t}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+an unsigned integer number was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & unsigned integer value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_ad9b253083e0509923ba195136f49face}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a4a695b6d8e6f680a0609c87dd82fca24}\index{sax\_event\_consumer@{sax\_event\_consumer}!start\_array@{start\_array}}
+\index{start\_array@{start\_array}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{start\_array()}{start\_array()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a4a695b6d8e6f680a0609c87dd82fca24} 
+bool sax\+\_\+event\+\_\+consumer::\+start\+\_\+array (\begin{DoxyParamCaption}\item[{std::\+size\+\_\+t}]{elements}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+the beginning of an array was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em elements} & number of array elements or -\/1 if unknown \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+binary formats may report the number of elements 
+\end{DoxyNote}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a5c53878cf08d463eb4e7ca0270532572}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a4a695b6d8e6f680a0609c87dd82fca24}\index{sax\_event\_consumer@{sax\_event\_consumer}!start\_array@{start\_array}}
+\index{start\_array@{start\_array}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{start\_array()}{start\_array()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a4a695b6d8e6f680a0609c87dd82fca24} 
+bool sax\+\_\+event\+\_\+consumer::\+start\+\_\+array (\begin{DoxyParamCaption}\item[{std::\+size\+\_\+t}]{elements}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+the beginning of an array was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em elements} & number of array elements or -\/1 if unknown \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+binary formats may report the number of elements 
+\end{DoxyNote}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a5c53878cf08d463eb4e7ca0270532572}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_abc98dfb15156decdcd251d46744ddc6f}\index{sax\_event\_consumer@{sax\_event\_consumer}!start\_object@{start\_object}}
+\index{start\_object@{start\_object}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{start\_object()}{start\_object()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_abc98dfb15156decdcd251d46744ddc6f} 
+bool sax\+\_\+event\+\_\+consumer::\+start\+\_\+object (\begin{DoxyParamCaption}\item[{std::\+size\+\_\+t}]{elements}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+the beginning of an object was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em elements} & number of object elements or -\/1 if unknown \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+binary formats may report the number of elements 
+\end{DoxyNote}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a0671528b0debb5a348169d61f0382a0f}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_abc98dfb15156decdcd251d46744ddc6f}\index{sax\_event\_consumer@{sax\_event\_consumer}!start\_object@{start\_object}}
+\index{start\_object@{start\_object}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{start\_object()}{start\_object()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_abc98dfb15156decdcd251d46744ddc6f} 
+bool sax\+\_\+event\+\_\+consumer::\+start\+\_\+object (\begin{DoxyParamCaption}\item[{std::\+size\+\_\+t}]{elements}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+the beginning of an object was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em elements} & number of object elements or -\/1 if unknown \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+binary formats may report the number of elements 
+\end{DoxyNote}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a0671528b0debb5a348169d61f0382a0f}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a73cecdcc9e85ec15c7b19520649497c2}\index{sax\_event\_consumer@{sax\_event\_consumer}!string@{string}}
+\index{string@{string}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{string()}{string()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a73cecdcc9e85ec15c7b19520649497c2} 
+bool sax\+\_\+event\+\_\+consumer::\+string (\begin{DoxyParamCaption}\item[{string\+\_\+t \&}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+a string value was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & string value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+It is safe to move the passed string value. 
+\end{DoxyNote}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a07eab82f6c82d606787eee9ad73d2bda}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+\Hypertarget{classsax__event__consumer_a73cecdcc9e85ec15c7b19520649497c2}\index{sax\_event\_consumer@{sax\_event\_consumer}!string@{string}}
+\index{string@{string}!sax\_event\_consumer@{sax\_event\_consumer}}
+\doxysubsubsection{\texorpdfstring{string()}{string()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classsax__event__consumer_a73cecdcc9e85ec15c7b19520649497c2} 
+bool sax\+\_\+event\+\_\+consumer::\+string (\begin{DoxyParamCaption}\item[{string\+\_\+t \&}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+a string value was read 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em val} & string value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether parsing should proceed 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+It is safe to move the passed string value. 
+\end{DoxyNote}
+
+
+Implements \doxymbox{\hyperlink{structnlohmann_1_1json__sax_a07eab82f6c82d606787eee9ad73d2bda}{nlohmann::\+json\+\_\+sax$<$ basic\+\_\+json $>$}}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+docs/\+mkdocs/\+docs/\+examples/\+sax\+\_\+parse.\+cpp\item 
+include/\+nlohman/\+json-\/develop/\+docs/\+mkdocs/\+docs/\+examples/\+sax\+\_\+parse\+\_\+\+\_\+binary.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,41 @@
+\doxysection{Watch\+List\+Repo.\+hpp}
+\hypertarget{_watch_list_repo_8hpp_source}{}\label{_watch_list_repo_8hpp_source}\index{include/persistence/WatchListRepo.hpp@{include/persistence/WatchListRepo.hpp}}
+\doxymbox{\hyperlink{_watch_list_repo_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_watch_list_8hpp}{core/Watchlist.hpp}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_watch_list_repo_a1c69b4256388a302d323c72ef9917f94}{WatchListRepo}}}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_watch_list_repo_1_1_load_result}{LoadResult}}}
+\DoxyCodeLine{00030\ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ std::vector<WatchList>\ \doxymbox{\hyperlink{struct_watch_list_repo_1_1_load_result_a0952e370c707d61582a39032662a6fbe}{watchlists}};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ std::vector<std::string>\ \doxymbox{\hyperlink{struct_watch_list_repo_1_1_load_result_a41657bf362c0cd6b8149b1496630328a}{errors}};}
+\DoxyCodeLine{00035\ \ \ \ \ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_watch_list_repo_1_1_save_result}{SaveResult}}}
+\DoxyCodeLine{00041\ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{struct_watch_list_repo_1_1_save_result_a40e5a96231b4fe77d5c393427cddb559}{ok}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_watch_list_repo_1_1_save_result_aa37d4ae3264d8577d04f416a447fc90d}{errMsg}};}
+\DoxyCodeLine{00046\ \ \ \ \ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{class_watch_list_repo_a1c69b4256388a302d323c72ef9917f94}{WatchListRepo}}(\textcolor{keyword}{const}\ std::string\&\ filepath)}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{class_watch_list_repo_ab406f9141116dc434792c2024f3fe184}{filepath\_}}(filepath)\ \{\}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00062\ \ \ \ \ LoadResult\ \doxymbox{\hyperlink{class_watch_list_repo_ae878b2f792bfca193f75c1a2c2f80b13}{loadAll}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00070\ \ \ \ \ SaveResult\ \doxymbox{\hyperlink{class_watch_list_repo_af46f8112669f04fcd8e99c0da4e2fe20}{saveAll}}(\textcolor{keyword}{const}\ std::vector<WatchList>\&\ watchlists)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00076\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_watch_list_repo_ab406f9141116dc434792c2024f3fe184}{filepath\_}};}
+\DoxyCodeLine{00077\ \};}
+
+\end{DoxyCode}

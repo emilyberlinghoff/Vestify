@@ -1,0 +1,115 @@
+\chapter{CMake }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake}\index{CMake@{CMake}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1805}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1805}%
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1806}{}\doxysection{\texorpdfstring{Integration}{Integration}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1806}
+You can use the {\ttfamily nlohmann\+\_\+json::\+nlohmann\+\_\+json} interface target in CMake. This target populates the appropriate usage requirements for \href{https://cmake.org/cmake/help/latest/prop_tgt/INTERFACE_INCLUDE_DIRECTORIES.html}{\texttt{{\ttfamily INTERFACE\+\_\+\+INCLUDE\+\_\+\+DIRECTORIES}}} to point to the appropriate include directories and \href{https://cmake.org/cmake/help/latest/prop_tgt/INTERFACE_COMPILE_FEATURES.html}{\texttt{{\ttfamily INTERFACE\+\_\+\+COMPILE\+\_\+\+FEATURES}}} for the necessary C++11 flags.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1807}{}\doxysubsection{\texorpdfstring{External}{External}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1807}
+To use this library from a CMake project, you can locate it directly with \href{https://cmake.org/cmake/help/latest/command/find_package.html}{\texttt{{\ttfamily find\+\_\+package()}}} and use the namespaced imported target from the generated package configuration:\+
+
+!!! example \begin{DoxyVerb}```cmake title="CMakeLists.txt"
+cmake_minimum_required(VERSION 3.5)
+project(ExampleProject LANGUAGES CXX)
+
+find_package(nlohmann_json 3.12.0 REQUIRED)
+
+add_executable(example example.cpp)
+target_link_libraries(example PRIVATE nlohmann_json::nlohmann_json)
+```
+\end{DoxyVerb}
+
+
+\doxylink{requirements_The}{The} package configuration file, {\ttfamily nlohmann\+\_\+json\+Config.\+cmake}, can be used either from an install tree or directly out of the build tree.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1808}{}\doxysubsection{\texorpdfstring{Embedded}{Embedded}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1808}
+To embed the library directly into an existing CMake project, place the entire source tree in a subdirectory and call {\ttfamily add\+\_\+subdirectory()} in your {\ttfamily CMake\+Lists.\+txt} file.
+
+!!! example \begin{DoxyVerb}```cmake title="CMakeLists.txt"
+cmake_minimum_required(VERSION 3.5)
+project(ExampleProject LANGUAGES CXX)
+
+# If you only include this third party in PRIVATE source files, you do not need to install it
+# when your main project gets installed.
+set(JSON_Install OFF CACHE INTERNAL "")
+
+add_subdirectory(nlohmann_json)
+
+add_executable(example example.cpp)
+target_link_libraries(example PRIVATE nlohmann_json::nlohmann_json)
+```
+\end{DoxyVerb}
+
+
+!!! note \begin{DoxyVerb}Do not use `#!cmake include(nlohmann_json/CMakeLists.txt)`, since that carries with it unintended consequences that
+will break the build. It is generally discouraged (although not necessarily well documented as such) to use
+`#!cmake include(...)` for pulling in other CMake projects anyways.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1809}{}\doxysubsection{\texorpdfstring{Supporting Both}{Supporting Both}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1809}
+To allow your project to support either an externally supplied or an embedded JSON library, you can use a pattern akin to the following.
+
+!!! example \begin{DoxyVerb}```cmake title="CMakeLists.txt"
+project(ExampleProject LANGUAGES CXX)
+
+option(EXAMPLE_USE_EXTERNAL_JSON "Use an external JSON library" OFF)
+
+add_subdirectory(thirdparty)
+
+add_executable(example example.cpp)
+
+# Note that the namespaced target will always be available regardless of the import method
+target_link_libraries(example PRIVATE nlohmann_json::nlohmann_json)
+```
+
+```cmake title="thirdparty/CMakeLists.txt"
+if(EXAMPLE_USE_EXTERNAL_JSON)
+    find_package(nlohmann_json 3.12.0 REQUIRED)
+else()
+    set(JSON_BuildTests OFF CACHE INTERNAL "")
+    add_subdirectory(nlohmann_json)
+endif()
+```
+
+`thirdparty/nlohmann_json` is then a complete copy of this source tree.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1810}{}\doxysubsection{\texorpdfstring{Fetch\+Content}{Fetch\+Content}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1810}
+Since CMake v3.\+11, \href{https://cmake.org/cmake/help/v3.11/module/FetchContent.html}{\texttt{Fetch\+Content}} can be used to automatically download a release as a dependency at configure time.
+
+!!! example \begin{DoxyVerb}```cmake title="CMakeLists.txt"
+cmake_minimum_required(VERSION 3.11)
+project(ExampleProject LANGUAGES CXX)
+
+include(FetchContent)
+
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz)
+FetchContent_MakeAvailable(json)
+
+add_executable(example example.cpp)
+target_link_libraries(example PRIVATE nlohmann_json::nlohmann_json)
+```
+\end{DoxyVerb}
+
+
+!!! Note \begin{DoxyVerb}It is recommended to use the URL approach described above which is supported as of version 3.10.0. It is also
+possible to pass the Git repository like
+
+```cmake
+FetchContent_Declare(json
+    GIT_REPOSITORY https://github.com/nlohmann/json
+    GIT_TAG v3.12.0
+)
+```
+
+However, the repository <https://github.com/nlohmann/json> download size is quite large.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1811}{}\doxysection{\texorpdfstring{CMake Options}{CMake Options}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1811}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1812}{}\doxysubsection{\texorpdfstring{{\ttfamily JSON\+\_\+\+Build\+Tests}}{{\ttfamily JSON\+\_\+\+Build\+Tests}}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1812}
+Build the unit tests when \href{https://cmake.org/cmake/help/latest/command/enable_testing.html}{\texttt{{\ttfamily BUILD\+\_\+\+TESTING}}} is enabled. This option is {\ttfamily ON} by default if the library\textquotesingle{}s CMake project is the top project. That is, when integrating the library as described above, the test suite is not built unless explicitly switched on with this option.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1813}{}\doxysubsection{\texorpdfstring{{\ttfamily JSON\+\_\+\+CI}}{{\ttfamily JSON\+\_\+\+CI}}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1813}
+Enable CI build targets. \doxylink{requirements_The}{The} exact targets are used during the several CI steps and are subject to change without notice. This option is {\ttfamily OFF} by default.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1814}{}\doxysubsection{\texorpdfstring{{\ttfamily JSON\+\_\+\+Diagnostics}}{{\ttfamily JSON\+\_\+\+Diagnostics}}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1814}
+Enable \href{../home/exceptions.md\#extended-diagnostic-messages}{\texttt{extended diagnostic messages}} by defining macro \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostics}{{\ttfamily JSON\+\_\+\+DIAGNOSTICS}}{0}. This option is {\ttfamily OFF} by default.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1815}{}\doxysubsection{\texorpdfstring{{\ttfamily JSON\+\_\+\+Diagnostic\+\_\+\+Positions}}{{\ttfamily JSON\+\_\+\+Diagnostic\+\_\+\+Positions}}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1815}
+Enable position diagnostics by defining macro \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions}{{\ttfamily JSON\+\_\+\+DIAGNOSTIC\+\_\+\+POSITIONS}}{0}. This option is {\ttfamily OFF} by default.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1816}{}\doxysubsection{\texorpdfstring{{\ttfamily JSON\+\_\+\+Disable\+Enum\+Serialization}}{{\ttfamily JSON\+\_\+\+Disable\+Enum\+Serialization}}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1816}
+Disable default {\ttfamily enum} serialization by defining the macro \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__disable__enum__serialization}{{\ttfamily JSON\+\_\+\+DISABLE\+\_\+\+ENUM\+\_\+\+SERIALIZATION}}{0}. This option is {\ttfamily OFF} by default.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1817}{}\doxysubsection{\texorpdfstring{{\ttfamily JSON\+\_\+\+Fast\+Tests}}{{\ttfamily JSON\+\_\+\+Fast\+Tests}}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1817}
+Skip expensive/\+slow test suites. This option is {\ttfamily OFF} by default. Depends on {\ttfamily JSON\+\_\+\+Build\+Tests}.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1818}{}\doxysubsection{\texorpdfstring{{\ttfamily JSON\+\_\+\+Global\+UDLs}}{{\ttfamily JSON\+\_\+\+Global\+UDLs}}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1818}
+Place user-\/defined string literals in the global namespace by defining the macro \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__global__udls}{{\ttfamily JSON\+\_\+\+USE\+\_\+\+GLOBAL\+\_\+\+UDLS}}{0}. This option is {\ttfamily OFF} by default.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1819}{}\doxysubsection{\texorpdfstring{{\ttfamily JSON\+\_\+\+Implicit\+Conversions}}{{\ttfamily JSON\+\_\+\+Implicit\+Conversions}}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1819}
+Enable implicit conversions by defining macro \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions}{{\ttfamily JSON\+\_\+\+USE\+\_\+\+IMPLICIT\+\_\+\+CONVERSIONS}}{0}. This option is {\ttfamily ON} by default.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1820}{}\doxysubsection{\texorpdfstring{{\ttfamily JSON\+\_\+\+Install}}{{\ttfamily JSON\+\_\+\+Install}}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1820}
+Install CMake targets during install step. This option is {\ttfamily ON} by default if the library\textquotesingle{}s CMake project is the top project.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1821}{}\doxysubsection{\texorpdfstring{{\ttfamily JSON\+\_\+\+Legacy\+Discarded\+Value\+Comparison}}{{\ttfamily JSON\+\_\+\+Legacy\+Discarded\+Value\+Comparison}}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1821}
+Enable the (incorrect) legacy comparison behavior of discarded JSON values by defining macro \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__legacy__discarded__value__comparison}{{\ttfamily JSON\+\_\+\+USE\+\_\+\+LEGACY\+\_\+\+DISCARDED\+\_\+\+VALUE\+\_\+\+COMPARISON}}{0}. This option is {\ttfamily OFF} by default.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1822}{}\doxysubsection{\texorpdfstring{{\ttfamily JSON\+\_\+\+Multiple\+Headers}}{{\ttfamily JSON\+\_\+\+Multiple\+Headers}}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1822}
+Use the non-\/amalgamated version of the library. This option is {\ttfamily OFF} by default.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1823}{}\doxysubsection{\texorpdfstring{{\ttfamily JSON\+\_\+\+System\+Include}}{{\ttfamily JSON\+\_\+\+System\+Include}}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1823}
+Treat the library headers like system headers (i.\+e., adding {\ttfamily SYSTEM} to the \href{https://cmake.org/cmake/help/latest/command/target_include_directories.html}{\texttt{{\ttfamily target\+\_\+include\+\_\+directories}}} call) to check for this library by tools like Clang-\/\+Tidy. This option is {\ttfamily OFF} by default.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1824}{}\doxysubsection{\texorpdfstring{{\ttfamily JSON\+\_\+\+Valgrind}}{{\ttfamily JSON\+\_\+\+Valgrind}}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2integration_2cmake_autotoc_md1824}
+Execute the test suite with \href{https://valgrind.org}{\texttt{Valgrind}}. This option is {\ttfamily OFF} by default. Depends on {\ttfamily JSON\+\_\+\+Build\+Tests}. 

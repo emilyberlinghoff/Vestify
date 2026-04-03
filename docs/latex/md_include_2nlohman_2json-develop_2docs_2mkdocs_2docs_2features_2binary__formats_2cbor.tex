@@ -1,0 +1,182 @@
+\chapter{CBOR }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2cbor}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2cbor}\index{CBOR@{CBOR}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2cbor_autotoc_md1404}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2cbor_autotoc_md1404}%
+
+
+\doxylink{requirements_The}{The} Concise Binary Object Representation (CBOR) is a data format whose design goals include the possibility of extremely small code sizes, fairly small message size, and extensibility without the need for version negotiation.
+
+!!! abstract "{}\+References"{} \begin{DoxyVerb}  - [CBOR Website](http://cbor.io) - the main source on CBOR
+- [CBOR Playground](http://cbor.me) - an interactive webpage to translate between JSON and CBOR
+- [RFC 7049](https://tools.ietf.org/html/rfc7049) - the CBOR specification
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2cbor_autotoc_md1405}{}\doxysection{\texorpdfstring{Serialization}{Serialization}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2cbor_autotoc_md1405}
+\doxylink{requirements_The}{The} library uses the following mapping from JSON values types to CBOR types according to the CBOR specification (\href{https://www.rfc-editor.org/rfc/rfc7049.html}{\texttt{RFC 7049}}):\+
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}JSON value type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}value/\+range  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}CBOR type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}first byte  \\
+null  &{\ttfamily null}  &Null  &0x\+F6  \\
+boolean  &{\ttfamily true}  &True  &0x\+F5  \\
+boolean  &{\ttfamily false}  &False  &0x\+F4  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/9223372036854775808..-\/2147483649  &Negative integer (8 bytes follow)  &0x3B  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/2147483648..-\/32769  &Negative integer (4 bytes follow)  &0x3A  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/32768..-\/129  &Negative integer (2 bytes follow)  &0x39  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/128..-\/25  &Negative integer (1 byte follow)  &0x38  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/24..-\/1  &Negative integer  &0x20..0x37  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &0..23  &Integer  &0x00..0x17  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &24..255  &Unsigned integer (1 byte follow)  &0x18  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &256..65535  &Unsigned integer (2 bytes follow)  &0x19  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &65536..4294967295  &Unsigned integer (4 bytes follow)  &0x1A  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &4294967296..18446744073709551615  &Unsigned integer (8 bytes follow)  &0x1B  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &0..23  &Integer  &0x00..0x17  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &24..255  &Unsigned integer (1 byte follow)  &0x18  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &256..65535  &Unsigned integer (2 bytes follow)  &0x19  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &65536..4294967295  &Unsigned integer (4 bytes follow)  &0x1A  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &4294967296..18446744073709551615  &Unsigned integer (8 bytes follow)  &0x1B  \\
+\doxylink{classnumber__float}{number\+\_\+float}  &{\itshape any value representable by a float}  &Single-\/\+Precision Float  &0x\+FA  \\
+\doxylink{classnumber__float}{number\+\_\+float}  &{\itshape any value NOT representable by a float}  &Double-\/\+Precision Float  &0x\+FB  \\
+string  &{\itshape length}:\+ 0..23  &UTF-\/8 string  &0x60..0x77  \\
+string  &{\itshape length}:\+ 23..255  &UTF-\/8 string (1 byte follow)  &0x78  \\
+string  &{\itshape length}:\+ 256..65535  &UTF-\/8 string (2 bytes follow)  &0x79  \\
+string  &{\itshape length}:\+ 65536..4294967295  &UTF-\/8 string (4 bytes follow)  &0x7A  \\
+string  &{\itshape length}:\+ 4294967296..18446744073709551615  &UTF-\/8 string (8 bytes follow)  &0x7B  \\
+array  &{\itshape size}:\+ 0..23  &array  &0x80..0x97  \\
+array  &{\itshape size}:\+ 23..255  &array (1 byte follow)  &0x98  \\
+array  &{\itshape size}:\+ 256..65535  &array (2 bytes follow)  &0x99  \\
+array  &{\itshape size}:\+ 65536..4294967295  &array (4 bytes follow)  &0x9A  \\
+array  &{\itshape size}:\+ 4294967296..18446744073709551615  &array (8 bytes follow)  &0x9B  \\
+object  &{\itshape size}:\+ 0..23  &map  &0x\+A0..0x\+B7  \\
+object  &{\itshape size}:\+ 23..255  &map (1 byte follow)  &0x\+B8  \\
+object  &{\itshape size}:\+ 256..65535  &map (2 bytes follow)  &0x\+B9  \\
+object  &{\itshape size}:\+ 65536..4294967295  &map (4 bytes follow)  &0x\+BA  \\
+object  &{\itshape size}:\+ 4294967296..18446744073709551615  &map (8 bytes follow)  &0x\+BB  \\
+binary  &{\itshape size}:\+ 0..23  &byte string  &0x40..0x57  \\
+binary  &{\itshape size}:\+ 23..255  &byte string (1 byte follow)  &0x58  \\
+binary  &{\itshape size}:\+ 256..65535  &byte string (2 bytes follow)  &0x59  \\
+binary  &{\itshape size}:\+ 65536..4294967295  &byte string (4 bytes follow)  &0x5A  \\
+binary  &{\itshape size}:\+ 4294967296..18446744073709551615  &byte string (8 bytes follow)  &0x5B  \\
+\end{DoxyTable}
+
+
+Binary values with subtype are mapped to tagged values (0x\+D8..0x\+DB) depending on the subtype, followed by a byte string, see "{}binary"{} cells in the table above.
+
+!!! success "{}\+Complete mapping"{} \begin{DoxyVerb}The mapping is **complete** in the sense that any JSON value type can be converted to a CBOR value.
+\end{DoxyVerb}
+
+
+!!! info "{}\+Na\+N/\+infinity handling"{} \begin{DoxyVerb}If NaN or Infinity are stored inside a JSON number, they are serialized properly. This behavior differs from the normal JSON serialization which serializes NaN or Infinity to `null`.
+\end{DoxyVerb}
+
+
+!!! info "{}\+Unused CBOR types"{} \begin{DoxyVerb}The following CBOR types are not used in the conversion:
+
+  - UTF-8 strings terminated by "break" (0x7F)
+  - arrays terminated by "break" (0x9F)
+  - maps terminated by "break" (0xBF)
+  - byte strings terminated by "break" (0x5F)
+  - date/time (0xC0..0xC1)
+  - bignum (0xC2..0xC3)
+  - decimal fraction (0xC4)
+  - bigfloat (0xC5)
+  - expected conversions (0xD5..0xD7)
+  - simple values (0xE0..0xF3, 0xF8)
+  - undefined (0xF7)
+  - half-precision floats (0xF9)
+  - break (0xFF)
+\end{DoxyVerb}
+
+
+!!! info "{}\+Tagged items"{} \begin{DoxyVerb}Binary subtypes will be serialized as tagged items. See [binary values](../binary_values.md#cbor) for an example.
+\end{DoxyVerb}
+
+
+??? example \begin{DoxyVerb}```cpp
+--8<-- "examples/to_cbor.cpp"
+```
+
+Output:
+
+```c
+--8<-- "examples/to_cbor.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2cbor_autotoc_md1406}{}\doxysection{\texorpdfstring{Deserialization}{Deserialization}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2cbor_autotoc_md1406}
+\doxylink{requirements_The}{The} library maps CBOR types to JSON value types as follows:\+
+
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}CBOR type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}JSON value type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}first byte  \\
+Integer  &\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &0x00..0x17  \\
+Unsigned integer  &\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &0x18  \\
+Unsigned integer  &\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &0x19  \\
+Unsigned integer  &\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &0x1A  \\
+Unsigned integer  &\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &0x1B  \\
+Negative integer  &\doxylink{classnumber__integer}{number\+\_\+integer}  &0x20..0x37  \\
+Negative integer  &\doxylink{classnumber__integer}{number\+\_\+integer}  &0x38  \\
+Negative integer  &\doxylink{classnumber__integer}{number\+\_\+integer}  &0x39  \\
+Negative integer  &\doxylink{classnumber__integer}{number\+\_\+integer}  &0x3A  \\
+Negative integer  &\doxylink{classnumber__integer}{number\+\_\+integer}  &0x3B  \\
+Byte string  &binary  &0x40..0x57  \\
+Byte string  &binary  &0x58  \\
+Byte string  &binary  &0x59  \\
+Byte string  &binary  &0x5A  \\
+Byte string  &binary  &0x5B  \\
+UTF-\/8 string  &string  &0x60..0x77  \\
+UTF-\/8 string  &string  &0x78  \\
+UTF-\/8 string  &string  &0x79  \\
+UTF-\/8 string  &string  &0x7A  \\
+UTF-\/8 string  &string  &0x7B  \\
+UTF-\/8 string  &string  &0x7F  \\
+array  &array  &0x80..0x97  \\
+array  &array  &0x98  \\
+array  &array  &0x99  \\
+array  &array  &0x9A  \\
+array  &array  &0x9B  \\
+array  &array  &0x9F  \\
+map  &object  &0x\+A0..0x\+B7  \\
+map  &object  &0x\+B8  \\
+map  &object  &0x\+B9  \\
+map  &object  &0x\+BA  \\
+map  &object  &0x\+BB  \\
+map  &object  &0x\+BF  \\
+False  &{\ttfamily false}  &0x\+F4  \\
+True  &{\ttfamily true}  &0x\+F5  \\
+Null  &{\ttfamily null}  &0x\+F6  \\
+Half-\/\+Precision Float  &\doxylink{classnumber__float}{number\+\_\+float}  &0x\+F9  \\
+Single-\/\+Precision Float  &\doxylink{classnumber__float}{number\+\_\+float}  &0x\+FA  \\
+Double-\/\+Precision Float  &\doxylink{classnumber__float}{number\+\_\+float}  &0x\+FB  \\
+\end{DoxyTable}
+
+
+!!! warning "{}\+Incomplete mapping"{} \begin{DoxyVerb}The mapping is **incomplete** in the sense that not all CBOR types can be converted to a JSON value. The following CBOR types are not supported and will yield parse errors:
+
+ - date/time (0xC0..0xC1)
+ - bignum (0xC2..0xC3)
+ - decimal fraction (0xC4)
+ - bigfloat (0xC5)
+ - expected conversions (0xD5..0xD7)
+ - simple values (0xE0..0xF3, 0xF8)
+ - undefined (0xF7)
+\end{DoxyVerb}
+
+
+!!! warning "{}\+Object keys"{} \begin{DoxyVerb}CBOR allows map keys of any type, whereas JSON only allows strings as keys in object values. Therefore, CBOR maps with keys other than UTF-8 strings are rejected.
+\end{DoxyVerb}
+
+
+!!! warning "{}\+Tagged items"{} \begin{DoxyVerb}Tagged items will throw a parse error by default. They can be ignored by passing `cbor_tag_handler_t::ignore` to function `from_cbor`. They can be stored by passing `cbor_tag_handler_t::store` to function `from_cbor`.
+\end{DoxyVerb}
+
+
+??? example \begin{DoxyVerb}```cpp
+--8<-- "examples/from_cbor.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/from_cbor.output"
+```
+\end{DoxyVerb}
+ 

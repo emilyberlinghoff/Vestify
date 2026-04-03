@@ -1,0 +1,105 @@
+\doxysection{Backtest\+Engine Class Reference}
+\hypertarget{class_backtest_engine}{}\label{class_backtest_engine}\index{BacktestEngine@{BacktestEngine}}
+
+
+Simple backtest engine with periodic rebalancing.  
+
+
+
+
+{\ttfamily \+\#include $<$Backtest\+Engine.\+hpp$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_backtest_engine_1_1_price_point}{Price\+Point}}
+\begin{DoxyCompactList}\small\item\em Single dated price point used for simulation. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct_backtest_engine_1_1_config}{Config}}
+\begin{DoxyCompactList}\small\item\em Configuration parameters for a backtest run. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct_backtest_engine_1_1_result}{Result}}
+\begin{DoxyCompactList}\small\item\em Output results for a backtest run. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{struct_backtest_engine_1_1_result}{Result}} \doxymbox{\hyperlink{class_backtest_engine_ab6a98c93c68a4b253e311075f47d1dbb}{run}} (const \doxymbox{\hyperlink{class_strategy_manager}{Strategy\+Manager}} \&strategy, const \doxymbox{\hyperlink{struct_backtest_engine_1_1_config}{Config}} \&config) const
+\begin{DoxyCompactList}\small\item\em Run a backtest using the provided strategy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \doxymbox{\hyperlink{class_backtest_engine_aaf0d461d7846025a8d03004e901c78e7}{is\+Within\+Range}} (const std::\+string \&date, const std::\+string \&start, const std::\+string \&end)
+\begin{DoxyCompactList}\small\item\em Check if a date is within the start/\+end range. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Simple backtest engine with periodic rebalancing. 
+
+The engine simulates a portfolio that periodically re-\/ranks the stock universe with the active scoring strategy, selects the highest-\/ranked holdings, and tracks the resulting equity curve across time.
+
+\begin{DoxyAuthor}{Author}
+Emily Berlinghoff 
+\end{DoxyAuthor}
+
+
+\label{doc-func-members}
+\Hypertarget{class_backtest_engine_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_backtest_engine_aaf0d461d7846025a8d03004e901c78e7}\index{BacktestEngine@{BacktestEngine}!isWithinRange@{isWithinRange}}
+\index{isWithinRange@{isWithinRange}!BacktestEngine@{BacktestEngine}}
+\doxysubsubsection{\texorpdfstring{isWithinRange()}{isWithinRange()}}
+{\footnotesize\ttfamily \label{class_backtest_engine_aaf0d461d7846025a8d03004e901c78e7} 
+bool Backtest\+Engine::\+is\+Within\+Range (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{date}{, }\item[{const std::\+string \&}]{start}{, }\item[{const std::\+string \&}]{end}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Check if a date is within the start/\+end range. 
+
+Performs an inclusive range check against date strings that already use the sortable {\ttfamily YYYY-\/\+MM-\/\+DD} format.
+
+
+\begin{DoxyParams}{Parameters}
+{\em date} & Date to check. \\
+\hline
+{\em start} & Inclusive start date (YYYY-\/\+MM-\/\+DD) or empty. \\
+\hline
+{\em end} & Inclusive end date (YYYY-\/\+MM-\/\+DD) or empty. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if date is within range. 
+\end{DoxyReturn}
+\Hypertarget{class_backtest_engine_ab6a98c93c68a4b253e311075f47d1dbb}\index{BacktestEngine@{BacktestEngine}!run@{run}}
+\index{run@{run}!BacktestEngine@{BacktestEngine}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{class_backtest_engine_ab6a98c93c68a4b253e311075f47d1dbb} 
+\doxymbox{\hyperlink{struct_backtest_engine_1_1_result}{Backtest\+Engine::\+\+Result}} Backtest\+Engine::\+run (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_strategy_manager}{Strategy\+Manager}} \&}]{strategy}{, }\item[{const \doxymbox{\hyperlink{struct_backtest_engine_1_1_config}{Config}} \&}]{config}{}\end{DoxyParamCaption}) const}
+
+
+
+Run a backtest using the provided strategy. 
+
+Rebalances the simulated portfolio according to the configured interval, evaluates holdings with the supplied strategy, and returns a summary of the resulting performance path.
+
+
+\begin{DoxyParams}{Parameters}
+{\em strategy} & Scoring strategy to rank holdings. \\
+\hline
+{\em config} & Backtest configuration. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_backtest_engine_1_1_result}{Result} with equity curve and summary values. 
+\end{DoxyReturn}
+Build a date list from the first series.
+
+Build fast lookup maps for each ticker and validate completeness.
+
+Filter stocks to only those with price data.
+
+Precompute ranking order (strategy does not change during a run).
+
+Update portfolio value before rebalancing.
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+include/\+backtest/\+\doxymbox{\hyperlink{_backtest_engine_8hpp}{Backtest\+Engine.\+hpp}}\item 
+src/\+backtest/\+\doxymbox{\hyperlink{_backtest_engine_8cpp}{Backtest\+Engine.\+cpp}}\end{DoxyCompactItemize}

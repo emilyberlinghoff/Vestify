@@ -1,0 +1,119 @@
+\doxysection{Watch\+List\+Repo Class Reference}
+\hypertarget{class_watch_list_repo}{}\label{class_watch_list_repo}\index{WatchListRepo@{WatchListRepo}}
+
+
+Handles loading and saving watchlists to disk.  
+
+
+
+
+{\ttfamily \+\#include $<$Watch\+List\+Repo.\+hpp$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_watch_list_repo_1_1_load_result}{Load\+Result}}
+\begin{DoxyCompactList}\small\item\em Result returned when loading watchlists from disk. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct_watch_list_repo_1_1_save_result}{Save\+Result}}
+\begin{DoxyCompactList}\small\item\em Result returned when saving a watchlist. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_watch_list_repo_a1c69b4256388a302d323c72ef9917f94}{Watch\+List\+Repo}} (const std::\+string \&filepath)
+\begin{DoxyCompactList}\small\item\em Create a repo bound to a file path. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{struct_watch_list_repo_1_1_load_result}{Load\+Result}} \doxymbox{\hyperlink{class_watch_list_repo_ae878b2f792bfca193f75c1a2c2f80b13}{load\+All}} () const
+\begin{DoxyCompactList}\small\item\em Load all watchlists from disk. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{struct_watch_list_repo_1_1_save_result}{Save\+Result}} \doxymbox{\hyperlink{class_watch_list_repo_af46f8112669f04fcd8e99c0da4e2fe20}{save\+All}} (const std::\+vector$<$ \doxymbox{\hyperlink{class_watch_list}{Watch\+List}} $>$ \&watchlists) const
+\begin{DoxyCompactList}\small\item\em Save all watchlists to disk. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_watch_list_repo_ab406f9141116dc434792c2024f3fe184}\label{class_watch_list_repo_ab406f9141116dc434792c2024f3fe184} 
+std::\+string {\bfseries filepath\+\_\+}
+\begin{DoxyCompactList}\small\item\em File path used for persistence. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Handles loading and saving watchlists to disk. 
+
+Uses JSON files for persistence. The repository hides file-\/format details from the rest of the application so the UI and domain logic can work directly with {\ttfamily \doxylink{class_watch_list}{Watch\+List}} objects.
+
+\begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+
+
+\label{doc-constructors}
+\Hypertarget{class_watch_list_repo_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_watch_list_repo_a1c69b4256388a302d323c72ef9917f94}\index{WatchListRepo@{WatchListRepo}!WatchListRepo@{WatchListRepo}}
+\index{WatchListRepo@{WatchListRepo}!WatchListRepo@{WatchListRepo}}
+\doxysubsubsection{\texorpdfstring{WatchListRepo()}{WatchListRepo()}}
+{\footnotesize\ttfamily \label{class_watch_list_repo_a1c69b4256388a302d323c72ef9917f94} 
+Watch\+List\+Repo::\+\+Watch\+List\+Repo (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{filepath}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Create a repo bound to a file path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filepath} & JSON file path for persistence. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_watch_list_repo_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_watch_list_repo_ae878b2f792bfca193f75c1a2c2f80b13}\index{WatchListRepo@{WatchListRepo}!loadAll@{loadAll}}
+\index{loadAll@{loadAll}!WatchListRepo@{WatchListRepo}}
+\doxysubsubsection{\texorpdfstring{loadAll()}{loadAll()}}
+{\footnotesize\ttfamily \label{class_watch_list_repo_ae878b2f792bfca193f75c1a2c2f80b13} 
+\doxymbox{\hyperlink{struct_watch_list_repo_1_1_load_result}{Watch\+List\+Repo::\+\+Load\+Result}} Watch\+List\+Repo::\+load\+All (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Load all watchlists from disk. 
+
+Load all watchlists from the configured JSON file.
+
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_watch_list_repo_1_1_load_result}{Load\+Result} containing all watchlists and any errors.
+
+\doxylink{struct_watch_list_repo_1_1_load_result}{Load\+Result} containing parsed watchlists and any errors. 
+\end{DoxyReturn}
+\Hypertarget{class_watch_list_repo_af46f8112669f04fcd8e99c0da4e2fe20}\index{WatchListRepo@{WatchListRepo}!saveAll@{saveAll}}
+\index{saveAll@{saveAll}!WatchListRepo@{WatchListRepo}}
+\doxysubsubsection{\texorpdfstring{saveAll()}{saveAll()}}
+{\footnotesize\ttfamily \label{class_watch_list_repo_af46f8112669f04fcd8e99c0da4e2fe20} 
+\doxymbox{\hyperlink{struct_watch_list_repo_1_1_save_result}{Watch\+List\+Repo::\+\+Save\+Result}} Watch\+List\+Repo::\+save\+All (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ \doxymbox{\hyperlink{class_watch_list}{Watch\+List}} $>$ \&}]{watchlists}{}\end{DoxyParamCaption}) const}
+
+
+
+Save all watchlists to disk. 
+
+Save all watchlists using the array-\/based JSON format.
+
+
+\begin{DoxyParams}{Parameters}
+{\em watchlists} & Watchlists to save. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_watch_list_repo_1_1_save_result}{Save\+Result} indicating success or failure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em watchlists} & Watchlists to persist. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_watch_list_repo_1_1_save_result}{Save\+Result} describing success or failure. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+include/\+persistence/\+\doxymbox{\hyperlink{_watch_list_repo_8hpp}{Watch\+List\+Repo.\+hpp}}\item 
+src/\+persistence/\+\doxymbox{\hyperlink{_watchlist_repo_8cpp}{Watchlist\+Repo.\+cpp}}\end{DoxyCompactItemize}

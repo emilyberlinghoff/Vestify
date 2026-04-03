@@ -1,0 +1,324 @@
+\chapter{
+\footnotesize nlohmann:\+:\+
+\normalsize basic\+\_\+json }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index}\index{$<$small$>$nlohmann::$<$/small$>$basic\_json@{$<$small$>$nlohmann::$<$/small$>$basic\_json}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md409}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md409}%
+
+
+
+\footnotesize Defined in header {\ttfamily \texorpdfstring{$<$}{<}nlohmann/\+json.\+hpp\texorpdfstring{$>$}{>}}
+\normalsize 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ U,\ \textcolor{keyword}{typename}\ V,\ \textcolor{keyword}{typename}...\ Args>\ \textcolor{keyword}{class\ }ObjectType\ =\ std::map,}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ U,\ \textcolor{keyword}{typename}...\ Args>\ \textcolor{keyword}{class\ }ArrayType\ =\ std::vector,}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{class\ }StringType\ =\ std::string,}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{class\ }BooleanType\ =\ bool,}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{class\ }NumberIntegerType\ =\ std::int64\_t,}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{class\ }NumberUnsignedType\ =\ std::uint64\_t,}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{class\ }NumberFloatType\ =\ double,}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ U>\ \textcolor{keyword}{class\ }AllocatorType\ =\ std::allocator,}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ SFINAE\ =\ \textcolor{keywordtype}{void}>\ \textcolor{keyword}{class\ }JSONSerializer\ =\ \doxymbox{\hyperlink{structadl__serializer}{adl\_serializer}},}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{class\ }BinaryType\ =\ std::vector<std::uint8\_t>,}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{class\ }CustomBaseClass\ =\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{>}
+\DoxyCodeLine{\textcolor{keyword}{class\ }\doxymbox{\hyperlink{classbasic__json}{basic\_json}};}
+
+\end{DoxyCode}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md410}{}\doxysection{\texorpdfstring{Template parameters}{Template parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md410}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Template parameter  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Description  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Derived type  \\
+{\ttfamily Object\+Type}  &type for JSON objects  &\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2object__t}{{\ttfamily object\+\_\+t}}{0}  \\
+{\ttfamily Array\+Type}  &type for JSON arrays  &\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2array__t}{{\ttfamily array\+\_\+t}}{0}  \\
+{\ttfamily String\+Type}  &type for JSON strings and object keys  &\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2string__t}{{\ttfamily string\+\_\+t}}{0}  \\
+{\ttfamily Boolean\+Type}  &type for JSON booleans  &\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2boolean__t}{{\ttfamily boolean\+\_\+t}}{0}  \\
+{\ttfamily Number\+Integer\+Type}  &type for JSON integer numbers  &\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2number__integer__t}{{\ttfamily number\+\_\+integer\+\_\+t}}{0}  \\
+{\ttfamily Number\+Unsigned\+Type}  &type for JSON unsigned integer numbers  &\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2number__unsigned__t}{{\ttfamily number\+\_\+unsigned\+\_\+t}}{0}  \\
+{\ttfamily Number\+Float\+Type}  &type for JSON floating-\/point numbers  &\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2number__float__t}{{\ttfamily number\+\_\+float\+\_\+t}}{0}  \\
+{\ttfamily Allocator\+Type}  &type of the allocator to use  &\\
+{\ttfamily JSONSerializer}  &the serializer to resolve internal calls to {\ttfamily to\+\_\+json()} and {\ttfamily from\+\_\+json()}  &\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer}{{\ttfamily json\+\_\+serializer}}{0}  \\
+{\ttfamily Binary\+Type}  &type for binary arrays  &\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2binary__t}{{\ttfamily binary\+\_\+t}}{0}  \\
+{\ttfamily Custom\+Base\+Class}  &extension point for user code  &\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__base__class__t}{{\ttfamily json\+\_\+base\+\_\+class\+\_\+t}}{0}  \\
+\end{DoxyTable}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md411}{}\doxysection{\texorpdfstring{Specializations}{Specializations}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md411}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json}{{\bfseries{json}}}{0} -\/ default specialization
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__json}{{\bfseries{ordered\+\_\+json}}}{0} -\/ a specialization that maintains the insertion order of object keys
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md412}{}\doxysection{\texorpdfstring{Iterator invalidation}{Iterator invalidation}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md412}
+All operations that add values to an {\bfseries{array}} (\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2push__back}{{\ttfamily push\+\_\+back}}{0} , \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator_09_0a}{{\ttfamily operator+=}}{0}, \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2emplace__back}{{\ttfamily emplace\+\_\+back}}{0}, \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2insert}{{\ttfamily insert}}{0}, and {\ttfamily operator\+[]\+} for a non-\/existing index) can yield a reallocation, in which case all iterators (including the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end}{{\ttfamily end()}}{0} iterator) and all references to the elements are invalidated.
+
+For \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__json}{{\ttfamily ordered\+\_\+json}}{0}, also all operations that add a value to an {\bfseries{object}} (\doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2push__back}{{\ttfamily push\+\_\+back}}{0}, \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator_09_0a}{{\ttfamily operator+=}}{0}, \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2emplace}{{\ttfamily emplace}}{0}, \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2insert}{{\ttfamily insert}}{0}, \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2update}{{\ttfamily update}}{0}, and {\ttfamily operator\+[]\+} for a non-\/existing key) can yield a reallocation, in which case all iterators (including the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end}{{\ttfamily end()}}{0} iterator) and all references to the elements are invalidated.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md413}{}\doxysection{\texorpdfstring{Requirements}{Requirements}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md413}
+\doxylink{requirements_The}{The} class satisfies the following concept requirements:\+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md414}{}\doxysubsection{\texorpdfstring{Basic}{Basic}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md414}
+
+\begin{DoxyItemize}
+\item \href{https://en.cppreference.com/w/cpp/named_req/DefaultConstructible}{\texttt{Default\+Constructible}}:\+ JSON values can be default-\/constructed. \doxylink{requirements_The}{The} result will be a JSON null value.
+\item \href{https://en.cppreference.com/w/cpp/named_req/MoveConstructible}{\texttt{Move\+Constructible}}:\+ \doxylink{class_a}{A} JSON value can be constructed from an rvalue argument.
+\item \href{https://en.cppreference.com/w/cpp/named_req/CopyConstructible}{\texttt{Copy\+Constructible}}:\+ \doxylink{class_a}{A} JSON value can be copy-\/constructed from an lvalue expression.
+\item \href{https://en.cppreference.com/w/cpp/named_req/MoveAssignable}{\texttt{Move\+Assignable}}:\+ \doxylink{class_a}{A} JSON value can be assigned from an rvalue argument.
+\item \href{https://en.cppreference.com/w/cpp/named_req/CopyAssignable}{\texttt{Copy\+Assignable}}:\+ \doxylink{class_a}{A} JSON value can be copy-\/assigned from an lvalue expression.
+\item \href{https://en.cppreference.com/w/cpp/named_req/Destructible}{\texttt{Destructible}}:\+ JSON values can be destructed.
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md415}{}\doxysubsection{\texorpdfstring{Layout}{Layout}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md415}
+
+\begin{DoxyItemize}
+\item \href{https://en.cppreference.com/w/cpp/named_req/StandardLayoutType}{\texttt{Standard\+Layout\+Type}}:\+ JSON values have \href{https://en.cppreference.com/w/cpp/language/data_members\#Standard_layout}{\texttt{standard layout}}:\+ All non-\/static data members are private and standard layout types, the class has no virtual functions or (virtual) base classes.
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md416}{}\doxysubsection{\texorpdfstring{Library-\/wide}{Library-\/wide}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md416}
+
+\begin{DoxyItemize}
+\item \href{https://en.cppreference.com/w/cpp/named_req/EqualityComparable}{\texttt{Equality\+Comparable}}:\+ JSON values can be compared with {\ttfamily ==}, see \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__eq}{{\ttfamily operator==}}{0}.
+\item \href{https://en.cppreference.com/w/cpp/named_req/LessThanComparable}{\texttt{Less\+Than\+Comparable}}:\+ JSON values can be compared with {\ttfamily \texorpdfstring{$<$}{<}}, see \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__le}{{\ttfamily operator\texorpdfstring{$<$}{<}}}{0}.
+\item \href{https://en.cppreference.com/w/cpp/named_req/Swappable}{\texttt{Swappable}}:\+ Any JSON lvalue or rvalue of can be swapped with any lvalue or rvalue of other compatible types, using unqualified function {\ttfamily swap}.
+\item \href{https://en.cppreference.com/w/cpp/named_req/NullablePointer}{\texttt{Nullable\+Pointer}}:\+ JSON values can be compared against {\ttfamily std::\+nullptr\+\_\+t} objects which are used to model the {\ttfamily null} value.
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md417}{}\doxysubsection{\texorpdfstring{Container}{Container}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md417}
+
+\begin{DoxyItemize}
+\item \href{https://en.cppreference.com/w/cpp/named_req/Container}{\texttt{Container}}:\+ JSON values can be used like STL containers and provide iterator access.
+\item \href{https://en.cppreference.com/w/cpp/named_req/ReversibleContainer}{\texttt{Reversible\+Container}}:\+ JSON values can be used like STL containers and provide reverse iterator access.
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md418}{}\doxysection{\texorpdfstring{Member types}{Member types}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md418}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2adl__serializer_2index}{{\bfseries{adl\+\_\+serializer}}}{0} -\/ the default serializer
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2value__t}{{\bfseries{value\+\_\+t}}}{0} -\/ the JSON type enumeration
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index}{{\bfseries{json\+\_\+pointer}}}{0} -\/ JSON Pointer implementation
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer}{{\bfseries{json\+\_\+serializer}}}{0} -\/ type of the serializer to for conversions from/\+to JSON
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2error__handler__t}{{\bfseries{error\+\_\+handler\+\_\+t}}}{0} -\/ type to choose behavior on decoding errors
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2cbor__tag__handler__t}{{\bfseries{cbor\+\_\+tag\+\_\+handler\+\_\+t}}}{0} -\/ type to choose how to handle CBOR tags
+\item {\bfseries{initializer\+\_\+list\+\_\+t}} -\/ type for initializer lists of {\ttfamily \doxylink{classbasic__json}{basic\+\_\+json}} values
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2input__format__t}{{\bfseries{input\+\_\+format\+\_\+t}}}{0} -\/ type to choose the format to parse
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__sax_2index}{{\bfseries{json\+\_\+sax\+\_\+t}}}{0} -\/ type for SAX events
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md419}{}\doxysubsection{\texorpdfstring{Exceptions}{Exceptions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md419}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2exception}{{\bfseries{exception}}}{0} -\/ general exception of the {\ttfamily \doxylink{classbasic__json}{basic\+\_\+json}} class
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parse__error}{{\bfseries{parse\+\_\+error}}}{0} -\/ exception indicating a parse error
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2invalid__iterator}{{\bfseries{invalid\+\_\+iterator}}}{0} -\/ exception indicating errors with iterators
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2type__error}{{\bfseries{type\+\_\+error}}}{0} -\/ exception indicating executing a member function with a wrong type
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2out__of__range}{{\bfseries{out\+\_\+of\+\_\+range}}}{0} -\/ exception indicating access out of the defined range
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2other__error}{{\bfseries{other\+\_\+error}}}{0} -\/ exception indicating other library errors
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md420}{}\doxysubsection{\texorpdfstring{Container types}{Container types}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md420}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Definition  \\
+{\ttfamily value\+\_\+type}  &{\ttfamily \#!cpp \doxylink{classbasic__json}{basic\+\_\+json}}  \\
+{\ttfamily reference}  &{\ttfamily \#!cpp value\+\_\+type\&}  \\
+{\ttfamily const\+\_\+reference}  &{\ttfamily \#!cpp const value\+\_\+type\&}  \\
+{\ttfamily difference\+\_\+type}  &{\ttfamily \#!cpp std::\+ptrdiff\+\_\+t}  \\
+{\ttfamily size\+\_\+type}  &{\ttfamily \#!cpp std::\+size\+\_\+t}  \\
+{\ttfamily allocator\+\_\+type}  &{\ttfamily \#!cpp Allocator\+Type\texorpdfstring{$<$}{<}\doxylink{classbasic__json}{basic\+\_\+json}\texorpdfstring{$>$}{>}}  \\
+{\ttfamily pointer}  &{\ttfamily \#!cpp std::\+allocator\+\_\+traits\texorpdfstring{$<$}{<}allocator\+\_\+type\texorpdfstring{$>$}{>}::pointer}  \\
+{\ttfamily const\+\_\+pointer}  &{\ttfamily \#!cpp std::\+allocator\+\_\+traits\texorpdfstring{$<$}{<}allocator\+\_\+type\texorpdfstring{$>$}{>}::const\+\_\+pointer}  \\
+{\ttfamily iterator}  &\href{https://en.cppreference.com/w/cpp/named_req/BidirectionalIterator}{\texttt{Legacy\+Bidirectional\+Iterator}}  \\
+{\ttfamily const\+\_\+iterator}  &constant \href{https://en.cppreference.com/w/cpp/named_req/BidirectionalIterator}{\texttt{Legacy\+Bidirectional\+Iterator}}  \\
+{\ttfamily reverse\+\_\+iterator}  &reverse iterator, derived from {\ttfamily iterator}  \\
+{\ttfamily const\+\_\+reverse\+\_\+iterator}  &reverse iterator, derived from {\ttfamily const\+\_\+iterator}  \\
+{\ttfamily iteration\+\_\+proxy}  &helper type for \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2items}{{\ttfamily items}}{0} function  \\
+\end{DoxyTable}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md421}{}\doxysubsection{\texorpdfstring{JSON value data types}{JSON value data types}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md421}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2array__t}{{\bfseries{array\+\_\+t}}}{0} -\/ type for arrays
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2binary__t}{{\bfseries{binary\+\_\+t}}}{0} -\/ type for binary arrays
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2boolean__t}{{\bfseries{boolean\+\_\+t}}}{0} -\/ type for booleans
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2default__object__comparator__t}{{\bfseries{default\+\_\+object\+\_\+comparator\+\_\+t}}}{0} -\/ default comparator for objects
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2number__float__t}{{\bfseries{number\+\_\+float\+\_\+t}}}{0} -\/ type for numbers (floating-\/point)
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2number__integer__t}{{\bfseries{number\+\_\+integer\+\_\+t}}}{0} -\/ type for numbers (integer)
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2number__unsigned__t}{{\bfseries{number\+\_\+unsigned\+\_\+t}}}{0} -\/ type for numbers (unsigned)
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2object__comparator__t}{{\bfseries{object\+\_\+comparator\+\_\+t}}}{0} -\/ comparator for objects
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2object__t}{{\bfseries{object\+\_\+t}}}{0} -\/ type for objects
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2string__t}{{\bfseries{string\+\_\+t}}}{0} -\/ type for strings
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md422}{}\doxysubsection{\texorpdfstring{Parser callback}{Parser callback}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md422}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parse__event__t}{{\bfseries{parse\+\_\+event\+\_\+t}}}{0} -\/ parser event types
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parser__callback__t}{{\bfseries{parser\+\_\+callback\+\_\+t}}}{0} -\/ per-\/element parser callback type
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md423}{}\doxysection{\texorpdfstring{Member functions}{Member functions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md423}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2basic__json}{(constructor)}{0}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2_0ibasic__json}{(destructor)}{0}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator_0a}{{\bfseries{operator=}}}{0} -\/ copy assignment
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2array}{{\bfseries{array}}}{0} ({\itshape static}) -\/ explicitly create an array
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2binary}{{\bfseries{binary}}}{0} ({\itshape static}) -\/ explicitly create a binary array
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2object}{{\bfseries{object}}}{0} ({\itshape static}) -\/ explicitly create an object
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md424}{}\doxysubsection{\texorpdfstring{Object inspection}{Object inspection}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md424}
+Functions to inspect the type of a JSON value.
+
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2type}{{\bfseries{type}}}{0} -\/ return the type of the JSON value
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__value__t}{{\bfseries{operator value\+\_\+t}}}{0} -\/ return the type of the JSON value
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2type__name}{{\bfseries{type\+\_\+name}}}{0} -\/ return the type as string
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__primitive}{{\bfseries{is\+\_\+primitive}}}{0} -\/ return whether the type is primitive
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__structured}{{\bfseries{is\+\_\+structured}}}{0} -\/ return whether the type is structured
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__null}{{\bfseries{is\+\_\+null}}}{0} -\/ return whether the value is null
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__boolean}{{\bfseries{is\+\_\+boolean}}}{0} -\/ return whether the value is a boolean
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number}{{\bfseries{is\+\_\+number}}}{0} -\/ return whether the value is a number
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__integer}{{\bfseries{is\+\_\+number\+\_\+integer}}}{0} -\/ return whether the value is an integer number
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned}{{\bfseries{is\+\_\+number\+\_\+unsigned}}}{0} -\/ return whether the value is an unsigned integer number
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__float}{{\bfseries{is\+\_\+number\+\_\+float}}}{0} -\/ return whether the value is a floating-\/point number
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__object}{{\bfseries{is\+\_\+object}}}{0} -\/ return whether the value is an object
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__array}{{\bfseries{is\+\_\+array}}}{0} -\/ return whether the value is an array
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__string}{{\bfseries{is\+\_\+string}}}{0} -\/ return whether the value is a string
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__binary}{{\bfseries{is\+\_\+binary}}}{0} -\/ return whether the value is a binary array
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded}{{\bfseries{is\+\_\+discarded}}}{0} -\/ return whether the value is discarded
+\end{DoxyItemize}
+
+Optional functions to access the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions}{diagnostic positions}{0}.
+
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2start__pos}{{\bfseries{start\+\_\+pos}}}{0} -\/ return the start position of the value
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos}{{\bfseries{end\+\_\+pos}}}{0} -\/ return the one past the end position of the value
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md425}{}\doxysubsection{\texorpdfstring{Value access}{Value access}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md425}
+Direct access to the stored value of a JSON value.
+
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get}{{\bfseries{get}}}{0} -\/ get a value
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__to}{{\bfseries{get\+\_\+to}}}{0} -\/ get a value and write it to a destination
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__ptr}{{\bfseries{get\+\_\+ptr}}}{0} -\/ get a pointer value
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__ref}{{\bfseries{get\+\_\+ref}}}{0} -\/ get a reference value
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator___value_type}{{\bfseries{operator Value\+Type}}}{0} -\/ get a value
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__binary}{{\bfseries{get\+\_\+binary}}}{0} -\/ get a binary value
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md426}{}\doxysubsection{\texorpdfstring{Element access}{Element access}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md426}
+Access to the JSON value
+
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2at}{{\bfseries{at}}}{0} -\/ access specified element with bounds checking
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator_0f_0e}{{\bfseries{operator\+[]\+}}}{0} -\/ access specified element
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2value}{{\bfseries{value}}}{0} -\/ access specified object element with default value
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front}{{\bfseries{front}}}{0} -\/ access the first element
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2back}{{\bfseries{back}}}{0} -\/ access the last element
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md427}{}\doxysubsection{\texorpdfstring{Lookup}{Lookup}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md427}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2find}{{\bfseries{find}}}{0} -\/ find an element in a JSON object
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2count}{{\bfseries{count}}}{0} -\/ returns the number of occurrences of a key in a JSON object
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2contains}{{\bfseries{contains}}}{0} -\/ check the existence of an element in a JSON object
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md428}{}\doxysubsection{\texorpdfstring{Iterators}{Iterators}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md428}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2begin}{{\bfseries{begin}}}{0} -\/ returns an iterator to the first element
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2cbegin}{{\bfseries{cbegin}}}{0} -\/ returns a const iterator to the first element
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end}{{\bfseries{end}}}{0} -\/ returns an iterator to one past the last element
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2cend}{{\bfseries{cend}}}{0} -\/ returns a const iterator to one past the last element
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2rbegin}{{\bfseries{rbegin}}}{0} -\/ returns an iterator to the reverse-\/beginning
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2rend}{{\bfseries{rend}}}{0} -\/ returns an iterator to the reverse-\/end
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2crbegin}{{\bfseries{crbegin}}}{0} -\/ returns a const iterator to the reverse-\/beginning
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2crend}{{\bfseries{crend}}}{0} -\/ returns a const iterator to the reverse-\/end
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2items}{{\bfseries{items}}}{0} -\/ wrapper to access iterator member functions in range-\/based for
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md429}{}\doxysubsection{\texorpdfstring{Capacity}{Capacity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md429}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty}{{\bfseries{empty}}}{0} -\/ checks whether the container is empty
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2size}{{\bfseries{size}}}{0} -\/ returns the number of elements
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size}{{\bfseries{max\+\_\+size}}}{0} -\/ returns the maximum possible number of elements
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md430}{}\doxysubsection{\texorpdfstring{Modifiers}{Modifiers}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md430}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2clear}{{\bfseries{clear}}}{0} -\/ clears the contents
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2push__back}{{\bfseries{push\+\_\+back}}}{0} -\/ add a value to an array/\+object
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator_09_0a}{{\bfseries{operator+=}}}{0} -\/ add a value to an array/\+object
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2emplace__back}{{\bfseries{emplace\+\_\+back}}}{0} -\/ add a value to an array
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2emplace}{{\bfseries{emplace}}}{0} -\/ add a value to an object if a key does not exist
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2erase}{{\bfseries{erase}}}{0} -\/ remove elements
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2insert}{{\bfseries{insert}}}{0} -\/ inserts elements
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2update}{{\bfseries{update}}}{0} -\/ updates a JSON object from another object, overwriting existing keys
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2swap}{{\bfseries{swap}}}{0} -\/ exchanges the values
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md431}{}\doxysubsection{\texorpdfstring{Lexicographical comparison operators}{Lexicographical comparison operators}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md431}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__eq}{{\bfseries{operator==}}}{0} -\/ comparison:\+ equal
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__ne}{{\bfseries{operator!=}}}{0} -\/ comparison:\+ not equal
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__lt}{\texorpdfstring{$\ast$}{*}{\itshape operator\texorpdfstring{$<$}{<}\texorpdfstring{$\ast$}{*}}}{0} -\/ comparison:\+ less than
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__gt}{{\bfseries{operator\texorpdfstring{$>$}{>}}}}{0} -\/ comparison:\+ greater than
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__le}{{\bfseries{operator\texorpdfstring{$<$}{<}=}}}{0} -\/ comparison:\+ less than or equal
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__ge}{{\bfseries{operator\texorpdfstring{$>$}{>}=}}}{0} -\/ comparison:\+ greater than or equal
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2operator__spaceship}{{\bfseries{operator\texorpdfstring{$<$}{<}=\texorpdfstring{$>$}{>}}}}{0} -\/ comparison:\+ 3-\/way
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md432}{}\doxysubsection{\texorpdfstring{Serialization /\+ Dumping}{Serialization /\+ Dumping}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md432}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2dump}{{\bfseries{dump}}}{0} -\/ serialization
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md433}{}\doxysubsection{\texorpdfstring{Deserialization /\+ Parsing}{Deserialization /\+ Parsing}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md433}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parse}{{\bfseries{parse}}}{0} ({\itshape static}) -\/ deserialize from a compatible input
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept}{{\bfseries{accept}}}{0} ({\itshape static}) -\/ check if the input is valid JSON
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2sax__parse}{{\bfseries{sax\+\_\+parse}}}{0} ({\itshape static}) -\/ generate SAX events
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md434}{}\doxysubsection{\texorpdfstring{JSON Pointer functions}{JSON Pointer functions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md434}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten}{{\bfseries{flatten}}}{0} -\/ return flattened JSON value
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2unflatten}{{\bfseries{unflatten}}}{0} -\/ unflatten a previously flattened JSON value
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md435}{}\doxysubsection{\texorpdfstring{JSON Patch functions}{JSON Patch functions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md435}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2patch}{{\bfseries{patch}}}{0} -\/ applies a JSON patch
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2patch__inplace}{{\bfseries{patch\+\_\+inplace}}}{0} -\/ applies a JSON patch in place
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2diff}{{\bfseries{diff}}}{0} ({\itshape static}) -\/ creates a diff as a JSON patch
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md436}{}\doxysubsection{\texorpdfstring{JSON Merge Patch functions}{JSON Merge Patch functions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md436}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2merge__patch}{{\bfseries{merge\+\_\+patch}}}{0} -\/ applies a JSON Merge Patch
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md437}{}\doxysection{\texorpdfstring{Static functions}{Static functions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md437}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2meta}{{\bfseries{meta}}}{0} -\/ returns version information on the library
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__allocator}{{\bfseries{get\+\_\+allocator}}}{0} -\/ returns the allocator associated with the container
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md438}{}\doxysubsection{\texorpdfstring{Binary formats}{Binary formats}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md438}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2from__bjdata}{{\bfseries{from\+\_\+bjdata}}}{0} ({\itshape static}) -\/ create a JSON value from an input in BJData format
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2from__bson}{{\bfseries{from\+\_\+bson}}}{0} ({\itshape static}) -\/ create a JSON value from an input in BSON format
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2from__cbor}{{\bfseries{from\+\_\+cbor}}}{0} ({\itshape static}) -\/ create a JSON value from an input in CBOR format
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2from__msgpack}{{\bfseries{from\+\_\+msgpack}}}{0} ({\itshape static}) -\/ create a JSON value from an input in Message\+Pack format
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2from__ubjson}{{\bfseries{from\+\_\+ubjson}}}{0} ({\itshape static}) -\/ create a JSON value from an input in UBJSON format
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata}{{\bfseries{to\+\_\+bjdata}}}{0} ({\itshape static}) -\/ create a BJData serialization of a given JSON value
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson}{{\bfseries{to\+\_\+bson}}}{0} ({\itshape static}) -\/ create a BSON serialization of a given JSON value
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__cbor}{{\bfseries{to\+\_\+cbor}}}{0} ({\itshape static}) -\/ create a CBOR serialization of a given JSON value
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__msgpack}{{\bfseries{to\+\_\+msgpack}}}{0} ({\itshape static}) -\/ create a Message\+Pack serialization of a given JSON value
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__ubjson}{{\bfseries{to\+\_\+ubjson}}}{0} ({\itshape static}) -\/ create a UBJSON serialization of a given JSON value
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md439}{}\doxysection{\texorpdfstring{Non-\/member functions}{Non-\/member functions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md439}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt}{{\bfseries{operator\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}(std::\+ostream\&)}}}{0} -\/ serialize to stream
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt}{{\bfseries{operator\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}(std::\+istream\&)}}}{0} -\/ deserialize from stream
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__string}{{\bfseries{to\+\_\+string}}}{0} -\/ user-\/defined {\ttfamily to\+\_\+string} function for JSON values
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md440}{}\doxysection{\texorpdfstring{Literals}{Literals}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md440}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json}{{\bfseries{operator"{}"{}\+\_\+json}}}{0} -\/ user-\/defined string literal for JSON values
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md441}{}\doxysection{\texorpdfstring{Helper classes}{Helper classes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md441}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__hash}{{\bfseries{std::\+hash\texorpdfstring{$<$}{<}basic\+\_\+json\texorpdfstring{$>$}{>}}}}{0} -\/ return a hash value for a JSON object
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2std__swap}{{\bfseries{std::\+swap\texorpdfstring{$<$}{<}basic\+\_\+json\texorpdfstring{$>$}{>}}}}{0} -\/ exchanges the values of two JSON objects
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md442}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md442}
+??? example \begin{DoxyVerb}The example shows how the library is used.
+
+```cpp
+--8<-- "examples/README.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/README.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md443}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md443}
+
+\begin{DoxyItemize}
+\item \href{https://tools.ietf.org/html/rfc8259}{\texttt{RFC 8259:\+ \doxylink{requirements_The}{The} Java\+Script Object Notation (JSON) Data Interchange Format}}
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md444}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index_autotoc_md444}
+
+\begin{DoxyItemize}
+\item Added in version 1.\+0.\+0. 
+\end{DoxyItemize}

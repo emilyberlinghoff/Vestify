@@ -1,0 +1,241 @@
+\doxysection{Stock\+Printer Class Reference}
+\hypertarget{class_stock_printer}{}\label{class_stock_printer}\index{StockPrinter@{StockPrinter}}
+
+
+Utility class for formatting and displaying stock information.  
+
+
+
+
+{\ttfamily \+\#include $<$Stock\+Printer.\+hpp$>$}
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \doxymbox{\hyperlink{class_stock_printer_a16bc66d1bc3f5dab350fa35def71fcd3}{print\+Stocks}} (const std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ \&stocks)
+\begin{DoxyCompactList}\small\item\em Print detailed information for a collection of stocks. \end{DoxyCompactList}\item 
+static void \doxymbox{\hyperlink{class_stock_printer_a8999dc61b037fea8d6f239a5f670d6e9}{print\+Available\+Stocks}} (const std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ \&stocks)
+\begin{DoxyCompactList}\small\item\em Print a summary list of available stocks. \end{DoxyCompactList}\item 
+static void \doxymbox{\hyperlink{class_stock_printer_a413d7b2368ef56e55fd74f624033973a}{print\+Top\+EVFCF}} (std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ stocks, std::\+size\+\_\+t count=10)
+\begin{DoxyCompactList}\small\item\em Print top stocks ranked by EV/\+\+FCF ratio. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std::\+string \doxymbox{\hyperlink{class_stock_printer_a3a1b491ae78e90656129d3d58f9e3879}{format\+Money}} (double value)
+\begin{DoxyCompactList}\small\item\em Format a monetary value with appropriate suffixes. \end{DoxyCompactList}\item 
+static std::\+string \doxymbox{\hyperlink{class_stock_printer_aea1cf728a0f377fa00e3e4ab48275168}{colorize\+Metric}} (double value, double good\+Threshold, double weak\+Threshold)
+\begin{DoxyCompactList}\small\item\em Colorize a metric value where higher values are generally better. \end{DoxyCompactList}\item 
+static std::\+string \doxymbox{\hyperlink{class_stock_printer_ae609ca1a5b148c7de4b2898447e684ea}{colorize\+Low\+Is\+Better}} (double value, double good\+Threshold, double bad\+Threshold)
+\begin{DoxyCompactList}\small\item\em Colorize a metric value where lower values are generally better. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Utility class for formatting and displaying stock information. 
+
+The \doxylink{class_stock_printer}{Stock\+Printer} class provides static methods for displaying stock data in various formats including detailed stock information, summary lists, and ranked displays. It includes formatting utilities for monetary values and colorized display of financial metrics based on performance thresholds.
+
+All methods are static, making this a utility class that doesn\textquotesingle{}t require instantiation. Output is directed to stdout with ANSI color codes for enhanced readability in terminal environments. 
+
+\label{doc-func-members}
+\Hypertarget{class_stock_printer_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_stock_printer_ae609ca1a5b148c7de4b2898447e684ea}\index{StockPrinter@{StockPrinter}!colorizeLowIsBetter@{colorizeLowIsBetter}}
+\index{colorizeLowIsBetter@{colorizeLowIsBetter}!StockPrinter@{StockPrinter}}
+\doxysubsubsection{\texorpdfstring{colorizeLowIsBetter()}{colorizeLowIsBetter()}}
+{\footnotesize\ttfamily \label{class_stock_printer_ae609ca1a5b148c7de4b2898447e684ea} 
+std::\+string Stock\+Printer::\+colorize\+Low\+Is\+Better (\begin{DoxyParamCaption}\item[{double}]{value}{, }\item[{double}]{good\+Threshold}{, }\item[{double}]{bad\+Threshold}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Colorize a metric value where lower values are generally better. 
+
+Colorizes a metric value where lower values are better.
+
+Applies ANSI color codes to valuation metrics where lower values indicate better performance (e.\+g., P/\+E ratio). Uses green for attractive valuations, yellow for neutral, and red for expensive valuations.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The metric value to colorize. \\
+\hline
+{\em good\+Threshold} & Maximum value considered "{}good"{} (green). \\
+\hline
+{\em bad\+Threshold} & Minimum value considered "{}bad"{} (red). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Colorized string representation of the value.
+\end{DoxyReturn}
+This function applies ANSI color codes to valuation metrics where lower values are generally preferred (e.\+g., P/\+E ratio). Green for attractive valuations, red for expensive valuations, yellow for neutral.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The metric value to colorize. \\
+\hline
+{\em good\+Threshold} & The threshold below which the value is considered good. \\
+\hline
+{\em bad\+Threshold} & The threshold above which the value is considered bad. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A colorized string representation of the value. 
+\end{DoxyReturn}
+\Hypertarget{class_stock_printer_aea1cf728a0f377fa00e3e4ab48275168}\index{StockPrinter@{StockPrinter}!colorizeMetric@{colorizeMetric}}
+\index{colorizeMetric@{colorizeMetric}!StockPrinter@{StockPrinter}}
+\doxysubsubsection{\texorpdfstring{colorizeMetric()}{colorizeMetric()}}
+{\footnotesize\ttfamily \label{class_stock_printer_aea1cf728a0f377fa00e3e4ab48275168} 
+std::\+string Stock\+Printer::\+colorize\+Metric (\begin{DoxyParamCaption}\item[{double}]{value}{, }\item[{double}]{good\+Threshold}{, }\item[{double}]{weak\+Threshold}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Colorize a metric value where higher values are generally better. 
+
+Colorizes a metric value based on performance thresholds.
+
+Applies ANSI color codes to metric values where higher values indicate better performance (e.\+g., profitability ratios). Uses green for good, yellow for neutral, and red for weak performance.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The metric value to colorize. \\
+\hline
+{\em good\+Threshold} & Minimum value considered "{}good"{} (green). \\
+\hline
+{\em weak\+Threshold} & Maximum value considered "{}weak"{} (red). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Colorized string representation of the value.
+\end{DoxyReturn}
+This function applies ANSI color codes to metric values where higher values are generally better (e.\+g., profitability ratios). Green for good performance, red for weak performance, yellow for neutral.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The metric value to colorize. \\
+\hline
+{\em good\+Threshold} & The threshold above which the value is considered good. \\
+\hline
+{\em weak\+Threshold} & The threshold below which the value is considered weak. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A colorized string representation of the value. 
+\end{DoxyReturn}
+\Hypertarget{class_stock_printer_a3a1b491ae78e90656129d3d58f9e3879}\index{StockPrinter@{StockPrinter}!formatMoney@{formatMoney}}
+\index{formatMoney@{formatMoney}!StockPrinter@{StockPrinter}}
+\doxysubsubsection{\texorpdfstring{formatMoney()}{formatMoney()}}
+{\footnotesize\ttfamily \label{class_stock_printer_a3a1b491ae78e90656129d3d58f9e3879} 
+std::\+string Stock\+Printer::\+format\+Money (\begin{DoxyParamCaption}\item[{double}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Format a monetary value with appropriate suffixes. 
+
+Formats a monetary value with appropriate suffixes (K, M, B, T).
+
+Converts large numbers to a more readable format using suffixes:\+ K (thousands), M (millions), B (billions), T (trillions).
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The monetary value to format. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Formatted string representation with suffix.
+\end{DoxyReturn}
+This function converts large numbers into a more readable format by using suffixes for thousands (K), millions (M), billions (B), and trillions (T).
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The monetary value to format. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string representation of the formatted value with suffix. 
+\end{DoxyReturn}
+\Hypertarget{class_stock_printer_a8999dc61b037fea8d6f239a5f670d6e9}\index{StockPrinter@{StockPrinter}!printAvailableStocks@{printAvailableStocks}}
+\index{printAvailableStocks@{printAvailableStocks}!StockPrinter@{StockPrinter}}
+\doxysubsubsection{\texorpdfstring{printAvailableStocks()}{printAvailableStocks()}}
+{\footnotesize\ttfamily \label{class_stock_printer_a8999dc61b037fea8d6f239a5f670d6e9} 
+void Stock\+Printer::\+print\+Available\+Stocks (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ \&}]{stocks}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Print a summary list of available stocks. 
+
+Prints a summary list of available stocks.
+
+Displays a tabular summary of all available stocks showing ticker symbols, sectors, and company names in a compact format suitable for selection menus.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stocks} & Vector of \doxylink{struct_stock}{Stock} objects to display.\\
+\hline
+\end{DoxyParams}
+This function displays a tabular view of all available stocks showing ticker symbols, sectors, and company names.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stocks} & A vector of \doxylink{struct_stock}{Stock} objects to display. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_stock_printer_a16bc66d1bc3f5dab350fa35def71fcd3}\index{StockPrinter@{StockPrinter}!printStocks@{printStocks}}
+\index{printStocks@{printStocks}!StockPrinter@{StockPrinter}}
+\doxysubsubsection{\texorpdfstring{printStocks()}{printStocks()}}
+{\footnotesize\ttfamily \label{class_stock_printer_a16bc66d1bc3f5dab350fa35def71fcd3} 
+void Stock\+Printer::\+print\+Stocks (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ \&}]{stocks}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Print detailed information for a collection of stocks. 
+
+Prints detailed information for a list of stocks.
+
+Displays comprehensive financial information for each stock including basic company data, financial statements, ratios, and valuation metrics. Uses colorized formatting to highlight performance indicators.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stocks} & Vector of \doxylink{struct_stock}{Stock} objects to display.\\
+\hline
+\end{DoxyParams}
+This function displays comprehensive stock data including basic information, financial metrics, balance sheet items, profitability ratios, and valuation metrics. Values are formatted and colorized appropriately.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stocks} & A vector of \doxylink{struct_stock}{Stock} objects to display. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_stock_printer_a413d7b2368ef56e55fd74f624033973a}\index{StockPrinter@{StockPrinter}!printTopEVFCF@{printTopEVFCF}}
+\index{printTopEVFCF@{printTopEVFCF}!StockPrinter@{StockPrinter}}
+\doxysubsubsection{\texorpdfstring{printTopEVFCF()}{printTopEVFCF()}}
+{\footnotesize\ttfamily \label{class_stock_printer_a413d7b2368ef56e55fd74f624033973a} 
+void Stock\+Printer::\+print\+Top\+EVFCF (\begin{DoxyParamCaption}\item[{std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$}]{stocks}{, }\item[{std::\+size\+\_\+t}]{count}{ = {\ttfamily 10}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Print top stocks ranked by EV/\+\+FCF ratio. 
+
+Prints the top stocks ranked by EV/\+\+FCF ratio.
+
+Displays the top N stocks sorted by Enterprise Value to Free Cash Flow ratio (ascending order, lower is better). Shows ticker, company name, and EV/\+\+FCF value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stocks} & Vector of \doxylink{struct_stock}{Stock} objects to analyze (sorted in-\/place). \\
+\hline
+{\em count} & Maximum number of stocks to display (default:\+ 10).\\
+\hline
+\end{DoxyParams}
+This function sorts stocks by their Enterprise Value to Free Cash Flow ratio (ascending order, lower is better) and displays the top N cheapest stocks based on this valuation metric.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stocks} & A vector of \doxylink{struct_stock}{Stock} objects to analyze (passed by value for sorting). \\
+\hline
+{\em count} & The number of top stocks to display. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+include/\+ui/\+\doxymbox{\hyperlink{_stock_printer_8hpp}{Stock\+Printer.\+hpp}}\item 
+src/\+ui/\+\doxymbox{\hyperlink{_stock_printer_8cpp}{Stock\+Printer.\+cpp}}\end{DoxyCompactItemize}

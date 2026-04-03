@@ -1,0 +1,63 @@
+\doxysection{nlohmann::\+detail::\+is\+\_\+sax\texorpdfstring{$<$}{<} SAX, Basic\+Json\+Type \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structnlohmann_1_1detail_1_1is__sax}{}\label{structnlohmann_1_1detail_1_1is__sax}\index{nlohmann::detail::is\_sax$<$ SAX, BasicJsonType $>$@{nlohmann::detail::is\_sax$<$ SAX, BasicJsonType $>$}}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr bool \doxymbox{\hyperlink{structnlohmann_1_1detail_1_1is__sax_a8ab7e51087000e948b4a2492257484dc}{value}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnlohmann_1_1detail_1_1is__sax_aa9a29390ca9810cee149510f586f5573}\label{structnlohmann_1_1detail_1_1is__sax_aa9a29390ca9810cee149510f586f5573} 
+using {\bfseries number\+\_\+integer\+\_\+t} = typename Basic\+Json\+Type::\+number\+\_\+integer\+\_\+t
+\item 
+\Hypertarget{structnlohmann_1_1detail_1_1is__sax_a655c9b8038e51e5b9211e2419118644d}\label{structnlohmann_1_1detail_1_1is__sax_a655c9b8038e51e5b9211e2419118644d} 
+using {\bfseries number\+\_\+unsigned\+\_\+t} = typename Basic\+Json\+Type::\+number\+\_\+unsigned\+\_\+t
+\item 
+\Hypertarget{structnlohmann_1_1detail_1_1is__sax_a58d3205c8d3c7a01cc330374fa7976c5}\label{structnlohmann_1_1detail_1_1is__sax_a58d3205c8d3c7a01cc330374fa7976c5} 
+using {\bfseries number\+\_\+float\+\_\+t} = typename Basic\+Json\+Type::\+number\+\_\+float\+\_\+t
+\item 
+\Hypertarget{structnlohmann_1_1detail_1_1is__sax_ad8e2e1427ff43536370b6db6ab83ae50}\label{structnlohmann_1_1detail_1_1is__sax_ad8e2e1427ff43536370b6db6ab83ae50} 
+using {\bfseries string\+\_\+t} = typename Basic\+Json\+Type::\+string\+\_\+t
+\item 
+\Hypertarget{structnlohmann_1_1detail_1_1is__sax_ae6abc30644e683c20f8c2c4d63834fb8}\label{structnlohmann_1_1detail_1_1is__sax_ae6abc30644e683c20f8c2c4d63834fb8} 
+using {\bfseries binary\+\_\+t} = typename Basic\+Json\+Type::\+binary\+\_\+t
+\item 
+\Hypertarget{structnlohmann_1_1detail_1_1is__sax_a6efa516f35d544cc8ce9a954f849fed1}\label{structnlohmann_1_1detail_1_1is__sax_a6efa516f35d544cc8ce9a954f849fed1} 
+using {\bfseries exception\+\_\+t} = typename Basic\+Json\+Type::\+exception
+\end{DoxyCompactItemize}
+
+
+\label{doc-variable-members}
+\Hypertarget{structnlohmann_1_1detail_1_1is__sax_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structnlohmann_1_1detail_1_1is__sax_a8ab7e51087000e948b4a2492257484dc}\index{nlohmann::detail::is\_sax$<$ SAX, BasicJsonType $>$@{nlohmann::detail::is\_sax$<$ SAX, BasicJsonType $>$}!value@{value}}
+\index{value@{value}!nlohmann::detail::is\_sax$<$ SAX, BasicJsonType $>$@{nlohmann::detail::is\_sax$<$ SAX, BasicJsonType $>$}}
+\doxysubsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily \label{structnlohmann_1_1detail_1_1is__sax_a8ab7e51087000e948b4a2492257484dc} 
+template$<$typename SAX, typename Basic\+Json\+Type$>$ \\
+bool \doxymbox{\hyperlink{structnlohmann_1_1detail_1_1is__sax}{nlohmann::\+detail::\+is\+\_\+sax}}$<$ SAX, Basic\+Json\+Type $>$::\+value\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =}
+\DoxyCodeLine{is\_detected\_exact<bool,\ null\_function\_t,\ SAX>::value\ \&\&}
+\DoxyCodeLine{is\_detected\_exact<bool,\ boolean\_function\_t,\ SAX>::value\ \&\&}
+\DoxyCodeLine{is\_detected\_exact<bool,\ number\_integer\_function\_t,\ SAX,\ number\_integer\_t>::value\ \&\&}
+\DoxyCodeLine{is\_detected\_exact<bool,\ number\_unsigned\_function\_t,\ SAX,\ number\_unsigned\_t>::value\ \&\&}
+\DoxyCodeLine{is\_detected\_exact<bool,\ number\_float\_function\_t,\ SAX,\ number\_float\_t,\ string\_t>::value\ \&\&}
+\DoxyCodeLine{is\_detected\_exact<bool,\ string\_function\_t,\ SAX,\ string\_t>::value\ \&\&}
+\DoxyCodeLine{is\_detected\_exact<bool,\ binary\_function\_t,\ SAX,\ binary\_t>::value\ \&\&}
+\DoxyCodeLine{is\_detected\_exact<bool,\ start\_object\_function\_t,\ SAX>::value\ \&\&}
+\DoxyCodeLine{is\_detected\_exact<bool,\ key\_function\_t,\ SAX,\ string\_t>::value\ \&\&}
+\DoxyCodeLine{is\_detected\_exact<bool,\ end\_object\_function\_t,\ SAX>::value\ \&\&}
+\DoxyCodeLine{is\_detected\_exact<bool,\ start\_array\_function\_t,\ SAX>::value\ \&\&}
+\DoxyCodeLine{is\_detected\_exact<bool,\ end\_array\_function\_t,\ SAX>::value\ \&\&}
+\DoxyCodeLine{is\_detected\_exact<bool,\ parse\_error\_function\_t,\ SAX,\ exception\_t>::value}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+abi/\+include/\+nlohmann/\+json\+\_\+v3\+\_\+10\+\_\+5.\+hpp\end{DoxyCompactItemize}

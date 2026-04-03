@@ -1,0 +1,225 @@
+\doxysection{iteration\+\_\+proxy.\+hpp}
+\hypertarget{iteration__proxy_8hpp_source}{}\label{iteration__proxy_8hpp_source}\index{include/nlohman/json-\/develop/include/nlohmann/detail/iterators/iteration\_proxy.hpp@{include/nlohman/json-\/develop/include/nlohmann/detail/iterators/iteration\_proxy.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \_\_\ \_\_\_\_\_\ \_\_\_\_\_\ \_\_\_\_\_}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ \ \_\_|\ \ |\ \ \ \_\_|\ \ \ \ \ |\ \ \ |\ |\ \ JSON\ for\ Modern\ C++}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ |\ \ |\ \ |\_\_\ \ \ |\ \ |\ \ |\ |\ |\ |\ \ version\ 3.12.0}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ |\_\_\_\_\_|\_\_\_\_\_|\_\_\_\_\_|\_|\_\_\_|\ \ https://github.com/nlohmann/json}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ SPDX-\/FileCopyrightText:\ 2013-\/2026\ Niels\ Lohmann\ <https://nlohmann.me>}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ SPDX-\/License-\/Identifier:\ MIT}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <cstddef>}\ \textcolor{comment}{//\ size\_t}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <iterator>}\ \textcolor{comment}{//\ forward\_iterator\_tag}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <tuple>}\ \textcolor{comment}{//\ tuple\_size,\ get,\ tuple\_element}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <utility>}\ \textcolor{comment}{//\ move}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#if\ JSON\_HAS\_RANGES}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \ \ \ \#include\ <ranges>}\ \textcolor{comment}{//\ enable\_borrowed\_range}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/abi\_macros.hpp>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/meta/type\_traits.hpp>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/string\_utils.hpp>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/value\_t.hpp>}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ NLOHMANN\_JSON\_NAMESPACE\_BEGIN}
+\DoxyCodeLine{00026\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacedetail}{detail}}}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ IteratorType>\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value}{iteration\_proxy\_value}}}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{using\ }difference\_type\ =\ std::ptrdiff\_t;}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ iteration\_proxy\_value;}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{using\ }pointer\ =\ value\_type\ *;}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{using\ }reference\ =\ value\_type\ \&;}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{using\ }iterator\_category\ =\ std::forward\_iterator\_tag;}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{using\ }string\_type\ =\ \textcolor{keyword}{typename}\ std::remove\_cv<\ typename\ std::remove\_reference<decltype(\ std::declval<IteratorType>().\doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_ad12633bc0d3ac7a651381b174a7914ee}{key}}()\ )\ >::type\ >::type;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00041\ \ \ \ \ IteratorType\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_af1232c7e9d45319bbb20cec7e1d0603f}{anchor}}\{\};}
+\DoxyCodeLine{00043\ \ \ \ \ std::size\_t\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_a7b6227d75cc0762288f880b161ededcc}{array\_index}}\ =\ 0;}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{mutable}\ std::size\_t\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_a785db462502daaf223523a57bfde9c00}{array\_index\_last}}\ =\ 0;}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{mutable}\ string\_type\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_adf1c4348b68bfc8023a74120ac476a75}{array\_index\_str}}\ =\ \textcolor{stringliteral}{"{}0"{}};}
+\DoxyCodeLine{00049\ \ \ \ \ string\_type\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_a5236087d3cfc2d7cefb42629739bc23a}{empty\_str}}\{\};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value}{iteration\_proxy\_value}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value}{iteration\_proxy\_value}}(IteratorType\ it,\ std::size\_t\ array\_index\_\ =\ 0)}
+\DoxyCodeLine{00054\ \ \ \ \ noexcept(std::is\_nothrow\_move\_constructible<IteratorType>::value}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ std::is\_nothrow\_default\_constructible<string\_type>::value)}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_af1232c7e9d45319bbb20cec7e1d0603f}{anchor}}(std::move(it))}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ ,\ array\_index(array\_index\_)}
+\DoxyCodeLine{00058\ \ \ \ \ \{\}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ iteration\_proxy\_value(iteration\_proxy\_value\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00061\ \ \ \ \ iteration\_proxy\_value\&\ operator=(iteration\_proxy\_value\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//\ older\ GCCs\ are\ a\ bit\ fussy\ and\ require\ explicit\ noexcept\ specifiers\ on\ defaulted\ functions}}
+\DoxyCodeLine{00063\ \ \ \ \ iteration\_proxy\_value(iteration\_proxy\_value\&\&)}
+\DoxyCodeLine{00064\ \ \ \ \ noexcept(std::is\_nothrow\_move\_constructible<IteratorType>::\doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_aac08993af9f4f0bf3d058b4beae36a45}{value}}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ std::is\_nothrow\_move\_constructible<string\_type>::\doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_aac08993af9f4f0bf3d058b4beae36a45}{value}})\ =\ default;\ \textcolor{comment}{//\ NOLINT(hicpp-\/noexcept-\/move,performance-\/noexcept-\/move-\/constructor,cppcoreguidelines-\/noexcept-\/move-\/operations)}}
+\DoxyCodeLine{00066\ \ \ \ \ iteration\_proxy\_value\&\ operator=(iteration\_proxy\_value\&\&)}
+\DoxyCodeLine{00067\ \ \ \ \ noexcept(std::is\_nothrow\_move\_assignable<IteratorType>::\doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_aac08993af9f4f0bf3d058b4beae36a45}{value}}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ std::is\_nothrow\_move\_assignable<string\_type>::\doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_aac08993af9f4f0bf3d058b4beae36a45}{value}})\ =\ default;\ \textcolor{comment}{//\ NOLINT(hicpp-\/noexcept-\/move,performance-\/noexcept-\/move-\/constructor,cppcoreguidelines-\/noexcept-\/move-\/operations)}}
+\DoxyCodeLine{00069\ \ \ \ \ \string~iteration\_proxy\_value()\ =\ default;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00072\ \ \ \ \ const\ iteration\_proxy\_value\&\ operator*()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00073\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00078\ \ \ \ \ iteration\_proxy\_value\&\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_a52dffef3e0c58a6bcd5b8b9e6fcf4552}{operator++}}()}
+\DoxyCodeLine{00079\ \ \ \ \ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ ++\doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_af1232c7e9d45319bbb20cec7e1d0603f}{anchor}};}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ ++\doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_a7b6227d75cc0762288f880b161ededcc}{array\_index}};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value}{iteration\_proxy\_value}}\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_a52dffef3e0c58a6bcd5b8b9e6fcf4552}{operator++}}(\textcolor{keywordtype}{int})\&\ \textcolor{comment}{//\ NOLINT(cert-\/dcl21-\/cpp)}}
+\DoxyCodeLine{00087\ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tmp\ =\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value}{iteration\_proxy\_value}}(\doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_af1232c7e9d45319bbb20cec7e1d0603f}{anchor}},\ array\_index);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ ++\doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_af1232c7e9d45319bbb20cec7e1d0603f}{anchor}};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ ++array\_index;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tmp;}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_a139d22be442a277268cfb78bb4eef95d}{operator==}}(\textcolor{keyword}{const}\ iteration\_proxy\_value\&\ o)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00096\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_af1232c7e9d45319bbb20cec7e1d0603f}{anchor}}\ ==\ o.anchor;}
+\DoxyCodeLine{00098\ \ \ \ \ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_a23745b98de19578adc4efb509e59be28}{operator!=}}(\textcolor{keyword}{const}\ iteration\_proxy\_value\&\ o)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00102\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_af1232c7e9d45319bbb20cec7e1d0603f}{anchor}}\ !=\ o.anchor;}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{const}\ string\_type\&\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_ad12633bc0d3ac7a651381b174a7914ee}{key}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00108\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ JSON\_ASSERT(\doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_af1232c7e9d45319bbb20cec7e1d0603f}{anchor}}.m\_object\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_af1232c7e9d45319bbb20cec7e1d0603f}{anchor}}.m\_object-\/>type())}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ integer\ array\ index\ as\ key}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{value\_t::array}}:}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_a7b6227d75cc0762288f880b161ededcc}{array\_index}}\ !=\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_a785db462502daaf223523a57bfde9c00}{array\_index\_last}})}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int\_to\_string(\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_adf1c4348b68bfc8023a74120ac476a75}{array\_index\_str}},\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_a7b6227d75cc0762288f880b161ededcc}{array\_index}}\ );}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_a785db462502daaf223523a57bfde9c00}{array\_index\_last}}\ =\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_a7b6227d75cc0762288f880b161ededcc}{array\_index}};}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_adf1c4348b68bfc8023a74120ac476a75}{array\_index\_str}};}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ key\ from\ the\ object}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{value\_t::object}}:}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_af1232c7e9d45319bbb20cec7e1d0603f}{anchor}}.key();}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ an\ empty\ key\ for\ all\ primitive\ types}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a37a6259cc0c1dae299a7866489dff0bd}{value\_t::null}}:}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ab45cffe084dd3d20d928bee85e7b0f21}{value\_t::string}}:}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a84e2c64f38f78ba3ea5c905ab5a2da27}{value\_t::boolean}}:}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a5763da164f8659d94a56e29df64b4bcc}{value\_t::number\_integer}}:}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632adce7cc8ec29055c4158828921f2f265e}{value\_t::number\_unsigned}}:}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ad9966ecb59667235a57b4b999a649eef}{value\_t::number\_float}}:}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{value\_t::binary}}:}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a94708897ec9db8647dfe695714c98e46}{value\_t::discarded}}:}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_a5236087d3cfc2d7cefb42629739bc23a}{empty\_str}};}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{typename}\ IteratorType::reference\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_aac08993af9f4f0bf3d058b4beae36a45}{value}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00144\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value_af1232c7e9d45319bbb20cec7e1d0603f}{anchor}}.value();}
+\DoxyCodeLine{00146\ \ \ \ \ \}}
+\DoxyCodeLine{00147\ \};}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00150\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ IteratorType>\ \textcolor{keyword}{class\ }iteration\_proxy}
+\DoxyCodeLine{00151\ \{}
+\DoxyCodeLine{00152\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keyword}{typename}\ IteratorType::pointer\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy_a0ef8ad58f5be05e31f1af50092cf94c8}{container}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{explicit}\ iteration\_proxy()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy_abc711365efc12210a983fba0e39b5811}{iteration\_proxy}}(\textcolor{keyword}{typename}\ IteratorType::reference\ cont)\ noexcept}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy_a0ef8ad58f5be05e31f1af50092cf94c8}{container}}(\&cont)\ \{\}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy}{iteration\_proxy}}(\doxymbox{\hyperlink{classdetail_1_1iteration__proxy}{iteration\_proxy}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00164\ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy}{iteration\_proxy}}\&\ operator=(\doxymbox{\hyperlink{classdetail_1_1iteration__proxy}{iteration\_proxy}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00165\ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy}{iteration\_proxy}}(\doxymbox{\hyperlink{classdetail_1_1iteration__proxy}{iteration\_proxy}}\&\&)\ noexcept\ =\ default;}
+\DoxyCodeLine{00166\ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy}{iteration\_proxy}}\&\ operator=(\doxymbox{\hyperlink{classdetail_1_1iteration__proxy}{iteration\_proxy}}\&\&)\ noexcept\ =\ default;}
+\DoxyCodeLine{00167\ \ \ \ \ \string~\doxymbox{\hyperlink{classdetail_1_1iteration__proxy}{iteration\_proxy}}()\ =\ default;}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00170\ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value}{iteration\_proxy\_value}}<IteratorType>\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy_a8d35bb0cd56024e1ab1c7277de32e2ab}{begin}}()\ const\ noexcept}
+\DoxyCodeLine{00171\ \ \ \ \ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value}{iteration\_proxy\_value<IteratorType>}}(\doxymbox{\hyperlink{classdetail_1_1iteration__proxy_a0ef8ad58f5be05e31f1af50092cf94c8}{container}}-\/>begin());}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00176\ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value}{iteration\_proxy\_value<IteratorType>}}\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy_a1037b697552341a5697fa15ee95250d1}{end}}()\ const\ noexcept}
+\DoxyCodeLine{00177\ \ \ \ \ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classdetail_1_1iteration__proxy__value}{iteration\_proxy\_value<IteratorType>}}(\doxymbox{\hyperlink{classdetail_1_1iteration__proxy_a0ef8ad58f5be05e31f1af50092cf94c8}{container}}-\/>end());}
+\DoxyCodeLine{00179\ \ \ \ \ \}}
+\DoxyCodeLine{00180\ \};}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{comment}{//\ Structured\ Bindings\ Support}}
+\DoxyCodeLine{00183\ \textcolor{comment}{//\ For\ further\ reference\ see\ https://blog.tartanllama.xyz/structured-\/bindings/}}
+\DoxyCodeLine{00184\ \textcolor{comment}{//\ And\ see\ https://github.com/nlohmann/json/pull/1391}}
+\DoxyCodeLine{00185\ \textcolor{keyword}{template}<std::\textcolor{keywordtype}{size\_t}\ N,\ \textcolor{keyword}{typename}\ IteratorType,\ enable\_if\_t<N\ ==\ 0,\ \textcolor{keywordtype}{int}>\ =\ 0>}
+\DoxyCodeLine{00186\ \textcolor{keyword}{auto}\ get(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1iteration__proxy__value}{nlohmann::detail::iteration\_proxy\_value<IteratorType>}}\&\ i)\ -\/>\ \textcolor{keyword}{decltype}(i.key())}
+\DoxyCodeLine{00187\ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordflow}{return}\ i.key();}
+\DoxyCodeLine{00189\ \}}
+\DoxyCodeLine{00190\ \textcolor{comment}{//\ Structured\ Bindings\ Support}}
+\DoxyCodeLine{00191\ \textcolor{comment}{//\ For\ further\ reference\ see\ https://blog.tartanllama.xyz/structured-\/bindings/}}
+\DoxyCodeLine{00192\ \textcolor{comment}{//\ And\ see\ https://github.com/nlohmann/json/pull/1391}}
+\DoxyCodeLine{00193\ \textcolor{keyword}{template}<std::\textcolor{keywordtype}{size\_t}\ N,\ \textcolor{keyword}{typename}\ IteratorType,\ enable\_if\_t<N\ ==\ 1,\ \textcolor{keywordtype}{int}>\ =\ 0>}
+\DoxyCodeLine{00194\ \textcolor{keyword}{auto}\ get(\textcolor{keyword}{const}\ nlohmann::detail::iteration\_proxy\_value<IteratorType>\&\ i)\ -\/>\ \textcolor{keyword}{decltype}(i.value())}
+\DoxyCodeLine{00195\ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordflow}{return}\ i.value();}
+\DoxyCodeLine{00197\ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \}\ \ \textcolor{comment}{//\ namespace\ detail}}
+\DoxyCodeLine{00200\ NLOHMANN\_JSON\_NAMESPACE\_END}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{comment}{//\ The\ Addition\ to\ the\ STD\ Namespace\ is\ required\ to\ add}}
+\DoxyCodeLine{00203\ \textcolor{comment}{//\ Structured\ Bindings\ Support\ to\ the\ iteration\_proxy\_value\ class}}
+\DoxyCodeLine{00204\ \textcolor{comment}{//\ For\ further\ reference\ see\ https://blog.tartanllama.xyz/structured-\/bindings/}}
+\DoxyCodeLine{00205\ \textcolor{comment}{//\ And\ see\ https://github.com/nlohmann/json/pull/1391}}
+\DoxyCodeLine{00206\ \textcolor{keyword}{namespace\ }std}
+\DoxyCodeLine{00207\ \{}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#if\ defined(\_\_clang\_\_)}}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{comment}{//\ Fix:\ https://github.com/nlohmann/json/issues/1401}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ clang\ diagnostic\ push}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ clang\ diagnostic\ ignored\ "{}-\/Wmismatched-\/tags"{}}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00214\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ IteratorType>}
+\DoxyCodeLine{00215\ \textcolor{keyword}{class\ }tuple\_size<::\doxymbox{\hyperlink{classnlohmann_1_1detail_1_1iteration__proxy__value}{nlohmann::detail::iteration\_proxy\_value}}<IteratorType>>\ \textcolor{comment}{//\ NOLINT(cert-\/dcl58-\/cpp)}}
+\DoxyCodeLine{00216\ \ \ \ \ :\ \textcolor{keyword}{public}\ std::integral\_constant<std::size\_t,\ 2>\ \{\};}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \textcolor{keyword}{template}<std::\textcolor{keywordtype}{size\_t}\ N,\ \textcolor{keyword}{typename}\ IteratorType>}
+\DoxyCodeLine{00219\ \textcolor{keyword}{class\ }tuple\_element<N,\ ::\doxymbox{\hyperlink{classnlohmann_1_1detail_1_1iteration__proxy__value}{nlohmann::detail::iteration\_proxy\_value}}<IteratorType\ >>\ \textcolor{comment}{//\ NOLINT(cert-\/dcl58-\/cpp)}}
+\DoxyCodeLine{00220\ \{}
+\DoxyCodeLine{00221\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ \textcolor{keyword}{decltype}(}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ get<N>(std::declval\ <}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1iteration__proxy__value}{::nlohmann::detail::iteration\_proxy\_value<IteratorType\ >}}>\ ()));}
+\DoxyCodeLine{00225\ \};}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#if\ defined(\_\_clang\_\_)}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ clang\ diagnostic\ pop}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \}\ \ \textcolor{comment}{//\ namespace\ std}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#if\ JSON\_HAS\_RANGES}}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IteratorType>}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ bool\ ::std::ranges::enable\_borrowed\_range<::nlohmann::detail::iteration\_proxy<IteratorType>>\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

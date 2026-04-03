@@ -1,0 +1,844 @@
+\doxysection{type\+\_\+traits.\+hpp}
+\hypertarget{type__traits_8hpp_source}{}\label{type__traits_8hpp_source}\index{include/nlohman/json-\/develop/include/nlohmann/detail/meta/type\_traits.hpp@{include/nlohman/json-\/develop/include/nlohmann/detail/meta/type\_traits.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \_\_\ \_\_\_\_\_\ \_\_\_\_\_\ \_\_\_\_\_}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ \ \_\_|\ \ |\ \ \ \_\_|\ \ \ \ \ |\ \ \ |\ |\ \ JSON\ for\ Modern\ C++}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ |\ \ |\ \ |\_\_\ \ \ |\ \ |\ \ |\ |\ |\ |\ \ version\ 3.12.0}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ |\_\_\_\_\_|\_\_\_\_\_|\_\_\_\_\_|\_|\_\_\_|\ \ https://github.com/nlohmann/json}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ SPDX-\/FileCopyrightText:\ 2013-\/2026\ Niels\ Lohmann\ <https://nlohmann.me>}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ SPDX-\/License-\/Identifier:\ MIT}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <limits>}\ \textcolor{comment}{//\ numeric\_limits}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string>}\ \textcolor{comment}{//\ char\_traits}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <tuple>}\ \textcolor{comment}{//\ tuple}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <type\_traits>}\ \textcolor{comment}{//\ false\_type,\ is\_constructible,\ is\_integral,\ is\_same,\ true\_type}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <utility>}\ \textcolor{comment}{//\ declval}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#if\ defined(\_\_cpp\_lib\_byte)\ \&\&\ \_\_cpp\_lib\_byte\ >=\ 201603L}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \ \ \ \#include\ <cstddef>}\ \textcolor{comment}{//\ byte}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/iterators/iterator\_traits.hpp>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/macro\_scope.hpp>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/meta/call\_std/begin.hpp>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/meta/call\_std/end.hpp>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/meta/cpp\_future.hpp>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/meta/detected.hpp>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <nlohmann/json\_fwd.hpp>}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ NLOHMANN\_JSON\_NAMESPACE\_BEGIN}
+\DoxyCodeLine{00036\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacedetail}{detail}}}
+\DoxyCodeLine{00037\ \{}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ helpers\ //}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ Note\ to\ maintainers:}}
+\DoxyCodeLine{00044\ \textcolor{comment}{//}}
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ Every\ trait\ in\ this\ file\ expects\ a\ non-\/CV-\/qualified\ type.}}
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ The\ only\ exceptions\ are\ in\ the\ 'aliases\ for\ detected'\ section}}
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ (i.e.,\ those\ of\ the\ form:\ decltype(T::member\_function(std::declval<T>())))}}
+\DoxyCodeLine{00048\ \textcolor{comment}{//}}
+\DoxyCodeLine{00049\ \textcolor{comment}{//\ In\ this\ case,\ T\ has\ to\ be\ properly\ CV-\/qualified\ to\ constraint\ the\ function\ arguments}}
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ (e.g.,\ to\_json(BasicJsonType\&,\ const\ T\&))}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}>\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__basic__json}{is\_basic\_json}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ NLOHMANN\_BASIC\_JSON\_TPL\_DECLARATION}
+\DoxyCodeLine{00055\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__basic__json}{is\_basic\_json}}<NLOHMANN\_BASIC\_JSON\_TPL>\ :\ std::true\_type\ \{\};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ used\ by\ exceptions\ create()\ member\ functions}}
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ true\_type\ for\ the\ pointer\ to\ possibly\ cv-\/qualified\ basic\_json\ or\ std::nullptr\_t}}
+\DoxyCodeLine{00059\ \textcolor{comment}{//\ false\_type\ otherwise}}
+\DoxyCodeLine{00060\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonContext>}
+\DoxyCodeLine{00061\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__basic__json__context}{is\_basic\_json\_context}}\ :}
+\DoxyCodeLine{00062\ \ \ \ \ std::integral\_constant\ <\ bool,}
+\DoxyCodeLine{00063\ \ \ \ \ is\_basic\_json<typename\ std::remove\_cv<typename\ std::remove\_pointer<BasicJsonContext>::type>::type>::value}
+\DoxyCodeLine{00064\ \ \ \ \ ||\ std::is\_same<BasicJsonContext,\ std::nullptr\_t>::value\ >}
+\DoxyCodeLine{00065\ \{\};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ json\_ref\ helpers\ //}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}>}
+\DoxyCodeLine{00072\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classdetail_1_1json__ref}{json\_ref}};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}>}
+\DoxyCodeLine{00075\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__json__ref}{is\_json\_ref}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00078\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__json__ref}{is\_json\_ref}}<\doxymbox{\hyperlink{classdetail_1_1json__ref}{json\_ref}}<T>>\ :\ std::true\_type\ \{\};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ aliases\ for\ detected\ //}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00085\ \textcolor{keyword}{using\ }mapped\_type\_t\ =\ \textcolor{keyword}{typename}\ T::mapped\_type;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00088\ \textcolor{keyword}{using\ }key\_type\_t\ =\ \textcolor{keyword}{typename}\ T::key\_type;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00091\ \textcolor{keyword}{using\ }value\_type\_t\ =\ \textcolor{keyword}{typename}\ T::value\_type;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00094\ \textcolor{keyword}{using\ }difference\_type\_t\ =\ \textcolor{keyword}{typename}\ T::difference\_type;}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00097\ \textcolor{keyword}{using\ }pointer\_t\ =\ \textcolor{keyword}{typename}\ T::pointer;}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00100\ \textcolor{keyword}{using\ }reference\_t\ =\ \textcolor{keyword}{typename}\ T::reference;}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00103\ \textcolor{keyword}{using\ }iterator\_category\_t\ =\ \textcolor{keyword}{typename}\ T::iterator\_category;}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00106\ \textcolor{keyword}{using\ }to\_json\_function\ =\ \textcolor{keyword}{decltype}(T::to\_json(std::declval<Args>()...));}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00109\ \textcolor{keyword}{using\ }from\_json\_function\ =\ \textcolor{keyword}{decltype}(T::from\_json(std::declval<Args>()...));}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00112\ \textcolor{keyword}{using\ }get\_template\_function\ =\ \textcolor{keyword}{decltype}(std::declval<T>().template\ get<U>());}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{comment}{//\ trait\ checking\ if\ JSONSerializer<T>::from\_json(json\ const\&,\ udt\&)\ exists}}
+\DoxyCodeLine{00115\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00116\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1has__from__json}{has\_from\_json}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{comment}{//\ trait\ checking\ if\ j.get<T>\ is\ valid}}
+\DoxyCodeLine{00119\ \textcolor{comment}{//\ use\ this\ trait\ instead\ of\ std::is\_constructible\ or\ std::is\_convertible,}}
+\DoxyCodeLine{00120\ \textcolor{comment}{//\ both\ rely\ on,\ or\ make\ use\ of\ implicit\ conversions,\ and\ thus\ fail\ when\ T}}
+\DoxyCodeLine{00121\ \textcolor{comment}{//\ has\ several\ constructors/operator=\ (see\ https://github.com/nlohmann/json/issues/958)}}
+\DoxyCodeLine{00122\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00123\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__getable}{is\_getable}}}
+\DoxyCodeLine{00124\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ value\ =\ is\_detected<get\_template\_function,\ const\ BasicJsonType\&,\ T>::value;}
+\DoxyCodeLine{00126\ \};}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00129\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1has__from__json}{has\_from\_json}}\ <\ BasicJsonType,\ T,\ enable\_if\_t\ <\ !\doxymbox{\hyperlink{structdetail_1_1is__basic__json}{is\_basic\_json}}<T>::value\ >>}
+\DoxyCodeLine{00130\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keyword}{using\ }serializer\ =\ \textcolor{keyword}{typename}\ BasicJsonType::template\ json\_serializer<T,\ void>;}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ value\ =}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ is\_detected\_exact<void,\ from\_json\_function,\ serializer,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ BasicJsonType\&,\ T\&>::value;}
+\DoxyCodeLine{00136\ \};}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{comment}{//\ This\ trait\ checks\ if\ JSONSerializer<T>::from\_json(json\ const\&)\ exists}}
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ this\ overload\ is\ used\ for\ non-\/default-\/constructible\ user-\/defined-\/types}}
+\DoxyCodeLine{00140\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00141\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1has__non__default__from__json}{has\_non\_default\_from\_json}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00144\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1has__non__default__from__json}{has\_non\_default\_from\_json}}\ <\ BasicJsonType,\ T,\ enable\_if\_t\ <\ !\doxymbox{\hyperlink{structdetail_1_1is__basic__json}{is\_basic\_json}}<T>::value\ >>}
+\DoxyCodeLine{00145\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{using\ }serializer\ =\ \textcolor{keyword}{typename}\ BasicJsonType::template\ json\_serializer<T,\ void>;}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ value\ =}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ is\_detected\_exact<T,\ from\_json\_function,\ serializer,}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ BasicJsonType\&>::value;}
+\DoxyCodeLine{00151\ \};}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{comment}{//\ This\ trait\ checks\ if\ BasicJsonType::json\_serializer<T>::to\_json\ exists}}
+\DoxyCodeLine{00154\ \textcolor{comment}{//\ Do\ not\ evaluate\ the\ trait\ when\ T\ is\ a\ basic\_json\ type,\ to\ avoid\ template\ instantiation\ infinite\ recursion.}}
+\DoxyCodeLine{00155\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00156\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1has__to__json}{has\_to\_json}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00159\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1has__to__json}{has\_to\_json}}\ <\ BasicJsonType,\ T,\ enable\_if\_t\ <\ !\doxymbox{\hyperlink{structdetail_1_1is__basic__json}{is\_basic\_json}}<T>::value\ >>}
+\DoxyCodeLine{00160\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{using\ }serializer\ =\ \textcolor{keyword}{typename}\ BasicJsonType::template\ json\_serializer<T,\ void>;}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ value\ =}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ is\_detected\_exact<void,\ to\_json\_function,\ serializer,\ BasicJsonType\&,}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ T>::value;}
+\DoxyCodeLine{00166\ \};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00169\ \textcolor{keyword}{using\ }detect\_key\_compare\ =\ \textcolor{keyword}{typename}\ T::key\_compare;}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00172\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1has__key__compare}{has\_key\_compare}}\ :\ std::integral\_constant<bool,\ is\_detected<detect\_key\_compare,\ T>::value>\ \{\};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{comment}{//\ obtains\ the\ actual\ object\ key\ comparator}}
+\DoxyCodeLine{00175\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00176\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1actual__object__comparator}{actual\_object\_comparator}}}
+\DoxyCodeLine{00177\ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keyword}{using\ }object\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::object\_t;}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keyword}{using\ }object\_comparator\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::default\_object\_comparator\_t;}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ \textcolor{keyword}{typename}\ std::conditional\ <\ has\_key\_compare<object\_t>::value,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ object\_t::key\_compare,\ object\_comparator\_t>::type;}
+\DoxyCodeLine{00182\ \};}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00185\ \textcolor{keyword}{using\ }actual\_object\_comparator\_t\ =\ \textcolor{keyword}{typename}\ actual\_object\_comparator<BasicJsonType>::type;}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00188\ \textcolor{comment}{//\ char\_traits\ //}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{comment}{//\ Primary\ template\ of\ char\_traits\ calls\ std\ char\_traits}}
+\DoxyCodeLine{00192\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00193\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1char__traits}{char\_traits}}\ :\ \doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits}}<T>}
+\DoxyCodeLine{00194\ \{\};}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \textcolor{comment}{//\ Explicitly\ define\ char\ traits\ for\ unsigned\ char\ since\ it\ is\ not\ standard}}
+\DoxyCodeLine{00197\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00198\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1char__traits}{char\_traits}}<unsigned\ char>\ :\ \doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits}}<char>}
+\DoxyCodeLine{00199\ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keyword}{using\ }char\_type\ =\ \textcolor{keywordtype}{unsigned}\ char;}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keyword}{using\ }int\_type\ =\ uint64\_t;}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{comment}{//\ Redefine\ to\_int\_type\ function}}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keyword}{static}\ int\_type\ to\_int\_type(char\_type\ c)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00205\ \ \ \ \ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}int\_type\textcolor{keyword}{>}(c);}
+\DoxyCodeLine{00207\ \ \ \ \ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keyword}{static}\ char\_type\ to\_char\_type(int\_type\ i)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00210\ \ \ \ \ \{}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}char\_type\textcolor{keyword}{>}(i);}
+\DoxyCodeLine{00212\ \ \ \ \ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ int\_type\ eof()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00215\ \ \ \ \ \{}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}int\_type\textcolor{keyword}{>}(\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::eof}}());}
+\DoxyCodeLine{00217\ \ \ \ \ \}}
+\DoxyCodeLine{00218\ \};}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{comment}{//\ Explicitly\ define\ char\ traits\ for\ signed\ char\ since\ it\ is\ not\ standard}}
+\DoxyCodeLine{00221\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00222\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1char__traits}{char\_traits}}<signed\ char>\ :\ \doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits}}<char>}
+\DoxyCodeLine{00223\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keyword}{using\ }char\_type\ =\ \textcolor{keywordtype}{signed}\ char;}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keyword}{using\ }int\_type\ =\ uint64\_t;}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{comment}{//\ Redefine\ to\_int\_type\ function}}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keyword}{static}\ int\_type\ to\_int\_type(char\_type\ c)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00229\ \ \ \ \ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}int\_type\textcolor{keyword}{>}(c);}
+\DoxyCodeLine{00231\ \ \ \ \ \}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keyword}{static}\ char\_type\ to\_char\_type(int\_type\ i)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00234\ \ \ \ \ \{}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}char\_type\textcolor{keyword}{>}(i);}
+\DoxyCodeLine{00236\ \ \ \ \ \}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ int\_type\ eof()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00239\ \ \ \ \ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}int\_type\textcolor{keyword}{>}(\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::eof}}());}
+\DoxyCodeLine{00241\ \ \ \ \ \}}
+\DoxyCodeLine{00242\ \};}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#if\ defined(\_\_cpp\_lib\_byte)\ \&\&\ \_\_cpp\_lib\_byte\ >=\ 201603L}}
+\DoxyCodeLine{00245\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00246\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1char__traits}{char\_traits}}<std::byte>\ :\ \doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits}}<char>}
+\DoxyCodeLine{00247\ \{}
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keyword}{using\ }char\_type\ =\ std::byte;}
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keyword}{using\ }int\_type\ =\ uint64\_t;}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keyword}{static}\ int\_type\ to\_int\_type(char\_type\ c)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00252\ \ \ \ \ \{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}int\_type\textcolor{keyword}{>}(std::to\_integer<unsigned\ char>(c));}
+\DoxyCodeLine{00254\ \ \ \ \ \}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keyword}{static}\ char\_type\ to\_char\_type(int\_type\ i)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00257\ \ \ \ \ \{}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::byte(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\textcolor{keyword}{>}(i));}
+\DoxyCodeLine{00259\ \ \ \ \ \}}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ int\_type\ eof()\ noexcept}
+\DoxyCodeLine{00262\ \ \ \ \ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}int\_type\textcolor{keyword}{>}(std::char\_traits<char>::eof());}
+\DoxyCodeLine{00264\ \ \ \ \ \}}
+\DoxyCodeLine{00265\ \};}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00269\ \textcolor{comment}{//\ is\_\ functions\ //}}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \textcolor{comment}{//\ https://en.cppreference.com/w/cpp/types/conjunction}}
+\DoxyCodeLine{00273\ \textcolor{keyword}{template}<\textcolor{keyword}{class}...>\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1conjunction}{conjunction}}\ :\ std::true\_type\ \{\ \};}
+\DoxyCodeLine{00274\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ B>\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1conjunction}{conjunction<B>}}\ :\ B\ \{\ \};}
+\DoxyCodeLine{00275\ \textcolor{keyword}{template}<\textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_b}{B}},\ \textcolor{keyword}{class}...\ Bn>}
+\DoxyCodeLine{00276\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1conjunction}{conjunction}}<\doxymbox{\hyperlink{class_b}{B}},\ Bn...>}
+\DoxyCodeLine{00277\ :\ std::conditional<static\_cast<bool>(B::value),\ conjunction<Bn...>,\ B>::type\ \{\};}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \textcolor{comment}{//\ https://en.cppreference.com/w/cpp/types/negation}}
+\DoxyCodeLine{00280\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ B>\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1negation}{negation}}\ :\ std::integral\_constant\ <\ bool,\ !B::value\ >\ \{\ \};}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \textcolor{comment}{//\ Reimplementation\ of\ is\_constructible\ and\ is\_default\_constructible,\ due\ to\ them\ being\ broken\ for}}
+\DoxyCodeLine{00283\ \textcolor{comment}{//\ std::pair\ and\ std::tuple\ until\ LWG\ 2367\ fix\ (see\ https://cplusplus.github.io/LWG/lwg-\/defects.html\#2367).}}
+\DoxyCodeLine{00284\ \textcolor{comment}{//\ This\ causes\ compile\ errors\ in\ e.g.,\ Clang\ 3.5\ or\ GCC\ 4.9.}}
+\DoxyCodeLine{00285\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00286\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__default__constructible}{is\_default\_constructible}}\ :\ std::is\_default\_constructible<T>\ \{\};}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2>}
+\DoxyCodeLine{00289\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__default__constructible}{is\_default\_constructible}}<std::pair<T1,\ T2>>}
+\DoxyCodeLine{00290\ \ \ \ \ :\ \doxymbox{\hyperlink{structdetail_1_1conjunction}{conjunction}}<is\_default\_constructible<T1>,\ is\_default\_constructible<T2>>\ \{\};}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2>}
+\DoxyCodeLine{00293\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__default__constructible}{is\_default\_constructible}}<const\ std::pair<T1,\ T2>>}
+\DoxyCodeLine{00294\ \ \ \ \ :\ \doxymbox{\hyperlink{structdetail_1_1conjunction}{conjunction}}<is\_default\_constructible<T1>,\ is\_default\_constructible<T2>>\ \{\};}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Ts>}
+\DoxyCodeLine{00297\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__default__constructible}{is\_default\_constructible}}<std::tuple<Ts...>>}
+\DoxyCodeLine{00298\ \ \ \ \ :\ \doxymbox{\hyperlink{structdetail_1_1conjunction}{conjunction}}<is\_default\_constructible<Ts>...>\ \{\};}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Ts>}
+\DoxyCodeLine{00301\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__default__constructible}{is\_default\_constructible}}<const\ std::tuple<Ts...>>}
+\DoxyCodeLine{00302\ \ \ \ \ :\ \doxymbox{\hyperlink{structdetail_1_1conjunction}{conjunction}}<is\_default\_constructible<Ts>...>\ \{\};}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00305\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__constructible}{is\_constructible}}\ :\ std::is\_constructible<T,\ Args...>\ \{\};}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2>}
+\DoxyCodeLine{00308\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__constructible}{is\_constructible}}<std::pair<T1,\ T2>>\ :\ \doxymbox{\hyperlink{structdetail_1_1is__default__constructible}{is\_default\_constructible}}<std::pair<T1,\ T2>>\ \{\};}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2>}
+\DoxyCodeLine{00311\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__constructible}{is\_constructible}}<const\ std::pair<T1,\ T2>>\ :\ \doxymbox{\hyperlink{structdetail_1_1is__default__constructible}{is\_default\_constructible}}<const\ std::pair<T1,\ T2>>\ \{\};}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Ts>}
+\DoxyCodeLine{00314\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__constructible}{is\_constructible}}<std::tuple<Ts...>>\ :\ \doxymbox{\hyperlink{structdetail_1_1is__default__constructible}{is\_default\_constructible}}<std::tuple<Ts...>>\ \{\};}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Ts>}
+\DoxyCodeLine{00317\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__constructible}{is\_constructible}}<const\ std::tuple<Ts...>>\ :\ \doxymbox{\hyperlink{structdetail_1_1is__default__constructible}{is\_default\_constructible}}<const\ std::tuple<Ts...>>\ \{\};}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00320\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__iterator__traits}{is\_iterator\_traits}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00323\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__iterator__traits}{is\_iterator\_traits}}<\doxymbox{\hyperlink{structdetail_1_1iterator__traits}{iterator\_traits}}<T>>}
+\DoxyCodeLine{00324\ \{}
+\DoxyCodeLine{00325\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keyword}{using\ }traits\ =\ \doxymbox{\hyperlink{structdetail_1_1iterator__traits}{iterator\_traits<T>}};}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ value\ =}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ is\_detected<value\_type\_t,\ traits>::value\ \&\&}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ is\_detected<difference\_type\_t,\ traits>::value\ \&\&}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ is\_detected<pointer\_t,\ traits>::value\ \&\&}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ is\_detected<iterator\_category\_t,\ traits>::value\ \&\&}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ is\_detected<reference\_t,\ traits>::value;}
+\DoxyCodeLine{00335\ \};}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00338\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__range}{is\_range}}}
+\DoxyCodeLine{00339\ \{}
+\DoxyCodeLine{00340\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00341\ \ \ \ \ \textcolor{keyword}{using\ }t\_ref\ =\ \textcolor{keyword}{typename}\ std::add\_lvalue\_reference<T>::type;}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keyword}{using\ }iterator\ =\ detected\_t<result\_of\_begin,\ t\_ref>;}
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keyword}{using\ }sentinel\ =\ detected\_t<result\_of\_end,\ t\_ref>;}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{comment}{//\ to\ be\ 100\%\ correct,\ it\ should\ use\ https://en.cppreference.com/w/cpp/iterator/input\_or\_output\_iterator}}
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{comment}{//\ and\ https://en.cppreference.com/w/cpp/iterator/sentinel\_for}}
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{comment}{//\ but\ reimplementing\ these\ would\ be\ too\ much\ work,\ as\ a\ lot\ of\ other\ concepts\ are\ used\ underneath}}
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ is\_iterator\_begin\ =}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1is__iterator__traits}{is\_iterator\_traits<iterator\_traits<iterator>}}>::value;}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00353\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ value\ =\ !std::is\_same<iterator,\ nonesuch>::value\ \&\&\ !std::is\_same<sentinel,\ nonesuch>::value\ \&\&\ is\_iterator\_begin;}
+\DoxyCodeLine{00354\ \};}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ R>}
+\DoxyCodeLine{00357\ \textcolor{keyword}{using\ }iterator\_t\ =\ enable\_if\_t<is\_range<R>::value,\ result\_of\_begin<decltype(std::declval<R\&>())>>;}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00360\ \textcolor{keyword}{using\ }range\_value\_t\ =\ value\_type\_t<iterator\_traits<iterator\_t<T>>>;}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \textcolor{comment}{//\ The\ following\ implementation\ of\ is\_complete\_type\ is\ taken\ from}}
+\DoxyCodeLine{00363\ \textcolor{comment}{//\ https://blogs.msdn.microsoft.com/vcblog/2015/12/02/partial-\/support-\/for-\/expression-\/sfinae-\/in-\/vs-\/2015-\/update-\/1/}}
+\DoxyCodeLine{00364\ \textcolor{comment}{//\ and\ is\ written\ by\ Xiang\ Fan\ who\ agreed\ to\ use\ it\ in\ this\ library.}}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00366\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00367\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__complete__type}{is\_complete\_type}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00370\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__complete__type}{is\_complete\_type}}<T,\ decltype(void(sizeof(T)))>\ :\ std::true\_type\ \{\};}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleObjectType,}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00374\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__compatible__object__type__impl}{is\_compatible\_object\_type\_impl}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleObjectType>}
+\DoxyCodeLine{00377\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__compatible__object__type__impl}{is\_compatible\_object\_type\_impl}}\ <}
+\DoxyCodeLine{00378\ \ \ \ \ BasicJsonType,\ CompatibleObjectType,}
+\DoxyCodeLine{00379\ \ \ \ \ enable\_if\_t\ <\ is\_detected<mapped\_type\_t,\ CompatibleObjectType>::value\&\&}
+\DoxyCodeLine{00380\ \ \ \ \ is\_detected<key\_type\_t,\ CompatibleObjectType>::value\ >>}
+\DoxyCodeLine{00381\ \{}
+\DoxyCodeLine{00382\ \ \ \ \ \textcolor{keyword}{using\ }object\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::object\_t;}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{comment}{//\ macOS's\ is\_constructible\ does\ not\ play\ well\ with\ nonesuch...}}
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ value\ =}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1is__constructible}{is\_constructible}}<\textcolor{keyword}{typename}\ object\_t::key\_type,}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ CompatibleObjectType::key\_type>::value\ \&\&}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1is__constructible}{is\_constructible}}<\textcolor{keyword}{typename}\ object\_t::mapped\_type,}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ CompatibleObjectType::mapped\_type>::value;}
+\DoxyCodeLine{00390\ \};}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00392\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleObjectType>}
+\DoxyCodeLine{00393\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__compatible__object__type}{is\_compatible\_object\_type}}}
+\DoxyCodeLine{00394\ \ \ \ \ :\ \doxymbox{\hyperlink{structdetail_1_1is__compatible__object__type__impl}{is\_compatible\_object\_type\_impl}}<BasicJsonType,\ CompatibleObjectType>\ \{\};}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ ConstructibleObjectType,}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00398\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__constructible__object__type__impl}{is\_constructible\_object\_type\_impl}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ ConstructibleObjectType>}
+\DoxyCodeLine{00401\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__constructible__object__type__impl}{is\_constructible\_object\_type\_impl}}\ <}
+\DoxyCodeLine{00402\ \ \ \ \ BasicJsonType,\ ConstructibleObjectType,}
+\DoxyCodeLine{00403\ \ \ \ \ enable\_if\_t\ <\ is\_detected<mapped\_type\_t,\ ConstructibleObjectType>::value\&\&}
+\DoxyCodeLine{00404\ \ \ \ \ is\_detected<key\_type\_t,\ ConstructibleObjectType>::value\ >>}
+\DoxyCodeLine{00405\ \{}
+\DoxyCodeLine{00406\ \ \ \ \ \textcolor{keyword}{using\ }object\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::object\_t;}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00408\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ value\ =}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ (\doxymbox{\hyperlink{structdetail_1_1is__default__constructible}{is\_default\_constructible<ConstructibleObjectType>::value}}\ \&\&}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ (std::is\_move\_assignable<ConstructibleObjectType>::value\ ||}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ std::is\_copy\_assignable<ConstructibleObjectType>::value)\ \&\&}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ (\doxymbox{\hyperlink{structdetail_1_1is__constructible}{is\_constructible}}<\textcolor{keyword}{typename}\ ConstructibleObjectType::key\_type,}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ object\_t::key\_type>::value\ \&\&}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ std::is\_same\ <}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ object\_t::mapped\_type,}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ ConstructibleObjectType::mapped\_type\ >::value))\ ||}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ (\doxymbox{\hyperlink{structdetail_1_1has__from__json}{has\_from\_json}}<BasicJsonType,}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ ConstructibleObjectType::mapped\_type>::value\ ||}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1has__non__default__from__json}{has\_non\_default\_from\_json}}\ <}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ BasicJsonType,}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ ConstructibleObjectType::mapped\_type\ >::value);}
+\DoxyCodeLine{00422\ \};}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ ConstructibleObjectType>}
+\DoxyCodeLine{00425\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__constructible__object__type}{is\_constructible\_object\_type}}}
+\DoxyCodeLine{00426\ \ \ \ \ :\ \doxymbox{\hyperlink{structdetail_1_1is__constructible__object__type__impl}{is\_constructible\_object\_type\_impl}}<BasicJsonType,}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ ConstructibleObjectType>\ \{\};}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleStringType>}
+\DoxyCodeLine{00430\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__compatible__string__type}{is\_compatible\_string\_type}}}
+\DoxyCodeLine{00431\ \{}
+\DoxyCodeLine{00432\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ value\ =}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1is__constructible}{is\_constructible<typename\ BasicJsonType::string\_t,\ CompatibleStringType>::value}};}
+\DoxyCodeLine{00434\ \};}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ ConstructibleStringType>}
+\DoxyCodeLine{00437\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__constructible__string__type}{is\_constructible\_string\_type}}}
+\DoxyCodeLine{00438\ \{}
+\DoxyCodeLine{00439\ \ \ \ \ \textcolor{comment}{//\ launder\ type\ through\ decltype()\ to\ fix\ compilation\ failure\ on\ ICPC}}
+\DoxyCodeLine{00440\ \textcolor{preprocessor}{\#ifdef\ \_\_INTEL\_COMPILER}}
+\DoxyCodeLine{00441\ \ \ \ \ \textcolor{keyword}{using\ }laundered\_type\ =\ \textcolor{keyword}{decltype}(std::declval<ConstructibleStringType>());}
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00443\ \ \ \ \ \textcolor{keyword}{using\ }laundered\_type\ =\ ConstructibleStringType;}
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ value\ =}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1conjunction}{conjunction}}\ <}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1is__constructible}{is\_constructible<laundered\_type,\ typename\ BasicJsonType::string\_t>}},}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ is\_detected\_exact<\textcolor{keyword}{typename}\ BasicJsonType::string\_t::value\_type,}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ value\_type\_t,\ laundered\_type\ >>::value;}
+\DoxyCodeLine{00451\ \};}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleArrayType,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00454\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__compatible__array__type__impl}{is\_compatible\_array\_type\_impl}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00456\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleArrayType>}
+\DoxyCodeLine{00457\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__compatible__array__type__impl}{is\_compatible\_array\_type\_impl}}\ <}
+\DoxyCodeLine{00458\ \ \ \ \ BasicJsonType,\ CompatibleArrayType,}
+\DoxyCodeLine{00459\ \ \ \ \ enable\_if\_t\ <}
+\DoxyCodeLine{00460\ \ \ \ \ is\_detected<iterator\_t,\ CompatibleArrayType>::value\&\&}
+\DoxyCodeLine{00461\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1is__iterator__traits}{is\_iterator\_traits}}<iterator\_traits<detected\_t<iterator\_t,\ CompatibleArrayType>>>::value\&\&}
+\DoxyCodeLine{00462\ \textcolor{comment}{//\ special\ case\ for\ types\ like\ std::filesystem::path\ whose\ iterator's\ value\_type\ are\ themselves}}
+\DoxyCodeLine{00463\ \textcolor{comment}{//\ c.f.\ https://github.com/nlohmann/json/pull/3073}}
+\DoxyCodeLine{00464\ \ \ \ \ !std::is\_same<CompatibleArrayType,\ detected\_t<range\_value\_t,\ CompatibleArrayType>>::value\ >>}
+\DoxyCodeLine{00465\ \{}
+\DoxyCodeLine{00466\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ value\ =}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1is__constructible}{is\_constructible}}<BasicJsonType,}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ range\_value\_t<CompatibleArrayType>>::value;}
+\DoxyCodeLine{00469\ \};}
+\DoxyCodeLine{00470\ }
+\DoxyCodeLine{00471\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleArrayType>}
+\DoxyCodeLine{00472\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__compatible__array__type}{is\_compatible\_array\_type}}}
+\DoxyCodeLine{00473\ \ \ \ \ :\ \doxymbox{\hyperlink{structdetail_1_1is__compatible__array__type__impl}{is\_compatible\_array\_type\_impl}}<BasicJsonType,\ CompatibleArrayType>\ \{\};}
+\DoxyCodeLine{00474\ }
+\DoxyCodeLine{00475\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ ConstructibleArrayType,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00476\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__constructible__array__type__impl}{is\_constructible\_array\_type\_impl}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00478\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ ConstructibleArrayType>}
+\DoxyCodeLine{00479\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__constructible__array__type__impl}{is\_constructible\_array\_type\_impl}}\ <}
+\DoxyCodeLine{00480\ \ \ \ \ BasicJsonType,\ ConstructibleArrayType,}
+\DoxyCodeLine{00481\ \ \ \ \ enable\_if\_t<std::is\_same<ConstructibleArrayType,}
+\DoxyCodeLine{00482\ \ \ \ \ typename\ BasicJsonType::value\_type>::value\ >>}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ \ \ :\ std::true\_type\ \{\};}
+\DoxyCodeLine{00484\ }
+\DoxyCodeLine{00485\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ ConstructibleArrayType>}
+\DoxyCodeLine{00486\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__constructible__array__type__impl}{is\_constructible\_array\_type\_impl}}\ <}
+\DoxyCodeLine{00487\ \ \ \ \ BasicJsonType,\ ConstructibleArrayType,}
+\DoxyCodeLine{00488\ \ \ \ \ enable\_if\_t\ <\ !std::is\_same<ConstructibleArrayType,}
+\DoxyCodeLine{00489\ \ \ \ \ typename\ BasicJsonType::value\_type>::value\&\&}
+\DoxyCodeLine{00490\ \ \ \ \ !\doxymbox{\hyperlink{structdetail_1_1is__compatible__string__type}{is\_compatible\_string\_type}}<BasicJsonType,\ ConstructibleArrayType>::value\&\&}
+\DoxyCodeLine{00491\ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1is__default__constructible}{is\_default\_constructible}}<ConstructibleArrayType>::value\&\&}
+\DoxyCodeLine{00492\ (std::is\_move\_assignable<ConstructibleArrayType>::value\ ||}
+\DoxyCodeLine{00493\ \ std::is\_copy\_assignable<ConstructibleArrayType>::value)\&\&}
+\DoxyCodeLine{00494\ is\_detected<iterator\_t,\ ConstructibleArrayType>::value\&\&}
+\DoxyCodeLine{00495\ \doxymbox{\hyperlink{structdetail_1_1is__iterator__traits}{is\_iterator\_traits}}<iterator\_traits<detected\_t<iterator\_t,\ ConstructibleArrayType>>>::value\&\&}
+\DoxyCodeLine{00496\ is\_detected<range\_value\_t,\ ConstructibleArrayType>::value\&\&}
+\DoxyCodeLine{00497\ \textcolor{comment}{//\ special\ case\ for\ types\ like\ std::filesystem::path\ whose\ iterator's\ value\_type\ are\ themselves}}
+\DoxyCodeLine{00498\ \textcolor{comment}{//\ c.f.\ https://github.com/nlohmann/json/pull/3073}}
+\DoxyCodeLine{00499\ !std::is\_same<ConstructibleArrayType,\ detected\_t<range\_value\_t,\ ConstructibleArrayType>>::value\&\&}
+\DoxyCodeLine{00500\ \doxymbox{\hyperlink{structdetail_1_1is__complete__type}{is\_complete\_type}}\ <}
+\DoxyCodeLine{00501\ detected\_t<range\_value\_t,\ ConstructibleArrayType\ >>::value\ >>}
+\DoxyCodeLine{00502\ \{}
+\DoxyCodeLine{00503\ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ range\_value\_t<ConstructibleArrayType>;}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00505\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ value\ =}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ std::is\_same<value\_type,}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ BasicJsonType::array\_t::value\_type>::value\ ||}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1has__from__json}{has\_from\_json}}<BasicJsonType,}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ value\_type>::value\ ||}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1has__non__default__from__json}{has\_non\_default\_from\_json}}\ <}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ BasicJsonType,}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ value\_type\ >::value;}
+\DoxyCodeLine{00513\ \};}
+\DoxyCodeLine{00514\ }
+\DoxyCodeLine{00515\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ ConstructibleArrayType>}
+\DoxyCodeLine{00516\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__constructible__array__type}{is\_constructible\_array\_type}}}
+\DoxyCodeLine{00517\ \ \ \ \ :\ \doxymbox{\hyperlink{structdetail_1_1is__constructible__array__type__impl}{is\_constructible\_array\_type\_impl}}<BasicJsonType,\ ConstructibleArrayType>\ \{\};}
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00519\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RealIntegerType,\ \textcolor{keyword}{typename}\ CompatibleNumberIntegerType,}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00521\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__compatible__integer__type__impl}{is\_compatible\_integer\_type\_impl}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00522\ }
+\DoxyCodeLine{00523\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RealIntegerType,\ \textcolor{keyword}{typename}\ CompatibleNumberIntegerType>}
+\DoxyCodeLine{00524\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__compatible__integer__type__impl}{is\_compatible\_integer\_type\_impl}}\ <}
+\DoxyCodeLine{00525\ \ \ \ \ RealIntegerType,\ CompatibleNumberIntegerType,}
+\DoxyCodeLine{00526\ \ \ \ \ enable\_if\_t\ <\ std::is\_integral<RealIntegerType>::value\&\&}
+\DoxyCodeLine{00527\ \ \ \ \ std::is\_integral<CompatibleNumberIntegerType>::value\&\&}
+\DoxyCodeLine{00528\ \ \ \ \ !std::is\_same<bool,\ CompatibleNumberIntegerType>::value\ >>}
+\DoxyCodeLine{00529\ \{}
+\DoxyCodeLine{00530\ \ \ \ \ \textcolor{comment}{//\ is\ there\ an\ assert\ somewhere\ on\ overflows?}}
+\DoxyCodeLine{00531\ \ \ \ \ \textcolor{keyword}{using\ }RealLimits\ =\ std::numeric\_limits<RealIntegerType>;}
+\DoxyCodeLine{00532\ \ \ \ \ \textcolor{keyword}{using\ }CompatibleLimits\ =\ std::numeric\_limits<CompatibleNumberIntegerType>;}
+\DoxyCodeLine{00533\ }
+\DoxyCodeLine{00534\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ value\ =}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1is__constructible}{is\_constructible}}<RealIntegerType,}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ CompatibleNumberIntegerType>::value\ \&\&}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ CompatibleLimits::is\_integer\ \&\&}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ RealLimits::is\_signed\ ==\ CompatibleLimits::is\_signed;}
+\DoxyCodeLine{00539\ \};}
+\DoxyCodeLine{00540\ }
+\DoxyCodeLine{00541\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RealIntegerType,\ \textcolor{keyword}{typename}\ CompatibleNumberIntegerType>}
+\DoxyCodeLine{00542\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__compatible__integer__type}{is\_compatible\_integer\_type}}}
+\DoxyCodeLine{00543\ \ \ \ \ :\ \doxymbox{\hyperlink{structdetail_1_1is__compatible__integer__type__impl}{is\_compatible\_integer\_type\_impl}}<RealIntegerType,}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ CompatibleNumberIntegerType>\ \{\};}
+\DoxyCodeLine{00545\ }
+\DoxyCodeLine{00546\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleType,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00547\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__compatible__type__impl}{is\_compatible\_type\_impl}}:\ std::false\_type\ \{\};}
+\DoxyCodeLine{00548\ }
+\DoxyCodeLine{00549\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleType>}
+\DoxyCodeLine{00550\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__compatible__type__impl}{is\_compatible\_type\_impl}}\ <}
+\DoxyCodeLine{00551\ \ \ \ \ BasicJsonType,\ CompatibleType,}
+\DoxyCodeLine{00552\ \ \ \ \ enable\_if\_t<\doxymbox{\hyperlink{structdetail_1_1is__complete__type}{is\_complete\_type}}<CompatibleType>::value\ >>}
+\DoxyCodeLine{00553\ \{}
+\DoxyCodeLine{00554\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ value\ =}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1has__to__json}{has\_to\_json<BasicJsonType,\ CompatibleType>::value}};}
+\DoxyCodeLine{00556\ \};}
+\DoxyCodeLine{00557\ }
+\DoxyCodeLine{00558\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleType>}
+\DoxyCodeLine{00559\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__compatible__type}{is\_compatible\_type}}}
+\DoxyCodeLine{00560\ \ \ \ \ :\ \doxymbox{\hyperlink{structdetail_1_1is__compatible__type__impl}{is\_compatible\_type\_impl}}<BasicJsonType,\ CompatibleType>\ \{\};}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleReferenceType>}
+\DoxyCodeLine{00563\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__compatible__reference__type__impl}{is\_compatible\_reference\_type\_impl}}}
+\DoxyCodeLine{00564\ \{}
+\DoxyCodeLine{00565\ \ \ \ \ \textcolor{keyword}{using\ }JsonType\ =\ uncvref\_t<BasicJsonType>;}
+\DoxyCodeLine{00566\ \ \ \ \ \textcolor{keyword}{using\ }CVType\ =\ \textcolor{keyword}{typename}\ std::remove\_reference<CompatibleReferenceType>::type;}
+\DoxyCodeLine{00567\ \ \ \ \ \textcolor{keyword}{using\ }Type\ =\ \textcolor{keyword}{typename}\ std::remove\_cv<CVType>::type;}
+\DoxyCodeLine{00568\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ value\ =\ std::is\_reference<CompatibleReferenceType>::value\ \&\&}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (!std::is\_const<typename\ std::remove\_reference<BasicJsonType>::type>::value\ ||\ std::is\_const<CVType>::value)\ \&\&}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (std::is\_same<typename\ JsonType::boolean\_t,\ Type>::value\ ||}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same<typename\ JsonType::number\_float\_t,\ Type>::value\ ||}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same<typename\ JsonType::number\_integer\_t,\ Type>::value\ ||}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same<typename\ JsonType::number\_unsigned\_t,\ Type>::value\ ||}
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same<typename\ JsonType::string\_t,\ Type>::value\ ||}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same<typename\ JsonType::binary\_t,\ Type>::value\ ||}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same<typename\ JsonType::object\_t,\ Type>::value\ ||}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same<typename\ JsonType::array\_t,\ Type>::value);}
+\DoxyCodeLine{00578\ \};}
+\DoxyCodeLine{00579\ }
+\DoxyCodeLine{00580\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ CompatibleReferenceType>}
+\DoxyCodeLine{00581\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__compatible__reference__type}{is\_compatible\_reference\_type}}}
+\DoxyCodeLine{00582\ \ \ \ \ :\ \doxymbox{\hyperlink{structdetail_1_1is__compatible__reference__type__impl}{is\_compatible\_reference\_type\_impl}}<BasicJsonType,\ CompatibleReferenceType>\ \{\};}
+\DoxyCodeLine{00583\ }
+\DoxyCodeLine{00584\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2>}
+\DoxyCodeLine{00585\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__constructible__tuple}{is\_constructible\_tuple}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00586\ }
+\DoxyCodeLine{00587\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00588\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__constructible__tuple}{is\_constructible\_tuple}}<T1,\ std::tuple<Args...>>\ :\ \doxymbox{\hyperlink{structdetail_1_1conjunction}{conjunction}}<is\_constructible<T1,\ Args>...>\ \{\};}
+\DoxyCodeLine{00589\ }
+\DoxyCodeLine{00590\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00591\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__json__iterator__of}{is\_json\_iterator\_of}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00593\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00594\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__json__iterator__of}{is\_json\_iterator\_of}}<BasicJsonType,\ typename\ BasicJsonType::iterator>\ :\ std::true\_type\ \{\};}
+\DoxyCodeLine{00595\ }
+\DoxyCodeLine{00596\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00597\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__json__iterator__of}{is\_json\_iterator\_of}}<BasicJsonType,\ typename\ BasicJsonType::const\_iterator>\ :\ std::true\_type}
+\DoxyCodeLine{00598\ \{\};}
+\DoxyCodeLine{00599\ }
+\DoxyCodeLine{00600\ \textcolor{comment}{//\ checks\ if\ a\ given\ type\ T\ is\ a\ template\ specialization\ of\ Primary}}
+\DoxyCodeLine{00601\ \textcolor{keyword}{template}<\textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...>\ \textcolor{keyword}{class\ }Primary,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00602\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__specialization__of}{is\_specialization\_of}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00603\ }
+\DoxyCodeLine{00604\ \textcolor{keyword}{template}<\textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...>\ \textcolor{keyword}{class\ }Primary,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00605\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__specialization__of}{is\_specialization\_of}}<Primary,\ Primary<Args...>>\ :\ std::true\_type\ \{\};}
+\DoxyCodeLine{00606\ }
+\DoxyCodeLine{00607\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00608\ \textcolor{keyword}{using\ }is\_json\_pointer\ =\ \doxymbox{\hyperlink{structdetail_1_1is__specialization__of}{is\_specialization\_of<::nlohmann::json\_pointer,\ uncvref\_t<T>}}>;}
+\DoxyCodeLine{00609\ }
+\DoxyCodeLine{00610\ \textcolor{comment}{//\ checks\ if\ B\ is\ a\ json\_pointer<A>}}
+\DoxyCodeLine{00611\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ A,\ \textcolor{keyword}{typename}\ B>}
+\DoxyCodeLine{00612\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__json__pointer__of}{is\_json\_pointer\_of}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00613\ }
+\DoxyCodeLine{00614\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ A>}
+\DoxyCodeLine{00615\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__json__pointer__of}{is\_json\_pointer\_of}}<\doxymbox{\hyperlink{class_a}{A}},\ ::\doxymbox{\hyperlink{classnlohmann_1_1json__pointer}{nlohmann::json\_pointer}}<A>>\ :\ std::true\_type\ \{\};}
+\DoxyCodeLine{00616\ }
+\DoxyCodeLine{00617\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ A>}
+\DoxyCodeLine{00618\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__json__pointer__of}{is\_json\_pointer\_of}}<\doxymbox{\hyperlink{class_a}{A}},\ ::\doxymbox{\hyperlink{classnlohmann_1_1json__pointer}{nlohmann::json\_pointer}}<A>\&>\ :\ std::true\_type\ \{\};}
+\DoxyCodeLine{00619\ }
+\DoxyCodeLine{00620\ \textcolor{comment}{//\ checks\ if\ A\ and\ B\ are\ comparable\ using\ Compare\ functor}}
+\DoxyCodeLine{00621\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Compare,\ \textcolor{keyword}{typename}\ A,\ \textcolor{keyword}{typename}\ B,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00622\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__comparable}{is\_comparable}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00623\ }
+\DoxyCodeLine{00624\ \textcolor{comment}{//\ We\ exclude\ json\_pointer\ here,\ because\ the\ checks\ using\ Compare(A,\ B)\ will}}
+\DoxyCodeLine{00625\ \textcolor{comment}{//\ use\ json\_pointer::operator\ string\_t()\ which\ triggers\ a\ deprecation\ warning}}
+\DoxyCodeLine{00626\ \textcolor{comment}{//\ for\ GCC.\ See\ https://github.com/nlohmann/json/issues/4621.\ The\ call\ to}}
+\DoxyCodeLine{00627\ \textcolor{comment}{//\ is\_json\_pointer\_of\ can\ be\ removed\ once\ the\ deprecated\ function\ has\ been}}
+\DoxyCodeLine{00628\ \textcolor{comment}{//\ removed.}}
+\DoxyCodeLine{00629\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Compare,\ \textcolor{keyword}{typename}\ A,\ \textcolor{keyword}{typename}\ B>}
+\DoxyCodeLine{00630\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__comparable}{is\_comparable}}\ <\ Compare,\ \doxymbox{\hyperlink{class_a}{A}},\ \doxymbox{\hyperlink{class_b}{B}},\ enable\_if\_t\ <\ !\doxymbox{\hyperlink{structdetail_1_1is__json__pointer__of}{is\_json\_pointer\_of}}<\doxymbox{\hyperlink{class_a}{A}},\ \doxymbox{\hyperlink{class_b}{B}}>::value}
+\DoxyCodeLine{00631\ \&\&\ std::is\_constructible\ <decltype(std::declval<Compare>()(std::declval<A>(),\ std::declval<B>()))>::value}
+\DoxyCodeLine{00632\ \&\&\ std::is\_constructible\ <decltype(std::declval<Compare>()(std::declval<B>(),\ std::declval<A>()))>::value}
+\DoxyCodeLine{00633\ >>\ :\ std::true\_type\ \{\};}
+\DoxyCodeLine{00634\ }
+\DoxyCodeLine{00635\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00636\ \textcolor{keyword}{using\ }detect\_is\_transparent\ =\ \textcolor{keyword}{typename}\ T::is\_transparent;}
+\DoxyCodeLine{00637\ }
+\DoxyCodeLine{00638\ \textcolor{comment}{//\ type\ trait\ to\ check\ if\ KeyType\ can\ be\ used\ as\ an\ object\ key\ (without\ a\ BasicJsonType)}}
+\DoxyCodeLine{00639\ \textcolor{comment}{//\ see\ is\_usable\_as\_basic\_json\_key\_type\ below}}
+\DoxyCodeLine{00640\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Comparator,\ \textcolor{keyword}{typename}\ ObjectKeyType,\ \textcolor{keyword}{typename}\ KeyTypeCVRef,\ \textcolor{keywordtype}{bool}\ RequireTransparentComparator\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ExcludeObjectKeyType\ =\ RequireTransparentComparator,\ \textcolor{keyword}{typename}\ KeyType\ =\ uncvref\_t<KeyTypeCVRef>>}
+\DoxyCodeLine{00642\ \textcolor{keyword}{using\ }is\_usable\_as\_key\_type\ =\ \textcolor{keyword}{typename}\ std::conditional\ <}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1is__comparable}{is\_comparable<Comparator,\ ObjectKeyType,\ KeyTypeCVRef>::value}}}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ !(ExcludeObjectKeyType\ \&\&\ std::is\_same<KeyType,}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ObjectKeyType>::value)}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ (!RequireTransparentComparator}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ is\_detected\ <detect\_is\_transparent,\ Comparator>::value)}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ !is\_json\_pointer<KeyType>::value,}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::true\_type,}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::false\_type\ >::type;}
+\DoxyCodeLine{00651\ }
+\DoxyCodeLine{00652\ \textcolor{comment}{//\ type\ trait\ to\ check\ if\ KeyType\ can\ be\ used\ as\ an\ object\ key}}
+\DoxyCodeLine{00653\ \textcolor{comment}{//\ true\ if:}}
+\DoxyCodeLine{00654\ \textcolor{comment}{//\ \ \ -\/\ KeyType\ is\ comparable\ with\ BasicJsonType::object\_t::key\_type}}
+\DoxyCodeLine{00655\ \textcolor{comment}{//\ \ \ -\/\ if\ ExcludeObjectKeyType\ is\ true,\ KeyType\ is\ not\ BasicJsonType::object\_t::key\_type}}
+\DoxyCodeLine{00656\ \textcolor{comment}{//\ \ \ -\/\ the\ comparator\ is\ transparent\ or\ RequireTransparentComparator\ is\ false}}
+\DoxyCodeLine{00657\ \textcolor{comment}{//\ \ \ -\/\ KeyType\ is\ not\ a\ JSON\ iterator\ or\ json\_pointer}}
+\DoxyCodeLine{00658\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ KeyTypeCVRef,\ \textcolor{keywordtype}{bool}\ RequireTransparentComparator\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ExcludeObjectKeyType\ =\ RequireTransparentComparator,\ \textcolor{keyword}{typename}\ KeyType\ =\ uncvref\_t<KeyTypeCVRef>>}
+\DoxyCodeLine{00660\ \textcolor{keyword}{using\ }is\_usable\_as\_basic\_json\_key\_type\ =\ \textcolor{keyword}{typename}\ std::conditional\ <}
+\DoxyCodeLine{00661\ \ \ \ \ (is\_usable\_as\_key\_type<\textcolor{keyword}{typename}\ BasicJsonType::object\_comparator\_t,}
+\DoxyCodeLine{00662\ \ \ \ \ \ \textcolor{keyword}{typename}\ BasicJsonType::object\_t::key\_type,\ KeyTypeCVRef,}
+\DoxyCodeLine{00663\ \ \ \ \ \ RequireTransparentComparator,\ ExcludeObjectKeyType>::value}
+\DoxyCodeLine{00664\ \ \ \ \ \ \&\&\ !\doxymbox{\hyperlink{structdetail_1_1is__json__iterator__of}{is\_json\_iterator\_of<BasicJsonType,\ KeyType>::value}})}
+\DoxyCodeLine{00665\ \#ifdef\ JSON\_HAS\_CPP\_17}
+\DoxyCodeLine{00666\ \ \ \ \ ||\ std::is\_convertible<KeyType,\ std::string\_view>::value}
+\DoxyCodeLine{00667\ \#endif}
+\DoxyCodeLine{00668\ \ \ \ \ ,\ std::true\_type,}
+\DoxyCodeLine{00669\ \ \ \ \ std::false\_type\ >::type;}
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00671\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ObjectType,\ \textcolor{keyword}{typename}\ KeyType>}
+\DoxyCodeLine{00672\ \textcolor{keyword}{using\ }detect\_erase\_with\_key\_type\ =\ \textcolor{keyword}{decltype}(std::declval<ObjectType\&>().erase(std::declval<KeyType>()));}
+\DoxyCodeLine{00673\ }
+\DoxyCodeLine{00674\ \textcolor{comment}{//\ type\ trait\ to\ check\ if\ object\_t\ has\ an\ erase()\ member\ functions\ accepting\ KeyType}}
+\DoxyCodeLine{00675\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ KeyType>}
+\DoxyCodeLine{00676\ \textcolor{keyword}{using\ }has\_erase\_with\_key\_type\ =\ \textcolor{keyword}{typename}\ std::conditional\ <}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_detected\ <}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detect\_erase\_with\_key\_type,}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ BasicJsonType::object\_t,\ KeyType\ >::value,}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::true\_type,}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::false\_type\ >::type;}
+\DoxyCodeLine{00682\ }
+\DoxyCodeLine{00683\ \textcolor{comment}{//\ a\ naive\ helper\ to\ check\ if\ a\ type\ is\ an\ ordered\_map\ (exploits\ the\ fact\ that}}
+\DoxyCodeLine{00684\ \textcolor{comment}{//\ ordered\_map\ inherits\ capacity()\ from\ std::vector)}}
+\DoxyCodeLine{00685\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00686\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__ordered__map}{is\_ordered\_map}}}
+\DoxyCodeLine{00687\ \{}
+\DoxyCodeLine{00688\ \ \ \ \ \textcolor{keyword}{using\ }one\ =\ char;}
+\DoxyCodeLine{00689\ }
+\DoxyCodeLine{00690\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__ordered__map_1_1two}{two}}}
+\DoxyCodeLine{00691\ \ \ \ \ \{}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ x[2];\ \textcolor{comment}{//\ NOLINT(cppcoreguidelines-\/avoid-\/c-\/arrays,hicpp-\/avoid-\/c-\/arrays,modernize-\/avoid-\/c-\/arrays)}}
+\DoxyCodeLine{00693\ \ \ \ \ \};}
+\DoxyCodeLine{00694\ }
+\DoxyCodeLine{00695\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ C>\ \textcolor{keyword}{static}\ one\ test(\ \textcolor{keyword}{decltype}(\&C::capacity)\ )\ ;}
+\DoxyCodeLine{00696\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ C>\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structdetail_1_1is__ordered__map_1_1two}{two}}\ test(...);}
+\DoxyCodeLine{00697\ }
+\DoxyCodeLine{00698\ \ \ \ \ \textcolor{keyword}{enum}\ \{\ value\ =\ \textcolor{keyword}{sizeof}(test<T>(\textcolor{keyword}{nullptr}))\ ==\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})\ \};\ \textcolor{comment}{//\ NOLINT(cppcoreguidelines-\/pro-\/type-\/vararg,hicpp-\/vararg,cppcoreguidelines-\/use-\/enum-\/class)}}
+\DoxyCodeLine{00699\ \};}
+\DoxyCodeLine{00700\ }
+\DoxyCodeLine{00701\ \textcolor{comment}{//\ to\ avoid\ useless\ casts\ (see\ https://github.com/nlohmann/json/issues/2893\#issuecomment-\/889152324)}}
+\DoxyCodeLine{00702\ template\ <\ typename\ T,\ typename\ U,\ enable\_if\_t\ <\ !std::is\_same<T,\ U>::value,\ \textcolor{keywordtype}{int}\ >\ =\ 0\ >}
+\DoxyCodeLine{00703\ T\ conditional\_static\_cast(U\ value)}
+\DoxyCodeLine{00704\ \{}
+\DoxyCodeLine{00705\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(value);}
+\DoxyCodeLine{00706\ \}}
+\DoxyCodeLine{00707\ }
+\DoxyCodeLine{00708\ template<typename\ T,\ typename\ U,\ enable\_if\_t<std::is\_same<T,\ U>::value,\ \textcolor{keywordtype}{int}>\ =\ 0>}
+\DoxyCodeLine{00709\ T\ conditional\_static\_cast(U\ value)}
+\DoxyCodeLine{00710\ \{}
+\DoxyCodeLine{00711\ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00712\ \}}
+\DoxyCodeLine{00713\ }
+\DoxyCodeLine{00714\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Types>}
+\DoxyCodeLine{00715\ \textcolor{keyword}{using\ }all\_integral\ =\ \doxymbox{\hyperlink{structdetail_1_1conjunction}{conjunction<std::is\_integral<Types>}}...>;}
+\DoxyCodeLine{00716\ }
+\DoxyCodeLine{00717\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Types>}
+\DoxyCodeLine{00718\ \textcolor{keyword}{using\ }all\_signed\ =\ \doxymbox{\hyperlink{structdetail_1_1conjunction}{conjunction<std::is\_signed<Types>}}...>;}
+\DoxyCodeLine{00719\ }
+\DoxyCodeLine{00720\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Types>}
+\DoxyCodeLine{00721\ \textcolor{keyword}{using\ }all\_unsigned\ =\ \doxymbox{\hyperlink{structdetail_1_1conjunction}{conjunction<std::is\_unsigned<Types>}}...>;}
+\DoxyCodeLine{00722\ }
+\DoxyCodeLine{00723\ \textcolor{comment}{//\ there's\ a\ disjunction\ trait\ in\ another\ PR;\ replace\ when\ merged}}
+\DoxyCodeLine{00724\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Types>}
+\DoxyCodeLine{00725\ \textcolor{keyword}{using\ }same\_sign\ =\ std::integral\_constant\ <\ bool,}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ all\_signed<Types...>::value\ ||\ all\_unsigned<Types...>::value\ >;}
+\DoxyCodeLine{00727\ }
+\DoxyCodeLine{00728\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OfType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00729\ \textcolor{keyword}{using\ }never\_out\_of\_range\ =\ std::integral\_constant\ <\ bool,}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ (std::is\_signed<OfType>::value\ \&\&\ (\textcolor{keyword}{sizeof}(T)\ <\ \textcolor{keyword}{sizeof}(OfType)))}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ ||\ (same\_sign<OfType,\ T>::value\ \&\&\ \textcolor{keyword}{sizeof}(OfType)\ ==\ \textcolor{keyword}{sizeof}(T))\ >;}
+\DoxyCodeLine{00732\ }
+\DoxyCodeLine{00733\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OfType,\ \textcolor{keyword}{typename}\ T,}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ OfTypeSigned\ =\ std::is\_signed<OfType>::value,}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ TSigned\ =\ std::is\_signed<T>::value>}
+\DoxyCodeLine{00736\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1value__in__range__of__impl2}{value\_in\_range\_of\_impl2}};}
+\DoxyCodeLine{00737\ }
+\DoxyCodeLine{00738\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OfType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00739\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1value__in__range__of__impl2}{value\_in\_range\_of\_impl2}}<OfType,\ T,\ false,\ false>}
+\DoxyCodeLine{00740\ \{}
+\DoxyCodeLine{00741\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ test(T\ val)}
+\DoxyCodeLine{00742\ \ \ \ \ \{}
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }CommonType\ =\ \textcolor{keyword}{typename}\ std::common\_type<OfType,\ T>::type;}
+\DoxyCodeLine{00744\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}CommonType\textcolor{keyword}{>}(val)\ <=\ \textcolor{keyword}{static\_cast<}CommonType\textcolor{keyword}{>}((std::numeric\_limits<OfType>::max)());}
+\DoxyCodeLine{00745\ \ \ \ \ \}}
+\DoxyCodeLine{00746\ \};}
+\DoxyCodeLine{00747\ }
+\DoxyCodeLine{00748\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OfType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00749\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1value__in__range__of__impl2}{value\_in\_range\_of\_impl2}}<OfType,\ T,\ true,\ false>}
+\DoxyCodeLine{00750\ \{}
+\DoxyCodeLine{00751\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ test(T\ val)}
+\DoxyCodeLine{00752\ \ \ \ \ \{}
+\DoxyCodeLine{00753\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }CommonType\ =\ \textcolor{keyword}{typename}\ std::common\_type<OfType,\ T>::type;}
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}CommonType\textcolor{keyword}{>}(val)\ <=\ \textcolor{keyword}{static\_cast<}CommonType\textcolor{keyword}{>}((std::numeric\_limits<OfType>::max)());}
+\DoxyCodeLine{00755\ \ \ \ \ \}}
+\DoxyCodeLine{00756\ \};}
+\DoxyCodeLine{00757\ }
+\DoxyCodeLine{00758\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OfType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00759\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1value__in__range__of__impl2}{value\_in\_range\_of\_impl2}}<OfType,\ T,\ false,\ true>}
+\DoxyCodeLine{00760\ \{}
+\DoxyCodeLine{00761\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ test(T\ val)}
+\DoxyCodeLine{00762\ \ \ \ \ \{}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }CommonType\ =\ \textcolor{keyword}{typename}\ std::common\_type<OfType,\ T>::type;}
+\DoxyCodeLine{00764\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ val\ >=\ 0\ \&\&\ \textcolor{keyword}{static\_cast<}CommonType\textcolor{keyword}{>}(val)\ <=\ \textcolor{keyword}{static\_cast<}CommonType\textcolor{keyword}{>}((std::numeric\_limits<OfType>::max)());}
+\DoxyCodeLine{00765\ \ \ \ \ \}}
+\DoxyCodeLine{00766\ \};}
+\DoxyCodeLine{00767\ }
+\DoxyCodeLine{00768\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OfType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00769\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1value__in__range__of__impl2}{value\_in\_range\_of\_impl2}}<OfType,\ T,\ true,\ true>}
+\DoxyCodeLine{00770\ \{}
+\DoxyCodeLine{00771\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ test(T\ val)}
+\DoxyCodeLine{00772\ \ \ \ \ \{}
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }CommonType\ =\ \textcolor{keyword}{typename}\ std::common\_type<OfType,\ T>::type;}
+\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}CommonType\textcolor{keyword}{>}(val)\ >=\ \textcolor{keyword}{static\_cast<}CommonType\textcolor{keyword}{>}((std::numeric\_limits<OfType>::min)())}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \textcolor{keyword}{static\_cast<}CommonType\textcolor{keyword}{>}(val)\ <=\ \textcolor{keyword}{static\_cast<}CommonType\textcolor{keyword}{>}((std::numeric\_limits<OfType>::max)());}
+\DoxyCodeLine{00776\ \ \ \ \ \}}
+\DoxyCodeLine{00777\ \};}
+\DoxyCodeLine{00778\ }
+\DoxyCodeLine{00779\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OfType,\ \textcolor{keyword}{typename}\ T,}
+\DoxyCodeLine{00780\ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ NeverOutOfRange\ =\ never\_out\_of\_range<OfType,\ T>::value,}
+\DoxyCodeLine{00781\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ =\ detail::enable\_if\_t<all\_integral<OfType,\ T>::value>>}
+\DoxyCodeLine{00782\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1value__in__range__of__impl1}{value\_in\_range\_of\_impl1}};}
+\DoxyCodeLine{00783\ }
+\DoxyCodeLine{00784\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OfType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00785\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1value__in__range__of__impl1}{value\_in\_range\_of\_impl1}}<OfType,\ T,\ false>}
+\DoxyCodeLine{00786\ \{}
+\DoxyCodeLine{00787\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ test(T\ val)}
+\DoxyCodeLine{00788\ \ \ \ \ \{}
+\DoxyCodeLine{00789\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structdetail_1_1value__in__range__of__impl2}{value\_in\_range\_of\_impl2<OfType,\ T>::test}}(val);}
+\DoxyCodeLine{00790\ \ \ \ \ \}}
+\DoxyCodeLine{00791\ \};}
+\DoxyCodeLine{00792\ }
+\DoxyCodeLine{00793\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OfType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00794\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1value__in__range__of__impl1}{value\_in\_range\_of\_impl1}}<OfType,\ T,\ true>}
+\DoxyCodeLine{00795\ \{}
+\DoxyCodeLine{00796\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ test(T\ \textcolor{comment}{/*val*/})}
+\DoxyCodeLine{00797\ \ \ \ \ \{}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00799\ \ \ \ \ \}}
+\DoxyCodeLine{00800\ \};}
+\DoxyCodeLine{00801\ }
+\DoxyCodeLine{00802\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OfType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00803\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ value\_in\_range\_of(T\ val)}
+\DoxyCodeLine{00804\ \{}
+\DoxyCodeLine{00805\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structdetail_1_1value__in__range__of__impl1}{value\_in\_range\_of\_impl1<OfType,\ T>::test}}(val);}
+\DoxyCodeLine{00806\ \}}
+\DoxyCodeLine{00807\ }
+\DoxyCodeLine{00808\ \textcolor{keyword}{template}<\textcolor{keywordtype}{bool}\ Value>}
+\DoxyCodeLine{00809\ \textcolor{keyword}{using\ }bool\_constant\ =\ std::integral\_constant<bool,\ Value>;}
+\DoxyCodeLine{00810\ }
+\DoxyCodeLine{00812\ \textcolor{comment}{//\ is\_c\_string}}
+\DoxyCodeLine{00814\ }
+\DoxyCodeLine{00815\ \textcolor{keyword}{namespace\ }impl}
+\DoxyCodeLine{00816\ \{}
+\DoxyCodeLine{00817\ }
+\DoxyCodeLine{00818\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00819\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ is\_c\_string()}
+\DoxyCodeLine{00820\ \{}
+\DoxyCodeLine{00821\ \ \ \ \ \textcolor{keyword}{using\ }TUnExt\ =\ \textcolor{keyword}{typename}\ std::remove\_extent<T>::type;}
+\DoxyCodeLine{00822\ \ \ \ \ \textcolor{keyword}{using\ }TUnCVExt\ =\ \textcolor{keyword}{typename}\ std::remove\_cv<TUnExt>::type;}
+\DoxyCodeLine{00823\ \ \ \ \ \textcolor{keyword}{using\ }TUnPtr\ =\ \textcolor{keyword}{typename}\ std::remove\_pointer<T>::type;}
+\DoxyCodeLine{00824\ \ \ \ \ \textcolor{keyword}{using\ }TUnCVPtr\ =\ \textcolor{keyword}{typename}\ std::remove\_cv<TUnPtr>::type;}
+\DoxyCodeLine{00825\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ (std::is\_array<T>::value\ \&\&\ std::is\_same<TUnCVExt,\ char>::value)}
+\DoxyCodeLine{00827\ \ \ \ \ \ \ \ \ ||\ (std::is\_pointer<T>::value\ \&\&\ std::is\_same<TUnCVPtr,\ char>::value);}
+\DoxyCodeLine{00828\ \}}
+\DoxyCodeLine{00829\ }
+\DoxyCodeLine{00830\ \}\ \ \textcolor{comment}{//\ namespace\ impl}}
+\DoxyCodeLine{00831\ }
+\DoxyCodeLine{00832\ \textcolor{comment}{//\ checks\ whether\ T\ is\ a\ [cv]\ char\ */[cv]\ char[]\ C\ string}}
+\DoxyCodeLine{00833\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00834\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__c__string}{is\_c\_string}}\ :\ bool\_constant<impl::is\_c\_string<T>()>\ \{\};}
+\DoxyCodeLine{00835\ }
+\DoxyCodeLine{00836\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00837\ \textcolor{keyword}{using\ }is\_c\_string\_uncvref\ =\ \doxymbox{\hyperlink{structdetail_1_1is__c__string}{is\_c\_string<uncvref\_t<T>}}>;}
+\DoxyCodeLine{00838\ }
+\DoxyCodeLine{00840\ \textcolor{comment}{//\ is\_transparent}}
+\DoxyCodeLine{00842\ }
+\DoxyCodeLine{00843\ \textcolor{keyword}{namespace\ }impl}
+\DoxyCodeLine{00844\ \{}
+\DoxyCodeLine{00845\ }
+\DoxyCodeLine{00846\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00847\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structdetail_1_1is__transparent}{is\_transparent}}()}
+\DoxyCodeLine{00848\ \{}
+\DoxyCodeLine{00849\ \ \ \ \ \textcolor{keywordflow}{return}\ is\_detected<detect\_is\_transparent,\ T>::value;}
+\DoxyCodeLine{00850\ \}}
+\DoxyCodeLine{00851\ }
+\DoxyCodeLine{00852\ \}\ \ \textcolor{comment}{//\ namespace\ impl}}
+\DoxyCodeLine{00853\ }
+\DoxyCodeLine{00854\ \textcolor{comment}{//\ checks\ whether\ T\ has\ a\ member\ named\ is\_transparent}}
+\DoxyCodeLine{00855\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00856\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__transparent}{is\_transparent}}\ :\ bool\_constant<impl::is\_transparent<T>()>\ \{\};}
+\DoxyCodeLine{00857\ }
+\DoxyCodeLine{00859\ }
+\DoxyCodeLine{00860\ \}\ \ \textcolor{comment}{//\ namespace\ detail}}
+\DoxyCodeLine{00861\ NLOHMANN\_JSON\_NAMESPACE\_END}
+
+\end{DoxyCode}

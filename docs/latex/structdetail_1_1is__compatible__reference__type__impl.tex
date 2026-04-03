@@ -1,0 +1,66 @@
+\doxysection{detail::\+is\+\_\+compatible\+\_\+reference\+\_\+type\+\_\+impl\texorpdfstring{$<$}{<} Basic\+Json\+Type, Compatible\+Reference\+Type \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structdetail_1_1is__compatible__reference__type__impl}{}\label{structdetail_1_1is__compatible__reference__type__impl}\index{detail::is\_compatible\_reference\_type\_impl$<$ BasicJsonType, CompatibleReferenceType $>$@{detail::is\_compatible\_reference\_type\_impl$<$ BasicJsonType, CompatibleReferenceType $>$}}
+Inheritance diagram for detail::\+is\+\_\+compatible\+\_\+reference\+\_\+type\+\_\+impl\texorpdfstring{$<$}{<} Basic\+Json\+Type, Compatible\+Reference\+Type \texorpdfstring{$>$}{>}:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.070746cm]{structdetail_1_1is__compatible__reference__type__impl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structdetail_1_1is__compatible__reference__type__impl_a51581e62274a75412c1ddd5074daeb88}\label{structdetail_1_1is__compatible__reference__type__impl_a51581e62274a75412c1ddd5074daeb88} 
+using {\bfseries Json\+Type} = uncvref\+\_\+t$<$Basic\+Json\+Type$>$
+\item 
+\Hypertarget{structdetail_1_1is__compatible__reference__type__impl_a0c8091ca6a316fdf10e0a8530c81c25d}\label{structdetail_1_1is__compatible__reference__type__impl_a0c8091ca6a316fdf10e0a8530c81c25d} 
+using {\bfseries CVType} = typename std::\+remove\+\_\+reference$<$Compatible\+Reference\+Type$>$::\+type
+\item 
+\Hypertarget{structdetail_1_1is__compatible__reference__type__impl_a217c9565014ce5d650c0fd5ade14a334}\label{structdetail_1_1is__compatible__reference__type__impl_a217c9565014ce5d650c0fd5ade14a334} 
+using {\bfseries Type} = typename std::\+remove\+\_\+cv$<$CVType$>$::\+type
+\item 
+\Hypertarget{structdetail_1_1is__compatible__reference__type__impl_a51581e62274a75412c1ddd5074daeb88}\label{structdetail_1_1is__compatible__reference__type__impl_a51581e62274a75412c1ddd5074daeb88} 
+using {\bfseries Json\+Type} = uncvref\+\_\+t$<$Basic\+Json\+Type$>$
+\item 
+\Hypertarget{structdetail_1_1is__compatible__reference__type__impl_a0c8091ca6a316fdf10e0a8530c81c25d}\label{structdetail_1_1is__compatible__reference__type__impl_a0c8091ca6a316fdf10e0a8530c81c25d} 
+using {\bfseries CVType} = typename std::\+remove\+\_\+reference$<$Compatible\+Reference\+Type$>$::\+type
+\item 
+\Hypertarget{structdetail_1_1is__compatible__reference__type__impl_a217c9565014ce5d650c0fd5ade14a334}\label{structdetail_1_1is__compatible__reference__type__impl_a217c9565014ce5d650c0fd5ade14a334} 
+using {\bfseries Type} = typename std::\+remove\+\_\+cv$<$CVType$>$::\+type
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr bool \doxymbox{\hyperlink{structdetail_1_1is__compatible__reference__type__impl_a1994f5004cdec643193f7adea0dff639}{value}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-variable-members}
+\Hypertarget{structdetail_1_1is__compatible__reference__type__impl_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structdetail_1_1is__compatible__reference__type__impl_a1994f5004cdec643193f7adea0dff639}\index{detail::is\_compatible\_reference\_type\_impl$<$ BasicJsonType, CompatibleReferenceType $>$@{detail::is\_compatible\_reference\_type\_impl$<$ BasicJsonType, CompatibleReferenceType $>$}!value@{value}}
+\index{value@{value}!detail::is\_compatible\_reference\_type\_impl$<$ BasicJsonType, CompatibleReferenceType $>$@{detail::is\_compatible\_reference\_type\_impl$<$ BasicJsonType, CompatibleReferenceType $>$}}
+\doxysubsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily \label{structdetail_1_1is__compatible__reference__type__impl_a1994f5004cdec643193f7adea0dff639} 
+template$<$typename Basic\+Json\+Type, typename Compatible\+Reference\+Type$>$ \\
+constexpr bool \doxymbox{\hyperlink{structdetail_1_1is__compatible__reference__type__impl}{detail::\+is\+\_\+compatible\+\_\+reference\+\_\+type\+\_\+impl}}$<$ Basic\+Json\+Type, Compatible\+Reference\+Type $>$::\+value\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ std::is\_reference<CompatibleReferenceType>::value\ \&\&}
+\DoxyCodeLine{\ \ (!std::is\_const<typename\ std::remove\_reference<BasicJsonType>::type>::value\ ||\ std::is\_const<CVType>::value)\ \&\&}
+\DoxyCodeLine{\ \ (std::is\_same<typename\ JsonType::boolean\_t,\ Type>::value\ ||}
+\DoxyCodeLine{\ \ \ std::is\_same<typename\ JsonType::number\_float\_t,\ Type>::value\ ||}
+\DoxyCodeLine{\ \ \ std::is\_same<typename\ JsonType::number\_integer\_t,\ Type>::value\ ||}
+\DoxyCodeLine{\ \ \ std::is\_same<typename\ JsonType::number\_unsigned\_t,\ Type>::value\ ||}
+\DoxyCodeLine{\ \ \ std::is\_same<typename\ JsonType::string\_t,\ Type>::value\ ||}
+\DoxyCodeLine{\ \ \ std::is\_same<typename\ JsonType::binary\_t,\ Type>::value\ ||}
+\DoxyCodeLine{\ \ \ std::is\_same<typename\ JsonType::object\_t,\ Type>::value\ ||}
+\DoxyCodeLine{\ \ \ std::is\_same<typename\ JsonType::array\_t,\ Type>::value)}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+include/\+nlohmann/\+detail/\+meta/\+type\+\_\+traits.\+hpp\item 
+include/\+nlohman/\+json-\/develop/\+single\+\_\+include/\+nlohmann/\+json.\+hpp\end{DoxyCompactItemize}

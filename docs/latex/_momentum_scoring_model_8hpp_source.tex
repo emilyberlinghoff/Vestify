@@ -1,0 +1,41 @@
+\doxysection{Momentum\+Scoring\+Model.\+hpp}
+\hypertarget{_momentum_scoring_model_8hpp_source}{}\label{_momentum_scoring_model_8hpp_source}\index{include/scoring/MomentumScoringModel.hpp@{include/scoring/MomentumScoringModel.hpp}}
+\doxymbox{\hyperlink{_momentum_scoring_model_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_scoring_model_8hpp}{scoring/ScoringModel.hpp}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_momentum_scoring_model}{MomentumScoringModel}}\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_scoring_model}{ScoringModel}}\ \{}
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{class_momentum_scoring_model_a5ae27c3a2ffbcda20833aa97da372d70}{calculateScore}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_stock}{Stock}}\&\ stock)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ total\ =\ 0.0;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ components\ =\ 0;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isfinite(stock.\doxymbox{\hyperlink{struct_stock_a04e29953cc6b1a56a40c3a2d44f5e4b8}{roa}})\ \&\&\ stock.\doxymbox{\hyperlink{struct_stock_a04e29953cc6b1a56a40c3a2d44f5e4b8}{roa}}\ >\ 0.0)\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ total\ +=\ std::min(100.0,\ stock.\doxymbox{\hyperlink{struct_stock_a04e29953cc6b1a56a40c3a2d44f5e4b8}{roa}}\ *\ 400.0);}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ ++components;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isfinite(stock.\doxymbox{\hyperlink{struct_stock_a7d215816c02bceebae3132e886a69c15}{fcf\_yield}})\ \&\&\ stock.\doxymbox{\hyperlink{struct_stock_a7d215816c02bceebae3132e886a69c15}{fcf\_yield}}\ >\ 0.0)\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ total\ +=\ std::min(100.0,\ stock.\doxymbox{\hyperlink{struct_stock_a7d215816c02bceebae3132e886a69c15}{fcf\_yield}}\ *\ 1000.0);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ ++components;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isfinite(stock.\doxymbox{\hyperlink{struct_stock_a6252c1651560ec128a84b1dc278e0a14}{net\_margin}})\ \&\&\ stock.\doxymbox{\hyperlink{struct_stock_a6252c1651560ec128a84b1dc278e0a14}{net\_margin}}\ >\ 0.0)\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ total\ +=\ std::min(100.0,\ stock.\doxymbox{\hyperlink{struct_stock_a6252c1651560ec128a84b1dc278e0a14}{net\_margin}}\ *\ 333.33);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ ++components;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (components\ >\ 0)\ ?\ (total\ /\ components)\ :\ 0.0;}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00079\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_momentum_scoring_model_aba194964180b8d4a251d65d5e01f8ab1}{getModelName}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Momentum"{}};\ \}}
+\DoxyCodeLine{00080\ \};}
+
+\end{DoxyCode}

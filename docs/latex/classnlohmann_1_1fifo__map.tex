@@ -1,0 +1,232 @@
+\doxysection{nlohmann::\+fifo\+\_\+map\texorpdfstring{$<$}{<} Key, T, Compare, Allocator \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classnlohmann_1_1fifo__map}{}\label{classnlohmann_1_1fifo__map}\index{nlohmann::fifo\_map$<$ Key, T, Compare, Allocator $>$@{nlohmann::fifo\_map$<$ Key, T, Compare, Allocator $>$}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_aca51bfef174050fba6473aa36ad96d0d}\label{classnlohmann_1_1fifo__map_aca51bfef174050fba6473aa36ad96d0d} 
+using {\bfseries key\+\_\+type} = Key
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_ac44ae82c95d516829a3dfe52368df731}\label{classnlohmann_1_1fifo__map_ac44ae82c95d516829a3dfe52368df731} 
+using {\bfseries mapped\+\_\+type} = T
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_ab2ebeb59ad68e058bdf311c8fc949c84}\label{classnlohmann_1_1fifo__map_ab2ebeb59ad68e058bdf311c8fc949c84} 
+using {\bfseries value\+\_\+type} = std::\+pair$<$const Key, T$>$
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a36b5e771124e1f1cd4e66bd873f4d497}\label{classnlohmann_1_1fifo__map_a36b5e771124e1f1cd4e66bd873f4d497} 
+using {\bfseries size\+\_\+type} = std::\+size\+\_\+t
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a7a3730b031225cbb156fe9dd999d2e7f}\label{classnlohmann_1_1fifo__map_a7a3730b031225cbb156fe9dd999d2e7f} 
+using {\bfseries difference\+\_\+type} = std::\+ptrdiff\+\_\+t
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_af5f3bee5d10baf81ffafc9b8410c1933}\label{classnlohmann_1_1fifo__map_af5f3bee5d10baf81ffafc9b8410c1933} 
+using {\bfseries key\+\_\+compare} = Compare
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_abbb337500db2fcfba21a89fcc9fbcba8}\label{classnlohmann_1_1fifo__map_abbb337500db2fcfba21a89fcc9fbcba8} 
+using {\bfseries allocator\+\_\+type} = Allocator
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a87781a9060446787741fd5f15d712e5b}\label{classnlohmann_1_1fifo__map_a87781a9060446787741fd5f15d712e5b} 
+using {\bfseries reference} = value\+\_\+type\&
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a7464dcbe85ed4537136f3530aaef4d3d}\label{classnlohmann_1_1fifo__map_a7464dcbe85ed4537136f3530aaef4d3d} 
+using {\bfseries const\+\_\+reference} = const value\+\_\+type\&
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a8f8fd4cd8960ec5227a902a359829e65}\label{classnlohmann_1_1fifo__map_a8f8fd4cd8960ec5227a902a359829e65} 
+using {\bfseries pointer} = typename std::\+allocator\+\_\+traits$<$Allocator$>$::\+pointer
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_aa5e4a64d013e9e132beaab121823047b}\label{classnlohmann_1_1fifo__map_aa5e4a64d013e9e132beaab121823047b} 
+using {\bfseries const\+\_\+pointer} = typename std::\+allocator\+\_\+traits$<$Allocator$>$::\+const\+\_\+pointer
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_ab8868e3792117620089f6ade39e092a0}\label{classnlohmann_1_1fifo__map_ab8868e3792117620089f6ade39e092a0} 
+using {\bfseries internal\+\_\+map\+\_\+type} = std::\+map$<$Key, T, Compare, Allocator$>$
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_aa020174251d6af26c0c05cb505dcbb1f}\label{classnlohmann_1_1fifo__map_aa020174251d6af26c0c05cb505dcbb1f} 
+using {\bfseries iterator} = typename internal\+\_\+map\+\_\+type::\+iterator
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a26dc0c1217c0069c49636b93e83f086b}\label{classnlohmann_1_1fifo__map_a26dc0c1217c0069c49636b93e83f086b} 
+using {\bfseries const\+\_\+iterator} = typename internal\+\_\+map\+\_\+type::\+const\+\_\+iterator
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a1a0e829220a2ac951ebd74e7f22fc8f3}\label{classnlohmann_1_1fifo__map_a1a0e829220a2ac951ebd74e7f22fc8f3} 
+using {\bfseries reverse\+\_\+iterator} = typename internal\+\_\+map\+\_\+type::\+reverse\+\_\+iterator
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_afc054c7446284e9b3233563afacf4d66}\label{classnlohmann_1_1fifo__map_afc054c7446284e9b3233563afacf4d66} 
+using {\bfseries const\+\_\+reverse\+\_\+iterator} = typename internal\+\_\+map\+\_\+type::\+const\+\_\+reverse\+\_\+iterator
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a8e3008839518611dd0e4bc958cc1c298}\label{classnlohmann_1_1fifo__map_a8e3008839518611dd0e4bc958cc1c298} 
+{\bfseries fifo\+\_\+map} ()
+\begin{DoxyCompactList}\small\item\em default constructor \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a5307d6c1a728169eb1833c5324b4f027}\label{classnlohmann_1_1fifo__map_a5307d6c1a728169eb1833c5324b4f027} 
+{\bfseries fifo\+\_\+map} (const fifo\+\_\+map \&f)
+\begin{DoxyCompactList}\small\item\em copy constructor \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a22f6a6b3310a253888495818bde0a632}\label{classnlohmann_1_1fifo__map_a22f6a6b3310a253888495818bde0a632} 
+{\footnotesize template$<$class Input\+Iterator$>$ }\\{\bfseries fifo\+\_\+map} (Input\+Iterator first, Input\+Iterator last)
+\begin{DoxyCompactList}\small\item\em constructor for a range of elements \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_aaa74f2daf22f3d275305a0ec47f7d955}\label{classnlohmann_1_1fifo__map_aaa74f2daf22f3d275305a0ec47f7d955} 
+{\bfseries fifo\+\_\+map} (std::\+initializer\+\_\+list$<$ value\+\_\+type $>$ init)
+\begin{DoxyCompactList}\small\item\em constructor for a list of elements \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_afa6ff3b71b882a92ea3f9d190b2cfe41}\label{classnlohmann_1_1fifo__map_afa6ff3b71b882a92ea3f9d190b2cfe41} 
+T \& {\bfseries at} (const Key \&key)
+\begin{DoxyCompactList}\small\item\em access specified element with bounds checking \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a4af1bb54059fa8324e0fcafbc01af4dd}\label{classnlohmann_1_1fifo__map_a4af1bb54059fa8324e0fcafbc01af4dd} 
+const T \& {\bfseries at} (const Key \&key) const
+\begin{DoxyCompactList}\small\item\em access specified element with bounds checking \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a6444989ff7bbadae905864bb273cced3}\label{classnlohmann_1_1fifo__map_a6444989ff7bbadae905864bb273cced3} 
+T \& {\bfseries operator\+[$\,$]\+} (const Key \&key)
+\begin{DoxyCompactList}\small\item\em access specified element \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a133ba42b1c988e88f315763057538942}\label{classnlohmann_1_1fifo__map_a133ba42b1c988e88f315763057538942} 
+T \& {\bfseries operator\+[$\,$]\+} (Key \&\&key)
+\begin{DoxyCompactList}\small\item\em access specified element \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a8ef3718b1b2c13b7f7d4352109450030}\label{classnlohmann_1_1fifo__map_a8ef3718b1b2c13b7f7d4352109450030} 
+iterator {\bfseries begin} () noexcept
+\begin{DoxyCompactList}\small\item\em returns an iterator to the beginning \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a6800e5847cbc2ebd467f99898d0f456b}\label{classnlohmann_1_1fifo__map_a6800e5847cbc2ebd467f99898d0f456b} 
+iterator {\bfseries end} () noexcept
+\begin{DoxyCompactList}\small\item\em returns an iterator to the end \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a3e1e71204cff559affaca67352722942}\label{classnlohmann_1_1fifo__map_a3e1e71204cff559affaca67352722942} 
+const\+\_\+iterator {\bfseries begin} () const noexcept
+\begin{DoxyCompactList}\small\item\em returns an iterator to the beginning \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a2c8a298241090856c45ad8eca607af0b}\label{classnlohmann_1_1fifo__map_a2c8a298241090856c45ad8eca607af0b} 
+const\+\_\+iterator {\bfseries end} () const noexcept
+\begin{DoxyCompactList}\small\item\em returns an iterator to the end \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a7ec35bbb4a50420e72a1625dbdb91dda}\label{classnlohmann_1_1fifo__map_a7ec35bbb4a50420e72a1625dbdb91dda} 
+const\+\_\+iterator {\bfseries cbegin} () const noexcept
+\begin{DoxyCompactList}\small\item\em returns an iterator to the beginning \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a4cc9e81db20978f5476679a2164117dd}\label{classnlohmann_1_1fifo__map_a4cc9e81db20978f5476679a2164117dd} 
+const\+\_\+iterator {\bfseries cend} () const noexcept
+\begin{DoxyCompactList}\small\item\em returns an iterator to the end \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_ada5312d58d54bf4551f61f0bf293418d}\label{classnlohmann_1_1fifo__map_ada5312d58d54bf4551f61f0bf293418d} 
+reverse\+\_\+iterator {\bfseries rbegin} () noexcept
+\begin{DoxyCompactList}\small\item\em returns a reverse iterator to the beginning \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a4eeb140aecc1e5530ed21eb2d961f8c7}\label{classnlohmann_1_1fifo__map_a4eeb140aecc1e5530ed21eb2d961f8c7} 
+reverse\+\_\+iterator {\bfseries rend} () noexcept
+\begin{DoxyCompactList}\small\item\em returns a reverse iterator to the end \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_ae320b60e32a784fa8c173a9537eae40b}\label{classnlohmann_1_1fifo__map_ae320b60e32a784fa8c173a9537eae40b} 
+const\+\_\+reverse\+\_\+iterator {\bfseries rbegin} () const noexcept
+\begin{DoxyCompactList}\small\item\em returns a reverse iterator to the beginning \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a2fbe02890aeaea614c284a7fba138f72}\label{classnlohmann_1_1fifo__map_a2fbe02890aeaea614c284a7fba138f72} 
+const\+\_\+reverse\+\_\+iterator {\bfseries rend} () const noexcept
+\begin{DoxyCompactList}\small\item\em returns a reverse iterator to the end \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a56e78316445e53e3645d2d5cf0f3df4a}\label{classnlohmann_1_1fifo__map_a56e78316445e53e3645d2d5cf0f3df4a} 
+const\+\_\+reverse\+\_\+iterator {\bfseries crbegin} () const noexcept
+\begin{DoxyCompactList}\small\item\em returns a reverse iterator to the beginning \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a671c0849bc46f5255e059abda4fe3d9f}\label{classnlohmann_1_1fifo__map_a671c0849bc46f5255e059abda4fe3d9f} 
+const\+\_\+reverse\+\_\+iterator {\bfseries crend} () const noexcept
+\begin{DoxyCompactList}\small\item\em returns a reverse iterator to the end \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a66c3efb7800225b954e2115b4ad86859}\label{classnlohmann_1_1fifo__map_a66c3efb7800225b954e2115b4ad86859} 
+bool {\bfseries empty} () const noexcept
+\begin{DoxyCompactList}\small\item\em checks whether the container is empty \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a1815eeca37314ce007fdb44695dc45e1}\label{classnlohmann_1_1fifo__map_a1815eeca37314ce007fdb44695dc45e1} 
+size\+\_\+type {\bfseries size} () const noexcept
+\begin{DoxyCompactList}\small\item\em returns the number of elements \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a6537bd5a382817fb5b79d8262ec7513a}\label{classnlohmann_1_1fifo__map_a6537bd5a382817fb5b79d8262ec7513a} 
+size\+\_\+type {\bfseries max\+\_\+size} () const noexcept
+\begin{DoxyCompactList}\small\item\em returns the maximum possible number of elements \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_add18cf1a5d19f707f185cec27d3094a1}\label{classnlohmann_1_1fifo__map_add18cf1a5d19f707f185cec27d3094a1} 
+void {\bfseries clear} () noexcept
+\begin{DoxyCompactList}\small\item\em clears the contents \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a939e5300d694b8ac9841a0444b5f5466}\label{classnlohmann_1_1fifo__map_a939e5300d694b8ac9841a0444b5f5466} 
+std::\+pair$<$ iterator, bool $>$ {\bfseries insert} (const value\+\_\+type \&value)
+\begin{DoxyCompactList}\small\item\em insert value \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_abf5f38103ba0bdc37931743f44e6ea3a}\label{classnlohmann_1_1fifo__map_abf5f38103ba0bdc37931743f44e6ea3a} 
+{\footnotesize template$<$class P$>$ }\\std::\+pair$<$ iterator, bool $>$ {\bfseries insert} (P \&\&value)
+\begin{DoxyCompactList}\small\item\em insert value \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a9c77dd46fd5c921687e501ff25c0e41a}\label{classnlohmann_1_1fifo__map_a9c77dd46fd5c921687e501ff25c0e41a} 
+iterator {\bfseries insert} (const\+\_\+iterator hint, const value\+\_\+type \&value)
+\begin{DoxyCompactList}\small\item\em insert value with hint \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a420afb330229088b91c4b9e5fc7d78e9}\label{classnlohmann_1_1fifo__map_a420afb330229088b91c4b9e5fc7d78e9} 
+iterator {\bfseries insert} (const\+\_\+iterator hint, value\+\_\+type \&\&value)
+\begin{DoxyCompactList}\small\item\em insert value with hint \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_aa3073a34ba23f99ab7e143373130c8b5}\label{classnlohmann_1_1fifo__map_aa3073a34ba23f99ab7e143373130c8b5} 
+{\footnotesize template$<$class Input\+It$>$ }\\void {\bfseries insert} (Input\+It first, Input\+It last)
+\begin{DoxyCompactList}\small\item\em insert value range \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_ab4df1497b924971d1a90bdf4a403b61a}\label{classnlohmann_1_1fifo__map_ab4df1497b924971d1a90bdf4a403b61a} 
+void {\bfseries insert} (std::\+initializer\+\_\+list$<$ value\+\_\+type $>$ ilist)
+\begin{DoxyCompactList}\small\item\em insert value list \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a733b60da65661a81258d6932b94cbb2e}\label{classnlohmann_1_1fifo__map_a733b60da65661a81258d6932b94cbb2e} 
+{\footnotesize template$<$class... Args$>$ }\\std::\+pair$<$ iterator, bool $>$ {\bfseries emplace} (Args \&\&... args)
+\begin{DoxyCompactList}\small\item\em constructs element in-\/place \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a955c9579b501d118aff1c0b28570be58}\label{classnlohmann_1_1fifo__map_a955c9579b501d118aff1c0b28570be58} 
+{\footnotesize template$<$class... Args$>$ }\\iterator {\bfseries emplace\+\_\+hint} (const\+\_\+iterator hint, Args \&\&... args)
+\begin{DoxyCompactList}\small\item\em constructs element in-\/place with hint \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a6bffbddc2d64e7f6d3a163ea4a5fad62}\label{classnlohmann_1_1fifo__map_a6bffbddc2d64e7f6d3a163ea4a5fad62} 
+iterator {\bfseries erase} (const\+\_\+iterator pos)
+\begin{DoxyCompactList}\small\item\em remove element at position \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a101ba3fe00458a7720311946c728df9b}\label{classnlohmann_1_1fifo__map_a101ba3fe00458a7720311946c728df9b} 
+iterator {\bfseries erase} (const\+\_\+iterator first, const\+\_\+iterator last)
+\begin{DoxyCompactList}\small\item\em remove elements in range \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a2bad6b413e84cfde21b8b50d138cef35}\label{classnlohmann_1_1fifo__map_a2bad6b413e84cfde21b8b50d138cef35} 
+size\+\_\+type {\bfseries erase} (const key\+\_\+type \&key)
+\begin{DoxyCompactList}\small\item\em remove elements with key \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a16cfa1685d79157b91bb968440f3ed84}\label{classnlohmann_1_1fifo__map_a16cfa1685d79157b91bb968440f3ed84} 
+void {\bfseries swap} (\doxymbox{\hyperlink{classnlohmann_1_1fifo__map_a8e3008839518611dd0e4bc958cc1c298}{fifo\+\_\+map}} \&other)
+\begin{DoxyCompactList}\small\item\em swaps the contents \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_aee53920c97e28416e032b8abca54a587}\label{classnlohmann_1_1fifo__map_aee53920c97e28416e032b8abca54a587} 
+size\+\_\+type {\bfseries count} (const Key \&key) const
+\begin{DoxyCompactList}\small\item\em returns the number of elements matching specific key \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_ae46ce86c2f399fc2f1529e3ccf785568}\label{classnlohmann_1_1fifo__map_ae46ce86c2f399fc2f1529e3ccf785568} 
+iterator {\bfseries find} (const Key \&key)
+\begin{DoxyCompactList}\small\item\em finds element with specific key \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a975d86476a70f816cff78dc616da25e3}\label{classnlohmann_1_1fifo__map_a975d86476a70f816cff78dc616da25e3} 
+const\+\_\+iterator {\bfseries find} (const Key \&key) const
+\begin{DoxyCompactList}\small\item\em finds element with specific key \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a854a4829aacfe54d783e8c43dff12ad0}\label{classnlohmann_1_1fifo__map_a854a4829aacfe54d783e8c43dff12ad0} 
+std::\+pair$<$ iterator, iterator $>$ {\bfseries equal\+\_\+range} (const Key \&key)
+\begin{DoxyCompactList}\small\item\em returns range of elements matching a specific key \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a20f06494a2c07e58341706d65084b09e}\label{classnlohmann_1_1fifo__map_a20f06494a2c07e58341706d65084b09e} 
+std::\+pair$<$ const\+\_\+iterator, const\+\_\+iterator $>$ {\bfseries equal\+\_\+range} (const Key \&key) const
+\begin{DoxyCompactList}\small\item\em returns range of elements matching a specific key \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a9b7b062adb8ac5e1e04f52b9bde6aaa5}\label{classnlohmann_1_1fifo__map_a9b7b062adb8ac5e1e04f52b9bde6aaa5} 
+iterator {\bfseries lower\+\_\+bound} (const Key \&key)
+\begin{DoxyCompactList}\small\item\em returns an iterator to the first element not less than the given key \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_aa35d27c0d20d24ad9a72633c315eafb5}\label{classnlohmann_1_1fifo__map_aa35d27c0d20d24ad9a72633c315eafb5} 
+const\+\_\+iterator {\bfseries lower\+\_\+bound} (const Key \&key) const
+\begin{DoxyCompactList}\small\item\em returns an iterator to the first element not less than the given key \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a955be25a242b89ec424e5996ab377455}\label{classnlohmann_1_1fifo__map_a955be25a242b89ec424e5996ab377455} 
+iterator {\bfseries upper\+\_\+bound} (const Key \&key)
+\begin{DoxyCompactList}\small\item\em returns an iterator to the first element greater than the given key \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a44254b03431082fedc69dc6b10fbb2dd}\label{classnlohmann_1_1fifo__map_a44254b03431082fedc69dc6b10fbb2dd} 
+const\+\_\+iterator {\bfseries upper\+\_\+bound} (const Key \&key) const
+\begin{DoxyCompactList}\small\item\em returns an iterator to the first element greater than the given key \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a8835cf75e45740f2aecd8a2a62fcfcb9}\label{classnlohmann_1_1fifo__map_a8835cf75e45740f2aecd8a2a62fcfcb9} 
+key\+\_\+compare {\bfseries key\+\_\+comp} () const
+\begin{DoxyCompactList}\small\item\em returns the function that compares keys \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_ab1f1226eb05788913d4bbf7788896312}\label{classnlohmann_1_1fifo__map_ab1f1226eb05788913d4bbf7788896312} 
+std::\+unordered\+\_\+map$<$ Key, std::\+size\+\_\+t $>$ {\bfseries m\+\_\+keys}
+\begin{DoxyCompactList}\small\item\em the keys \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a392a73ac26e6b37de572940aa989c786}\label{classnlohmann_1_1fifo__map_a392a73ac26e6b37de572940aa989c786} 
+Compare {\bfseries m\+\_\+compare}
+\begin{DoxyCompactList}\small\item\em the comparison object \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a6d9fce04b9982e5b4b6c20a574c691b7}\label{classnlohmann_1_1fifo__map_a6d9fce04b9982e5b4b6c20a574c691b7} 
+internal\+\_\+map\+\_\+type {\bfseries m\+\_\+map}
+\begin{DoxyCompactList}\small\item\em the internal data structure \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a65f0d5d5e77d60af6c3e12d4c686969b}\label{classnlohmann_1_1fifo__map_a65f0d5d5e77d60af6c3e12d4c686969b} 
+bool {\bfseries operator==} (const \doxymbox{\hyperlink{classnlohmann_1_1fifo__map_a8e3008839518611dd0e4bc958cc1c298}{fifo\+\_\+map}} \&lhs, const \doxymbox{\hyperlink{classnlohmann_1_1fifo__map_a8e3008839518611dd0e4bc958cc1c298}{fifo\+\_\+map}} \&rhs)
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_ad01dfeaf670a81f36b67f29ac52fa5c3}\label{classnlohmann_1_1fifo__map_ad01dfeaf670a81f36b67f29ac52fa5c3} 
+bool {\bfseries operator!=} (const \doxymbox{\hyperlink{classnlohmann_1_1fifo__map_a8e3008839518611dd0e4bc958cc1c298}{fifo\+\_\+map}} \&lhs, const \doxymbox{\hyperlink{classnlohmann_1_1fifo__map_a8e3008839518611dd0e4bc958cc1c298}{fifo\+\_\+map}} \&rhs)
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a635e173a1318ec840026eeca3e526519}\label{classnlohmann_1_1fifo__map_a635e173a1318ec840026eeca3e526519} 
+bool {\bfseries operator$<$} (const \doxymbox{\hyperlink{classnlohmann_1_1fifo__map_a8e3008839518611dd0e4bc958cc1c298}{fifo\+\_\+map}} \&lhs, const \doxymbox{\hyperlink{classnlohmann_1_1fifo__map_a8e3008839518611dd0e4bc958cc1c298}{fifo\+\_\+map}} \&rhs)
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a53d8d37ba6984bc1dd54dde477d653ed}\label{classnlohmann_1_1fifo__map_a53d8d37ba6984bc1dd54dde477d653ed} 
+bool {\bfseries operator$<$=} (const \doxymbox{\hyperlink{classnlohmann_1_1fifo__map_a8e3008839518611dd0e4bc958cc1c298}{fifo\+\_\+map}} \&lhs, const \doxymbox{\hyperlink{classnlohmann_1_1fifo__map_a8e3008839518611dd0e4bc958cc1c298}{fifo\+\_\+map}} \&rhs)
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_aebdd8c7a5341d15b90d448b7d759446c}\label{classnlohmann_1_1fifo__map_aebdd8c7a5341d15b90d448b7d759446c} 
+bool {\bfseries operator$>$} (const \doxymbox{\hyperlink{classnlohmann_1_1fifo__map_a8e3008839518611dd0e4bc958cc1c298}{fifo\+\_\+map}} \&lhs, const \doxymbox{\hyperlink{classnlohmann_1_1fifo__map_a8e3008839518611dd0e4bc958cc1c298}{fifo\+\_\+map}} \&rhs)
+\item 
+\Hypertarget{classnlohmann_1_1fifo__map_a942b0da74354a694bae1e146066897e8}\label{classnlohmann_1_1fifo__map_a942b0da74354a694bae1e146066897e8} 
+bool {\bfseries operator$>$=} (const \doxymbox{\hyperlink{classnlohmann_1_1fifo__map_a8e3008839518611dd0e4bc958cc1c298}{fifo\+\_\+map}} \&lhs, const \doxymbox{\hyperlink{classnlohmann_1_1fifo__map_a8e3008839518611dd0e4bc958cc1c298}{fifo\+\_\+map}} \&rhs)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+thirdparty/\+fifo\+\_\+map/\+fifo\+\_\+map.\+hpp\end{DoxyCompactItemize}

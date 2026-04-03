@@ -1,0 +1,135 @@
+\doxysection{doctest::\+String Class Reference}
+\hypertarget{classdoctest_1_1_string}{}\label{classdoctest_1_1_string}\index{doctest::String@{doctest::String}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structdoctest_1_1_string_1_1view}{view}}
+\begin{DoxyCompactList}\small\item\em OCLINT avoid private static members. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdoctest_1_1_string_a955471ce254dca78b33f8167bad6b0f0}\label{classdoctest_1_1_string_a955471ce254dca78b33f8167bad6b0f0} 
+using {\bfseries size\+\_\+type} = DOCTEST\+\_\+\+CONFIG\+\_\+\+STRING\+\_\+\+SIZE\+\_\+\+TYPE
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdoctest_1_1_string_abb4449cbc613cd973ae774c704fca5dd}\label{classdoctest_1_1_string_abb4449cbc613cd973ae774c704fca5dd} 
+{\bfseries String} (const char \texorpdfstring{$\ast$}{*}in)
+\item 
+\Hypertarget{classdoctest_1_1_string_a0ce0a3e6a00b63b0a219a988fc42cec3}\label{classdoctest_1_1_string_a0ce0a3e6a00b63b0a219a988fc42cec3} 
+{\bfseries String} (const char \texorpdfstring{$\ast$}{*}in, size\+\_\+type in\+\_\+size)
+\item 
+\Hypertarget{classdoctest_1_1_string_ac6e38dd40b68e19ef6898a13f60d2a07}\label{classdoctest_1_1_string_ac6e38dd40b68e19ef6898a13f60d2a07} 
+{\bfseries String} (std::\+istream \&in, size\+\_\+type in\+\_\+size)
+\item 
+\Hypertarget{classdoctest_1_1_string_a27ca7976da20bdebbf225fa496c38ad1}\label{classdoctest_1_1_string_a27ca7976da20bdebbf225fa496c38ad1} 
+{\bfseries String} (const String \&other)
+\item 
+\Hypertarget{classdoctest_1_1_string_a43d58193ddd859ffc1dbd8ea4d263103}\label{classdoctest_1_1_string_a43d58193ddd859ffc1dbd8ea4d263103} 
+String \& {\bfseries operator=} (const String \&other)
+\item 
+\Hypertarget{classdoctest_1_1_string_a3025142a313b3d9bacb6bfd32c1bc36f}\label{classdoctest_1_1_string_a3025142a313b3d9bacb6bfd32c1bc36f} 
+String \& {\bfseries operator+=} (const String \&other)
+\item 
+\Hypertarget{classdoctest_1_1_string_a2a0aa72649d92cb8da5b89b98bcff752}\label{classdoctest_1_1_string_a2a0aa72649d92cb8da5b89b98bcff752} 
+{\bfseries String} (String \&\&other) noexcept
+\item 
+\Hypertarget{classdoctest_1_1_string_afc06e2f0bc08246c54d12cb5c2ece4ed}\label{classdoctest_1_1_string_afc06e2f0bc08246c54d12cb5c2ece4ed} 
+String \& {\bfseries operator=} (String \&\&other) noexcept
+\item 
+\Hypertarget{classdoctest_1_1_string_a15633c5d68057a07bccdadadd6acae05}\label{classdoctest_1_1_string_a15633c5d68057a07bccdadadd6acae05} 
+char {\bfseries operator\+[$\,$]\+} (size\+\_\+type i) const
+\item 
+\Hypertarget{classdoctest_1_1_string_a538ea195bcaba01af86d3492ca32ec5a}\label{classdoctest_1_1_string_a538ea195bcaba01af86d3492ca32ec5a} 
+char \& {\bfseries operator\+[$\,$]\+} (size\+\_\+type i)
+\item 
+\Hypertarget{classdoctest_1_1_string_a59fcdcf1abd7d66572158049c1b4a8c0}\label{classdoctest_1_1_string_a59fcdcf1abd7d66572158049c1b4a8c0} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries c\+\_\+str} () const
+\item 
+\Hypertarget{classdoctest_1_1_string_a4a59b9aa0980d93e15a4cf459dab7f7e}\label{classdoctest_1_1_string_a4a59b9aa0980d93e15a4cf459dab7f7e} 
+char \texorpdfstring{$\ast$}{*} {\bfseries c\+\_\+str} ()
+\item 
+\Hypertarget{classdoctest_1_1_string_acc9888303b7330a8dc78d3d79eadcf7c}\label{classdoctest_1_1_string_acc9888303b7330a8dc78d3d79eadcf7c} 
+size\+\_\+type {\bfseries size} () const
+\item 
+\Hypertarget{classdoctest_1_1_string_a1592b42fc76438d5a87a94654a828ced}\label{classdoctest_1_1_string_a1592b42fc76438d5a87a94654a828ced} 
+size\+\_\+type {\bfseries capacity} () const
+\item 
+\Hypertarget{classdoctest_1_1_string_a6fd53b95d33900d8a38a3a33c43c928e}\label{classdoctest_1_1_string_a6fd53b95d33900d8a38a3a33c43c928e} 
+String {\bfseries substr} (size\+\_\+type pos, size\+\_\+type cnt=npos) \&\&
+\item 
+\Hypertarget{classdoctest_1_1_string_ace5bc90d48d52944412addef185de9a6}\label{classdoctest_1_1_string_ace5bc90d48d52944412addef185de9a6} 
+String {\bfseries substr} (size\+\_\+type pos, size\+\_\+type cnt=npos) const \&
+\item 
+\Hypertarget{classdoctest_1_1_string_aa7b27b07ca5bf081b3ec25a3224a7a05}\label{classdoctest_1_1_string_aa7b27b07ca5bf081b3ec25a3224a7a05} 
+size\+\_\+type {\bfseries find} (char ch, size\+\_\+type pos=0) const
+\item 
+\Hypertarget{classdoctest_1_1_string_a6e22f4f3820de5ffdf82e0acc6646759}\label{classdoctest_1_1_string_a6e22f4f3820de5ffdf82e0acc6646759} 
+size\+\_\+type {\bfseries rfind} (char ch, size\+\_\+type pos=npos) const
+\item 
+\Hypertarget{classdoctest_1_1_string_aef87d1f106d32d8c31af87335b44164d}\label{classdoctest_1_1_string_aef87d1f106d32d8c31af87335b44164d} 
+int {\bfseries compare} (const char \texorpdfstring{$\ast$}{*}other, bool no\+\_\+case=false) const
+\item 
+\Hypertarget{classdoctest_1_1_string_adb57becb56e054d981e7c2b967a7e359}\label{classdoctest_1_1_string_adb57becb56e054d981e7c2b967a7e359} 
+int {\bfseries compare} (const String \&other, bool no\+\_\+case=false) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdoctest_1_1_string_a29d41bba3eb99eb895aaf8227da09f3e}\label{classdoctest_1_1_string_a29d41bba3eb99eb895aaf8227da09f3e} 
+static DOCTEST\+\_\+\+CONSTEXPR size\+\_\+type {\bfseries npos} = static\+\_\+cast$<$size\+\_\+type$>$(-\/1)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdoctest_1_1_string_a73a3b7cc18edbf1ac14507b69d80cf00}\label{classdoctest_1_1_string_a73a3b7cc18edbf1ac14507b69d80cf00} 
+char \texorpdfstring{$\ast$}{*} {\bfseries allocate} (size\+\_\+type sz)
+\item 
+\Hypertarget{classdoctest_1_1_string_a3d0c1d8e0d27818235e0639f49d232e9}\label{classdoctest_1_1_string_a3d0c1d8e0d27818235e0639f49d232e9} 
+bool {\bfseries is\+On\+Stack} () const noexcept
+\item 
+\Hypertarget{classdoctest_1_1_string_ae81f4517c89c01eee8c750eddcf62197}\label{classdoctest_1_1_string_ae81f4517c89c01eee8c750eddcf62197} 
+void {\bfseries set\+On\+Heap} () noexcept
+\item 
+\Hypertarget{classdoctest_1_1_string_a62268e72280c4eff28d92fe47a76828c}\label{classdoctest_1_1_string_a62268e72280c4eff28d92fe47a76828c} 
+void {\bfseries set\+Last} (size\+\_\+type in=\doxymbox{\hyperlink{classdoctest_1_1_string_a851ddfd0d6b457e7acbceff88d1d78d8}{last}}) noexcept
+\item 
+\Hypertarget{classdoctest_1_1_string_a72dcec3321fa6dd19f0463b574b05e8b}\label{classdoctest_1_1_string_a72dcec3321fa6dd19f0463b574b05e8b} 
+void {\bfseries set\+Size} (size\+\_\+type sz) noexcept
+\item 
+\Hypertarget{classdoctest_1_1_string_a9adde1fae310e0d1a394cc1383495572}\label{classdoctest_1_1_string_a9adde1fae310e0d1a394cc1383495572} 
+void {\bfseries copy} (const String \&other)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdoctest_1_1_string_a851da3f7e8bf85468019d522e96e3f78}\label{classdoctest_1_1_string_a851da3f7e8bf85468019d522e96e3f78} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>char {\bfseries buf} \+[len]\+\\
+\>\doxymbox{\hyperlink{structdoctest_1_1_string_1_1view}{view}} {\bfseries data}\\
+\}; \\
+
+\end{tabbing}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdoctest_1_1_string_a8b2b090627c2b829df8892ce82213a2a}\label{classdoctest_1_1_string_a8b2b090627c2b829df8892ce82213a2a} 
+static DOCTEST\+\_\+\+CONSTEXPR size\+\_\+type {\bfseries len} = 24
+\item 
+\Hypertarget{classdoctest_1_1_string_a851ddfd0d6b457e7acbceff88d1d78d8}\label{classdoctest_1_1_string_a851ddfd0d6b457e7acbceff88d1d78d8} 
+static DOCTEST\+\_\+\+CONSTEXPR size\+\_\+type {\bfseries last} = len -\/ 1
+\begin{DoxyCompactList}\small\item\em OCLINT avoid private static members. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdoctest_1_1_string_a782c199b9e7c3bdf94579410c8a82fc3}\label{classdoctest_1_1_string_a782c199b9e7c3bdf94579410c8a82fc3} 
+DOCTEST\+\_\+\+INTERFACE std::\+ostream \& {\bfseries operator$<$$<$} (std::\+ostream \&s, const String \&in)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+thirdparty/\+doctest/\+doctest.\+h\end{DoxyCompactItemize}

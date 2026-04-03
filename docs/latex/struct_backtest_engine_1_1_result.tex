@@ -1,0 +1,42 @@
+\doxysection{Backtest\+Engine::\+Result Struct Reference}
+\hypertarget{struct_backtest_engine_1_1_result}{}\label{struct_backtest_engine_1_1_result}\index{BacktestEngine::Result@{BacktestEngine::Result}}
+
+
+Output results for a backtest run.  
+
+
+
+
+{\ttfamily \+\#include $<$Backtest\+Engine.\+hpp$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_backtest_engine_1_1_result_a6cc0bf660e50d8847c69323f5a16fff3}\label{struct_backtest_engine_1_1_result_a6cc0bf660e50d8847c69323f5a16fff3} 
+bool {\bfseries ok} = false
+\item 
+\Hypertarget{struct_backtest_engine_1_1_result_ac55f71568c64325402cac6e6989e2102}\label{struct_backtest_engine_1_1_result_ac55f71568c64325402cac6e6989e2102} 
+std::\+string {\bfseries error}
+\item 
+\Hypertarget{struct_backtest_engine_1_1_result_adf9234757004b3fb8c2bb1b17f29b00a}\label{struct_backtest_engine_1_1_result_adf9234757004b3fb8c2bb1b17f29b00a} 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_backtest_engine_1_1_price_point}{Price\+Point}} $>$ {\bfseries equity\+\_\+curve}
+\item 
+\Hypertarget{struct_backtest_engine_1_1_result_a3890d733c7cfbb9d22ac25f3464f2b87}\label{struct_backtest_engine_1_1_result_a3890d733c7cfbb9d22ac25f3464f2b87} 
+double {\bfseries initial\+\_\+value} = 0.\+0
+\item 
+\Hypertarget{struct_backtest_engine_1_1_result_ad0bfe9f6cd920d17c37311678af12922}\label{struct_backtest_engine_1_1_result_ad0bfe9f6cd920d17c37311678af12922} 
+double {\bfseries final\+\_\+value} = 0.\+0
+\item 
+\Hypertarget{struct_backtest_engine_1_1_result_acd82b628470f2a0a23e58308cc6ed970}\label{struct_backtest_engine_1_1_result_acd82b628470f2a0a23e58308cc6ed970} 
+int {\bfseries rebalances} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Output results for a backtest run. 
+
+Captures both success/\+failure state and the portfolio-\/level metrics needed for reporting the simulation outcome. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+backtest/\+\doxymbox{\hyperlink{_backtest_engine_8hpp}{Backtest\+Engine.\+hpp}}\end{DoxyCompactItemize}

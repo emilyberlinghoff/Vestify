@@ -1,0 +1,119 @@
+\chapter{Parsing and Exceptions }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2parsing_2parse__exceptions}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2parsing_2parse__exceptions}\index{Parsing and Exceptions@{Parsing and Exceptions}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2parsing_2parse__exceptions_autotoc_md1501}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2parsing_2parse__exceptions_autotoc_md1501}%
+
+
+When the input is not valid JSON, an exception of type \href{../../home/exceptions.md\#parse-errors}{\texttt{{\ttfamily parse\+\_\+error}}} is thrown. This exception contains the position in the input where the error occurred, together with a diagnostic message and the last read input token. \doxylink{requirements_The}{The} exceptions page contains a \href{../../home/exceptions.md\#parse-errors}{\texttt{list of examples for parse error exceptions}}. In case you process untrusted input, always enclose your code with a {\ttfamily \#!cpp try}/\+{\ttfamily \#!cpp catch} block, like
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{json\ j;}
+\DoxyCodeLine{\textcolor{keywordflow}{try}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ j\ =\ json::parse(my\_input);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{keywordflow}{catch}\ (json::parse\_error\&\ ex)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}parse\ error\ at\ byte\ "{}}\ <<\ ex.byte\ <<\ std::endl;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+In case exceptions are undesired or not supported by the environment, there are different ways to proceed:\+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2parsing_2parse__exceptions_autotoc_md1502}{}\doxysection{\texorpdfstring{Switch off exceptions}{Switch off exceptions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2parsing_2parse__exceptions_autotoc_md1502}
+\doxylink{requirements_The}{The} {\ttfamily parse()} function accepts a {\ttfamily \#!cpp bool} parameter {\ttfamily allow\+\_\+exceptions} which controls whether an exception is thrown when a parse error occurs ({\ttfamily \#!cpp true}, default) or whether a discarded value should be returned ({\ttfamily \#!cpp false}).
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{json\ j\ =\ json::parse(my\_input,\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\textcolor{keywordflow}{if}\ (j.is\_discarded())}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}parse\ error"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Note there is no diagnostic information available in this scenario.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2parsing_2parse__exceptions_autotoc_md1503}{}\doxysection{\texorpdfstring{Use accept() function}{Use accept() function}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2parsing_2parse__exceptions_autotoc_md1503}
+Alternatively, function {\ttfamily accept()} can be used which does not return a {\ttfamily json} value, but a {\ttfamily \#!cpp bool} indicating whether the input is valid JSON.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{if}\ (!json::accept(my\_input))}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}parse\ error"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Again, there is no diagnostic information available.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2parsing_2parse__exceptions_autotoc_md1504}{}\doxysection{\texorpdfstring{User-\/defined SAX interface}{User-\/defined SAX interface}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2parsing_2parse__exceptions_autotoc_md1504}
+Finally, you can implement the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2parsing_2sax__interface}{SAX interface}{0} and decide what should happen in case of a parse error.
+
+This function has the following interface:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ parse\_error(std::size\_t\ position,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ last\_token,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ json::exception\&\ ex);}
+
+\end{DoxyCode}
+
+
+\doxylink{requirements_The}{The} return value indicates whether the parsing should continue, so the function should usually return {\ttfamily \#!cpp false}.
+
+??? example \begin{DoxyVerb}```cpp
+#include <iostream>
+#include "json.hpp"
+
+using json = nlohmann::json;
+
+class sax_no_exception : public nlohmann::detail::json_sax_dom_parser<json>
+{
+  public:
+    sax_no_exception(json& j)
+      : nlohmann::detail::json_sax_dom_parser<json>(j, false)
+    {}
+
+    bool parse_error(std::size_t position,
+                     const std::string& last_token,
+                     const json::exception& ex)
+    {
+        std::cerr << "parse error at input byte " << position << "\n"
+                  << ex.what() << "\n"
+                  << "last read: \"" << last_token << "\""
+                  << std::endl;
+        return false;
+    }
+};
+
+int main()
+{
+    std::string myinput = "[1,2,3,]";
+
+    json result;
+    sax_no_exception sax(result);
+
+    bool parse_result = json::sax_parse(myinput, &sax);
+    if (!parse_result)
+    {
+        std::cerr << "parsing unsuccessful!" << std::endl;
+    }
+
+    std::cout << "parsed value: " << result << std::endl;
+}
+```
+
+Output:
+
+```
+parse error at input byte 8
+[json.exception.parse_error.101] parse error at line 1, column 8: syntax error while parsing value - unexpected ']'; expected '[', '{', or a literal
+last read: "3,]"
+parsing unsuccessful!
+parsed value: [1,2,3]
+```
+\end{DoxyVerb}
+ 

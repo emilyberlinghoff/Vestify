@@ -1,0 +1,70 @@
+\chapter{NLOHMANN\+\_\+\+JSON\+\_\+\+NAMESPACE\+\_\+\+BEGIN, NLOHMANN\+\_\+\+JSON\+\_\+\+NAMESPACE\+\_\+\+END }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__begin}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__begin}\index{NLOHMANN\_JSON\_NAMESPACE\_BEGIN, NLOHMANN\_JSON\_NAMESPACE\_END@{NLOHMANN\_JSON\_NAMESPACE\_BEGIN, NLOHMANN\_JSON\_NAMESPACE\_END}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__begin_autotoc_md1294}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__begin_autotoc_md1294}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_NAMESPACE\_BEGIN\ }\textcolor{comment}{/*\ value\ */}\textcolor{preprocessor}{\ \ }\textcolor{comment}{//\ (1)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_NAMESPACE\_END\ \ \ }\textcolor{comment}{/*\ value\ */}\textcolor{preprocessor}{\ \ }\textcolor{comment}{//\ (2)}}
+
+\end{DoxyCode}
+
+
+These macros can be used to open and close the {\ttfamily \doxylink{namespacenlohmann}{nlohmann}} namespace. See \href{../../features/namespace.md\#structure}{\texttt{{\ttfamily nlohmann} Namespace}} for details.
+
+
+\begin{DoxyEnumerate}
+\item Opens the namespace.
+\item Closes the namespace.
+\end{DoxyEnumerate}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__begin_autotoc_md1295}{}\doxysection{\texorpdfstring{Default definition}{Default definition}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__begin_autotoc_md1295}
+\doxylink{requirements_The}{The} default definitions open and close the {\ttfamily \doxylink{namespacenlohmann}{nlohmann}} namespace. \doxylink{requirements_The}{The} precise definition of \+[{\ttfamily NLOHMANN\+\_\+\+JSON\+\_\+\+NAMESPACE\+\_\+\+BEGIN}]\+ varies as described \href{../../features/namespace.md\#structure}{\texttt{here}}.
+
+
+\begin{DoxyEnumerate}
+\item Default definition of {\ttfamily NLOHMANN\+\_\+\+JSON\+\_\+\+NAMESPACE\+\_\+\+BEGIN}:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacenlohmann}{nlohmann}}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\textcolor{keyword}{inline}\ \textcolor{keyword}{namespace\ }json\_abi\_v3\_11\_2}
+\DoxyCodeLine{\{}
+
+\end{DoxyCode}
+
+\item Default definition of {\ttfamily NLOHMANN\+\_\+\+JSON\+\_\+\+NAMESPACE\+\_\+\+END}:\+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\}\ \ \textcolor{comment}{//\ namespace\ json\_abi\_v3\_11\_2}}
+\DoxyCodeLine{\}\ \ \textcolor{comment}{//\ namespace\ nlohmann}}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}
+
+When these macros are not defined, the library will define them to their default definitions.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__begin_autotoc_md1296}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__begin_autotoc_md1296}
+??? example \begin{DoxyVerb}The example shows how to use `NLOHMANN_JSON_NAMESPACE_BEGIN`/`NLOHMANN_JSON_NAMESPACE_END` from the
+[How do I convert third-party types?](../../features/arbitrary_types.md#how-do-i-convert-third-party-types) page.
+
+```cpp
+--8<-- "examples/nlohmann_json_namespace_begin.c++17.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/nlohmann_json_namespace_begin.c++17.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__begin_autotoc_md1297}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__begin_autotoc_md1297}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace}{{\ttfamily nlohmann} Namespace}{0}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace}{NLOHMANN\+\_\+\+JSON\+\_\+\+NAMESPACE}{0}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__no__version}{{\ttfamily NLOHMANN\+\_\+\+JSON\+\_\+\+NAMESPACE\+\_\+\+NO\+\_\+\+VERSION}}{0}
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__begin_autotoc_md1298}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__begin_autotoc_md1298}
+
+\begin{DoxyItemize}
+\item Added in version 3.\+11.\+0. Changed inline namespace name in version 3.\+11.\+2. 
+\end{DoxyItemize}

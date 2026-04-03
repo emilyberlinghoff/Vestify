@@ -1,0 +1,103 @@
+\doxysection{Efficiency\+Scoring\+Model Class Reference}
+\hypertarget{class_efficiency_scoring_model}{}\label{class_efficiency_scoring_model}\index{EfficiencyScoringModel@{EfficiencyScoringModel}}
+
+
+Scores stocks on capital efficiency and operational performance.  
+
+
+
+
+{\ttfamily \+\#include $<$Efficiency\+Scoring\+Model.\+hpp$>$}
+
+Inheritance diagram for Efficiency\+Scoring\+Model:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_efficiency_scoring_model}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \doxymbox{\hyperlink{class_efficiency_scoring_model_a74358dd711fe0163a625b9a2978f2041}{calculate\+Score}} (const \doxymbox{\hyperlink{struct_stock}{Stock}} \&stock) const override
+\begin{DoxyCompactList}\small\item\em Calculate an efficiency score for one stock. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_efficiency_scoring_model_a8618e239f2a125daf4c931015a9cc825}{get\+Model\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em Return the display name for this model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_scoring_model}{Scoring\+Model}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \doxymbox{\hyperlink{class_scoring_model_a9b9bf1dac68c407b2c2e0be03dec48b0}{\texorpdfstring{$\sim$}{\string~}\+Scoring\+Model}} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor for polymorphic scoring models. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Scores stocks on capital efficiency and operational performance. 
+
+Evaluates three efficiency dimensions:\+
+\begin{DoxyItemize}
+\item ROA (how well the company uses its assets to generate profit)
+\item Operating margin (operational efficiency before interest/\+tax)
+\item EV/\+\+EBIT (market valuation relative to operating earnings)
+\end{DoxyItemize}
+
+Each component maps to a 0-\/100 sub-\/score, then averaged. It highlights businesses that turn assets and operations into profit efficiently without requiring excessive valuation support.
+
+\begin{DoxyAuthor}{Author}
+Melvin Rogers 
+\end{DoxyAuthor}
+
+
+\label{doc-func-members}
+\Hypertarget{class_efficiency_scoring_model_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_efficiency_scoring_model_a74358dd711fe0163a625b9a2978f2041}\index{EfficiencyScoringModel@{EfficiencyScoringModel}!calculateScore@{calculateScore}}
+\index{calculateScore@{calculateScore}!EfficiencyScoringModel@{EfficiencyScoringModel}}
+\doxysubsubsection{\texorpdfstring{calculateScore()}{calculateScore()}}
+{\footnotesize\ttfamily \label{class_efficiency_scoring_model_a74358dd711fe0163a625b9a2978f2041} 
+double Efficiency\+Scoring\+Model::\+calculate\+Score (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_stock}{Stock}} \&}]{stock}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Calculate an efficiency score for one stock. 
+
+Converts asset-\/return, margin, and enterprise-\/value efficiency signals into normalized sub-\/scores and averages the valid components.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stock} & \doxylink{struct_stock}{Stock} fundamentals to evaluate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Efficiency score in the range \+[0, 100]\+. 
+\end{DoxyReturn}
+ROA:\+ higher means better asset utilization. Stored as fraction. Map 0-\/0.\+25 (25\%) -\/\texorpdfstring{$>$}{>} 0-\/100.
+
+Operating margin:\+ higher means more efficient operations. Stored as fraction. Map 0-\/0.\+40 (40\%) -\/\texorpdfstring{$>$}{>} 0-\/100.
+
+EV/\+\+EBIT:\+ lower means cheaper relative to operating earnings. Map 0-\/40 -\/\texorpdfstring{$>$}{>} 100-\/0.
+
+Implements \doxymbox{\hyperlink{class_scoring_model_a5a6301eb2a281ebb14ae07603fb2f261}{Scoring\+Model}}.
+
+\Hypertarget{class_efficiency_scoring_model_a8618e239f2a125daf4c931015a9cc825}\index{EfficiencyScoringModel@{EfficiencyScoringModel}!getModelName@{getModelName}}
+\index{getModelName@{getModelName}!EfficiencyScoringModel@{EfficiencyScoringModel}}
+\doxysubsubsection{\texorpdfstring{getModelName()}{getModelName()}}
+{\footnotesize\ttfamily \label{class_efficiency_scoring_model_a8618e239f2a125daf4c931015a9cc825} 
+std::\+string Efficiency\+Scoring\+Model::\+get\+Model\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Return the display name for this model. 
+
+This identifier is used when registering the model and when displaying weighted factor contributions in ranking output.
+
+\begin{DoxyReturn}{Returns}
+The model name string "{}\+Efficiency"{}. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_scoring_model_a4b9b6b56036e41f15d59c3cdd9a49826}{Scoring\+Model}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+scoring/\+\doxymbox{\hyperlink{_efficiency_scoring_model_8hpp}{Efficiency\+Scoring\+Model.\+hpp}}\end{DoxyCompactItemize}

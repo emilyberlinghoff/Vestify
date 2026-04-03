@@ -1,0 +1,535 @@
+\doxysection{input\+\_\+adapters.\+hpp}
+\hypertarget{input__adapters_8hpp_source}{}\label{input__adapters_8hpp_source}\index{include/nlohman/json-\/develop/include/nlohmann/detail/input/input\_adapters.hpp@{include/nlohman/json-\/develop/include/nlohmann/detail/input/input\_adapters.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \_\_\ \_\_\_\_\_\ \_\_\_\_\_\ \_\_\_\_\_}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ \ \_\_|\ \ |\ \ \ \_\_|\ \ \ \ \ |\ \ \ |\ |\ \ JSON\ for\ Modern\ C++}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ |\ \ |\ \ |\_\_\ \ \ |\ \ |\ \ |\ |\ |\ |\ \ version\ 3.12.0}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ |\_\_\_\_\_|\_\_\_\_\_|\_\_\_\_\_|\_|\_\_\_|\ \ https://github.com/nlohmann/json}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ SPDX-\/FileCopyrightText:\ 2013-\/2026\ Niels\ Lohmann\ <https://nlohmann.me>}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ SPDX-\/License-\/Identifier:\ MIT}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <array>}\ \textcolor{comment}{//\ array}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <cstddef>}\ \textcolor{comment}{//\ size\_t}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <cstring>}\ \textcolor{comment}{//\ strlen}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <iterator>}\ \textcolor{comment}{//\ begin,\ end,\ iterator\_traits,\ random\_access\_iterator\_tag,\ distance,\ next}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <memory>}\ \textcolor{comment}{//\ shared\_ptr,\ make\_shared,\ addressof}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <numeric>}\ \textcolor{comment}{//\ accumulate}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <streambuf>}\ \textcolor{comment}{//\ streambuf}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <string>}\ \textcolor{comment}{//\ string,\ char\_traits}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <type\_traits>}\ \textcolor{comment}{//\ enable\_if,\ is\_base\_of,\ is\_pointer,\ is\_integral,\ remove\_pointer}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <utility>}\ \textcolor{comment}{//\ pair,\ declval}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#ifndef\ JSON\_NO\_IO}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \ \ \ \#include\ <cstdio>}\ \ \ \textcolor{comment}{//\ FILE\ *}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\ \ \ \ \#include\ <istream>}\ \ \textcolor{comment}{//\ istream}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ JSON\_NO\_IO}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/exceptions.hpp>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/iterators/iterator\_traits.hpp>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/macro\_scope.hpp>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/meta/type\_traits.hpp>}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ NLOHMANN\_JSON\_NAMESPACE\_BEGIN}
+\DoxyCodeLine{00033\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacedetail}{detail}}}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{enum\ class}\ \doxymbox{\hyperlink{namespacedetail_a0ab3b338d0eadc6890b72cccef0ea04f}{input\_format\_t}}\ \{\ json,\ cbor,\ msgpack,\ ubjson,\ bson,\ bjdata\ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ input\ adapters\ //}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#ifndef\ JSON\_NO\_IO}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{class\ }file\_input\_adapter}
+\DoxyCodeLine{00049\ \{}
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{using\ }char\_type\ =\ char;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ JSON\_HEDLEY\_NON\_NULL(2)}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{explicit}\ file\_input\_adapter(std::FILE*\ f)\ noexcept}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{classdetail_1_1file__input__adapter_a01ae0f160881620f4fb270374862d5ff}{m\_file}}(f)}
+\DoxyCodeLine{00056\ \ \ \ \ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ JSON\_ASSERT(\doxymbox{\hyperlink{classdetail_1_1file__input__adapter_a01ae0f160881620f4fb270374862d5ff}{m\_file}}\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00058\ \ \ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{//\ make\ class\ move-\/only}}
+\DoxyCodeLine{00061\ \ \ \ \ file\_input\_adapter(\textcolor{keyword}{const}\ file\_input\_adapter\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00062\ \ \ \ \ file\_input\_adapter(file\_input\_adapter\&\&)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00063\ \ \ \ \ file\_input\_adapter\&\ operator=(\textcolor{keyword}{const}\ file\_input\_adapter\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00064\ \ \ \ \ file\_input\_adapter\&\ operator=(file\_input\_adapter\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00065\ \ \ \ \ \string~file\_input\_adapter()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\ get\_character()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00068\ \ \ \ \ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::fgetc(\doxymbox{\hyperlink{classdetail_1_1file__input__adapter_a01ae0f160881620f4fb270374862d5ff}{m\_file}});}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{comment}{//\ returns\ the\ number\ of\ characters\ successfully\ read}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00074\ \ \ \ \ std::size\_t\ get\_elements(T*\ dest,\ std::size\_t\ count\ =\ 1)}
+\DoxyCodeLine{00075\ \ \ \ \ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ fread(dest,\ 1,\ \textcolor{keyword}{sizeof}(T)\ *\ count,\ \doxymbox{\hyperlink{classdetail_1_1file__input__adapter_a01ae0f160881620f4fb270374862d5ff}{m\_file}});}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00081\ \ \ \ \ std::FILE*\ \doxymbox{\hyperlink{classdetail_1_1file__input__adapter_a01ae0f160881620f4fb270374862d5ff}{m\_file}};}
+\DoxyCodeLine{00082\ \};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{class\ }input\_stream\_adapter}
+\DoxyCodeLine{00094\ \{}
+\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{using\ }char\_type\ =\ char;}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \string~input\_stream\_adapter()}
+\DoxyCodeLine{00099\ \ \ \ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ clear\ stream\ flags;\ we\ use\ underlying\ streambuf\ I/O,\ do\ not}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ maintain\ ifstream\ flags,\ except\ eof}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1input__stream__adapter_a2ad9bddea6e9185853eab834bdeeb4cc}{is}}\ !=\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1input__stream__adapter_a2ad9bddea6e9185853eab834bdeeb4cc}{is}}-\/>clear(\doxymbox{\hyperlink{classdetail_1_1input__stream__adapter_a2ad9bddea6e9185853eab834bdeeb4cc}{is}}-\/>rdstate()\ \&\ std::ios::eofbit);}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{explicit}\ input\_stream\_adapter(std::istream\&\ i)}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{classdetail_1_1input__stream__adapter_a2ad9bddea6e9185853eab834bdeeb4cc}{is}}(\&i),\ sb(i.rdbuf())}
+\DoxyCodeLine{00110\ \ \ \ \ \{\}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{comment}{//\ deleted\ because\ of\ pointer\ members}}
+\DoxyCodeLine{00113\ \ \ \ \ input\_stream\_adapter(\textcolor{keyword}{const}\ input\_stream\_adapter\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00114\ \ \ \ \ input\_stream\_adapter\&\ operator=(input\_stream\_adapter\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00115\ \ \ \ \ input\_stream\_adapter\&\ operator=(input\_stream\_adapter\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ input\_stream\_adapter(input\_stream\_adapter\&\&\ rhs)\ noexcept}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{classdetail_1_1input__stream__adapter_a2ad9bddea6e9185853eab834bdeeb4cc}{is}}(rhs.is),\ sb(rhs.sb)}
+\DoxyCodeLine{00119\ \ \ \ \ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ rhs.is\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ rhs.sb\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{comment}{//\ std::istream/std::streambuf\ use\ std::char\_traits<char>::to\_int\_type,\ to}}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{comment}{//\ ensure\ that\ std::char\_traits<char>::eof()\ and\ the\ character\ 0xFF\ do\ not}}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{comment}{//\ end\ up\ as\ the\ same\ value,\ e.g.,\ 0xFFFFFFFF.}}
+\DoxyCodeLine{00127\ \ \ \ \ \doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\ get\_character()}
+\DoxyCodeLine{00128\ \ \ \ \ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ res\ =\ sb-\/>sbumpc();}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ eof\ manually,\ as\ we\ don't\ use\ the\ istream\ interface.}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (JSON\_HEDLEY\_UNLIKELY(res\ ==\ \doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::eof}}()))}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1input__stream__adapter_a2ad9bddea6e9185853eab834bdeeb4cc}{is}}-\/>clear(\doxymbox{\hyperlink{classdetail_1_1input__stream__adapter_a2ad9bddea6e9185853eab834bdeeb4cc}{is}}-\/>rdstate()\ |\ std::ios::eofbit);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00139\ \ \ \ \ std::size\_t\ get\_elements(T*\ dest,\ std::size\_t\ count\ =\ 1)}
+\DoxyCodeLine{00140\ \ \ \ \ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ res\ =\ \textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(sb-\/>sgetn(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(dest),\ \textcolor{keyword}{static\_cast<}std::streamsize\textcolor{keyword}{>}(count\ *\ \textcolor{keyword}{sizeof}(T))));}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (JSON\_HEDLEY\_UNLIKELY(res\ <\ count\ *\ \textcolor{keyword}{sizeof}(T)))}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1input__stream__adapter_a2ad9bddea6e9185853eab834bdeeb4cc}{is}}-\/>clear(\doxymbox{\hyperlink{classdetail_1_1input__stream__adapter_a2ad9bddea6e9185853eab834bdeeb4cc}{is}}-\/>rdstate()\ |\ std::ios::eofbit);}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00151\ \ \ \ \ std::istream*\ \doxymbox{\hyperlink{classdetail_1_1input__stream__adapter_a2ad9bddea6e9185853eab834bdeeb4cc}{is}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00152\ \ \ \ \ std::streambuf*\ sb\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00153\ \};}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ JSON\_NO\_IO}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{comment}{//\ General-\/purpose\ iterator-\/based\ adapter.\ It\ might\ not\ be\ as\ fast\ as}}
+\DoxyCodeLine{00157\ \textcolor{comment}{//\ theoretically\ possible\ for\ some\ containers,\ but\ it\ is\ extremely\ versatile.}}
+\DoxyCodeLine{00158\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ IteratorType>}
+\DoxyCodeLine{00159\ \textcolor{keyword}{class\ }iterator\_input\_adapter}
+\DoxyCodeLine{00160\ \{}
+\DoxyCodeLine{00161\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keyword}{using\ }char\_type\ =\ \textcolor{keyword}{typename}\ std::iterator\_traits<IteratorType>::value\_type;}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ iterator\_input\_adapter(IteratorType\ first,\ IteratorType\ last)}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ :\ current(std::move(first)),\ end(std::move(last))}
+\DoxyCodeLine{00166\ \ \ \ \ \{\}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structdetail_1_1char__traits}{char\_traits<char\_type>::int\_type}}\ get\_character()}
+\DoxyCodeLine{00169\ \ \ \ \ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (JSON\_HEDLEY\_LIKELY(current\ !=\ end))}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ result\ =\ \doxymbox{\hyperlink{structdetail_1_1char__traits}{char\_traits<char\_type>::to\_int\_type}}(*current);}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ std::advance(current,\ 1);}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structdetail_1_1char__traits}{char\_traits<char\_type>::eof}}();}
+\DoxyCodeLine{00178\ \ \ \ \ \}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{comment}{//\ for\ general\ iterators,\ we\ cannot\ really\ do\ something\ better\ than\ falling\ back\ to\ processing\ the\ range\ one-\/by-\/one}}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00182\ \ \ \ \ std::size\_t\ get\_elements(T*\ dest,\ std::size\_t\ count\ =\ 1)}
+\DoxyCodeLine{00183\ \ \ \ \ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ ptr\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(dest);}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ read\_index\ =\ 0;\ read\_index\ <\ count\ *\ \textcolor{keyword}{sizeof}(T);\ ++read\_index)}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (JSON\_HEDLEY\_LIKELY(current\ !=\ end))}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr[read\_index]\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}\textcolor{keyword}{>}(*current);}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::advance(current,\ 1);}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ read\_index;}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ count\ *\ \textcolor{keyword}{sizeof}(T);}
+\DoxyCodeLine{00198\ \ \ \ \ \}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00201\ \ \ \ \ IteratorType\ current;}
+\DoxyCodeLine{00202\ \ \ \ \ IteratorType\ end;}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BaseInputAdapter,\ \textcolor{keywordtype}{size\_t}\ T>}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{struct\ }wide\_string\_input\_helper;}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordtype}{bool}\ empty()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00208\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ current\ ==\ end;}
+\DoxyCodeLine{00210\ \ \ \ \ \}}
+\DoxyCodeLine{00211\ \};}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BaseInputAdapter,\ \textcolor{keywordtype}{size\_t}\ T>}
+\DoxyCodeLine{00214\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1wide__string__input__helper}{wide\_string\_input\_helper}};}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BaseInputAdapter>}
+\DoxyCodeLine{00217\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1wide__string__input__helper}{wide\_string\_input\_helper}}<BaseInputAdapter,\ 4>}
+\DoxyCodeLine{00218\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{comment}{//\ UTF-\/32}}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ fill\_buffer(BaseInputAdapter\&\ input,}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::array<\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}},\ 4>\&\ utf8\_bytes,}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\&\ utf8\_bytes\_index,}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\&\ utf8\_bytes\_filled)}
+\DoxyCodeLine{00224\ \ \ \ \ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ utf8\_bytes\_index\ =\ 0;}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (JSON\_HEDLEY\_UNLIKELY(input.empty()))}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[0]\ =\ \doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::eof}}();}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes\_filled\ =\ 1;}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ the\ current\ character}}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ wc\ =\ input.get\_character();}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ UTF-\/32\ to\ UTF-\/8\ encoding}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (wc\ <\ 0x80)}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[0]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(wc);}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes\_filled\ =\ 1;}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (wc\ <=\ 0x7FF)}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[0]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0xC0u\ |\ ((\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(wc)\ >>\ 6u)\ \&\ 0x1Fu));}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[1]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0x80u\ |\ (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(wc)\ \&\ 0x3Fu));}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes\_filled\ =\ 2;}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (wc\ <=\ 0xFFFF)}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[0]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0xE0u\ |\ ((\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(wc)\ >>\ 12u)\ \&\ 0x0Fu));}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[1]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0x80u\ |\ ((\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(wc)\ >>\ 6u)\ \&\ 0x3Fu));}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[2]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0x80u\ |\ (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(wc)\ \&\ 0x3Fu));}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes\_filled\ =\ 3;}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (wc\ <=\ 0x10FFFF)}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[0]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0xF0u\ |\ ((\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(wc)\ >>\ 18u)\ \&\ 0x07u));}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[1]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0x80u\ |\ ((\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(wc)\ >>\ 12u)\ \&\ 0x3Fu));}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[2]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0x80u\ |\ ((\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(wc)\ >>\ 6u)\ \&\ 0x3Fu));}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[3]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0x80u\ |\ (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(wc)\ \&\ 0x3Fu));}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes\_filled\ =\ 4;}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ unknown\ character}}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[0]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(wc);}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes\_filled\ =\ 1;}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00271\ \ \ \ \ \}}
+\DoxyCodeLine{00272\ \};}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BaseInputAdapter>}
+\DoxyCodeLine{00275\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1wide__string__input__helper}{wide\_string\_input\_helper}}<BaseInputAdapter,\ 2>}
+\DoxyCodeLine{00276\ \{}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{comment}{//\ UTF-\/16}}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ fill\_buffer(BaseInputAdapter\&\ input,}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::array<\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}},\ 4>\&\ utf8\_bytes,}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\&\ utf8\_bytes\_index,}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\&\ utf8\_bytes\_filled)}
+\DoxyCodeLine{00282\ \ \ \ \ \{}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ utf8\_bytes\_index\ =\ 0;}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (JSON\_HEDLEY\_UNLIKELY(input.empty()))}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[0]\ =\ \doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::eof}}();}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes\_filled\ =\ 1;}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ the\ current\ character}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ wc\ =\ input.get\_character();}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ UTF-\/16\ to\ UTF-\/8\ encoding}}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (wc\ <\ 0x80)}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[0]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(wc);}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes\_filled\ =\ 1;}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (wc\ <=\ 0x7FF)}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[0]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0xC0u\ |\ ((\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(wc)\ >>\ 6u)));}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[1]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0x80u\ |\ (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(wc)\ \&\ 0x3Fu));}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes\_filled\ =\ 2;}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (0xD800\ >\ wc\ ||\ wc\ >=\ 0xE000)}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[0]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0xE0u\ |\ ((\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(wc)\ >>\ 12u)));}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[1]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0x80u\ |\ ((\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(wc)\ >>\ 6u)\ \&\ 0x3Fu));}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[2]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0x80u\ |\ (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(wc)\ \&\ 0x3Fu));}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes\_filled\ =\ 3;}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (JSON\_HEDLEY\_UNLIKELY(!input.empty()))}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ wc2\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(input.get\_character());}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ charcode\ =\ 0x10000u\ +\ (((\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(wc)\ \&\ 0x3FFu)\ <<\ 10u)\ |\ (wc2\ \&\ 0x3FFu));}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[0]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0xF0u\ |\ (charcode\ >>\ 18u));}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[1]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0x80u\ |\ ((charcode\ >>\ 12u)\ \&\ 0x3Fu));}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[2]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0x80u\ |\ ((charcode\ >>\ 6u)\ \&\ 0x3Fu));}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[3]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(0x80u\ |\ (charcode\ \&\ 0x3Fu));}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes\_filled\ =\ 4;}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes[0]\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\textcolor{keyword}{>}(wc);}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utf8\_bytes\_filled\ =\ 1;}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00333\ \ \ \ \ \}}
+\DoxyCodeLine{00334\ \};}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \textcolor{comment}{//\ Wraps\ another\ input\ adapter\ to\ convert\ wide\ character\ types\ into\ individual\ bytes.}}
+\DoxyCodeLine{00337\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BaseInputAdapter,\ \textcolor{keyword}{typename}\ W\textcolor{keywordtype}{id}eCharType>}
+\DoxyCodeLine{00338\ \textcolor{keyword}{class\ }wide\_string\_input\_adapter}
+\DoxyCodeLine{00339\ \{}
+\DoxyCodeLine{00340\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00341\ \ \ \ \ \textcolor{keyword}{using\ }char\_type\ =\ char;}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \ \ wide\_string\_input\_adapter(BaseInputAdapter\ base)}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ :\ base\_adapter(base)\ \{\}}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\ get\_character()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00347\ \ \ \ \ \{}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ if\ the\ buffer\ needs\ to\ be\ filled}}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter_af234031ee14448d536022847ab6bc885}{utf8\_bytes\_index}}\ ==\ \doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter_a529076d03d62e56ec1ec12fe2da1e0c9}{utf8\_bytes\_filled}})}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ fill\_buffer<sizeof(WideCharType)>();}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ JSON\_ASSERT(\doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter_a529076d03d62e56ec1ec12fe2da1e0c9}{utf8\_bytes\_filled}}\ >\ 0);}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ JSON\_ASSERT(\doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter_af234031ee14448d536022847ab6bc885}{utf8\_bytes\_index}}\ ==\ 0);}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ buffer}}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ JSON\_ASSERT(\doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter_a529076d03d62e56ec1ec12fe2da1e0c9}{utf8\_bytes\_filled}}\ >\ 0);}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ JSON\_ASSERT(\doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter_af234031ee14448d536022847ab6bc885}{utf8\_bytes\_index}}\ <\ \doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter_a529076d03d62e56ec1ec12fe2da1e0c9}{utf8\_bytes\_filled}});}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter_a5233d88e98541233c2855075bb540e87}{utf8\_bytes}}[\doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter_af234031ee14448d536022847ab6bc885}{utf8\_bytes\_index}}++];}
+\DoxyCodeLine{00361\ \ \ \ \ \}}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{comment}{//\ parsing\ binary\ with\ wchar\ doesn't\ make\ sense,\ but\ since\ the\ parsing\ mode\ can\ be\ runtime,\ we\ need\ something\ here}}
+\DoxyCodeLine{00364\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00365\ \ \ \ \ std::size\_t\ get\_elements(T*\ \textcolor{comment}{/*dest*/},\ std::size\_t\ \textcolor{comment}{/*count*/}\ =\ 1)}
+\DoxyCodeLine{00366\ \ \ \ \ \{}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ JSON\_THROW(\doxymbox{\hyperlink{classdetail_1_1parse__error_a07046ea9f33d28f120af188ed674d6df}{parse\_error::create}}(112,\ 1,\ \textcolor{stringliteral}{"{}wide\ string\ type\ cannot\ be\ interpreted\ as\ binary\ data"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00368\ \ \ \ \ \}}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00371\ \ \ \ \ BaseInputAdapter\ base\_adapter;}
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ T>}
+\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keywordtype}{void}\ fill\_buffer()}
+\DoxyCodeLine{00375\ \ \ \ \ \{}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structdetail_1_1wide__string__input__helper}{wide\_string\_input\_helper<BaseInputAdapter,\ T>::fill\_buffer}}(base\_adapter,\ \doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter_a5233d88e98541233c2855075bb540e87}{utf8\_bytes}},\ \doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter_af234031ee14448d536022847ab6bc885}{utf8\_bytes\_index}},\ \doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter_a529076d03d62e56ec1ec12fe2da1e0c9}{utf8\_bytes\_filled}});}
+\DoxyCodeLine{00377\ \ \ \ \ \}}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00380\ \ \ \ \ std::array<std::char\_traits<char>::int\_type,\ 4>\ \doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter_a5233d88e98541233c2855075bb540e87}{utf8\_bytes}}\ =\ \{\{0,\ 0,\ 0,\ 0\}\};}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00383\ \ \ \ \ std::size\_t\ \doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter_af234031ee14448d536022847ab6bc885}{utf8\_bytes\_index}}\ =\ 0;}
+\DoxyCodeLine{00385\ \ \ \ \ std::size\_t\ \doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter_a529076d03d62e56ec1ec12fe2da1e0c9}{utf8\_bytes\_filled}}\ =\ 0;}
+\DoxyCodeLine{00386\ \};}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ IteratorType,\ \textcolor{keyword}{typename}\ Enable\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00389\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1iterator__input__adapter__factory}{iterator\_input\_adapter\_factory}}}
+\DoxyCodeLine{00390\ \{}
+\DoxyCodeLine{00391\ \ \ \ \ \textcolor{keyword}{using\ }iterator\_type\ =\ IteratorType;}
+\DoxyCodeLine{00392\ \ \ \ \ \textcolor{keyword}{using\ }char\_type\ =\ \textcolor{keyword}{typename}\ std::iterator\_traits<iterator\_type>::value\_type;}
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{keyword}{using\ }adapter\_type\ =\ \doxymbox{\hyperlink{classdetail_1_1iterator__input__adapter}{iterator\_input\_adapter<iterator\_type>}};}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \ \ \textcolor{keyword}{static}\ adapter\_type\ create(IteratorType\ first,\ IteratorType\ last)}
+\DoxyCodeLine{00396\ \ \ \ \ \{}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ adapter\_type(std::move(first),\ std::move(last));}
+\DoxyCodeLine{00398\ \ \ \ \ \}}
+\DoxyCodeLine{00399\ \};}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00401\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00402\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1is__iterator__of__multibyte}{is\_iterator\_of\_multibyte}}}
+\DoxyCodeLine{00403\ \{}
+\DoxyCodeLine{00404\ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ \textcolor{keyword}{typename}\ std::iterator\_traits<T>::value\_type;}
+\DoxyCodeLine{00405\ \ \ \ \ \textcolor{keyword}{enum}\ \textcolor{comment}{//\ NOLINT(cppcoreguidelines-\/use-\/enum-\/class)}}
+\DoxyCodeLine{00406\ \ \ \ \ \{}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ value\ =\ \textcolor{keyword}{sizeof}(value\_type)\ >\ 1}
+\DoxyCodeLine{00408\ \ \ \ \ \};}
+\DoxyCodeLine{00409\ \};}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ IteratorType>}
+\DoxyCodeLine{00412\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1iterator__input__adapter__factory}{iterator\_input\_adapter\_factory}}<IteratorType,\ enable\_if\_t<\doxymbox{\hyperlink{structdetail_1_1is__iterator__of__multibyte}{is\_iterator\_of\_multibyte}}<IteratorType>::value>>}
+\DoxyCodeLine{00413\ \{}
+\DoxyCodeLine{00414\ \ \ \ \ \textcolor{keyword}{using\ }iterator\_type\ =\ IteratorType;}
+\DoxyCodeLine{00415\ \ \ \ \ \textcolor{keyword}{using\ }char\_type\ =\ \textcolor{keyword}{typename}\ std::iterator\_traits<iterator\_type>::value\_type;}
+\DoxyCodeLine{00416\ \ \ \ \ \textcolor{keyword}{using\ }base\_adapter\_type\ =\ \doxymbox{\hyperlink{classdetail_1_1iterator__input__adapter}{iterator\_input\_adapter<iterator\_type>}};}
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{keyword}{using\ }adapter\_type\ =\ \doxymbox{\hyperlink{classdetail_1_1wide__string__input__adapter}{wide\_string\_input\_adapter<base\_adapter\_type,\ char\_type>}};}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \ \ \ \ \textcolor{keyword}{static}\ adapter\_type\ create(IteratorType\ first,\ IteratorType\ last)}
+\DoxyCodeLine{00420\ \ \ \ \ \{}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ adapter\_type(base\_adapter\_type(std::move(first),\ std::move(last)));}
+\DoxyCodeLine{00422\ \ \ \ \ \}}
+\DoxyCodeLine{00423\ \};}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00425\ \textcolor{comment}{//\ General\ purpose\ iterator-\/based\ input}}
+\DoxyCodeLine{00426\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ IteratorType>}
+\DoxyCodeLine{00427\ \textcolor{keyword}{typename}\ iterator\_input\_adapter\_factory<IteratorType>::adapter\_type\ input\_adapter(IteratorType\ first,\ IteratorType\ last)}
+\DoxyCodeLine{00428\ \{}
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{keyword}{using\ }factory\_type\ =\ \doxymbox{\hyperlink{structdetail_1_1iterator__input__adapter__factory}{iterator\_input\_adapter\_factory<IteratorType>}};}
+\DoxyCodeLine{00430\ \ \ \ \ \textcolor{keywordflow}{return}\ factory\_type::create(first,\ last);}
+\DoxyCodeLine{00431\ \}}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \textcolor{comment}{//\ Convenience\ shorthand\ from\ container\ to\ iterator}}
+\DoxyCodeLine{00434\ \textcolor{comment}{//\ Enables\ ADL\ on\ begin(container)\ and\ end(container)}}
+\DoxyCodeLine{00435\ \textcolor{comment}{//\ Encloses\ the\ using\ declarations\ in\ namespace\ for\ not\ to\ leak\ them\ to\ outside\ scope}}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \textcolor{keyword}{namespace\ }container\_input\_adapter\_factory\_impl}
+\DoxyCodeLine{00438\ \{}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \textcolor{keyword}{using\ }std::begin;}
+\DoxyCodeLine{00441\ \textcolor{keyword}{using\ }std::end;}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ContainerType,\ \textcolor{keyword}{typename}\ Enable\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00444\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1container__input__adapter__factory__impl_1_1container__input__adapter__factory}{container\_input\_adapter\_factory}}\ \{\};}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ContainerType>}
+\DoxyCodeLine{00447\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structdetail_1_1container__input__adapter__factory__impl_1_1container__input__adapter__factory}{container\_input\_adapter\_factory}}<\ ContainerType,}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ void\_t<decltype(begin(std::declval<ContainerType>()),\ end(std::declval<ContainerType>()))>>}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }adapter\_type\ =\ \textcolor{keyword}{decltype}(input\_adapter(begin(std::declval<ContainerType>()),\ end(std::declval<ContainerType>())));}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ adapter\_type\ create(\textcolor{keyword}{const}\ ContainerType\&\ container)}
+\DoxyCodeLine{00453\ \{}
+\DoxyCodeLine{00454\ \ \ \ \ \textcolor{keywordflow}{return}\ input\_adapter(begin(container),\ end(container));}
+\DoxyCodeLine{00455\ \}}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00458\ \}\ \ \textcolor{comment}{//\ namespace\ container\_input\_adapter\_factory\_impl}}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ContainerType>}
+\DoxyCodeLine{00461\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structdetail_1_1container__input__adapter__factory__impl_1_1container__input__adapter__factory}{container\_input\_adapter\_factory\_impl::container\_input\_adapter\_factory<ContainerType>::adapter\_type}}\ input\_adapter(\textcolor{keyword}{const}\ ContainerType\&\ container)}
+\DoxyCodeLine{00462\ \{}
+\DoxyCodeLine{00463\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structdetail_1_1container__input__adapter__factory__impl_1_1container__input__adapter__factory}{container\_input\_adapter\_factory\_impl::container\_input\_adapter\_factory<ContainerType>::create}}(container);}
+\DoxyCodeLine{00464\ \}}
+\DoxyCodeLine{00465\ }
+\DoxyCodeLine{00466\ \textcolor{comment}{//\ specialization\ for\ std::string}}
+\DoxyCodeLine{00467\ \textcolor{keyword}{using\ }string\_input\_adapter\_type\ =\ \textcolor{keyword}{decltype}(input\_adapter(std::declval<std::string>()));}
+\DoxyCodeLine{00468\ }
+\DoxyCodeLine{00469\ \textcolor{preprocessor}{\#ifndef\ JSON\_NO\_IO}}
+\DoxyCodeLine{00470\ \textcolor{comment}{//\ Special\ cases\ with\ fast\ paths}}
+\DoxyCodeLine{00471\ \textcolor{keyword}{inline}\ file\_input\_adapter\ input\_adapter(std::FILE*\ file)}
+\DoxyCodeLine{00472\ \{}
+\DoxyCodeLine{00473\ \ \ \ \ \textcolor{keywordflow}{if}\ (file\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00474\ \ \ \ \ \{}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ JSON\_THROW(\doxymbox{\hyperlink{classdetail_1_1parse__error_a07046ea9f33d28f120af188ed674d6df}{parse\_error::create}}(101,\ 0,\ \textcolor{stringliteral}{"{}attempting\ to\ parse\ an\ empty\ input;\ check\ that\ your\ input\ string\ or\ stream\ contains\ the\ expected\ JSON"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00476\ \ \ \ \ \}}
+\DoxyCodeLine{00477\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classdetail_1_1file__input__adapter}{file\_input\_adapter}}(file);}
+\DoxyCodeLine{00478\ \}}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{classdetail_1_1input__stream__adapter}{input\_stream\_adapter}}\ input\_adapter(std::istream\&\ stream)}
+\DoxyCodeLine{00481\ \{}
+\DoxyCodeLine{00482\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classdetail_1_1input__stream__adapter}{input\_stream\_adapter}}(stream);}
+\DoxyCodeLine{00483\ \}}
+\DoxyCodeLine{00484\ }
+\DoxyCodeLine{00485\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{classdetail_1_1input__stream__adapter}{input\_stream\_adapter}}\ input\_adapter(std::istream\&\&\ stream)}
+\DoxyCodeLine{00486\ \{}
+\DoxyCodeLine{00487\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classdetail_1_1input__stream__adapter}{input\_stream\_adapter}}(stream);}
+\DoxyCodeLine{00488\ \}}
+\DoxyCodeLine{00489\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ JSON\_NO\_IO}}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00491\ \textcolor{keyword}{using\ }contiguous\_bytes\_input\_adapter\ =\ \textcolor{keyword}{decltype}(input\_adapter(std::declval<const\ char*>(),\ std::declval<const\ char*>()));}
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00493\ \textcolor{comment}{//\ Null-\/delimited\ strings,\ and\ the\ like.}}
+\DoxyCodeLine{00494\ \textcolor{keyword}{template}\ <\ \textcolor{keyword}{typename}\ CharT,}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ std::enable\_if\ <}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_pointer<CharT>::value\&\&}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ !std::is\_array<CharT>::value\&\&}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_integral<typename\ std::remove\_pointer<CharT>::type>::value\&\&}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(\textcolor{keyword}{typename}\ std::remove\_pointer<CharT>::type)\ ==\ 1,}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ >::type\ =\ 0\ >}
+\DoxyCodeLine{00501\ contiguous\_bytes\_input\_adapter\ input\_adapter(CharT\ b)}
+\DoxyCodeLine{00502\ \{}
+\DoxyCodeLine{00503\ \ \ \ \ \textcolor{keywordflow}{if}\ (b\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00504\ \ \ \ \ \{}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ JSON\_THROW(\doxymbox{\hyperlink{classdetail_1_1parse__error_a07046ea9f33d28f120af188ed674d6df}{parse\_error::create}}(101,\ 0,\ \textcolor{stringliteral}{"{}attempting\ to\ parse\ an\ empty\ input;\ check\ that\ your\ input\ string\ or\ stream\ contains\ the\ expected\ JSON"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00506\ \ \ \ \ \}}
+\DoxyCodeLine{00507\ \ \ \ \ \textcolor{keyword}{auto}\ length\ =\ std::strlen(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(b));}
+\DoxyCodeLine{00508\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}*\ ptr\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(b);}
+\DoxyCodeLine{00509\ \ \ \ \ \textcolor{keywordflow}{return}\ input\_adapter(ptr,\ ptr\ +\ length);\ \textcolor{comment}{//\ cppcheck-\/suppress[nullPointerArithmeticRedundantCheck]}}
+\DoxyCodeLine{00510\ \}}
+\DoxyCodeLine{00511\ }
+\DoxyCodeLine{00512\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ std::\textcolor{keywordtype}{size\_t}\ N>}
+\DoxyCodeLine{00513\ \textcolor{keyword}{auto}\ input\_adapter(T\ (\&\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{array}})[N])\ -\/>\ \textcolor{keyword}{decltype}(input\_adapter(\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{array}},\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{array}}\ +\ N))\ \textcolor{comment}{//\ NOLINT(cppcoreguidelines-\/avoid-\/c-\/arrays,hicpp-\/avoid-\/c-\/arrays,modernize-\/avoid-\/c-\/arrays)}}
+\DoxyCodeLine{00514\ \{}
+\DoxyCodeLine{00515\ \ \ \ \ \textcolor{keywordflow}{return}\ input\_adapter(\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{array}},\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{array}}\ +\ N);}
+\DoxyCodeLine{00516\ \}}
+\DoxyCodeLine{00517\ }
+\DoxyCodeLine{00518\ \textcolor{comment}{//\ This\ class\ only\ handles\ inputs\ of\ input\_buffer\_adapter\ type.}}
+\DoxyCodeLine{00519\ \textcolor{comment}{//\ It's\ required\ so\ that\ expressions\ like\ \{ptr,\ len\}\ can\ be\ implicitly\ cast}}
+\DoxyCodeLine{00520\ \textcolor{comment}{//\ to\ the\ correct\ adapter.}}
+\DoxyCodeLine{00521\ \textcolor{keyword}{class\ }span\_input\_adapter}
+\DoxyCodeLine{00522\ \{}
+\DoxyCodeLine{00523\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00524\ \ \ \ \ \textcolor{keyword}{template}\ <\ \textcolor{keyword}{typename}\ CharT,}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ std::enable\_if\ <}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_pointer<CharT>::value\&\&}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_integral<typename\ std::remove\_pointer<CharT>::type>::value\&\&}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(\textcolor{keyword}{typename}\ std::remove\_pointer<CharT>::type)\ ==\ 1,}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ >::type\ =\ 0\ >}
+\DoxyCodeLine{00530\ \ \ \ \ span\_input\_adapter(CharT\ b,\ std::size\_t\ l)}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ :\ ia(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(b),\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(b)\ +\ l)\ \{\}}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00533\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class\ }IteratorType,}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ std::enable\_if<}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same<typename\ iterator\_traits<IteratorType>::iterator\_category,\ std::random\_access\_iterator\_tag>::value,}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}>::type\ =\ 0>}
+\DoxyCodeLine{00537\ \ \ \ \ span\_input\_adapter(IteratorType\ first,\ IteratorType\ last)}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ :\ ia(input\_adapter(first,\ last))\ \{\}}
+\DoxyCodeLine{00539\ }
+\DoxyCodeLine{00540\ \ \ \ \ contiguous\_bytes\_input\_adapter\&\&\ get()}
+\DoxyCodeLine{00541\ \ \ \ \ \{}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(ia);\ \textcolor{comment}{//\ NOLINT(hicpp-\/move-\/const-\/arg,performance-\/move-\/const-\/arg)}}
+\DoxyCodeLine{00543\ \ \ \ \ \}}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00545\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00546\ \ \ \ \ contiguous\_bytes\_input\_adapter\ ia;}
+\DoxyCodeLine{00547\ \};}
+\DoxyCodeLine{00548\ }
+\DoxyCodeLine{00549\ \}\ \ \textcolor{comment}{//\ namespace\ detail}}
+\DoxyCodeLine{00550\ NLOHMANN\_JSON\_NAMESPACE\_END}
+
+\end{DoxyCode}

@@ -1,0 +1,106 @@
+\doxysection{Growth\+Scoring\+Model Class Reference}
+\hypertarget{class_growth_scoring_model}{}\label{class_growth_scoring_model}\index{GrowthScoringModel@{GrowthScoringModel}}
+
+
+Scores stocks on growth characteristics.  
+
+
+
+
+{\ttfamily \+\#include $<$Growth\+Scoring\+Model.\+hpp$>$}
+
+Inheritance diagram for Growth\+Scoring\+Model:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_growth_scoring_model}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \doxymbox{\hyperlink{class_growth_scoring_model_a4e0dedd0b17c42b2322b741fa0999584}{calculate\+Score}} (const \doxymbox{\hyperlink{struct_stock}{Stock}} \&stock) const override
+\begin{DoxyCompactList}\small\item\em Calculate a growth score for one stock. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_growth_scoring_model_ace6ba45e6465bb97e5bf2523ff01e727}{get\+Model\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em Return the display name for this model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_scoring_model}{Scoring\+Model}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \doxymbox{\hyperlink{class_scoring_model_a9b9bf1dac68c407b2c2e0be03dec48b0}{\texorpdfstring{$\sim$}{\string~}\+Scoring\+Model}} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor for polymorphic scoring models. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Scores stocks on growth characteristics. 
+
+Evaluates four growth dimensions:\+
+\begin{DoxyItemize}
+\item P/\+E ratio (higher signals market expects future earnings growth)
+\item Operating margin (higher margin supports scalable growth)
+\item ROE (high return on equity indicates efficient growth)
+\item Low dividend yield (earnings reinvested into the business)
+\end{DoxyItemize}
+
+Each component maps to a 0-\/100 sub-\/score, then averaged. It is designed to reward companies whose fundamentals suggest reinvestment capacity and scalable operating performance.
+
+\begin{DoxyAuthor}{Author}
+Melvin Rogers 
+\end{DoxyAuthor}
+
+
+\label{doc-func-members}
+\Hypertarget{class_growth_scoring_model_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_growth_scoring_model_a4e0dedd0b17c42b2322b741fa0999584}\index{GrowthScoringModel@{GrowthScoringModel}!calculateScore@{calculateScore}}
+\index{calculateScore@{calculateScore}!GrowthScoringModel@{GrowthScoringModel}}
+\doxysubsubsection{\texorpdfstring{calculateScore()}{calculateScore()}}
+{\footnotesize\ttfamily \label{class_growth_scoring_model_a4e0dedd0b17c42b2322b741fa0999584} 
+double Growth\+Scoring\+Model::\+calculate\+Score (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_stock}{Stock}} \&}]{stock}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Calculate a growth score for one stock. 
+
+Maps growth-\/oriented valuation and profitability measures onto the shared 0-\/100 scoring scale, then averages the components that are available and sensible for the current stock.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stock} & \doxylink{struct_stock}{Stock} fundamentals to evaluate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Growth score in the range \+[0, 100]\+. 
+\end{DoxyReturn}
+Higher P/\+E signals market expects growth. Map P/\+E 0-\/50 -\/\texorpdfstring{$>$}{>} 0-\/100.
+
+Operating margin:\+ higher is better for scalable businesses. Stored as fraction. Map 0-\/0.\+40 (40\%) -\/\texorpdfstring{$>$}{>} 0-\/100.
+
+ROE:\+ higher signals efficient use of equity to generate growth. Stored as fraction. Map 0-\/0.\+40 (40\%) -\/\texorpdfstring{$>$}{>} 0-\/100.
+
+Low dividend yield implies earnings reinvested for growth.
+
+Implements \doxymbox{\hyperlink{class_scoring_model_a5a6301eb2a281ebb14ae07603fb2f261}{Scoring\+Model}}.
+
+\Hypertarget{class_growth_scoring_model_ace6ba45e6465bb97e5bf2523ff01e727}\index{GrowthScoringModel@{GrowthScoringModel}!getModelName@{getModelName}}
+\index{getModelName@{getModelName}!GrowthScoringModel@{GrowthScoringModel}}
+\doxysubsubsection{\texorpdfstring{getModelName()}{getModelName()}}
+{\footnotesize\ttfamily \label{class_growth_scoring_model_ace6ba45e6465bb97e5bf2523ff01e727} 
+std::\+string Growth\+Scoring\+Model::\+get\+Model\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Return the display name for this model. 
+
+The returned key is used by preset strategies and result views when associating scores with this growth factor model.
+
+\begin{DoxyReturn}{Returns}
+The model name string "{}\+Growth"{}. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_scoring_model_a4b9b6b56036e41f15d59c3cdd9a49826}{Scoring\+Model}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+scoring/\+\doxymbox{\hyperlink{_growth_scoring_model_8hpp}{Growth\+Scoring\+Model.\+hpp}}\end{DoxyCompactItemize}

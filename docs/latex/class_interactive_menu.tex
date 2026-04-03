@@ -1,0 +1,753 @@
+\doxysection{Interactive\+Menu Class Reference}
+\hypertarget{class_interactive_menu}{}\label{class_interactive_menu}\index{InteractiveMenu@{InteractiveMenu}}
+
+
+Main user interface class for the Vestify application.  
+
+
+
+
+{\ttfamily \+\#include $<$Interactive\+Menu.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_interactive_menu_a8c5ed37b184c6ea9fbd6f9514c35c601}{Interactive\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Construct the interactive menu and load the demo watchlist. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_interactive_menu_ac90a2ff75ce753f15dad835e621a457f}{run}} ()
+\begin{DoxyCompactList}\small\item\em Main entry point for the interactive menu system. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{class_interactive_menu_a8498f6767f2c653ab55f7f2a45e6443b}{handle\+Load\+Csv}} (const std::\+string \&path)
+\begin{DoxyCompactList}\small\item\em Load stock data from a CSV file. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_interactive_menu_af7141d6361db5532d8902f73b64057b6}{print\+Loaded\+Stocks}} () const
+\begin{DoxyCompactList}\small\item\em Display detailed information for all loaded stocks. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_interactive_menu_a549df67d5868bb0dcc5091a13e375f81}{update\+Stock\+Data}} ()
+\begin{DoxyCompactList}\small\item\em Update stock data by running the external update script. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_interactive_menu_a01e3f7dee01b320f8b91032492fe826a}{search\+Ticker}} () const
+\begin{DoxyCompactList}\small\item\em Search for and display information about a specific stock. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_interactive_menu_a52a52778135a72d3e02eb24961865c38}{load\+Watchlists}} ()
+\begin{DoxyCompactList}\small\item\em Load the persisted demo watchlist from disk. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_interactive_menu_a89504c82933d1a0210fb6d8b751a98b0}{save\+Watchlists}} () const
+\begin{DoxyCompactList}\small\item\em Save the current demo watchlist to disk. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_interactive_menu_a67fd95a3d55edfc77afcd0c81745c415}{watchlist\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Display and manage the watchlist menu. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_interactive_menu_afd4fcc725659958d5dbc24dc6c1904a3}{score\+And\+Rank\+Stocks}} ()
+\begin{DoxyCompactList}\small\item\em Score and rank loaded stocks using a weighted scoring model. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_interactive_menu_a19101ce02ed68fc226dfc28f865de82c}{screen\+Stocks}} ()
+\begin{DoxyCompactList}\small\item\em Screen loaded stocks using one or more user-\/selected criteria. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_interactive_menu_a09b40f9ea96ae76539a6a9c8d8a8af6c}{run\+Backtest}} ()
+\begin{DoxyCompactList}\small\item\em Run a historical backtest with periodic rebalancing. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_interactive_menu_a57265fbd179a1cbb9ac51247a95ad10f}{modify\+Watchlist\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Display the watchlist modification submenu. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_interactive_menu_a0cc8e83c63d4f62148ff8ace9afd6e35}{create\+Watchlist}} ()
+\begin{DoxyCompactList}\small\item\em Create a new watchlist. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_interactive_menu_a30bb5ab22175bb84e9cda61fa5f52167}{rename\+Watchlist}} (int index)
+\begin{DoxyCompactList}\small\item\em Rename an existing watchlist. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_interactive_menu_ac9ed2c30db8365de46844910d7522f29}{delete\+Watchlist}} (int index)
+\begin{DoxyCompactList}\small\item\em Delete a watchlist. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_interactive_menu_a727d79db970a34f0b2bab11b5a219a4e}{add\+Stock\+To\+Watchlist}} (int index)
+\begin{DoxyCompactList}\small\item\em Add a stock ticker to a watchlist. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_interactive_menu_a71742d4679c7f3ecc79bb2e3af3f1290}{remove\+Stock\+From\+Watchlist}} (int index)
+\begin{DoxyCompactList}\small\item\em Remove a stock ticker from a watchlist. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_interactive_menu_ac11381e9e4a349ce56308aa0cab0a3c1}{print\+All\+Watchlists}} () const
+\begin{DoxyCompactList}\small\item\em Display all available watchlists. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_interactive_menu_a8f30c2145b45b03b9e61c499aa58f2c3}{print\+All\+Watchlist\+Contents}} () const
+\begin{DoxyCompactList}\small\item\em Display the contents of all watchlists. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_interactive_menu_a7b46435370058685d8995e18ec15000b}{open\+Single\+Watchlist}} () const
+\begin{DoxyCompactList}\small\item\em Open and display a specific watchlist. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_interactive_menu_a5b1bc945ad6f739fdc9c0cf9ecc06580}{print\+Watchlist}} (const \doxymbox{\hyperlink{class_watch_list}{Watch\+List}} \&watchlist) const
+\begin{DoxyCompactList}\small\item\em Display the stocks contained in a watchlist. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_interactive_menu_adbac60b719cace698bab2ad702dbb7a9}{select\+Watchlist\+Index}} () const
+\begin{DoxyCompactList}\small\item\em Prompt the user to select a watchlist index. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_interactive_menu_ae4149f020ec523c80ba9ff76223a4fe0}{run\+Interactive}} ()
+\begin{DoxyCompactList}\small\item\em Run the interactive menu loop. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std::\+string \doxymbox{\hyperlink{class_interactive_menu_a9b0ed5319b0db813aea3f9a7513a64c3}{to\+Upper}} (std::\+string str)
+\begin{DoxyCompactList}\small\item\em Convert a string to uppercase. \end{DoxyCompactList}\item 
+static std::\+vector$<$ std::\+string $>$ \doxymbox{\hyperlink{class_interactive_menu_ae85d38851017bfe47383500b9fec0c69}{split\+Tickers}} (const std::\+string \&input)
+\begin{DoxyCompactList}\small\item\em Split a comma-\/separated string into individual ticker symbols. \end{DoxyCompactList}\item 
+static int \doxymbox{\hyperlink{class_interactive_menu_a6edd899f2aa82ae8323d840609423752}{read\+Int}} ()
+\begin{DoxyCompactList}\small\item\em Read a validated integer from standard input. \end{DoxyCompactList}\item 
+static std::\+string \doxymbox{\hyperlink{class_interactive_menu_a3b3f9ec638808f93f698c19d971e3981}{read\+Line}} (const std::\+string \&prompt)
+\begin{DoxyCompactList}\small\item\em Read a full line of input from the user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_interactive_menu_ad5e9afe967c569e617f64465a8167574}\label{class_interactive_menu_ad5e9afe967c569e617f64465a8167574} 
+\doxymbox{\hyperlink{class_stock_repository}{Stock\+Repository}} {\bfseries repository\+\_\+}
+\begin{DoxyCompactList}\small\item\em Repository for managing stock data. \end{DoxyCompactList}\item 
+\Hypertarget{class_interactive_menu_ae8d8b3db8fa0dd420e5285c7346e8302}\label{class_interactive_menu_ae8d8b3db8fa0dd420e5285c7346e8302} 
+std::\+vector$<$ \doxymbox{\hyperlink{class_watch_list}{Watch\+List}} $>$ {\bfseries watchlists\+\_\+}
+\begin{DoxyCompactList}\small\item\em In-\/memory collection of watchlists. \end{DoxyCompactList}\item 
+\Hypertarget{class_interactive_menu_a63c1182783991bf3403997b6e7127c9d}\label{class_interactive_menu_a63c1182783991bf3403997b6e7127c9d} 
+\doxymbox{\hyperlink{class_watch_list_repo}{Watch\+List\+Repo}} {\bfseries watchlist\+Repo\+\_\+}
+\begin{DoxyCompactList}\small\item\em Repository responsible for loading and saving persisted watchlists. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main user interface class for the Vestify application. 
+
+The \doxylink{class_interactive_menu}{Interactive\+Menu} class provides the interactive terminal interface for the stock analysis application. It coordinates between user input, data operations, and display output through the \doxylink{class_stock_repository}{Stock\+Repository} and various display components. It acts as the application\textquotesingle{}s orchestration layer, delegating specialized work to screening, watchlist, scoring, printing, and backtesting modules.
+
+\begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+
+
+\label{doc-constructors}
+\Hypertarget{class_interactive_menu_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_interactive_menu_a8c5ed37b184c6ea9fbd6f9514c35c601}\index{InteractiveMenu@{InteractiveMenu}!InteractiveMenu@{InteractiveMenu}}
+\index{InteractiveMenu@{InteractiveMenu}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{InteractiveMenu()}{InteractiveMenu()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a8c5ed37b184c6ea9fbd6f9514c35c601} 
+Interactive\+Menu::\+\+Interactive\+Menu (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Construct the interactive menu and load the demo watchlist. 
+
+Initializes the repository-\/backed state, configures the watchlist persistence file, and loads any saved watchlists so the session starts from the latest stored data. 
+
+\label{doc-func-members}
+\Hypertarget{class_interactive_menu_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_interactive_menu_a727d79db970a34f0b2bab11b5a219a4e}\index{InteractiveMenu@{InteractiveMenu}!addStockToWatchlist@{addStockToWatchlist}}
+\index{addStockToWatchlist@{addStockToWatchlist}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{addStockToWatchlist()}{addStockToWatchlist()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a727d79db970a34f0b2bab11b5a219a4e} 
+bool Interactive\+Menu::\+add\+Stock\+To\+Watchlist (\begin{DoxyParamCaption}\item[{int}]{index}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Add a stock ticker to a watchlist. 
+
+Add a stock ticker to a selected watchlist.
+
+Prompts the user for a ticker symbol and adds it to the specified watchlist if the ticker exists in the repository and is not already present.
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & Zero-\/based index of the watchlist to modify. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the ticker was added, false otherwise.
+\end{DoxyReturn}
+Prompts the user to choose a watchlist and enter a ticker symbol. The ticker must exist in the repository and not already be present in the watchlist.
+
+\begin{DoxyReturn}{Returns}
+True if the ticker was added, false otherwise. 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a0cc8e83c63d4f62148ff8ace9afd6e35}\index{InteractiveMenu@{InteractiveMenu}!createWatchlist@{createWatchlist}}
+\index{createWatchlist@{createWatchlist}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{createWatchlist()}{createWatchlist()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a0cc8e83c63d4f62148ff8ace9afd6e35} 
+bool Interactive\+Menu::\+create\+Watchlist (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Create a new watchlist. 
+
+Prompts the user for a watchlist name and adds a new \doxylink{class_watch_list}{Watch\+List} object to the in-\/memory collection if the name is valid and not already used.
+
+\begin{DoxyReturn}{Returns}
+True if a watchlist was created, false otherwise.
+\end{DoxyReturn}
+Prompts the user for a watchlist name and creates a new watchlist if the name is non-\/empty and not already used by another watchlist.
+
+\begin{DoxyReturn}{Returns}
+True if the watchlist was created, false otherwise. 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_ac9ed2c30db8365de46844910d7522f29}\index{InteractiveMenu@{InteractiveMenu}!deleteWatchlist@{deleteWatchlist}}
+\index{deleteWatchlist@{deleteWatchlist}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{deleteWatchlist()}{deleteWatchlist()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_ac9ed2c30db8365de46844910d7522f29} 
+bool Interactive\+Menu::\+delete\+Watchlist (\begin{DoxyParamCaption}\item[{int}]{index}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Delete a watchlist. 
+
+Delete an existing watchlist.
+
+Removes the specified watchlist from the in-\/memory collection.
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & Zero-\/based index of the watchlist to delete. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if a watchlist was deleted, false otherwise.
+\end{DoxyReturn}
+Prompts the user to select a watchlist and removes it from the in-\/memory collection if the selection is valid.
+
+\begin{DoxyReturn}{Returns}
+True if the watchlist was deleted, false otherwise. 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a8498f6767f2c653ab55f7f2a45e6443b}\index{InteractiveMenu@{InteractiveMenu}!handleLoadCsv@{handleLoadCsv}}
+\index{handleLoadCsv@{handleLoadCsv}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{handleLoadCsv()}{handleLoadCsv()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a8498f6767f2c653ab55f7f2a45e6443b} 
+int Interactive\+Menu::\+handle\+Load\+Csv (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Load stock data from a CSV file. 
+
+Loads stock data from a CSV file.
+
+Attempts to load stock data from the specified CSV file path using the repository\textquotesingle{}s load\+From\+Csv method. Reports success/\+failure and any errors.
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & Path to the CSV file containing stock data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Exit code (0 for success, 2 for loading errors).
+\end{DoxyReturn}
+Attempts to load stock data from the specified CSV file path using the stock repository. Reports the number of stocks loaded and any errors that occurred during loading.
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & Path to the CSV file containing stock data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Exit code (0 for success, 2 if errors occurred during loading). 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Maxime Lavoie 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a52a52778135a72d3e02eb24961865c38}\index{InteractiveMenu@{InteractiveMenu}!loadWatchlists@{loadWatchlists}}
+\index{loadWatchlists@{loadWatchlists}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{loadWatchlists()}{loadWatchlists()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a52a52778135a72d3e02eb24961865c38} 
+void Interactive\+Menu::\+load\+Watchlists (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Load the persisted demo watchlist from disk. 
+
+Attempts to read the watchlist JSON file through the \doxylink{class_watch_list_repo}{Watch\+List\+Repo} and populate the in-\/memory watchlist collection. Any parsing or file errors are reported to the console but do not terminate the program.
+
+Reads the configured watchlist file using the watchlist repository and appends the loaded watchlist to the in-\/memory collection if it contains either a name or ticker data. \begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a57265fbd179a1cbb9ac51247a95ad10f}\index{InteractiveMenu@{InteractiveMenu}!modifyWatchlistMenu@{modifyWatchlistMenu}}
+\index{modifyWatchlistMenu@{modifyWatchlistMenu}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{modifyWatchlistMenu()}{modifyWatchlistMenu()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a57265fbd179a1cbb9ac51247a95ad10f} 
+void Interactive\+Menu::\+modify\+Watchlist\+Menu (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Display the watchlist modification submenu. 
+
+Run the watchlist modification submenu.
+
+Allows the user to modify an existing watchlist by adding or removing stocks, renaming the watchlist, or deleting it entirely.
+
+Displays options for adding or removing stocks, renaming a watchlist, deleting a watchlist, or returning to the previous menu. Successful modifications trigger a save of the persisted demo watchlist. \begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a7b46435370058685d8995e18ec15000b}\index{InteractiveMenu@{InteractiveMenu}!openSingleWatchlist@{openSingleWatchlist}}
+\index{openSingleWatchlist@{openSingleWatchlist}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{openSingleWatchlist()}{openSingleWatchlist()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a7b46435370058685d8995e18ec15000b} 
+void Interactive\+Menu::\+open\+Single\+Watchlist (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Open and display a specific watchlist. 
+
+Open and display a single selected watchlist.
+
+Allows the user to select a watchlist and prints all stocks contained within that list.
+
+Prompts the user to choose a watchlist and displays its contents if a valid selection is made. \begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a8f30c2145b45b03b9e61c499aa58f2c3}\index{InteractiveMenu@{InteractiveMenu}!printAllWatchlistContents@{printAllWatchlistContents}}
+\index{printAllWatchlistContents@{printAllWatchlistContents}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{printAllWatchlistContents()}{printAllWatchlistContents()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a8f30c2145b45b03b9e61c499aa58f2c3} 
+void Interactive\+Menu::\+print\+All\+Watchlist\+Contents (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Display the contents of all watchlists. 
+
+Print the contents of all watchlists.
+
+Iterates through every watchlist in memory and prints the associated stocks for each list.
+
+Iterates through every watchlist currently stored in memory and displays the stocks contained in each one. \begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_ac11381e9e4a349ce56308aa0cab0a3c1}\index{InteractiveMenu@{InteractiveMenu}!printAllWatchlists@{printAllWatchlists}}
+\index{printAllWatchlists@{printAllWatchlists}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{printAllWatchlists()}{printAllWatchlists()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_ac11381e9e4a349ce56308aa0cab0a3c1} 
+void Interactive\+Menu::\+print\+All\+Watchlists (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Display all available watchlists. 
+
+Print the names of all available watchlists.
+
+Prints the names of all watchlists currently stored in memory along with their index numbers for selection.
+
+Displays each watchlist in the in-\/memory collection with a 1-\/based index. If no watchlists exist, an informative message is printed instead. \begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_af7141d6361db5532d8902f73b64057b6}\index{InteractiveMenu@{InteractiveMenu}!printLoadedStocks@{printLoadedStocks}}
+\index{printLoadedStocks@{printLoadedStocks}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{printLoadedStocks()}{printLoadedStocks()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_af7141d6361db5532d8902f73b64057b6} 
+void Interactive\+Menu::\+print\+Loaded\+Stocks (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Display detailed information for all loaded stocks. 
+
+Prints detailed information for all loaded stocks.
+
+Prints comprehensive stock data for all stocks currently stored in the repository. Shows an appropriate message if no stocks are loaded.
+
+Displays comprehensive stock data for all stocks currently loaded in the repository. If no stocks are loaded, displays an appropriate message. \begin{DoxyAuthor}{Author}
+Maxime Lavoie 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a5b1bc945ad6f739fdc9c0cf9ecc06580}\index{InteractiveMenu@{InteractiveMenu}!printWatchlist@{printWatchlist}}
+\index{printWatchlist@{printWatchlist}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{printWatchlist()}{printWatchlist()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a5b1bc945ad6f739fdc9c0cf9ecc06580} 
+void Interactive\+Menu::\+print\+Watchlist (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_watch_list}{Watch\+List}} \&}]{watchlist}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Display the stocks contained in a watchlist. 
+
+Print the stock contents of a single watchlist.
+
+Prints the ticker symbols stored in the specified watchlist and retrieves the corresponding stock data from the repository for display.
+
+
+\begin{DoxyParams}{Parameters}
+{\em watchlist} & The watchlist to display.\\
+\hline
+\end{DoxyParams}
+Looks up each ticker in the supplied watchlist against the stock repository and prints any matching stock records. If the watchlist is empty or none of its tickers exist in the loaded stock data, an explanatory message is shown.
+
+
+\begin{DoxyParams}{Parameters}
+{\em watchlist} & The watchlist to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a6edd899f2aa82ae8323d840609423752}\index{InteractiveMenu@{InteractiveMenu}!readInt@{readInt}}
+\index{readInt@{readInt}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{readInt()}{readInt()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a6edd899f2aa82ae8323d840609423752} 
+int Interactive\+Menu::\+read\+Int (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Read a validated integer from standard input. 
+
+Reads an integer value from standard input.
+
+Reads a number entered by the user and ensures the input stream is valid. If invalid input is entered, the stream is cleared and the user is prompted again.
+
+\begin{DoxyReturn}{Returns}
+Integer value entered by the user.
+\end{DoxyReturn}
+Prompts the user for input and attempts to read an integer. If the input is invalid, it clears the error state and ignores the rest of the line, then prompts again until a valid integer is entered.
+
+\begin{DoxyReturn}{Returns}
+The integer value entered by the user. 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a3b3f9ec638808f93f698c19d971e3981}\index{InteractiveMenu@{InteractiveMenu}!readLine@{readLine}}
+\index{readLine@{readLine}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{readLine()}{readLine()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a3b3f9ec638808f93f698c19d971e3981} 
+std::\+string Interactive\+Menu::\+read\+Line (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{prompt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Read a full line of input from the user. 
+
+Reads a full line of text from standard input.
+
+Prompts the user with a message and reads a complete line from standard input. Useful for inputs containing spaces such as watchlist names.
+
+
+\begin{DoxyParams}{Parameters}
+{\em prompt} & Message displayed before reading input. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The entered string.
+\end{DoxyReturn}
+Displays the provided prompt and reads the entire user input line, including spaces, until a newline is encountered.
+
+
+\begin{DoxyParams}{Parameters}
+{\em prompt} & Message displayed before reading input. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The line entered by the user. 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Melvin Rogers 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a71742d4679c7f3ecc79bb2e3af3f1290}\index{InteractiveMenu@{InteractiveMenu}!removeStockFromWatchlist@{removeStockFromWatchlist}}
+\index{removeStockFromWatchlist@{removeStockFromWatchlist}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{removeStockFromWatchlist()}{removeStockFromWatchlist()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a71742d4679c7f3ecc79bb2e3af3f1290} 
+bool Interactive\+Menu::\+remove\+Stock\+From\+Watchlist (\begin{DoxyParamCaption}\item[{int}]{index}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Remove a stock ticker from a watchlist. 
+
+Remove a stock ticker from a selected watchlist.
+
+Prompts the user for a ticker symbol and removes it from the specified watchlist if it exists.
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & Zero-\/based index of the watchlist to modify. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the ticker was removed, false otherwise.
+\end{DoxyReturn}
+Prompts the user to choose a watchlist and enter a ticker symbol. The ticker is removed only if it currently exists in the selected watchlist.
+
+\begin{DoxyReturn}{Returns}
+True if the ticker was removed, false otherwise. 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a30bb5ab22175bb84e9cda61fa5f52167}\index{InteractiveMenu@{InteractiveMenu}!renameWatchlist@{renameWatchlist}}
+\index{renameWatchlist@{renameWatchlist}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{renameWatchlist()}{renameWatchlist()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a30bb5ab22175bb84e9cda61fa5f52167} 
+bool Interactive\+Menu::\+rename\+Watchlist (\begin{DoxyParamCaption}\item[{int}]{index}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Rename an existing watchlist. 
+
+Allows the user to assign a new name to the specified watchlist. Ensures the new name is not empty and does not conflict with existing names.
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & Zero-\/based index of the watchlist to rename. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the watchlist was renamed, false otherwise.
+\end{DoxyReturn}
+Prompts the user to select a watchlist and supply a new name. The rename succeeds only if the selection is valid and the new name is non-\/empty and unique.
+
+\begin{DoxyReturn}{Returns}
+True if the watchlist was renamed, false otherwise. 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_ac90a2ff75ce753f15dad835e621a457f}\index{InteractiveMenu@{InteractiveMenu}!run@{run}}
+\index{run@{run}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_ac90a2ff75ce753f15dad835e621a457f} 
+int Interactive\+Menu::\+run (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Main entry point for the interactive menu system. 
+
+Main entry point for the \doxylink{class_interactive_menu}{Interactive\+Menu} system.
+
+Launches the interactive menu loop and serves as the primary terminal interface between the application and the user.
+
+\begin{DoxyReturn}{Returns}
+Exit code (0 for success, non-\/zero for errors).
+\end{DoxyReturn}
+Launches the application directly into the interactive menu loop. This is the primary interface between the application and the user.
+
+\begin{DoxyReturn}{Returns}
+Exit code (0 for success, non-\/zero for errors). 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Melvin Rogers 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a09b40f9ea96ae76539a6a9c8d8a8af6c}\index{InteractiveMenu@{InteractiveMenu}!runBacktest@{runBacktest}}
+\index{runBacktest@{runBacktest}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{runBacktest()}{runBacktest()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a09b40f9ea96ae76539a6a9c8d8a8af6c} 
+void Interactive\+Menu::\+run\+Backtest (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Run a historical backtest with periodic rebalancing. 
+
+Run a backtest of a scoring-\/based strategy over historical data.
+
+Collects a backtest configuration from the user, loads the required historical prices, and prints the resulting performance summary.
+
+Prompts the user for tickers, date range, rebalance interval, and strategy selection, then simulates a backtest and displays performance results. \begin{DoxyAuthor}{Author}
+Zack Goodman 
+
+Melvin Rogers 
+\end{DoxyAuthor}
+Strategy selection (presets or custom weights).
+
+Use unadjusted daily series to avoid premium endpoint limitations.\Hypertarget{class_interactive_menu_ae4149f020ec523c80ba9ff76223a4fe0}\index{InteractiveMenu@{InteractiveMenu}!runInteractive@{runInteractive}}
+\index{runInteractive@{runInteractive}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{runInteractive()}{runInteractive()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_ae4149f020ec523c80ba9ff76223a4fe0} 
+void Interactive\+Menu::\+run\+Interactive (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Run the interactive menu loop. 
+
+Runs the interactive menu loop.
+
+Displays a numbered menu of options and processes user input in a loop until the user chooses to exit. Provides access to all major application features through the menu interface.
+
+Displays a menu of options and processes user input in a loop until the user chooses to exit. Provides access to all major application features through numbered menu options. \begin{DoxyAuthor}{Author}
+Zack Goodman 
+
+Melvin Rogers 
+
+Maxime Lavoie 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a89504c82933d1a0210fb6d8b751a98b0}\index{InteractiveMenu@{InteractiveMenu}!saveWatchlists@{saveWatchlists}}
+\index{saveWatchlists@{saveWatchlists}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{saveWatchlists()}{saveWatchlists()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a89504c82933d1a0210fb6d8b751a98b0} 
+void Interactive\+Menu::\+save\+Watchlists (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Save the current demo watchlist to disk. 
+
+Serializes the first watchlist in memory and writes it to the JSON file through the \doxylink{class_watch_list_repo}{Watch\+List\+Repo}. This is typically called after modifications such as adding or removing stocks.
+
+Persists the first watchlist in the in-\/memory collection using the watchlist repository. If no watchlists are present, no save is attempted. \begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_afd4fcc725659958d5dbc24dc6c1904a3}\index{InteractiveMenu@{InteractiveMenu}!scoreAndRankStocks@{scoreAndRankStocks}}
+\index{scoreAndRankStocks@{scoreAndRankStocks}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{scoreAndRankStocks()}{scoreAndRankStocks()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_afd4fcc725659958d5dbc24dc6c1904a3} 
+void Interactive\+Menu::\+score\+And\+Rank\+Stocks (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Score and rank loaded stocks using a weighted scoring model. 
+
+Score and rank loaded stocks using a weighted scoring strategy.
+
+Allows the user to select a scoring strategy, view ranked results, and inspect a breakdown of factor contributions for a chosen stock.
+
+Allows the user to select a predefined scoring strategy, view ranked results, and inspect a breakdown of factor contributions for a selected stock. \begin{DoxyAuthor}{Author}
+Zack Goodman 
+
+Melvin Rogers 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a19101ce02ed68fc226dfc28f865de82c}\index{InteractiveMenu@{InteractiveMenu}!screenStocks@{screenStocks}}
+\index{screenStocks@{screenStocks}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{screenStocks()}{screenStocks()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a19101ce02ed68fc226dfc28f865de82c} 
+void Interactive\+Menu::\+screen\+Stocks (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Screen loaded stocks using one or more user-\/selected criteria. 
+
+Runs the stock screening menu.
+
+Forwards control to the dedicated screening menu so the top-\/level menu remains focused on routing rather than filter-\/building details.
+
+Launches the interactive stock screening prompt flow, allowing the user to stack multiple criteria and view matching stocks based on the loaded data. \begin{DoxyAuthor}{Author}
+Maxime Lavoie 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a01e3f7dee01b320f8b91032492fe826a}\index{InteractiveMenu@{InteractiveMenu}!searchTicker@{searchTicker}}
+\index{searchTicker@{searchTicker}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{searchTicker()}{searchTicker()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a01e3f7dee01b320f8b91032492fe826a} 
+void Interactive\+Menu::\+search\+Ticker (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Search for and display information about a specific stock. 
+
+Searches for and displays information about a specific stock ticker.
+
+Prompts the user to enter a ticker symbol, searches the repository, and displays detailed information for the found stock or an error message.
+
+Prompts the user to enter a ticker symbol, searches the repository for it, and displays detailed information if found. If no stocks are loaded or the ticker is not found, displays appropriate error messages. \begin{DoxyAuthor}{Author}
+Maxime Lavoie 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_adbac60b719cace698bab2ad702dbb7a9}\index{InteractiveMenu@{InteractiveMenu}!selectWatchlistIndex@{selectWatchlistIndex}}
+\index{selectWatchlistIndex@{selectWatchlistIndex}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{selectWatchlistIndex()}{selectWatchlistIndex()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_adbac60b719cace698bab2ad702dbb7a9} 
+int Interactive\+Menu::\+select\+Watchlist\+Index (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Prompt the user to select a watchlist index. 
+
+Prompt the user to choose a watchlist by index.
+
+Displays the list of available watchlists and asks the user to choose one by number.
+
+\begin{DoxyReturn}{Returns}
+Index of the selected watchlist, or -\/1 if selection fails.
+\end{DoxyReturn}
+Displays all watchlists, reads the user\textquotesingle{}s numeric choice, and validates that the selection falls within the current range.
+
+\begin{DoxyReturn}{Returns}
+Zero-\/based index of the selected watchlist, or -\/1 on failure. 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_ae85d38851017bfe47383500b9fec0c69}\index{InteractiveMenu@{InteractiveMenu}!splitTickers@{splitTickers}}
+\index{splitTickers@{splitTickers}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{splitTickers()}{splitTickers()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_ae85d38851017bfe47383500b9fec0c69} 
+std::\+vector$<$ std::\+string $>$ Interactive\+Menu::\+split\+Tickers (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{input}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Split a comma-\/separated string into individual ticker symbols. 
+
+Splits a comma-\/separated string of tickers into individual ticker symbols.
+
+Parses a comma-\/delimited string and extracts individual ticker symbols, trimming whitespace and handling empty entries appropriately.
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & Comma-\/separated string of ticker symbols. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector of individual ticker symbol strings.
+\end{DoxyReturn}
+Parses a comma-\/delimited string and extracts individual ticker symbols, trimming any whitespace and handling empty entries.
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & A comma-\/separated string of ticker symbols. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of individual ticker symbol strings. 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Melvin Rogers 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a9b0ed5319b0db813aea3f9a7513a64c3}\index{InteractiveMenu@{InteractiveMenu}!toUpper@{toUpper}}
+\index{toUpper@{toUpper}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{toUpper()}{toUpper()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a9b0ed5319b0db813aea3f9a7513a64c3} 
+std::\+string Interactive\+Menu::\+to\+Upper (\begin{DoxyParamCaption}\item[{std::\+string}]{str}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Convert a string to uppercase. 
+
+Converts a string to uppercase.
+
+Utility function that converts all characters in a string to uppercase using standard library functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & Input string to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+New string with all characters converted to uppercase.
+\end{DoxyReturn}
+This utility function converts all characters in the input string to uppercase using the standard library toupper function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & The input string to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A new string with all characters converted to uppercase. 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Maxime Lavoie 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a549df67d5868bb0dcc5091a13e375f81}\index{InteractiveMenu@{InteractiveMenu}!updateStockData@{updateStockData}}
+\index{updateStockData@{updateStockData}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{updateStockData()}{updateStockData()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a549df67d5868bb0dcc5091a13e375f81} 
+void Interactive\+Menu::\+update\+Stock\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Update stock data by running the external update script. 
+
+Updates stock data by running the update script.
+
+Executes the Python script responsible for updating stock data and reports the success or failure of the update operation.
+
+Executes the Python script responsible for updating stock data and reports the success or failure of the operation. \begin{DoxyAuthor}{Author}
+Maxime Lavoie 
+\end{DoxyAuthor}
+\Hypertarget{class_interactive_menu_a67fd95a3d55edfc77afcd0c81745c415}\index{InteractiveMenu@{InteractiveMenu}!watchlistMenu@{watchlistMenu}}
+\index{watchlistMenu@{watchlistMenu}!InteractiveMenu@{InteractiveMenu}}
+\doxysubsubsection{\texorpdfstring{watchlistMenu()}{watchlistMenu()}}
+{\footnotesize\ttfamily \label{class_interactive_menu_a67fd95a3d55edfc77afcd0c81745c415} 
+void Interactive\+Menu::\+watchlist\+Menu (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Display and manage the watchlist menu. 
+
+Run the main watchlist menu.
+
+Presents the main watchlist interface where users can create watchlists, modify them, view their contents, or open a specific watchlist. Runs in a loop until the user chooses to return to the main menu.
+
+Displays options for creating, modifying, printing, or opening watchlists. Successful creation triggers a save of the persisted demo watchlist. \begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+include/\+ui/\+\doxymbox{\hyperlink{_interactive_menu_8hpp}{Interactive\+Menu.\+hpp}}\item 
+src/\+ui/\+\doxymbox{\hyperlink{_interactive_menu_8cpp}{Interactive\+Menu.\+cpp}}\end{DoxyCompactItemize}

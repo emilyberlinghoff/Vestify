@@ -1,0 +1,60 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize empty }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$empty@{$<$small$>$nlohmann::basic\_json::$<$/small$>$empty}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md251}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md251}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ empty()\ const\ noexcept;}
+
+\end{DoxyCode}
+
+
+Checks if a JSON value has no elements (i.\+e., whether its \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2size}{{\ttfamily size()}}{0} is {\ttfamily 0}).\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md252}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md252}
+\doxylink{requirements_The}{The} return value depends on the different types and is defined as follows:\+
+
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Value type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}return value  \\
+null  &{\ttfamily \#!cpp true}  \\
+boolean  &{\ttfamily \#!cpp false}  \\
+string  &{\ttfamily \#!cpp false}  \\
+number  &{\ttfamily \#!cpp false}  \\
+binary  &{\ttfamily \#!cpp false}  \\
+object  &result of function {\ttfamily object\+\_\+t::\+empty()}  \\
+array  &result of function {\ttfamily array\+\_\+t::\+empty()}  \\
+\end{DoxyTable}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md253}{}\doxysection{\texorpdfstring{Exception safety}{Exception safety}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md253}
+No-\/throw guarantee:\+ this function never throws exceptions.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md254}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md254}
+Constant, as long as \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2array__t}{{\ttfamily array\+\_\+t}}{0} and \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2object__t}{{\ttfamily object\+\_\+t}}{0} satisfy the \href{https://en.cppreference.com/w/cpp/named_req/Container}{\texttt{Container}} concept; that is, their {\ttfamily empty()} functions have constant complexity.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md255}{}\doxysection{\texorpdfstring{Possible implementation}{Possible implementation}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md255}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ empty()\ const\ noexcept}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ size()\ ==\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md256}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md256}
+This function does not return whether a string stored as JSON value is empty -- it returns whether the JSON container itself is empty which is {\ttfamily \#!cpp false} in the case of a string.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md257}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md257}
+??? example \begin{DoxyVerb}The following code uses `empty()` to check if a JSON object contains any elements.
+
+```cpp
+--8<-- "examples/empty.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/empty.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md258}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2empty_autotoc_md258}
+
+\begin{DoxyItemize}
+\item Added in version 1.\+0.\+0.
+\item Extended to return {\ttfamily \#!cpp false} for binary types in version 3.\+8.\+0. 
+\end{DoxyItemize}

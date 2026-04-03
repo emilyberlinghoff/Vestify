@@ -1,0 +1,46 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize front }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$front@{$<$small$>$nlohmann::basic\_json::$<$/small$>$front}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md357}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md357}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{reference\ front();}
+\DoxyCodeLine{const\_reference\ front()\ \textcolor{keyword}{const};}
+
+\end{DoxyCode}
+
+
+Returns a reference to the first element in the container. For a JSON container {\ttfamily \#!cpp c}, the expression {\ttfamily \#!cpp c.\+front()} is equivalent to {\ttfamily \#!cpp \texorpdfstring{$\ast$}{*}c.begin()}.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md358}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md358}
+In the case of a structured type (array or object), a reference to the first element is returned. In the case of number, string, boolean, or binary values, a reference to the value is returned.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md359}{}\doxysection{\texorpdfstring{Exception safety}{Exception safety}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md359}
+Strong guarantee:\+ if an exception is thrown, there are no changes in the JSON value.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md360}{}\doxysection{\texorpdfstring{Exceptions}{Exceptions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md360}
+If the JSON value is {\ttfamily \#!json null}, exception \href{../../home/exceptions.md\#jsonexceptioninvalid_iterator214}{\texttt{{\ttfamily invalid\+\_\+iterator.\+214}}} is thrown.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md361}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md361}
+Constant.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md362}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md362}
+!!! info "{}\+Precondition"{} \begin{DoxyVerb}The array or object must not be empty. Calling `front` on an empty array or object yields undefined behavior.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md363}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md363}
+??? example \begin{DoxyVerb}The following code shows an example for `front()`.
+
+```cpp
+--8<-- "examples/front.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/front.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md364}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md364}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2back}{back}{0} to access the last element
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md365}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2front_autotoc_md365}
+
+\begin{DoxyItemize}
+\item Added in version 1.\+0.\+0.
+\item Adjusted code to return reference to binary values in version 3.\+8.\+0. 
+\end{DoxyItemize}

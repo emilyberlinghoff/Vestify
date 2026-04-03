@@ -1,0 +1,175 @@
+\chapter{nlohmann\+\_\+define\+\_\+derived\+\_\+type }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type}\index{nlohmann\_define\_derived\_type@{nlohmann\_define\_derived\_type}}
+\doxysection*{NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+INTRUSIVE, NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT, NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE, NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE, NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT, NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ (1)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_DERIVED\_TYPE\_INTRUSIVE(type,\ base\_type,\ member...)}}
+\DoxyCodeLine{\textcolor{comment}{//\ (2)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_DERIVED\_TYPE\_INTRUSIVE\_WITH\_DEFAULT(type,\ base\_type,\ member...)}}
+\DoxyCodeLine{\textcolor{comment}{//\ (3)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_DERIVED\_TYPE\_INTRUSIVE\_ONLY\_SERIALIZE(type,\ base\_type,\ member...)}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ (4)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_DERIVED\_TYPE\_NON\_INTRUSIVE(type,\ base\_type,\ member...)}}
+\DoxyCodeLine{\textcolor{comment}{//\ (5)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_DERIVED\_TYPE\_NON\_INTRUSIVE\_WITH\_DEFAULT(type,\ base\_type,\ member...)}}
+\DoxyCodeLine{\textcolor{comment}{//\ (6)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ NLOHMANN\_DEFINE\_DERIVED\_TYPE\_NON\_INTRUSIVE\_ONLY\_SERIALIZE(type,\ base\_type,\ member...)}}
+
+\end{DoxyCode}
+
+
+These macros can be used to simplify the serialization/\+deserialization of derived types if you want to use a JSON object as serialization and want to use the member variable names as object keys in that object.
+
+
+\begin{DoxyItemize}
+\item Macros 1, 2, and 3 are to be defined {\bfseries{inside}} the class/\+struct to create code for. Like \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive}{{\ttfamily NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE}}{0}, they can access private members.
+\item Macros 4, 5, and 6 are to be defined {\bfseries{outside}} the class/\+struct to create code for, but {\bfseries{inside}} its namespace. Like \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__non__intrusive}{{\ttfamily NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE}}{0}, they {\bfseries{cannot}} access private members.
+\end{DoxyItemize}
+
+\doxylink{requirements_The}{The} first parameter is the name of the derived class/\+struct, the second parameter is the name of the base class/\+struct and all remaining parameters name the members. \doxylink{requirements_The}{The} base type {\bfseries{must}} be already serializable/\+deserializable.
+
+
+\begin{DoxyItemize}
+\item Macros 1 and 4 will use \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2at}{{\ttfamily at}}{0} during deserialization and will throw \href{../../home/exceptions.md\#jsonexceptionout_of_range403}{\texttt{{\ttfamily out\+\_\+of\+\_\+range.\+403}}} if a key is missing in the JSON object.
+\item Macros 2 and 5 will use \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2value}{{\ttfamily value}}{0} during deserialization and fall back to the default value for the respective type of the member variable if a key in the JSON object is missing. \doxylink{requirements_The}{The} generated {\ttfamily from\+\_\+json()} function default constructs an object and uses its values as the defaults when calling the {\ttfamily value} function.
+\end{DoxyItemize}
+
+Summary:\+
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Need access to private members  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Need only de-\/serialization  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Allow missing values when de-\/serializing  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}macro  \\
+:\+octicons-\/check-\/circle-\/fill-\/24:\+  &:\+octicons-\/x-\/circle-\/fill-\/24:\+  &:\+octicons-\/x-\/circle-\/fill-\/24:\+  &{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+INTRUSIVE}}  \\
+:\+octicons-\/check-\/circle-\/fill-\/24:\+  &:\+octicons-\/x-\/circle-\/fill-\/24:\+  &:\+octicons-\/check-\/circle-\/fill-\/24:\+  &{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT}}  \\
+:\+octicons-\/check-\/circle-\/fill-\/24:\+  &:\+octicons-\/check-\/circle-\/fill-\/24:\+  &:\+octicons-\/skip-\/fill-\/24:\+  &{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE}}  \\
+:\+octicons-\/x-\/circle-\/fill-\/24:\+  &:\+octicons-\/x-\/circle-\/fill-\/24:\+  &:\+octicons-\/x-\/circle-\/fill-\/24:\+  &{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE}}  \\
+:\+octicons-\/x-\/circle-\/fill-\/24:\+  &:\+octicons-\/x-\/circle-\/fill-\/24:\+  &:\+octicons-\/check-\/circle-\/fill-\/24:\+  &{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT}}  \\
+:\+octicons-\/x-\/circle-\/fill-\/24:\+  &:\+octicons-\/check-\/circle-\/fill-\/24:\+  &:\+octicons-\/skip-\/fill-\/24:\+  &{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE}}  \\
+\end{DoxyTable}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type_autotoc_md1269}{}\doxysubsection{\texorpdfstring{Parameters}{Parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type_autotoc_md1269}
+{\ttfamily type} (in) :\+ name of the type (class, struct) to serialize/\+deserialize
+
+{\ttfamily base\+\_\+type} (in) :\+ name of the base type (class, struct) {\ttfamily type} is derived from
+
+{\ttfamily member} (in) :\+ name of the member variable to serialize/\+deserialize; up to 64 members can be given as a comma-\/separated list\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type_autotoc_md1270}{}\doxysubsection{\texorpdfstring{Default definition}{Default definition}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type_autotoc_md1270}
+Macros 1 and 2 add two friend functions to the class which take care of the serialization and deserialization:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\textcolor{keyword}{friend}\ \textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&,\ \textcolor{keyword}{const}\ type\&);}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\textcolor{keyword}{friend}\ \textcolor{keywordtype}{void}\ from\_json(\textcolor{keyword}{const}\ BasicJsonType\&,\ type\&);}
+
+\end{DoxyCode}
+
+
+Macros 4 and 5 add two functions to the namespace which take care of the serialization and deserialization:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&,\ \textcolor{keyword}{const}\ type\&);}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ from\_json(\textcolor{keyword}{const}\ BasicJsonType\&,\ type\&);}
+
+\end{DoxyCode}
+
+
+Macros 3 and 6 add one function to the namespace, which takes care of the serialization only:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&,\ \textcolor{keyword}{const}\ type\&);}
+
+\end{DoxyCode}
+
+
+In first two cases, they call the {\ttfamily to\+\_\+json}/\+{\ttfamily from\+\_\+json} functions of the base type before serializing/\+deserializing the members of the derived type:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_a}{A}}\ \{\ \textcolor{comment}{/*\ ...\ */}\ \};}
+\DoxyCodeLine{\textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_b}{B}}\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_a}{A}}\ \{\ \textcolor{comment}{/*\ ...\ */}\ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_b}{B}}\&\ b)\ \{}
+\DoxyCodeLine{\ \ \ \ nlohmann::to\_json(j,\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }\doxymbox{\hyperlink{class_a}{A}}\&\textcolor{keyword}{>}(b));}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ ...}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ from\_json(\textcolor{keyword}{const}\ BasicJsonType\&\ j,\ \doxymbox{\hyperlink{class_b}{B}}\&\ b)\ \{}
+\DoxyCodeLine{\ \ \ \ nlohmann::from\_json(j,\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{class_a}{A}}\&\textcolor{keyword}{>}(b));}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ ...}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+In the third case, only {\ttfamily to\+\_\+json} will be called:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_a}{A}}\ \{\ \textcolor{comment}{/*\ ...\ */}\ \};}
+\DoxyCodeLine{\textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_b}{B}}\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_a}{A}}\ \{\ \textcolor{comment}{/*\ ...\ */}\ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ to\_json(BasicJsonType\&\ j,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_b}{B}}\&\ b)\ \{}
+\DoxyCodeLine{\ \ \ \ nlohmann::to\_json(j,\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }\doxymbox{\hyperlink{class_a}{A}}\&\textcolor{keyword}{>}(b));}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ ...}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type_autotoc_md1271}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type_autotoc_md1271}
+!!! info "{}\+Prerequisites"{} \begin{DoxyVerb}- Macros 1, 2, and 3 have the same prerequisites of [NLOHMANN_DEFINE_TYPE_INTRUSIVE](nlohmann_define_type_intrusive.md).
+- Macros 4, 5, and 6 have the same prerequisites of [NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE](nlohmann_define_type_non_intrusive.md).
+- Serialization/deserialization of base types must be defined.
+\end{DoxyVerb}
+
+
+!!! warning "{}\+Implementation limits"{} \begin{DoxyVerb}See Implementation limits for [NLOHMANN_DEFINE_TYPE_INTRUSIVE](nlohmann_define_type_intrusive.md) and
+[NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE](nlohmann_define_type_non_intrusive.md), respectively.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type_autotoc_md1272}{}\doxysubsection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type_autotoc_md1272}
+??? example "{}\+NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+INTRUSIVE"{} \begin{DoxyVerb}Consider the following complete example:
+
+```cpp hl_lines="28"
+--8<-- "examples/nlohmann_define_derived_type_intrusive_macro.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/nlohmann_define_derived_type_intrusive_macro.output"
+```
+
+Notes:
+
+- `A` and `B` are default-constructible. This is a requirement for using the macro.
+- `A` has private members and is not a derived class. Hence, macro `NLOHMANN_DEFINE_TYPE_INTRUSIVE` is used.
+- As `B` is a derived class, `NLOHMANN_DEFINE_TYPE_INTRUSIVE` is not applicable, but
+  `NLOHMANN_DEFINE_DERIVED_TYPE_INTRUSIVE` must be used.
+- The macro `NLOHMANN_DEFINE_DERIVED_TYPE_INTRUSIVE` is used _inside_ the class use as
+  `NLOHMANN_DEFINE_TYPE_INTRUSIVE`.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type_autotoc_md1273}{}\doxysubsection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type_autotoc_md1273}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive}{NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE /\+ NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT /\+  NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE}{0} for similar macros that can be defined {\itshape inside} a non-\/derived type.
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__non__intrusive}{NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE /\+ NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT /\+  NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE}{0} for similar macros that can be defined {\itshape outside} a non-\/derived type.
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2arbitrary__types}{Arbitrary Type Conversions}{0} for an overview.
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type_autotoc_md1274}{}\doxysubsection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type_autotoc_md1274}
+
+\begin{DoxyEnumerate}
+\item Added in version 3.\+12.\+0.
+\item Added in version 3.\+12.\+0.
+\item Added in version 3.\+12.\+0.
+\item Added in version 3.\+12.\+0.
+\item Added in version 3.\+12.\+0.
+\item Added in version 3.\+12.\+0. 
+\end{DoxyEnumerate}

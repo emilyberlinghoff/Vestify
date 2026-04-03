@@ -1,0 +1,36 @@
+\chapter{
+\footnotesize nlohmann:\+:\+
+\normalsize ordered\+\_\+json }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__json}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__json}\index{$<$small$>$nlohmann::$<$/small$>$ordered\_json@{$<$small$>$nlohmann::$<$/small$>$ordered\_json}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__json_autotoc_md1348}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__json_autotoc_md1348}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{using\ }ordered\_json\ =\ \doxymbox{\hyperlink{classbasic__json}{basic\_json<ordered\_map>}};}
+
+\end{DoxyCode}
+
+
+This type preserves the insertion order of object keys.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__json_autotoc_md1349}{}\doxysection{\texorpdfstring{Iterator invalidation}{Iterator invalidation}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__json_autotoc_md1349}
+\doxylink{requirements_The}{The} type is based on \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__map}{{\ttfamily ordered\+\_\+map}}{0} which in turn uses a {\ttfamily std::\+vector} to store object elements. Therefore, adding object elements can yield a reallocation in which case all iterators (including the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end}{{\ttfamily end()}}{0} iterator) and all references to the elements are invalidated. Also, any iterator or reference after the insertion point will point to the same index, which is now a different value.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__json_autotoc_md1350}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__json_autotoc_md1350}
+??? example \begin{DoxyVerb}The example below demonstrates how `ordered_json` preserves the insertion order of object keys.
+
+```cpp
+--8<-- "examples/ordered_json.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/ordered_json.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__json_autotoc_md1351}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__json_autotoc_md1351}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__map}{ordered\+\_\+map}{0}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2object__order}{Object Order}{0}
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__json_autotoc_md1352}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__json_autotoc_md1352}
+Since version 3.\+9.\+0. 

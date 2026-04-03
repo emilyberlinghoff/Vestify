@@ -1,0 +1,50 @@
+\doxysection{tests/\+test\+\_\+csv\+\_\+load.cpp File Reference}
+\hypertarget{test__csv__load_8cpp}{}\label{test__csv__load_8cpp}\index{tests/test\_csv\_load.cpp@{tests/test\_csv\_load.cpp}}
+
+
+Unit tests for CSV loading into the stock repository.  
+
+
+{\ttfamily \+\#include $<$filesystem$>$}\newline
+{\ttfamily \+\#include $<$fstream$>$}\newline
+{\ttfamily \+\#include $<$iostream$>$}\newline
+{\ttfamily \+\#include $<$string$>$}\newline
+{\ttfamily \+\#include "{}core/\+\+Stock\+Repository.\+hpp"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{test__csv__load_8cpp_a2f82a677efa4260a3241d937631e0889}\label{test__csv__load_8cpp_a2f82a677efa4260a3241d937631e0889} 
+static void {\bfseries CHECK} (bool condition, const std::\+string \&test\+\_\+name)
+\item 
+\Hypertarget{test__csv__load_8cpp_a7b9b53c63b96ef8d2bb2157e1ad98ed1}\label{test__csv__load_8cpp_a7b9b53c63b96ef8d2bb2157e1ad98ed1} 
+static std::\+string {\bfseries write\+Temp\+Csv} (const std::\+string \&contents)
+\item 
+\Hypertarget{test__csv__load_8cpp_a0c98603c1fabb2c6c97bfe8cfc92d3af}\label{test__csv__load_8cpp_a0c98603c1fabb2c6c97bfe8cfc92d3af} 
+static void {\bfseries test\+Valid\+Csv\+Loads} ()
+\item 
+\Hypertarget{test__csv__load_8cpp_a72bf36e410d2a3974a3889d502574664}\label{test__csv__load_8cpp_a72bf36e410d2a3974a3889d502574664} 
+static void {\bfseries test\+Missing\+File\+Handled} ()
+\item 
+\Hypertarget{test__csv__load_8cpp_a19e739643e8b961161df2ae64b235862}\label{test__csv__load_8cpp_a19e739643e8b961161df2ae64b235862} 
+static void {\bfseries test\+Malformed\+Row\+Skipped} ()
+\item 
+\Hypertarget{test__csv__load_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{test__csv__load_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int {\bfseries main} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{test__csv__load_8cpp_a561a5450b127e97c5ca67d0b349747a8}\label{test__csv__load_8cpp_a561a5450b127e97c5ca67d0b349747a8} 
+static int {\bfseries passed} = 0
+\item 
+\Hypertarget{test__csv__load_8cpp_ad4ec5aab9b62fbbe9b8fc2d8ac0a5989}\label{test__csv__load_8cpp_ad4ec5aab9b62fbbe9b8fc2d8ac0a5989} 
+static int {\bfseries failed} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Unit tests for CSV loading into the stock repository. 
+
+\begin{DoxyAuthor}{Author}
+Emily Berlinghoff 
+\end{DoxyAuthor}

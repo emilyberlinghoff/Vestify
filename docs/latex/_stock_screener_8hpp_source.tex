@@ -1,0 +1,52 @@
+\doxysection{Stock\+Screener.\+hpp}
+\hypertarget{_stock_screener_8hpp_source}{}\label{_stock_screener_8hpp_source}\index{include/screening/StockScreener.hpp@{include/screening/StockScreener.hpp}}
+\doxymbox{\hyperlink{_stock_screener_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_stock_8hpp}{core/Stock.hpp}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_stock_screener}{StockScreener}}}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{enum\ class}\ \doxymbox{\hyperlink{class_stock_screener_ac44145875f5b7971fa0696a7a4eaf5c5}{CriterionType}}}
+\DoxyCodeLine{00032\ \ \ \ \ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ SectorEquals,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ PriceBetween,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ MaxPeRatio,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ MaxPbRatio,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ MaxPsRatio,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ MaxEvToFcf,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ MinFcfYield,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ MinRoe,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ MinOperatingMargin,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ MaxDebtToEquity,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ MinCurrentRatio,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ MinDividendYield}
+\DoxyCodeLine{00045\ \ \ \ \ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_stock_screener_1_1_criterion}{Criterion}}}
+\DoxyCodeLine{00054\ \ \ \ \ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_stock_screener_ac44145875f5b7971fa0696a7a4eaf5c5}{CriterionType}}\ type;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ minValue\ =\ 0.0;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ maxValue\ =\ 0.0;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ std::string\ textValue;}
+\DoxyCodeLine{00059\ \ \ \ \ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_stock_screener_1_1_screen_result}{ScreenResult}}}
+\DoxyCodeLine{00068\ \ \ \ \ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ std::vector<Stock>\ matches;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ std::vector<std::string>\ appliedCriteria;}
+\DoxyCodeLine{00071\ \ \ \ \ \};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{struct_stock_screener_1_1_screen_result}{ScreenResult}}\ \doxymbox{\hyperlink{class_stock_screener_acac3b9971c4db7e7a02f029bf580f98d}{screen}}(}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Stock>\ \&stocks,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Criterion>\ \&criteria);}
+\DoxyCodeLine{00085\ \};}
+
+\end{DoxyCode}

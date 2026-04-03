@@ -1,0 +1,56 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize to\+\_\+bson }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$to\_bson@{$<$small$>$nlohmann::basic\_json::$<$/small$>$to\_bson}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson_autotoc_md884}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson_autotoc_md884}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ (1)}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ std::vector<std::uint8\_t>\ to\_bson(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classbasic__json}{basic\_json}}\&\ j);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ (2)}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ to\_bson(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classbasic__json}{basic\_json}}\&\ j,\ \doxymbox{\hyperlink{classdetail_1_1output__adapter}{detail::output\_adapter<std::uint8\_t>}}\ o);}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ to\_bson(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classbasic__json}{basic\_json}}\&\ j,\ \doxymbox{\hyperlink{classdetail_1_1output__adapter}{detail::output\_adapter<char>}}\ o);}
+
+\end{DoxyCode}
+
+
+BSON (Binary JSON) is a binary format in which zero or more ordered key/\+value pairs are stored as a single entity (a so-\/called document).
+
+
+\begin{DoxyEnumerate}
+\item Returns a byte vector containing the BSON serialization.
+\item Writes the BSON serialization to an output adapter.
+\end{DoxyEnumerate}
+
+\doxylink{requirements_The}{The} exact mapping and its limitations are described on a \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2bson}{dedicated page}{0}.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson_autotoc_md885}{}\doxysection{\texorpdfstring{Parameters}{Parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson_autotoc_md885}
+{\ttfamily j} (in) :\+ JSON value to serialize
+
+{\ttfamily o} (in) :\+ output adapter to write serialization to\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson_autotoc_md886}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson_autotoc_md886}
+
+\begin{DoxyEnumerate}
+\item BSON serialization as a byte vector
+\item (none)
+\end{DoxyEnumerate}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson_autotoc_md887}{}\doxysection{\texorpdfstring{Exception safety}{Exception safety}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson_autotoc_md887}
+Strong guarantee:\+ if an exception is thrown, there are no changes in the JSON value.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson_autotoc_md888}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson_autotoc_md888}
+Linear in the size of the JSON value {\ttfamily j}.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson_autotoc_md889}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson_autotoc_md889}
+??? example \begin{DoxyVerb}The example shows the serialization of a JSON value to a byte vector in BSON format.
+
+```cpp
+--8<-- "examples/to_bson.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/to_bson.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson_autotoc_md890}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bson_autotoc_md890}
+
+\begin{DoxyItemize}
+\item Added in version 3.\+4.\+0. 
+\end{DoxyItemize}

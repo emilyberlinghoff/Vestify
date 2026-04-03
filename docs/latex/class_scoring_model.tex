@@ -1,0 +1,102 @@
+\doxysection{Scoring\+Model Class Reference}
+\hypertarget{class_scoring_model}{}\label{class_scoring_model}\index{ScoringModel@{ScoringModel}}
+
+
+Abstract base for scoring models.  
+
+
+
+
+{\ttfamily \+\#include $<$Scoring\+Model.\+hpp$>$}
+
+Inheritance diagram for Scoring\+Model:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.408805cm]{class_scoring_model}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \doxymbox{\hyperlink{class_scoring_model_a9b9bf1dac68c407b2c2e0be03dec48b0}{\texorpdfstring{$\sim$}{\string~}\+Scoring\+Model}} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor for polymorphic scoring models. \end{DoxyCompactList}\item 
+virtual double \doxymbox{\hyperlink{class_scoring_model_a5a6301eb2a281ebb14ae07603fb2f261}{calculate\+Score}} (const \doxymbox{\hyperlink{struct_stock}{Stock}} \&stock) const =0
+\begin{DoxyCompactList}\small\item\em Compute this model\textquotesingle{}s score for the given stock. \end{DoxyCompactList}\item 
+virtual std::\+string \doxymbox{\hyperlink{class_scoring_model_a4b9b6b56036e41f15d59c3cdd9a49826}{get\+Model\+Name}} () const =0
+\begin{DoxyCompactList}\small\item\em Unique name identifying this model (used as a key in weights and results). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstract base for scoring models. 
+
+Each concrete model computes a single numeric score for a stock based on its own criteria (value, growth, momentum, etc.). This abstraction allows strategies to combine interchangeable factor models without coupling ranking logic to any one implementation.
+
+\begin{DoxyAuthor}{Author}
+Melvin Rogers 
+\end{DoxyAuthor}
+
+
+\label{doc-constructors}
+\Hypertarget{class_scoring_model_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_scoring_model_a9b9bf1dac68c407b2c2e0be03dec48b0}\index{ScoringModel@{ScoringModel}!````~ScoringModel@{\texorpdfstring{$\sim$}{\string~}ScoringModel}}
+\index{````~ScoringModel@{\texorpdfstring{$\sim$}{\string~}ScoringModel}!ScoringModel@{ScoringModel}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}ScoringModel()}{\string~ScoringModel()}}
+{\footnotesize\ttfamily \label{class_scoring_model_a9b9bf1dac68c407b2c2e0be03dec48b0} 
+virtual Scoring\+Model::\+\texorpdfstring{$\sim$}{\string~}\+Scoring\+Model (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+Virtual destructor for polymorphic scoring models. 
+
+Keeping the destructor virtual ensures derived model objects can be destroyed safely through base pointers. 
+
+\label{doc-func-members}
+\Hypertarget{class_scoring_model_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_scoring_model_a5a6301eb2a281ebb14ae07603fb2f261}\index{ScoringModel@{ScoringModel}!calculateScore@{calculateScore}}
+\index{calculateScore@{calculateScore}!ScoringModel@{ScoringModel}}
+\doxysubsubsection{\texorpdfstring{calculateScore()}{calculateScore()}}
+{\footnotesize\ttfamily \label{class_scoring_model_a5a6301eb2a281ebb14ae07603fb2f261} 
+virtual double Scoring\+Model::\+calculate\+Score (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_stock}{Stock}} \&}]{stock}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Compute this model\textquotesingle{}s score for the given stock. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stock} & \doxylink{struct_stock}{Stock} to evaluate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Score in the range \+[0, 100]\+. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_efficiency_scoring_model_a74358dd711fe0163a625b9a2978f2041}{Efficiency\+Scoring\+Model}}, \doxymbox{\hyperlink{class_growth_scoring_model_a4e0dedd0b17c42b2322b741fa0999584}{Growth\+Scoring\+Model}}, \doxymbox{\hyperlink{class_momentum_scoring_model_a5ae27c3a2ffbcda20833aa97da372d70}{Momentum\+Scoring\+Model}}, \doxymbox{\hyperlink{class_quality_scoring_model_a396c37aae90ad1d471b9a9fe99c4df3c}{Quality\+Scoring\+Model}}, and \doxymbox{\hyperlink{class_value_scoring_model_a06565dbd6077a03365905989c62235e0}{Value\+Scoring\+Model}}.
+
+\Hypertarget{class_scoring_model_a4b9b6b56036e41f15d59c3cdd9a49826}\index{ScoringModel@{ScoringModel}!getModelName@{getModelName}}
+\index{getModelName@{getModelName}!ScoringModel@{ScoringModel}}
+\doxysubsubsection{\texorpdfstring{getModelName()}{getModelName()}}
+{\footnotesize\ttfamily \label{class_scoring_model_a4b9b6b56036e41f15d59c3cdd9a49826} 
+virtual std::\+string Scoring\+Model::\+get\+Model\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Unique name identifying this model (used as a key in weights and results). 
+
+Implementations should return a stable identifier so strategies and result breakdowns can refer to the same model consistently.
+
+\begin{DoxyReturn}{Returns}
+Model name string. 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_efficiency_scoring_model_a8618e239f2a125daf4c931015a9cc825}{Efficiency\+Scoring\+Model}}, \doxymbox{\hyperlink{class_growth_scoring_model_ace6ba45e6465bb97e5bf2523ff01e727}{Growth\+Scoring\+Model}}, \doxymbox{\hyperlink{class_momentum_scoring_model_aba194964180b8d4a251d65d5e01f8ab1}{Momentum\+Scoring\+Model}}, \doxymbox{\hyperlink{class_quality_scoring_model_ad508ccd832cfd7df3ea0977f48257e26}{Quality\+Scoring\+Model}}, and \doxymbox{\hyperlink{class_value_scoring_model_a55bc1f6aac01b64b78b6bb710a5a47fc}{Value\+Scoring\+Model}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+scoring/\+\doxymbox{\hyperlink{_scoring_model_8hpp}{Scoring\+Model.\+hpp}}\end{DoxyCompactItemize}

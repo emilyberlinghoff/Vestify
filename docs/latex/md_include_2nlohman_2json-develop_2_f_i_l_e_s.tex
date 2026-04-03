@@ -1,0 +1,270 @@
+\chapter{Supporting files }
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s}{}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s}\index{Supporting files@{Supporting files}}
+\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1859}%
+\Hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1859}%
+
+
+This file describes the source for supporting files; that is, files that are not part of the library, but define the infrastructure and other aspects of the project.
+
+
+\begin{DoxyItemize}
+\item Continuous Integration
+\item Git\+Hub
+\item REUSE
+\item Package Managers
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1860}{}\doxysection{\texorpdfstring{Continuous Integration}{Continuous Integration}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1860}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1861}{}\doxysubsection{\texorpdfstring{{\ttfamily .cirrus.\+yml}}{{\ttfamily .cirrus.\+yml}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1861}
+Configuration file for the pipeline at \href{https://cirrus-ci.com/github/nlohmann/json}{\texttt{Cirrus CI}}.
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://cirrus-ci.org/guide/writing-tasks/}{\texttt{Writing tasks}}
+\end{DoxyItemize}
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} filename {\ttfamily .cirrus.\+yml} and position (root of the repository) are predetermined by Cirrus CI.
+\end{DoxyImportant}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1862}{}\doxysubsection{\texorpdfstring{{\ttfamily .github/\+external\+\_\+ci/\+appveyor.\+yml}}{{\ttfamily .github/\+external\+\_\+ci/\+appveyor.\+yml}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1862}
+Configuration for the pipelines at \href{https://ci.appveyor.com/project/nlohmann/json}{\texttt{App\+Veyor}}.
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://www.appveyor.com/docs/appveyor-yml/}{\texttt{appveyor.\+yml reference}}
+\end{DoxyItemize}
+
+\begin{DoxyNote}{Note}
+\doxylink{requirements_The}{The} filename can be freely configured in the App\+Veyor project.
+\end{DoxyNote}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1863}{}\doxysection{\texorpdfstring{Git\+Hub}{Git\+Hub}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1863}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1864}{}\doxysubsection{\texorpdfstring{{\ttfamily CITATION.\+cff}}{{\ttfamily CITATION.\+cff}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1864}
+\doxylink{class_a}{A} file to configure the citation for the repository which is displayed in the sidebar of the project.
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files}{\texttt{About CITATION files}}
+\end{DoxyItemize}
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} filename {\ttfamily CITATION.\+cff} and position (root of the repository) are predetermined by Git\+Hub.
+\end{DoxyImportant}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1865}{}\doxysubsection{\texorpdfstring{{\ttfamily .github/\+\+CODE\+\_\+\+OF\+\_\+\+CONDUCT.\+md}}{{\ttfamily .github/\+\+CODE\+\_\+\+OF\+\_\+\+CONDUCT.\+md}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1865}
+\doxylink{requirements_The}{The} code of conduct for the project. This is the Markdown version of the \href{https://www.contributor-covenant.org/version/2/1/code_of_conduct/}{\texttt{Contributor Covenant Code of Conduct}}. \doxylink{requirements_The}{The} code of conduct is linked on the \href{https://github.com/nlohmann/json/community}{\texttt{Community Standards}} page and is mentioned by the Sentiment Bot.
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-code-of-conduct-to-your-project}{\texttt{Adding a code of conduct to your project}}
+\end{DoxyItemize}
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} filename {\ttfamily .github/\+\+CODE\+\_\+\+OF\+\_\+\+CONDUCT.\+md} is predetermined by Git\+Hub.
+\end{DoxyImportant}
+\begin{DoxyNote}{Note}
+\doxylink{requirements_The}{The} file is part of the documentation and is included in {\ttfamily docs/\+mkdocs/\+docs/\+community/\+code\+\_\+of\+\_\+conduct.\+md}.
+\end{DoxyNote}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1866}{}\doxysubsection{\texorpdfstring{{\ttfamily .github/\+\+CODEOWNERS}}{{\ttfamily .github/\+\+CODEOWNERS}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1866}
+\doxylink{requirements_The}{The} code owners file for the project which is used to select reviewers for new pull requests.
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners}{\texttt{About code owners}}
+\end{DoxyItemize}
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} filename {\ttfamily .github/\+\+CODEOWNERS} is predetermined by Git\+Hub.
+\end{DoxyImportant}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1867}{}\doxysubsection{\texorpdfstring{{\ttfamily .github/\+config.\+yml}}{{\ttfamily .github/\+config.\+yml}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1867}
+Configuration file for \href{https://probot.github.io/apps/}{\texttt{probot}}, in particular the \href{https://probot.github.io/apps/sentiment-bot/}{\texttt{Sentiment Bot}} and the \href{https://probot.github.io/apps/request-info/}{\texttt{Request Info}}.
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} filename {\ttfamily .github/\+config.\+yml} is predetermined by probot.
+\end{DoxyImportant}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1868}{}\doxysubsection{\texorpdfstring{{\ttfamily .github/\+\+CONTRIBUTING.\+md}}{{\ttfamily .github/\+\+CONTRIBUTING.\+md}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1868}
+\doxylink{requirements_The}{The} contribution guidelines which are linked in the \href{https://github.com/nlohmann/json/community}{\texttt{Community Standards}} and at \href{https://github.com/nlohmann/json/contribute}{\texttt{https:\+/\+/\+github.\+com/\+nlohmann/\+json/\+contribute}}.
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors}{\texttt{Setting guidelines for repository contributors}}
+\end{DoxyItemize}
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} filename {\ttfamily .github/\+\+CONTRIBUTING.\+md} is predetermined by Git\+Hub.
+\end{DoxyImportant}
+\begin{DoxyNote}{Note}
+\doxylink{requirements_The}{The} file is part of the documentation and is included in {\ttfamily docs/\+mkdocs/\+docs/\+community/\+contribution\+\_\+guidelines.\+md}.
+\end{DoxyNote}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1869}{}\doxysubsection{\texorpdfstring{{\ttfamily .github/\+dependabot.\+yml}}{{\ttfamily .github/\+dependabot.\+yml}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1869}
+\doxylink{requirements_The}{The} configuration of \href{https://github.com/dependabot}{\texttt{dependabot}} which ensures the dependencies (Git\+Hub actions and Python packages used in the CI) remain up to date.
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://docs.github.com/en/code-security/dependabot/dependabot-security-updates/configuring-dependabot-security-updates}{\texttt{Configuring Dependabot security updates}}
+\end{DoxyItemize}
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} filename {\ttfamily .github/\+dependabot.\+yml} is predetermined by Git\+Hub.
+\end{DoxyImportant}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1870}{}\doxysubsection{\texorpdfstring{{\ttfamily .github/\+\+FUNDING.\+yml}}{{\ttfamily .github/\+\+FUNDING.\+yml}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1870}
+\doxylink{class_a}{A} file to configure the sponsor button of the repository which is displayed in the sidebar of the project.
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository}{\texttt{Displaying a sponsor button in your repository}}
+\end{DoxyItemize}
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} filename {\ttfamily .github/\+\+FUNDING.\+yml} is predetermined by Git\+Hub.
+\end{DoxyImportant}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1871}{}\doxysubsection{\texorpdfstring{{\ttfamily .github/\+\+ISSUE\+\_\+\+TEMPLATE/\+bug.\+yaml}}{{\ttfamily .github/\+\+ISSUE\+\_\+\+TEMPLATE/\+bug.\+yaml}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1871}
+Issue form template for bugs.
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository}{\texttt{Configuring issue templates for your repository}}
+\end{DoxyItemize}
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} folder {\ttfamily .github/\+\+ISSUE\+\_\+\+TEMPLATE} is predetermined by Git\+Hub.
+\end{DoxyImportant}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1872}{}\doxysubsection{\texorpdfstring{{\ttfamily .github/\+\+ISSUE\+\_\+\+TEMPLATE/\+config.\+yaml}}{{\ttfamily .github/\+\+ISSUE\+\_\+\+TEMPLATE/\+config.\+yaml}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1872}
+Issue template chooser configuration. \doxylink{requirements_The}{The} file is used to configure the dialog when a new issue is created.
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository}{\texttt{Configuring issue templates for your repository}}
+\end{DoxyItemize}
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} filename {\ttfamily .github/\+\+ISSUE\+\_\+\+TEMPLATE/\+config.\+yaml} is predetermined by Git\+Hub.
+\end{DoxyImportant}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1873}{}\doxysubsection{\texorpdfstring{{\ttfamily .github/\+labeler.\+yml}}{{\ttfamily .github/\+labeler.\+yml}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1873}
+Configuration file for the "{}\+Pull Request Labeler"{} workflow defined in {\ttfamily workflows/\+labeler.\+yml}. This file defines rules how labels are assigned to pull requests based on which files are changed.
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://github.com/srvaroa/labeler}{\texttt{Label manager for PRs and issues based on configurable conditions}}
+\end{DoxyItemize}
+
+\begin{DoxyNote}{Note}
+\doxylink{requirements_The}{The} filename defaults to {\ttfamily .github/\+labeler.\+yml} and can be configured in the workflow.
+\end{DoxyNote}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1874}{}\doxysubsection{\texorpdfstring{{\ttfamily .github/\+\+PULL\+\_\+\+REQUEST\+\_\+\+TEMPLATE.\+md}}{{\ttfamily .github/\+\+PULL\+\_\+\+REQUEST\+\_\+\+TEMPLATE.\+md}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1874}
+\doxylink{requirements_The}{The} pull request template which prefills new pull requests.
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository}{\texttt{Creating a pull request template for your repository}}
+\end{DoxyItemize}
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} filename {\ttfamily .github/\+\+PULL\+\_\+\+REQUEST\+\_\+\+TEMPLATE.\+md} is predetermined by Git\+Hub.
+\end{DoxyImportant}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1875}{}\doxysubsection{\texorpdfstring{{\ttfamily .github/\+\+SECURITY.\+md}}{{\ttfamily .github/\+\+SECURITY.\+md}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1875}
+\doxylink{requirements_The}{The} goal is to describe how to securely report security vulnerabilities for this repository. \doxylink{requirements_The}{The} security policy is linked at \href{https://github.com/nlohmann/json/security/policy}{\texttt{https:\+/\+/\+github.\+com/\+nlohmann/\+json/\+security/\+policy}}.
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://docs.github.com/en/code-security/getting-started/adding-a-security-policy-to-your-repository}{\texttt{Adding a security policy to your repository}}
+\end{DoxyItemize}
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} filename {\ttfamily .github/\+\+SECURITY.\+yml} is predetermined by Git\+Hub.
+\end{DoxyImportant}
+\begin{DoxyNote}{Note}
+\doxylink{requirements_The}{The} file is part of the documentation and is included in {\ttfamily docs/\+mkdocs/\+docs/\+community/\+security\+\_\+policy.\+md}.
+\end{DoxyNote}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1876}{}\doxysubsection{\texorpdfstring{{\ttfamily LICENSE.\+MIT}}{{\ttfamily LICENSE.\+MIT}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1876}
+\doxylink{requirements_The}{The} license of the project.
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository}{\texttt{Adding a license to a repository}}
+\end{DoxyItemize}
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} filename {\ttfamily LICENSE.\+MIT} is partly predetermined by Git\+Hub. \doxylink{requirements_The}{The} root filename must be {\ttfamily LICENSE}.
+\end{DoxyImportant}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1877}{}\doxysection{\texorpdfstring{REUSE}{REUSE}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1877}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1878}{}\doxysubsection{\texorpdfstring{{\ttfamily .reuse/\+dep5}}{{\ttfamily .reuse/\+dep5}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1878}
+\doxylink{requirements_The}{The} file defines the licenses of certain third-\/party components in the repository. \doxylink{requirements_The}{The} root {\ttfamily Makefile} contains a target {\ttfamily reuse} that checks for compliance.
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://reuse.software/spec-3.2/\#dep5-deprecated}{\texttt{DEP5}}
+\item \href{https://pypi.org/project/reuse/}{\texttt{reuse command-\/line tool}}
+\item \href{https://reuse.readthedocs.io/en/stable/man/reuse-lint.html}{\texttt{documentation of linting}}
+\item \href{http://reuse.software}{\texttt{REUSE}}
+\end{DoxyItemize}
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} filename {\ttfamily .reuse/\+dep5} is predetermined by REUSE. Alternatively, a {\ttfamily REUSE.\+toml} file can be used.
+\end{DoxyImportant}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1879}{}\doxysubsection{\texorpdfstring{{\ttfamily .reuse/\+templates}}{{\ttfamily .reuse/\+templates}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1879}
+Copyright header templates for source files. \doxylink{requirements_The}{The} root {\ttfamily Makefile} contains a target {\ttfamily reuse} that updates copyright headers with the templates.
+
+Further information:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://pypi.org/project/reuse/}{\texttt{reuse command-\/line tool}}
+\item \href{https://reuse.readthedocs.io/en/stable/man/reuse-annotate.html\#cmdoption-t}{\texttt{documentation on templates}}
+\item \href{http://reuse.software}{\texttt{REUSE}}
+\end{DoxyItemize}
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} folder name {\ttfamily .reuse/\+templates} is predetermined by REUSE.
+\end{DoxyImportant}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1880}{}\doxysubsection{\texorpdfstring{{\ttfamily LICENSES}}{{\ttfamily LICENSES}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1880}
+\doxylink{class_a}{A} folder that contains every license of all license files (library and third-\/party code).
+
+Further documentation:\+
+
+
+\begin{DoxyItemize}
+\item \href{https://reuse.software/spec-3.3/}{\texttt{REUSE specification}}
+\end{DoxyItemize}
+
+\begin{DoxyImportant}{Important}
+\doxylink{requirements_The}{The} folder name {\ttfamily LICENSES} is predetermined by REUSE.
+\end{DoxyImportant}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1881}{}\doxysection{\texorpdfstring{Package Managers}{Package Managers}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1881}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1882}{}\doxysubsection{\texorpdfstring{{\ttfamily BUILD.\+bazel}}{{\ttfamily BUILD.\+bazel}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1882}
+\doxylink{requirements_The}{The} file can be updated by calling
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ BUILD.bazel}
+
+\end{DoxyCode}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1883}{}\doxysubsection{\texorpdfstring{{\ttfamily meson.\+build}}{{\ttfamily meson.\+build}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1883}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1884}{}\doxysubsection{\texorpdfstring{{\ttfamily Package.\+swift}}{{\ttfamily Package.\+swift}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1884}
+\hypertarget{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1885}{}\doxysubsection{\texorpdfstring{{\ttfamily WORKSPACE.\+bazel}}{{\ttfamily WORKSPACE.\+bazel}}}\label{md_include_2nlohman_2json-develop_2_f_i_l_e_s_autotoc_md1885}

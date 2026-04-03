@@ -1,0 +1,108 @@
+\doxysection{Value\+Scoring\+Model Class Reference}
+\hypertarget{class_value_scoring_model}{}\label{class_value_scoring_model}\index{ValueScoringModel@{ValueScoringModel}}
+
+
+Scores stocks on value characteristics.  
+
+
+
+
+{\ttfamily \+\#include $<$Value\+Scoring\+Model.\+hpp$>$}
+
+Inheritance diagram for Value\+Scoring\+Model:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_value_scoring_model}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \doxymbox{\hyperlink{class_value_scoring_model_a06565dbd6077a03365905989c62235e0}{calculate\+Score}} (const \doxymbox{\hyperlink{struct_stock}{Stock}} \&stock) const override
+\begin{DoxyCompactList}\small\item\em Calculate a value score for one stock. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_value_scoring_model_a55bc1f6aac01b64b78b6bb710a5a47fc}{get\+Model\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em Return the display name for this model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_scoring_model}{Scoring\+Model}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \doxymbox{\hyperlink{class_scoring_model_a9b9bf1dac68c407b2c2e0be03dec48b0}{\texorpdfstring{$\sim$}{\string~}\+Scoring\+Model}} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor for polymorphic scoring models. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Scores stocks on value characteristics. 
+
+Evaluates four value dimensions:\+
+\begin{DoxyItemize}
+\item P/\+E ratio (lower is better for value investors)
+\item Dividend yield (higher signals shareholder returns)
+\item EV/\+\+FCF ratio (lower means cheaper relative to cash generation)
+\item FCF yield (higher means more free cash flow per dollar of market cap)
+\end{DoxyItemize}
+
+Each component maps to a 0-\/100 sub-\/score, then averaged. The model is intended to favor cheaper cash-\/generating businesses while still rewarding direct shareholder return through dividends.
+
+\begin{DoxyAuthor}{Author}
+Melvin Roger 
+
+Emily Berlinghoff 
+\end{DoxyAuthor}
+
+
+\label{doc-func-members}
+\Hypertarget{class_value_scoring_model_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_value_scoring_model_a06565dbd6077a03365905989c62235e0}\index{ValueScoringModel@{ValueScoringModel}!calculateScore@{calculateScore}}
+\index{calculateScore@{calculateScore}!ValueScoringModel@{ValueScoringModel}}
+\doxysubsubsection{\texorpdfstring{calculateScore()}{calculateScore()}}
+{\footnotesize\ttfamily \label{class_value_scoring_model_a06565dbd6077a03365905989c62235e0} 
+double Value\+Scoring\+Model::\+calculate\+Score (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_stock}{Stock}} \&}]{stock}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Calculate a value score for one stock. 
+
+Normalizes valuation and cash-\/generation metrics into sub-\/scores and averages the valid components into a single comparable ranking value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stock} & \doxylink{struct_stock}{Stock} fundamentals to evaluate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Value score in the range \+[0, 100]\+. 
+\end{DoxyReturn}
+P/\+E component:\+ lower is better. Map P/\+E 0-\/50 -\/\texorpdfstring{$>$}{>} score 100-\/0.
+
+Dividend yield:\+ higher is better. Stored as fraction (0.\+035 = 3.\+5\%). Map 0-\/0.\+08 -\/\texorpdfstring{$>$}{>} 0-\/100.
+
+EV/\+\+FCF:\+ lower is better (cheaper valuation). Map 0-\/50 -\/\texorpdfstring{$>$}{>} 100-\/0.
+
+FCF yield:\+ higher is better (more cash flow per market cap dollar). Stored as fraction. Map 0-\/0.\+10 (10\%) -\/\texorpdfstring{$>$}{>} 0-\/100.
+
+Implements \doxymbox{\hyperlink{class_scoring_model_a5a6301eb2a281ebb14ae07603fb2f261}{Scoring\+Model}}.
+
+\Hypertarget{class_value_scoring_model_a55bc1f6aac01b64b78b6bb710a5a47fc}\index{ValueScoringModel@{ValueScoringModel}!getModelName@{getModelName}}
+\index{getModelName@{getModelName}!ValueScoringModel@{ValueScoringModel}}
+\doxysubsubsection{\texorpdfstring{getModelName()}{getModelName()}}
+{\footnotesize\ttfamily \label{class_value_scoring_model_a55bc1f6aac01b64b78b6bb710a5a47fc} 
+std::\+string Value\+Scoring\+Model::\+get\+Model\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Return the display name for this model. 
+
+This string is used when registering the model with a strategy manager and when showing per-\/factor score breakdowns to the user.
+
+\begin{DoxyReturn}{Returns}
+The model name string "{}\+Value"{}. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_scoring_model_a4b9b6b56036e41f15d59c3cdd9a49826}{Scoring\+Model}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+scoring/\+\doxymbox{\hyperlink{_value_scoring_model_8hpp}{Value\+Scoring\+Model.\+hpp}}\end{DoxyCompactItemize}

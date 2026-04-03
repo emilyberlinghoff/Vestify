@@ -1,0 +1,89 @@
+\doxysection{amalgamate.\+Translation\+Unit Class Reference}
+\hypertarget{classamalgamate_1_1_translation_unit}{}\label{classamalgamate_1_1_translation_unit}\index{amalgamate.TranslationUnit@{amalgamate.TranslationUnit}}
+Inheritance diagram for amalgamate.\+Translation\+Unit:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classamalgamate_1_1_translation_unit}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classamalgamate_1_1_translation_unit_a2044eb5cec0bb00362f99651a8b56901}\label{classamalgamate_1_1_translation_unit_a2044eb5cec0bb00362f99651a8b56901} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, file\+\_\+path, amalgamation, is\+\_\+root)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classamalgamate_1_1_translation_unit_af7fea972f14bc8f0ed106d8ea7dda490}\label{classamalgamate_1_1_translation_unit_af7fea972f14bc8f0ed106d8ea7dda490} 
+{\bfseries content} = tmp\+\_\+content
+\item 
+\Hypertarget{classamalgamate_1_1_translation_unit_a9792dd7a8e0221ddfc1584c691e96843}\label{classamalgamate_1_1_translation_unit_a9792dd7a8e0221ddfc1584c691e96843} 
+{\bfseries is\+\_\+root}
+\item 
+\Hypertarget{classamalgamate_1_1_translation_unit_a08009905863cf3c94b32ce2865c172fa}\label{classamalgamate_1_1_translation_unit_a08009905863cf3c94b32ce2865c172fa} 
+{\bfseries file\+\_\+path} = file\+\_\+path
+\item 
+\Hypertarget{classamalgamate_1_1_translation_unit_aff5d10ca68726ffd9b541b53f5236739}\label{classamalgamate_1_1_translation_unit_aff5d10ca68726ffd9b541b53f5236739} 
+{\bfseries file\+\_\+dir} = os.\+path.\+dirname(file\+\_\+path)
+\item 
+\Hypertarget{classamalgamate_1_1_translation_unit_a8a015adbd48f3fc8e8033f0567b4a29a}\label{classamalgamate_1_1_translation_unit_a8a015adbd48f3fc8e8033f0567b4a29a} 
+{\bfseries amalgamation} = amalgamation
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classamalgamate_1_1_translation_unit_a8668de1312a1ad0f5ad4d9cde162c88a}\label{classamalgamate_1_1_translation_unit_a8668de1312a1ad0f5ad4d9cde162c88a} 
+{\bfseries cpp\+\_\+comment\+\_\+pattern} = re.\+compile(r"{}/\+/\+.\texorpdfstring{$\ast$}{*}?\textbackslash{}n"{})
+\item 
+\Hypertarget{classamalgamate_1_1_translation_unit_a5d2a3fac8c1bdb531030e6211d278573}\label{classamalgamate_1_1_translation_unit_a5d2a3fac8c1bdb531030e6211d278573} 
+{\bfseries c\+\_\+comment\+\_\+pattern} = re.\+compile(r"{}/\+\textbackslash{}\texorpdfstring{$\ast$}{*}.\texorpdfstring{$\ast$}{*}?\textbackslash{}\texorpdfstring{$\ast$}{*}/\+"{}, re.\+S)
+\item 
+\Hypertarget{classamalgamate_1_1_translation_unit_a915ad705bf157de47f8d77584bb55d59}\label{classamalgamate_1_1_translation_unit_a915ad705bf157de47f8d77584bb55d59} 
+{\bfseries string\+\_\+pattern} = re.\+compile("{}\+[\texorpdfstring{$^\wedge$}{\string^}\textquotesingle{}]\+"{} r\textquotesingle{}"{}.\texorpdfstring{$\ast$}{*}?(?$<$=\+[\texorpdfstring{$^\wedge$}{\string^}\textbackslash{}\textbackslash{}]\+)"{}\textquotesingle{}, re.\+S)
+\item 
+\doxymbox{\hyperlink{classamalgamate_1_1_translation_unit_a97822f68525e4bf2f89edf42bc3c994b}{include\+\_\+pattern}}
+\item 
+\Hypertarget{classamalgamate_1_1_translation_unit_a022cc82140094abbb5bee6aeec82fd2b}\label{classamalgamate_1_1_translation_unit_a022cc82140094abbb5bee6aeec82fd2b} 
+{\bfseries pragma\+\_\+once\+\_\+pattern} = re.\+compile(r\textquotesingle{}\+\#\textbackslash{}s\texorpdfstring{$\ast$}{*}pragma\textbackslash{}s+once\textquotesingle{}, re.\+S)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classamalgamate_1_1_translation_unit_ab869122cfe999e2cb0ac3b20cb3f2d3f}\label{classamalgamate_1_1_translation_unit_ab869122cfe999e2cb0ac3b20cb3f2d3f} 
+{\bfseries \+\_\+search\+\_\+content} (self, index, pattern, contexts)
+\item 
+\Hypertarget{classamalgamate_1_1_translation_unit_aabab1d386bdfb6d1759fb957dbacd0c1}\label{classamalgamate_1_1_translation_unit_aabab1d386bdfb6d1759fb957dbacd0c1} 
+{\bfseries \+\_\+find\+\_\+skippable\+\_\+contexts} (self)
+\item 
+\Hypertarget{classamalgamate_1_1_translation_unit_a49d66173bbf77215a34d531ca98bfdcf}\label{classamalgamate_1_1_translation_unit_a49d66173bbf77215a34d531ca98bfdcf} 
+{\bfseries \+\_\+process\+\_\+pragma\+\_\+once} (self)
+\item 
+\Hypertarget{classamalgamate_1_1_translation_unit_a3fb7da14c50a6dc6eb3989985fac3a62}\label{classamalgamate_1_1_translation_unit_a3fb7da14c50a6dc6eb3989985fac3a62} 
+{\bfseries \+\_\+process\+\_\+includes} (self)
+\item 
+\Hypertarget{classamalgamate_1_1_translation_unit_a4f4447788c34ffdd155a7c4226a6b819}\label{classamalgamate_1_1_translation_unit_a4f4447788c34ffdd155a7c4226a6b819} 
+{\bfseries \+\_\+process} (self)
+\end{DoxyCompactItemize}
+
+
+\label{doc-variable-members}
+\Hypertarget{classamalgamate_1_1_translation_unit_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classamalgamate_1_1_translation_unit_a97822f68525e4bf2f89edf42bc3c994b}\index{amalgamate.TranslationUnit@{amalgamate.TranslationUnit}!include\_pattern@{include\_pattern}}
+\index{include\_pattern@{include\_pattern}!amalgamate.TranslationUnit@{amalgamate.TranslationUnit}}
+\doxysubsubsection{\texorpdfstring{include\_pattern}{include\_pattern}}
+{\footnotesize\ttfamily \label{classamalgamate_1_1_translation_unit_a97822f68525e4bf2f89edf42bc3c994b} 
+amalgamate.\+Translation\+Unit.\+include\+\_\+pattern\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ re.compile(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{r'\#\(\backslash\)s*include\(\backslash\)s+(<|"{})(?P<path>.*?)("{}|>)'},\ re.S)}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tools/\+amalgamate/\+amalgamate.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,38 @@
+\chapter{
+\footnotesize nlohmann:\+:\+
+\normalsize byte\+\_\+container\+\_\+with\+\_\+subtype }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2index}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2index}\index{$<$small$>$nlohmann::$<$/small$>$byte\_container\_with\_subtype@{$<$small$>$nlohmann::$<$/small$>$byte\_container\_with\_subtype}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2index_autotoc_md990}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2index_autotoc_md990}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BinaryType>}
+\DoxyCodeLine{\textcolor{keyword}{class\ }\doxymbox{\hyperlink{classbyte__container__with__subtype}{byte\_container\_with\_subtype}}\ :\ \textcolor{keyword}{public}\ BinaryType;}
+
+\end{DoxyCode}
+
+
+This type extends the template parameter {\ttfamily Binary\+Type} provided to \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index}{{\ttfamily basic\+\_\+json}}{0} with a subtype used by BSON and Message\+Pack. This type exists so that the user does not have to specify a type themselves with a specific naming scheme in order to override the binary type.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2index_autotoc_md991}{}\doxysection{\texorpdfstring{Template parameters}{Template parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2index_autotoc_md991}
+{\ttfamily Binary\+Type} :\+ container to store bytes ({\ttfamily \#!cpp std::\+vector\texorpdfstring{$<$}{<}std::\+uint8\+\_\+t\texorpdfstring{$>$}{>}} by default)\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2index_autotoc_md992}{}\doxysection{\texorpdfstring{Member types}{Member types}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2index_autotoc_md992}
+
+\begin{DoxyItemize}
+\item {\bfseries{container\+\_\+type}} -\/ the type of the underlying container ({\ttfamily Binary\+Type})
+\item {\bfseries{subtype\+\_\+type}} -\/ the type of the subtype ({\ttfamily \#!cpp std::\+uint64\+\_\+t})
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2index_autotoc_md993}{}\doxysection{\texorpdfstring{Member functions}{Member functions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2index_autotoc_md993}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2byte__container__with__subtype}{(constructor)}{0}
+\item {\bfseries{operator==}} -\/ comparison:\+ equal
+\item {\bfseries{operator!=}} -\/ comparison:\+ not equal
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2subtype}{{\bfseries{set\+\_\+subtype}}}{0} -\/ sets the binary subtype
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2subtype}{{\bfseries{subtype}}}{0} -\/ return the binary subtype
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2has__subtype}{{\bfseries{has\+\_\+subtype}}}{0} -\/ return whether the value has a subtype
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2clear__subtype}{{\bfseries{clear\+\_\+subtype}}}{0} -\/ clears the binary subtype
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2index_autotoc_md994}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2byte__container__with__subtype_2index_autotoc_md994}
+
+\begin{DoxyItemize}
+\item Added in version 3.\+8.\+0.
+\item Changed the type of subtypes to {\ttfamily \#!cpp std::\+uint64\+\_\+t} in 3.\+10.\+0. 
+\end{DoxyItemize}

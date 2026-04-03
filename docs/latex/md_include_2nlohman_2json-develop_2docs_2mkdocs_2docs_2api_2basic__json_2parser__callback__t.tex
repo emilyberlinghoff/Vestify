@@ -1,0 +1,66 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize parser\+\_\+callback\+\_\+t }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parser__callback__t}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parser__callback__t}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$parser\_callback\_t@{$<$small$>$nlohmann::basic\_json::$<$/small$>$parser\_callback\_t}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parser__callback__t_autotoc_md782}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parser__callback__t_autotoc_md782}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{\textcolor{keyword}{using\ }parser\_callback\_t\ =}
+\DoxyCodeLine{\ \ \ \ std::function<bool(\textcolor{keywordtype}{int}\ depth,\ parse\_event\_t\ event,\ BasicJsonType\&\ parsed)>;}
+
+\end{DoxyCode}
+
+
+With a parser callback function, the result of parsing a JSON text can be influenced. When passed to \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parse}{{\ttfamily parse}}{0}, it is called on certain events (passed as \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parse__event__t}{{\ttfamily parse\+\_\+event\+\_\+t}}{0} via parameter {\ttfamily event}) with a set recursion depth {\ttfamily depth} and context JSON value {\ttfamily parsed}. \doxylink{requirements_The}{The} return value of the callback function is a boolean indicating whether the element that emitted the callback shall be kept or not.
+
+We distinguish six scenarios (determined by the event type) in which the callback function can be called. \doxylink{requirements_The}{The} following table describes the values of the parameters {\ttfamily depth}, {\ttfamily event}, and {\ttfamily parsed}.
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}parameter {\ttfamily event}  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}description  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}parameter {\ttfamily depth}  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}parameter {\ttfamily parsed}  \\
+{\ttfamily parse\+\_\+event\+\_\+t::\+object\+\_\+start}  &the parser read {\ttfamily \{} and started to process a JSON object  &depth of the parent of the JSON object  &a JSON value with type discarded  \\
+{\ttfamily parse\+\_\+event\+\_\+t::\+key}  &the parser read a key of a value in an object  &depth of the currently parsed JSON object  &a JSON string containing the key  \\
+{\ttfamily parse\+\_\+event\+\_\+t::\+object\+\_\+end}  &the parser read {\ttfamily \}} and finished processing a JSON object  &depth of the parent of the JSON object  &the parsed JSON object  \\
+{\ttfamily parse\+\_\+event\+\_\+t::\+array\+\_\+start}  &the parser read {\ttfamily \+[} and started to process a JSON array  &depth of the parent of the JSON array  &a JSON value with type discarded  \\
+{\ttfamily parse\+\_\+event\+\_\+t::\+array\+\_\+end}  &the parser read {\ttfamily ]\+} and finished processing a JSON array  &depth of the parent of the JSON array  &the parsed JSON array  \\
+{\ttfamily parse\+\_\+event\+\_\+t::\+value}  &the parser finished reading a JSON value  &depth of the value  &the parsed JSON value  \\
+\end{DoxyTable}
+
+
+
+
+Discarding a value (i.\+e., returning {\ttfamily \#!cpp false}) has different effects depending on the context in which function was called:\+
+
+
+\begin{DoxyItemize}
+\item Discarded values in structured types are skipped. That is, the parser will behave as if the discarded value was never read.
+\item In case a value outside a structured type is skipped, it is replaced with {\ttfamily null}. This case happens if the top-\/level element is skipped.
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parser__callback__t_autotoc_md783}{}\doxysection{\texorpdfstring{Parameters}{Parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parser__callback__t_autotoc_md783}
+{\ttfamily depth} (in) :\+ the depth of the recursion during parsing
+
+{\ttfamily event} (in) :\+ an event of type \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parse__event__t}{{\ttfamily parse\+\_\+event\+\_\+t}}{0} indicating the context in the callback function has been called
+
+{\ttfamily parsed} (in, out) :\+ the current intermediate parse result; note that writing to this value has no effect for {\ttfamily parse\+\_\+event\+\_\+t::\+key} events\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parser__callback__t_autotoc_md784}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parser__callback__t_autotoc_md784}
+Whether the JSON value which called the function during parsing should be kept ({\ttfamily \#!cpp true}) or not ({\ttfamily \#!cpp false}). In the latter case, it is either skipped completely or replaced by an empty discarded object.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parser__callback__t_autotoc_md785}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parser__callback__t_autotoc_md785}
+??? example \begin{DoxyVerb}The example below demonstrates the `parse()` function with
+and without callback function.
+
+```cpp
+--8<-- "examples/parse__string__parser_callback_t.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/parse__string__parser_callback_t.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parser__callback__t_autotoc_md786}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parser__callback__t_autotoc_md786}
+
+\begin{DoxyItemize}
+\item Added in version 1.\+0.\+0. 
+\end{DoxyItemize}

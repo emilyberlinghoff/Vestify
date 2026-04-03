@@ -1,0 +1,859 @@
+\doxysection{json\+\_\+sax.\+hpp}
+\hypertarget{json__sax_8hpp_source}{}\label{json__sax_8hpp_source}\index{include/nlohman/json-\/develop/include/nlohmann/detail/input/json\_sax.hpp@{include/nlohman/json-\/develop/include/nlohmann/detail/input/json\_sax.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \_\_\ \_\_\_\_\_\ \_\_\_\_\_\ \_\_\_\_\_}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ \ \_\_|\ \ |\ \ \ \_\_|\ \ \ \ \ |\ \ \ |\ |\ \ JSON\ for\ Modern\ C++}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ |\ \ |\ \ |\_\_\ \ \ |\ \ |\ \ |\ |\ |\ |\ \ version\ 3.12.0}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ |\_\_\_\_\_|\_\_\_\_\_|\_\_\_\_\_|\_|\_\_\_|\ \ https://github.com/nlohmann/json}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ SPDX-\/FileCopyrightText:\ 2013-\/2026\ Niels\ Lohmann\ <https://nlohmann.me>}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ SPDX-\/License-\/Identifier:\ MIT}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string>}\ \textcolor{comment}{//\ string}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <type\_traits>}\ \textcolor{comment}{//\ enable\_if\_t}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <utility>}\ \textcolor{comment}{//\ move}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <vector>}\ \textcolor{comment}{//\ vector}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/exceptions.hpp>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/input/lexer.hpp>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/macro\_scope.hpp>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <nlohmann/detail/string\_concat.hpp>}}
+\DoxyCodeLine{00021\ NLOHMANN\_JSON\_NAMESPACE\_BEGIN}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }json\_sax}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{using\ }number\_integer\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::number\_integer\_t;}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{using\ }number\_unsigned\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::number\_unsigned\_t;}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{using\ }number\_float\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::number\_float\_t;}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{using\ }string\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::string\_t;}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{using\ }binary\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::binary\_t;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structjson__sax_acbcc09c0ada2782cd73cc4135823181d}{null}}()\ =\ 0;}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structjson__sax_ab89f75382c0fd7fe81c95fc84cfa3150}{boolean}}(\textcolor{keywordtype}{bool}\ val)\ =\ 0;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structjson__sax_a46cc306b7677553d8f6bd8c9592eb1bd}{number\_integer}}(number\_integer\_t\ val)\ =\ 0;}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structjson__sax_a32f8a32794cb384f0de3d3a96a6bb696}{number\_unsigned}}(number\_unsigned\_t\ val)\ =\ 0;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structjson__sax_a19eafa3a92fc75e0258a842283396aa9}{number\_float}}(number\_float\_t\ val,\ \textcolor{keyword}{const}\ string\_t\&\ s)\ =\ 0;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structjson__sax_a3da9ee0c61f1a37e6c6a3d2dccb16765}{string}}(string\_t\&\ val)\ =\ 0;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structjson__sax_a15d6c5d0dcaceb906405f427faf9b34e}{binary}}(binary\_t\&\ val)\ =\ 0;}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structjson__sax_a54a0883df64f40664395e3dad674aaa5}{start\_object}}(std::size\_t\ elements)\ =\ 0;}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structjson__sax_a3355ecd7e3e9806dcb80b2f8842b82ce}{key}}(string\_t\&\ val)\ =\ 0;}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structjson__sax_ac34854cab5e023c5d0e8b381a11aba5b}{end\_object}}()\ =\ 0;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structjson__sax_afc4d5c0d123f2e3c939060a778c4f22c}{start\_array}}(std::size\_t\ elements)\ =\ 0;}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structjson__sax_a81fbddbf7dc96eab21ef916625ad5f3b}{end\_array}}()\ =\ 0;}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structjson__sax_af165920966b60b78e57a2e4d92a63897}{parse\_error}}(std::size\_t\ position,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ last\_token,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classdetail_1_1exception}{detail::exception}}\&\ ex)\ =\ 0;}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ json\_sax()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00139\ \ \ \ \ json\_sax(\textcolor{keyword}{const}\ json\_sax\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00140\ \ \ \ \ json\_sax(json\_sax\&\&)\ noexcept\ =\ default;}
+\DoxyCodeLine{00141\ \ \ \ \ json\_sax\&\ operator=(const\ json\_sax\&)\ =\ default;}
+\DoxyCodeLine{00142\ \ \ \ \ json\_sax\&\ operator=(json\_sax\&\&)\ noexcept\ =\ default;}
+\DoxyCodeLine{00143\ \ \ \ \ virtual\ \string~json\_sax()\ =\ default;}
+\DoxyCodeLine{00144\ \};}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ namespace\ \doxymbox{\hyperlink{namespacedetail}{detail}}}
+\DoxyCodeLine{00147\ \{}
+\DoxyCodeLine{00148\ \textcolor{keyword}{constexpr}\ std::size\_t\ unknown\_size()}
+\DoxyCodeLine{00149\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordflow}{return}\ (std::numeric\_limits<std::size\_t>::max)();}
+\DoxyCodeLine{00151\ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00166\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ InputAdapterType>}
+\DoxyCodeLine{00167\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}{json\_sax\_dom\_parser}}}
+\DoxyCodeLine{00168\ \{}
+\DoxyCodeLine{00169\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{using\ }number\_integer\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::number\_integer\_t;}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keyword}{using\ }number\_unsigned\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::number\_unsigned\_t;}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keyword}{using\ }number\_float\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::number\_float\_t;}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keyword}{using\ }string\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::string\_t;}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keyword}{using\ }binary\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::binary\_t;}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{using\ }lexer\_t\ =\ \doxymbox{\hyperlink{classdetail_1_1lexer}{lexer<BasicJsonType,\ InputAdapterType>}};}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_a633810d42d3c5de215598f0e3009ba5c}{json\_sax\_dom\_parser}}(BasicJsonType\&\ r,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ allow\_exceptions\_\ =\ \textcolor{keyword}{true},\ lexer\_t*\ lexer\_\ =\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_ad239a6e9f4e743338d67348cfea71047}{root}}(r),\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_aaf695b67e6f8499bd358c240ce89f3ad}{allow\_exceptions}}(allow\_exceptions\_),\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_afaa0af845821c3185053d9854a661829}{m\_lexer\_ref}}(lexer\_)}
+\DoxyCodeLine{00184\ \ \ \ \ \{\}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{comment}{//\ make\ class\ move-\/only}}
+\DoxyCodeLine{00187\ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser}{json\_sax\_dom\_parser}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser}{json\_sax\_dom\_parser}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00188\ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser}{json\_sax\_dom\_parser}}(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser}{json\_sax\_dom\_parser}}\&\&)\ =\ \textcolor{keywordflow}{default};\ \textcolor{comment}{//\ NOLINT(hicpp-\/noexcept-\/move,performance-\/noexcept-\/move-\/constructor)}}
+\DoxyCodeLine{00189\ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser}{json\_sax\_dom\_parser}}\&\ operator=(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser}{json\_sax\_dom\_parser}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00190\ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser}{json\_sax\_dom\_parser}}\&\ operator=(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser}{json\_sax\_dom\_parser}}\&\&)\ =\ \textcolor{keywordflow}{default};\ \textcolor{comment}{//\ NOLINT(hicpp-\/noexcept-\/move,performance-\/noexcept-\/move-\/constructor)}}
+\DoxyCodeLine{00191\ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser}{\string~json\_sax\_dom\_parser}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a37a6259cc0c1dae299a7866489dff0bd}{null}}()}
+\DoxyCodeLine{00194\ \ \ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ handle\_value(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00197\ \ \ \ \ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordtype}{bool}\ boolean(\textcolor{keywordtype}{bool}\ val)}
+\DoxyCodeLine{00200\ \ \ \ \ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ handle\_value(val);}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00203\ \ \ \ \ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a5763da164f8659d94a56e29df64b4bcc}{number\_integer}}(number\_integer\_t\ val)}
+\DoxyCodeLine{00206\ \ \ \ \ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ handle\_value(val);}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00209\ \ \ \ \ \}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632adce7cc8ec29055c4158828921f2f265e}{number\_unsigned}}(number\_unsigned\_t\ val)}
+\DoxyCodeLine{00212\ \ \ \ \ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ handle\_value(val);}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00215\ \ \ \ \ \}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ad9966ecb59667235a57b4b999a649eef}{number\_float}}(number\_float\_t\ val,\ \textcolor{keyword}{const}\ string\_t\&\ \textcolor{comment}{/*unused*/})}
+\DoxyCodeLine{00218\ \ \ \ \ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ handle\_value(val);}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00221\ \ \ \ \ \}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ab45cffe084dd3d20d928bee85e7b0f21}{string}}(string\_t\&\ val)}
+\DoxyCodeLine{00224\ \ \ \ \ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ handle\_value(val);}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00227\ \ \ \ \ \}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{binary}}(binary\_t\&\ val)}
+\DoxyCodeLine{00230\ \ \ \ \ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ handle\_value(std::move(val));}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00233\ \ \ \ \ \}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordtype}{bool}\ start\_object(std::size\_t\ len)}
+\DoxyCodeLine{00236\ \ \ \ \ \{}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ ref\_stack.push\_back(handle\_value(BasicJsonType::value\_t::object));}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Manually\ set\ the\ start\ position\ of\ the\ object\ here.}}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ensure\ this\ is\ after\ the\ call\ to\ handle\_value\ to\ ensure\ correct\ start\ position.}}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_lexer\_ref)}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lexer\ has\ read\ the\ first\ character\ of\ the\ object,\ so}}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ subtract\ 1\ from\ the\ position\ to\ get\ the\ correct\ start\ position.}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ ref\_stack.back()-\/>start\_position\ =\ m\_lexer\_ref-\/>get\_position()\ -\/\ 1;}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (JSON\_HEDLEY\_UNLIKELY(len\ !=\ detail::unknown\_size()\ \&\&\ len\ >\ ref\_stack.back()-\/>max\_size()))}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ JSON\_THROW(out\_of\_range::create(408,\ concat(\textcolor{stringliteral}{"{}excessive\ object\ size:\ "{}},\ std::to\_string(len)),\ ref\_stack.back()));}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00256\ \ \ \ \ \}}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa3c6e0b8a9c15224a8228b9a98ca1531d}{key}}(string\_t\&\ val)}
+\DoxyCodeLine{00259\ \ \ \ \ \{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ JSON\_ASSERT(!ref\_stack.empty());}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ JSON\_ASSERT(ref\_stack.back()-\/>is\_object());}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ null\ at\ the\ given\ key\ and\ store\ the\ reference\ for\ later}}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ object\_element\ =\ \&(ref\_stack.back()-\/>m\_data.m\_value.object-\/>operator[](val));}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00266\ \ \ \ \ \}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordtype}{bool}\ end\_object()}
+\DoxyCodeLine{00269\ \ \ \ \ \{}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ JSON\_ASSERT(!ref\_stack.empty());}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ JSON\_ASSERT(ref\_stack.back()-\/>is\_object());}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_lexer\_ref)}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lexer's\ position\ is\ past\ the\ closing\ brace,\ so\ set\ that\ as\ the\ end\ position.}}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ ref\_stack.back()-\/>end\_position\ =\ m\_lexer\_ref-\/>get\_position();}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ ref\_stack.back()-\/>set\_parents();}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ ref\_stack.pop\_back();}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00284\ \ \ \ \ \}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{keywordtype}{bool}\ start\_array(std::size\_t\ len)}
+\DoxyCodeLine{00287\ \ \ \ \ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ ref\_stack.push\_back(handle\_value(BasicJsonType::value\_t::array));}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Manually\ set\ the\ start\ position\ of\ the\ array\ here.}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ensure\ this\ is\ after\ the\ call\ to\ handle\_value\ to\ ensure\ correct\ start\ position.}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_lexer\_ref)}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ ref\_stack.back()-\/>start\_position\ =\ m\_lexer\_ref-\/>get\_position()\ -\/\ 1;}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (JSON\_HEDLEY\_UNLIKELY(len\ !=\ detail::unknown\_size()\ \&\&\ len\ >\ ref\_stack.back()-\/>max\_size()))}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ JSON\_THROW(out\_of\_range::create(408,\ concat(\textcolor{stringliteral}{"{}excessive\ array\ size:\ "{}},\ std::to\_string(len)),\ ref\_stack.back()));}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00305\ \ \ \ \ \}}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keywordtype}{bool}\ end\_array()}
+\DoxyCodeLine{00308\ \ \ \ \ \{}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ JSON\_ASSERT(!ref\_stack.empty());}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ JSON\_ASSERT(ref\_stack.back()-\/>is\_array());}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_lexer\_ref)}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lexer's\ position\ is\ past\ the\ closing\ bracket,\ so\ set\ that\ as\ the\ end\ position.}}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ ref\_stack.back()-\/>end\_position\ =\ m\_lexer\_ref-\/>get\_position();}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ ref\_stack.back()-\/>set\_parents();}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ ref\_stack.pop\_back();}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00323\ \ \ \ \ \}}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Exception>}
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keywordtype}{bool}\ parse\_error(std::size\_t\ \textcolor{comment}{/*unused*/},\ \textcolor{keyword}{const}\ std::string\&\ \textcolor{comment}{/*unused*/},}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Exception\&\ ex)}
+\DoxyCodeLine{00328\ \ \ \ \ \{}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ errored\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}\textcolor{keyword}{>}(ex);}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (allow\_exceptions)}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ JSON\_THROW(ex);}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00336\ \ \ \ \ \}}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ is\_errored()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00339\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ errored;}
+\DoxyCodeLine{00341\ \ \ \ \ \}}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{keywordtype}{void}\ handle\_diagnostic\_positions\_for\_json\_value(BasicJsonType\&\ v)}
+\DoxyCodeLine{00347\ \ \ \ \ \{}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_lexer\_ref)}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lexer\ has\ read\ past\ the\ current\ field\ value,\ so\ set\ the\ end\ position\ to\ the\ current\ position.}}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ start\ position\ will\ be\ set\ below\ based\ on\ the\ length\ of\ the\ string\ representation}}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ of\ the\ value.}}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ v.end\_position\ =\ m\_lexer\_ref-\/>get\_position();}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (v.type())}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ value\_t::boolean:}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 4\ and\ 5\ are\ the\ string\ length\ of\ "{}true"{}\ and\ "{}false"{}}}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.start\_position\ =\ v.end\_position\ -\/\ (v.m\_data.m\_value.boolean\ ?\ 4\ :\ 5);}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ value\_t::null:}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 4\ is\ the\ string\ length\ of\ "{}null"{}}}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.start\_position\ =\ v.end\_position\ -\/\ 4;}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ value\_t::string:}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ include\ the\ length\ of\ the\ quotes,\ which\ is\ 2}}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.start\_position\ =\ v.end\_position\ -\/\ v.m\_data.m\_value.string-\/>size()\ -\/\ 2;}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ As\ we\ handle\ the\ start\ and\ end\ positions\ for\ values\ created\ during\ parsing,}}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ we\ do\ not\ expect\ the\ following\ value\ type\ to\ be\ called.\ Regardless,\ set\ the\ positions}}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ in\ case\ this\ is\ created\ manually\ or\ through\ a\ different\ constructor.\ Exclude\ from\ lcov}}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ since\ the\ exact\ condition\ of\ this\ switch\ is\ esoteric.}}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ LCOV\_EXCL\_START}}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ value\_t::discarded:}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.end\_position\ =\ std::string::npos;}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.start\_position\ =\ v.end\_position;}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ LCOV\_EXCL\_STOP}}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ value\_t::binary:}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ value\_t::number\_integer:}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ value\_t::number\_unsigned:}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ value\_t::number\_float:}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.start\_position\ =\ v.end\_position\ -\/\ m\_lexer\_ref-\/>get\_string().size();}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ value\_t::object:}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ value\_t::array:}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ object\ and\ array\ are\ handled\ in\ start\_object()\ and\ start\_array()\ handlers}}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ skip\ setting\ the\ values\ here.}}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:\ \textcolor{comment}{//\ LCOV\_EXCL\_LINE}}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Handle\ all\ possible\ types\ discretely,\ default\ handler\ should\ never\ be\ reached.}}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JSON\_ASSERT(\textcolor{keyword}{false});\ \textcolor{comment}{//\ NOLINT(cert-\/dcl03-\/c,hicpp-\/static-\/assert,misc-\/static-\/assert,-\/warnings-\/as-\/errors)\ LCOV\_EXCL\_LINE}}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00410\ \ \ \ \ \}}
+\DoxyCodeLine{00411\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00419\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Value>}
+\DoxyCodeLine{00420\ \ \ \ \ JSON\_HEDLEY\_RETURNS\_NON\_NULL}
+\DoxyCodeLine{00421\ \ \ \ \ BasicJsonType*\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_abac209029dfdb96ae076e5c906f133c7}{handle\_value}}(Value\&\&\ v)}
+\DoxyCodeLine{00422\ \ \ \ \ \{}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_ac10a461ec4eb10f9242eda0ebf8145b8}{ref\_stack}}.empty())}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_ad239a6e9f4e743338d67348cfea71047}{root}}\ =\ BasicJsonType(std::forward<Value>(v));}
+\DoxyCodeLine{00426\ }
+\DoxyCodeLine{00427\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ handle\_diagnostic\_positions\_for\_json\_value(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_ad239a6e9f4e743338d67348cfea71047}{root}});}
+\DoxyCodeLine{00429\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_ad239a6e9f4e743338d67348cfea71047}{root}};}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ JSON\_ASSERT(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_ac10a461ec4eb10f9242eda0ebf8145b8}{ref\_stack}}.back()-\/>is\_array()\ ||\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_ac10a461ec4eb10f9242eda0ebf8145b8}{ref\_stack}}.back()-\/>is\_object());}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_ac10a461ec4eb10f9242eda0ebf8145b8}{ref\_stack}}.back()-\/>is\_array())}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_ac10a461ec4eb10f9242eda0ebf8145b8}{ref\_stack}}.back()-\/>m\_data.m\_value.array-\/>emplace\_back(std::forward<Value>(v));}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ handle\_diagnostic\_positions\_for\_json\_value(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_ac10a461ec4eb10f9242eda0ebf8145b8}{ref\_stack}}.back()-\/>m\_data.m\_value.array-\/>back());}
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00443\ }
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_ac10a461ec4eb10f9242eda0ebf8145b8}{ref\_stack}}.back()-\/>m\_data.m\_value.array-\/>back());}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ JSON\_ASSERT(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_ac10a461ec4eb10f9242eda0ebf8145b8}{ref\_stack}}.back()-\/>is\_object());}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ JSON\_ASSERT(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_aaedda8d2090b473fc325e8274df45287}{object\_element}});}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ *\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_aaedda8d2090b473fc325e8274df45287}{object\_element}}\ =\ BasicJsonType(std::forward<Value>(v));}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ handle\_diagnostic\_positions\_for\_json\_value(*\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_aaedda8d2090b473fc325e8274df45287}{object\_element}});}
+\DoxyCodeLine{00453\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00454\ }
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_aaedda8d2090b473fc325e8274df45287}{object\_element}};}
+\DoxyCodeLine{00456\ \ \ \ \ \}}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00459\ \ \ \ \ BasicJsonType\&\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_ad239a6e9f4e743338d67348cfea71047}{root}};}
+\DoxyCodeLine{00461\ \ \ \ \ std::vector<BasicJsonType*>\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_ac10a461ec4eb10f9242eda0ebf8145b8}{ref\_stack}}\ \{\};}
+\DoxyCodeLine{00463\ \ \ \ \ BasicJsonType*\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_aaedda8d2090b473fc325e8274df45287}{object\_element}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00465\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_ad91ca3e908cd9e1556881ab931568515}{errored}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00467\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_aaf695b67e6f8499bd358c240ce89f3ad}{allow\_exceptions}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00469\ \ \ \ \ lexer\_t*\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__parser_afaa0af845821c3185053d9854a661829}{m\_lexer\_ref}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00470\ \};}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00472\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType,\ \textcolor{keyword}{typename}\ InputAdapterType>}
+\DoxyCodeLine{00473\ \textcolor{keyword}{class\ }json\_sax\_dom\_callback\_parser}
+\DoxyCodeLine{00474\ \{}
+\DoxyCodeLine{00475\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00476\ \ \ \ \ \textcolor{keyword}{using\ }number\_integer\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::number\_integer\_t;}
+\DoxyCodeLine{00477\ \ \ \ \ \textcolor{keyword}{using\ }number\_unsigned\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::number\_unsigned\_t;}
+\DoxyCodeLine{00478\ \ \ \ \ \textcolor{keyword}{using\ }number\_float\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::number\_float\_t;}
+\DoxyCodeLine{00479\ \ \ \ \ \textcolor{keyword}{using\ }string\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::string\_t;}
+\DoxyCodeLine{00480\ \ \ \ \ \textcolor{keyword}{using\ }binary\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::binary\_t;}
+\DoxyCodeLine{00481\ \ \ \ \ \textcolor{keyword}{using\ }parser\_callback\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::parser\_callback\_t;}
+\DoxyCodeLine{00482\ \ \ \ \ \textcolor{keyword}{using\ }parse\_event\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::parse\_event\_t;}
+\DoxyCodeLine{00483\ \ \ \ \ \textcolor{keyword}{using\ }lexer\_t\ =\ \doxymbox{\hyperlink{classdetail_1_1lexer}{lexer<BasicJsonType,\ InputAdapterType>}};}
+\DoxyCodeLine{00484\ }
+\DoxyCodeLine{00485\ \ \ \ \ json\_sax\_dom\_callback\_parser(BasicJsonType\&\ r,}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parser\_callback\_t\ cb,}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ allow\_exceptions\_\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lexer\_t*\ lexer\_\ =\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a633ab8545bd32fc5da2c89440cd51bf5}{root}}(r),\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a5ae2a61a6608491c32c0a73924c39f6a}{callback}}(std::move(cb)),\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a6843cd1bbf8efd3f37884d9fa586c72a}{allow\_exceptions}}(allow\_exceptions\_),\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a873a84fa1ad2e719f4e19349bc0351cd}{m\_lexer\_ref}}(lexer\_)}
+\DoxyCodeLine{00490\ \ \ \ \ \{}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a7745e4dddbf68ad98e52869526561e9a}{keep\_stack}}.push\_back(\textcolor{keyword}{true});}
+\DoxyCodeLine{00492\ \ \ \ \ \}}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00494\ \ \ \ \ \textcolor{comment}{//\ make\ class\ move-\/only}}
+\DoxyCodeLine{00495\ \ \ \ \ json\_sax\_dom\_callback\_parser(\textcolor{keyword}{const}\ json\_sax\_dom\_callback\_parser\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00496\ \ \ \ \ json\_sax\_dom\_callback\_parser(json\_sax\_dom\_callback\_parser\&\&)\ =\ \textcolor{keywordflow}{default};\ \textcolor{comment}{//\ NOLINT(hicpp-\/noexcept-\/move,performance-\/noexcept-\/move-\/constructor)}}
+\DoxyCodeLine{00497\ \ \ \ \ json\_sax\_dom\_callback\_parser\&\ operator=(\textcolor{keyword}{const}\ json\_sax\_dom\_callback\_parser\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00498\ \ \ \ \ json\_sax\_dom\_callback\_parser\&\ operator=(json\_sax\_dom\_callback\_parser\&\&)\ =\ \textcolor{keywordflow}{default};\ \textcolor{comment}{//\ NOLINT(hicpp-\/noexcept-\/move,performance-\/noexcept-\/move-\/constructor)}}
+\DoxyCodeLine{00499\ \ \ \ \ \string~json\_sax\_dom\_callback\_parser()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00500\ }
+\DoxyCodeLine{00501\ \ \ \ \ \textcolor{keywordtype}{bool}\ null()}
+\DoxyCodeLine{00502\ \ \ \ \ \{}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_af35ac658ce00587d94975a7f6ddb24bb}{handle\_value}}(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00505\ \ \ \ \ \}}
+\DoxyCodeLine{00506\ }
+\DoxyCodeLine{00507\ \ \ \ \ \textcolor{keywordtype}{bool}\ boolean(\textcolor{keywordtype}{bool}\ val)}
+\DoxyCodeLine{00508\ \ \ \ \ \{}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_af35ac658ce00587d94975a7f6ddb24bb}{handle\_value}}(val);}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00511\ \ \ \ \ \}}
+\DoxyCodeLine{00512\ }
+\DoxyCodeLine{00513\ \ \ \ \ \textcolor{keywordtype}{bool}\ number\_integer(number\_integer\_t\ val)}
+\DoxyCodeLine{00514\ \ \ \ \ \{}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_af35ac658ce00587d94975a7f6ddb24bb}{handle\_value}}(val);}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00517\ \ \ \ \ \}}
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00519\ \ \ \ \ \textcolor{keywordtype}{bool}\ number\_unsigned(number\_unsigned\_t\ val)}
+\DoxyCodeLine{00520\ \ \ \ \ \{}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_af35ac658ce00587d94975a7f6ddb24bb}{handle\_value}}(val);}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00523\ \ \ \ \ \}}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \ \ \ \ \textcolor{keywordtype}{bool}\ number\_float(number\_float\_t\ val,\ \textcolor{keyword}{const}\ string\_t\&\ \textcolor{comment}{/*unused*/})}
+\DoxyCodeLine{00526\ \ \ \ \ \{}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_af35ac658ce00587d94975a7f6ddb24bb}{handle\_value}}(val);}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00529\ \ \ \ \ \}}
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00531\ \ \ \ \ \textcolor{keywordtype}{bool}\ string(string\_t\&\ val)}
+\DoxyCodeLine{00532\ \ \ \ \ \{}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_af35ac658ce00587d94975a7f6ddb24bb}{handle\_value}}(val);}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00535\ \ \ \ \ \}}
+\DoxyCodeLine{00536\ }
+\DoxyCodeLine{00537\ \ \ \ \ \textcolor{keywordtype}{bool}\ binary(binary\_t\&\ val)}
+\DoxyCodeLine{00538\ \ \ \ \ \{}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_af35ac658ce00587d94975a7f6ddb24bb}{handle\_value}}(std::move(val));}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00541\ \ \ \ \ \}}
+\DoxyCodeLine{00542\ }
+\DoxyCodeLine{00543\ \ \ \ \ \textcolor{keywordtype}{bool}\ start\_object(std::size\_t\ len)}
+\DoxyCodeLine{00544\ \ \ \ \ \{}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ callback\ for\ object\ start}}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ keep\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a5ae2a61a6608491c32c0a73924c39f6a}{callback}}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.size()),\ \doxymbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efae73f17027cb0acbb537f29d0a6944b26}{parse\_event\_t::object\_start}},\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a38d7ff58d77d91ec66a8fd65b154341d}{discarded}});}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a7745e4dddbf68ad98e52869526561e9a}{keep\_stack}}.push\_back(keep);}
+\DoxyCodeLine{00548\ }
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ val\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_af35ac658ce00587d94975a7f6ddb24bb}{handle\_value}}(BasicJsonType::value\_t::object,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.push\_back(val.second);}
+\DoxyCodeLine{00551\ }
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back())}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00554\ }
+\DoxyCodeLine{00555\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Manually\ set\ the\ start\ position\ of\ the\ object\ here.}}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ensure\ this\ is\ after\ the\ call\ to\ handle\_value\ to\ ensure\ correct\ start\ position.}}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a873a84fa1ad2e719f4e19349bc0351cd}{m\_lexer\_ref}})}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lexer\ has\ read\ the\ first\ character\ of\ the\ object,\ so}}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ subtract\ 1\ from\ the\ position\ to\ get\ the\ correct\ start\ position.}}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>start\_position\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a873a84fa1ad2e719f4e19349bc0351cd}{m\_lexer\_ref}}-\/>get\_position()\ -\/\ 1;}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00564\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00565\ }
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ object\ limit}}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (JSON\_HEDLEY\_UNLIKELY(len\ !=\ detail::unknown\_size()\ \&\&\ len\ >\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>max\_size()))}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JSON\_THROW(out\_of\_range::create(408,\ concat(\textcolor{stringliteral}{"{}excessive\ object\ size:\ "{}},\ std::to\_string(len)),\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()));}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00573\ \ \ \ \ \}}
+\DoxyCodeLine{00574\ }
+\DoxyCodeLine{00575\ \ \ \ \ \textcolor{keywordtype}{bool}\ key(string\_t\&\ val)}
+\DoxyCodeLine{00576\ \ \ \ \ \{}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ BasicJsonType\ k\ =\ BasicJsonType(val);}
+\DoxyCodeLine{00578\ }
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ callback\ for\ the\ key}}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ keep\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a5ae2a61a6608491c32c0a73924c39f6a}{callback}}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.size()),\ \doxymbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa3c6e0b8a9c15224a8228b9a98ca1531d}{parse\_event\_t::key}},\ k);}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a7484ef58603ff8947cf2a23a11821d3d}{key\_keep\_stack}}.push\_back(keep);}
+\DoxyCodeLine{00582\ }
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ discarded\ value\ at\ the\ given\ key\ and\ store\ the\ reference\ for\ later}}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (keep\ \&\&\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back())}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a73ce63acc4e9036bd6ced39c99debf18}{object\_element}}\ =\ \&(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>m\_data.m\_value.object-\/>operator[](val)\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a38d7ff58d77d91ec66a8fd65b154341d}{discarded}});}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00590\ \ \ \ \ \}}
+\DoxyCodeLine{00591\ }
+\DoxyCodeLine{00592\ \ \ \ \ \textcolor{keywordtype}{bool}\ end\_object()}
+\DoxyCodeLine{00593\ \ \ \ \ \{}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back())}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a5ae2a61a6608491c32c0a73924c39f6a}{callback}}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.size())\ -\/\ 1,\ \doxymbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efaf63e2a2468a37aa4f394fcc3bcb8249c}{parse\_event\_t::object\_end}},\ *\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()))}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ discard\ object}}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a38d7ff58d77d91ec66a8fd65b154341d}{discarded}};}
+\DoxyCodeLine{00600\ }
+\DoxyCodeLine{00601\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ start/end\ positions\ for\ discarded\ object.}}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ handle\_diagnostic\_positions\_for\_json\_value(*\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back());}
+\DoxyCodeLine{00604\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00608\ }
+\DoxyCodeLine{00609\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a873a84fa1ad2e719f4e19349bc0351cd}{m\_lexer\_ref}})}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lexer's\ position\ is\ past\ the\ closing\ brace,\ so\ set\ that\ as\ the\ end\ position.}}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>end\_position\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a873a84fa1ad2e719f4e19349bc0351cd}{m\_lexer\_ref}}-\/>get\_position();}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00615\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00616\ }
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>set\_parents();}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00620\ }
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ JSON\_ASSERT(!\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.empty());}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ JSON\_ASSERT(!\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a7745e4dddbf68ad98e52869526561e9a}{keep\_stack}}.empty());}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.pop\_back();}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a7745e4dddbf68ad98e52869526561e9a}{keep\_stack}}.pop\_back();}
+\DoxyCodeLine{00625\ }
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.empty()\ \&\&\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()\ \&\&\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>is\_structured())}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ remove\ discarded\ value}}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>begin();\ it\ !=\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>end();\ ++it)}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it-\/>is\_discarded())}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>erase(it);}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00638\ }
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00640\ \ \ \ \ \}}
+\DoxyCodeLine{00641\ }
+\DoxyCodeLine{00642\ \ \ \ \ \textcolor{keywordtype}{bool}\ start\_array(std::size\_t\ len)}
+\DoxyCodeLine{00643\ \ \ \ \ \{}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ keep\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a5ae2a61a6608491c32c0a73924c39f6a}{callback}}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.size()),\ \doxymbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efaa4388a3d92419edbb1c6efd4d52461f3}{parse\_event\_t::array\_start}},\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a38d7ff58d77d91ec66a8fd65b154341d}{discarded}});}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a7745e4dddbf68ad98e52869526561e9a}{keep\_stack}}.push\_back(keep);}
+\DoxyCodeLine{00646\ }
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ val\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_af35ac658ce00587d94975a7f6ddb24bb}{handle\_value}}(BasicJsonType::value\_t::array,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.push\_back(val.second);}
+\DoxyCodeLine{00649\ }
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back())}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00652\ }
+\DoxyCodeLine{00653\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00654\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Manually\ set\ the\ start\ position\ of\ the\ array\ here.}}
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ensure\ this\ is\ after\ the\ call\ to\ handle\_value\ to\ ensure\ correct\ start\ position.}}
+\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a873a84fa1ad2e719f4e19349bc0351cd}{m\_lexer\_ref}})}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lexer\ has\ read\ the\ first\ character\ of\ the\ array,\ so}}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ subtract\ 1\ from\ the\ position\ to\ get\ the\ correct\ start\ position.}}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>start\_position\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a873a84fa1ad2e719f4e19349bc0351cd}{m\_lexer\_ref}}-\/>get\_position()\ -\/\ 1;}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00662\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00663\ }
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ array\ limit}}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (JSON\_HEDLEY\_UNLIKELY(len\ !=\ detail::unknown\_size()\ \&\&\ len\ >\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>max\_size()))}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JSON\_THROW(out\_of\_range::create(408,\ concat(\textcolor{stringliteral}{"{}excessive\ array\ size:\ "{}},\ std::to\_string(len)),\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()));}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00672\ \ \ \ \ \}}
+\DoxyCodeLine{00673\ }
+\DoxyCodeLine{00674\ \ \ \ \ \textcolor{keywordtype}{bool}\ end\_array()}
+\DoxyCodeLine{00675\ \ \ \ \ \{}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ keep\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00677\ }
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back())}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \ \ \ \ keep\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a5ae2a61a6608491c32c0a73924c39f6a}{callback}}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.size())\ -\/\ 1,\ \doxymbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa49642fb732aa2e112188fba1f9d3ef7f}{parse\_event\_t::array\_end}},\ *\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back());}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (keep)}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00683\ }
+\DoxyCodeLine{00684\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a873a84fa1ad2e719f4e19349bc0351cd}{m\_lexer\_ref}})}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lexer's\ position\ is\ past\ the\ closing\ bracket,\ so\ set\ that\ as\ the\ end\ position.}}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>end\_position\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a873a84fa1ad2e719f4e19349bc0351cd}{m\_lexer\_ref}}-\/>get\_position();}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00690\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00691\ }
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>set\_parents();}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ discard\ array}}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a38d7ff58d77d91ec66a8fd65b154341d}{discarded}};}
+\DoxyCodeLine{00698\ }
+\DoxyCodeLine{00699\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00700\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ start/end\ positions\ for\ discarded\ array.}}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ handle\_diagnostic\_positions\_for\_json\_value(*\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back());}
+\DoxyCodeLine{00702\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00705\ }
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ JSON\_ASSERT(!\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.empty());}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ JSON\_ASSERT(!\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a7745e4dddbf68ad98e52869526561e9a}{keep\_stack}}.empty());}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.pop\_back();}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a7745e4dddbf68ad98e52869526561e9a}{keep\_stack}}.pop\_back();}
+\DoxyCodeLine{00710\ }
+\DoxyCodeLine{00711\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ remove\ discarded\ value}}
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!keep\ \&\&\ !\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.empty()\ \&\&\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>is\_array())}
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>m\_data.m\_value.array-\/>pop\_back();}
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00716\ }
+\DoxyCodeLine{00717\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00718\ \ \ \ \ \}}
+\DoxyCodeLine{00719\ }
+\DoxyCodeLine{00720\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Exception>}
+\DoxyCodeLine{00721\ \ \ \ \ \textcolor{keywordtype}{bool}\ parse\_error(std::size\_t\ \textcolor{comment}{/*unused*/},\ \textcolor{keyword}{const}\ std::string\&\ \textcolor{comment}{/*unused*/},}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Exception\&\ ex)}
+\DoxyCodeLine{00723\ \ \ \ \ \{}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_ab63ef895124a07599ff59dfa25ef5e85}{errored}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}\textcolor{keyword}{>}(ex);}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a6843cd1bbf8efd3f37884d9fa586c72a}{allow\_exceptions}})}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ \ \ \ \ JSON\_THROW(ex);}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00731\ \ \ \ \ \}}
+\DoxyCodeLine{00732\ }
+\DoxyCodeLine{00733\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ is\_errored()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00734\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_ab63ef895124a07599ff59dfa25ef5e85}{errored}};}
+\DoxyCodeLine{00736\ \ \ \ \ \}}
+\DoxyCodeLine{00737\ }
+\DoxyCodeLine{00738\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00739\ }
+\DoxyCodeLine{00740\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00741\ \ \ \ \ \textcolor{keywordtype}{void}\ handle\_diagnostic\_positions\_for\_json\_value(BasicJsonType\&\ v)}
+\DoxyCodeLine{00742\ \ \ \ \ \{}
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a873a84fa1ad2e719f4e19349bc0351cd}{m\_lexer\_ref}})}
+\DoxyCodeLine{00744\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00745\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lexer\ has\ read\ past\ the\ current\ field\ value,\ so\ set\ the\ end\ position\ to\ the\ current\ position.}}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ start\ position\ will\ be\ set\ below\ based\ on\ the\ length\ of\ the\ string\ representation}}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ of\ the\ value.}}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ \ \ \ \ v.end\_position\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a873a84fa1ad2e719f4e19349bc0351cd}{m\_lexer\_ref}}-\/>get\_position();}
+\DoxyCodeLine{00749\ }
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (v.type())}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a84e2c64f38f78ba3ea5c905ab5a2da27}{value\_t::boolean}}:}
+\DoxyCodeLine{00753\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 4\ and\ 5\ are\ the\ string\ length\ of\ "{}true"{}\ and\ "{}false"{}}}
+\DoxyCodeLine{00755\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.start\_position\ =\ v.end\_position\ -\/\ (v.m\_data.m\_value.boolean\ ?\ 4\ :\ 5);}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00757\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00758\ }
+\DoxyCodeLine{00759\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a37a6259cc0c1dae299a7866489dff0bd}{value\_t::null}}:}
+\DoxyCodeLine{00760\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00761\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 4\ is\ the\ string\ length\ of\ "{}null"{}}}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.start\_position\ =\ v.end\_position\ -\/\ 4;}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00764\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00765\ }
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ab45cffe084dd3d20d928bee85e7b0f21}{value\_t::string}}:}
+\DoxyCodeLine{00767\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ include\ the\ length\ of\ the\ quotes,\ which\ is\ 2}}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.start\_position\ =\ v.end\_position\ -\/\ v.m\_data.m\_value.string-\/>size()\ -\/\ 2;}
+\DoxyCodeLine{00770\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00772\ }
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a94708897ec9db8647dfe695714c98e46}{value\_t::discarded}}:}
+\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.end\_position\ =\ std::string::npos;}
+\DoxyCodeLine{00776\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.start\_position\ =\ v.end\_position;}
+\DoxyCodeLine{00777\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00778\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00779\ }
+\DoxyCodeLine{00780\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{value\_t::binary}}:}
+\DoxyCodeLine{00781\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a5763da164f8659d94a56e29df64b4bcc}{value\_t::number\_integer}}:}
+\DoxyCodeLine{00782\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632adce7cc8ec29055c4158828921f2f265e}{value\_t::number\_unsigned}}:}
+\DoxyCodeLine{00783\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ad9966ecb59667235a57b4b999a649eef}{value\_t::number\_float}}:}
+\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.start\_position\ =\ v.end\_position\ -\/\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a873a84fa1ad2e719f4e19349bc0351cd}{m\_lexer\_ref}}-\/>get\_string().size();}
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00787\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00788\ }
+\DoxyCodeLine{00789\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{value\_t::object}}:}
+\DoxyCodeLine{00790\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632af1f713c9e000f5d3f280adbd124df4f5}{value\_t::array}}:}
+\DoxyCodeLine{00791\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00792\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ object\ and\ array\ are\ handled\ in\ start\_object()\ and\ start\_array()\ handlers}}
+\DoxyCodeLine{00793\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ skip\ setting\ the\ values\ here.}}
+\DoxyCodeLine{00794\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:\ \textcolor{comment}{//\ LCOV\_EXCL\_LINE}}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Handle\ all\ possible\ types\ discretely,\ default\ handler\ should\ never\ be\ reached.}}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JSON\_ASSERT(\textcolor{keyword}{false});\ \textcolor{comment}{//\ NOLINT(cert-\/dcl03-\/c,hicpp-\/static-\/assert,misc-\/static-\/assert,-\/warnings-\/as-\/errors)\ LCOV\_EXCL\_LINE}}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00801\ \ \ \ \ \}}
+\DoxyCodeLine{00802\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00803\ }
+\DoxyCodeLine{00819\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Value>}
+\DoxyCodeLine{00820\ \ \ \ \ std::pair<bool,\ BasicJsonType*>\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_af35ac658ce00587d94975a7f6ddb24bb}{handle\_value}}(Value\&\&\ v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ skip\_callback\ =\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00821\ \ \ \ \ \{}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ JSON\_ASSERT(!\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a7745e4dddbf68ad98e52869526561e9a}{keep\_stack}}.empty());}
+\DoxyCodeLine{00823\ }
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ do\ not\ handle\ this\ value\ if\ we\ know\ it\ would\ be\ added\ to\ a\ discarded}}
+\DoxyCodeLine{00825\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ container}}
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a7745e4dddbf68ad98e52869526561e9a}{keep\_stack}}.back())}
+\DoxyCodeLine{00827\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00828\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{keyword}{false},\ \textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00829\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00830\ }
+\DoxyCodeLine{00831\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create\ value}}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ value\ =\ BasicJsonType(std::forward<Value>(v));}
+\DoxyCodeLine{00833\ }
+\DoxyCodeLine{00834\ \textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ handle\_diagnostic\_positions\_for\_json\_value(value);}
+\DoxyCodeLine{00836\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00837\ }
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ callback}}
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ keep\ =\ skip\_callback\ ||\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a5ae2a61a6608491c32c0a73924c39f6a}{callback}}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.size()),\ \doxymbox{\hyperlink{namespacedetail_a47b1bb0bbd3596589ed9187059c312efa2063c1608d6e0baf80249c42e2be5804}{parse\_event\_t::value}},\ value);}
+\DoxyCodeLine{00840\ }
+\DoxyCodeLine{00841\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ do\ not\ handle\ this\ value\ if\ we\ just\ learnt\ it\ shall\ be\ discarded}}
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!keep)}
+\DoxyCodeLine{00843\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00844\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{keyword}{false},\ \textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00845\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00846\ }
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.empty())}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a633ab8545bd32fc5da2c89440cd51bf5}{root}}\ =\ std::move(value);}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{keyword}{true},\ \&\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a633ab8545bd32fc5da2c89440cd51bf5}{root}}\};}
+\DoxyCodeLine{00851\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00852\ }
+\DoxyCodeLine{00853\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ skip\ this\ value\ if\ we\ already\ decided\ to\ skip\ the\ parent}}
+\DoxyCodeLine{00854\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (https://github.com/nlohmann/json/issues/971\#issuecomment-\/413678360)}}
+\DoxyCodeLine{00855\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back())}
+\DoxyCodeLine{00856\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00857\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{keyword}{false},\ \textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00858\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00859\ }
+\DoxyCodeLine{00860\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ we\ now\ only\ expect\ arrays\ and\ objects}}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ \ \ JSON\_ASSERT(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>is\_array()\ ||\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>is\_object());}
+\DoxyCodeLine{00862\ }
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ array}}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>is\_array())}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00866\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>m\_data.m\_value.array-\/>emplace\_back(std::move(value));}
+\DoxyCodeLine{00867\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{keyword}{true},\ \&\ (\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>m\_data.m\_value.array-\/>back())\};}
+\DoxyCodeLine{00868\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00869\ }
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ object}}
+\DoxyCodeLine{00871\ \ \ \ \ \ \ \ \ JSON\_ASSERT(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}.back()-\/>is\_object());}
+\DoxyCodeLine{00872\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ if\ we\ should\ store\ an\ element\ for\ the\ current\ key}}
+\DoxyCodeLine{00873\ \ \ \ \ \ \ \ \ JSON\_ASSERT(!\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a7484ef58603ff8947cf2a23a11821d3d}{key\_keep\_stack}}.empty());}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ store\_element\ =\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a7484ef58603ff8947cf2a23a11821d3d}{key\_keep\_stack}}.back();}
+\DoxyCodeLine{00875\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a7484ef58603ff8947cf2a23a11821d3d}{key\_keep\_stack}}.pop\_back();}
+\DoxyCodeLine{00876\ }
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!store\_element)}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{keyword}{false},\ \textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00881\ }
+\DoxyCodeLine{00882\ \ \ \ \ \ \ \ \ JSON\_ASSERT(\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a73ce63acc4e9036bd6ced39c99debf18}{object\_element}});}
+\DoxyCodeLine{00883\ \ \ \ \ \ \ \ \ *\doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a73ce63acc4e9036bd6ced39c99debf18}{object\_element}}\ =\ std::move(value);}
+\DoxyCodeLine{00884\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{keyword}{true},\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a73ce63acc4e9036bd6ced39c99debf18}{object\_element}}\};}
+\DoxyCodeLine{00885\ \ \ \ \ \}}
+\DoxyCodeLine{00886\ }
+\DoxyCodeLine{00888\ \ \ \ \ BasicJsonType\&\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a633ab8545bd32fc5da2c89440cd51bf5}{root}};}
+\DoxyCodeLine{00890\ \ \ \ \ std::vector<BasicJsonType*>\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a8528a5ac62f027da3a3c317d6e9cd3b7}{ref\_stack}}\ \{\};}
+\DoxyCodeLine{00892\ \ \ \ \ std::vector<bool>\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a7745e4dddbf68ad98e52869526561e9a}{keep\_stack}}\ \{\};\ \textcolor{comment}{//\ NOLINT(readability-\/redundant-\/member-\/init)}}
+\DoxyCodeLine{00894\ \ \ \ \ std::vector<bool>\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a7484ef58603ff8947cf2a23a11821d3d}{key\_keep\_stack}}\ \{\};\ \textcolor{comment}{//\ NOLINT(readability-\/redundant-\/member-\/init)}}
+\DoxyCodeLine{00896\ \ \ \ \ BasicJsonType*\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a73ce63acc4e9036bd6ced39c99debf18}{object\_element}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00898\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_ab63ef895124a07599ff59dfa25ef5e85}{errored}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00900\ \ \ \ \ \textcolor{keyword}{const}\ parser\_callback\_t\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a5ae2a61a6608491c32c0a73924c39f6a}{callback}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00902\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a6843cd1bbf8efd3f37884d9fa586c72a}{allow\_exceptions}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00904\ \ \ \ \ BasicJsonType\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a38d7ff58d77d91ec66a8fd65b154341d}{discarded}}\ =\ BasicJsonType::value\_t::discarded;}
+\DoxyCodeLine{00906\ \ \ \ \ lexer\_t*\ \doxymbox{\hyperlink{classdetail_1_1json__sax__dom__callback__parser_a873a84fa1ad2e719f4e19349bc0351cd}{m\_lexer\_ref}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00907\ \};}
+\DoxyCodeLine{00908\ }
+\DoxyCodeLine{00909\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ BasicJsonType>}
+\DoxyCodeLine{00910\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classdetail_1_1json__sax__acceptor}{json\_sax\_acceptor}}}
+\DoxyCodeLine{00911\ \{}
+\DoxyCodeLine{00912\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00913\ \ \ \ \ \textcolor{keyword}{using\ }number\_integer\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::number\_integer\_t;}
+\DoxyCodeLine{00914\ \ \ \ \ \textcolor{keyword}{using\ }number\_unsigned\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::number\_unsigned\_t;}
+\DoxyCodeLine{00915\ \ \ \ \ \textcolor{keyword}{using\ }number\_float\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::number\_float\_t;}
+\DoxyCodeLine{00916\ \ \ \ \ \textcolor{keyword}{using\ }string\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::string\_t;}
+\DoxyCodeLine{00917\ \ \ \ \ \textcolor{keyword}{using\ }binary\_t\ =\ \textcolor{keyword}{typename}\ BasicJsonType::binary\_t;}
+\DoxyCodeLine{00918\ }
+\DoxyCodeLine{00919\ \ \ \ \ \textcolor{keywordtype}{bool}\ null()}
+\DoxyCodeLine{00920\ \ \ \ \ \{}
+\DoxyCodeLine{00921\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00922\ \ \ \ \ \}}
+\DoxyCodeLine{00923\ }
+\DoxyCodeLine{00924\ \ \ \ \ \textcolor{keywordtype}{bool}\ boolean(\textcolor{keywordtype}{bool}\ \textcolor{comment}{/*unused*/})}
+\DoxyCodeLine{00925\ \ \ \ \ \{}
+\DoxyCodeLine{00926\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00927\ \ \ \ \ \}}
+\DoxyCodeLine{00928\ }
+\DoxyCodeLine{00929\ \ \ \ \ \textcolor{keywordtype}{bool}\ number\_integer(number\_integer\_t\ \textcolor{comment}{/*unused*/})}
+\DoxyCodeLine{00930\ \ \ \ \ \{}
+\DoxyCodeLine{00931\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00932\ \ \ \ \ \}}
+\DoxyCodeLine{00933\ }
+\DoxyCodeLine{00934\ \ \ \ \ \textcolor{keywordtype}{bool}\ number\_unsigned(number\_unsigned\_t\ \textcolor{comment}{/*unused*/})}
+\DoxyCodeLine{00935\ \ \ \ \ \{}
+\DoxyCodeLine{00936\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00937\ \ \ \ \ \}}
+\DoxyCodeLine{00938\ }
+\DoxyCodeLine{00939\ \ \ \ \ \textcolor{keywordtype}{bool}\ number\_float(number\_float\_t\ \textcolor{comment}{/*unused*/},\ \textcolor{keyword}{const}\ string\_t\&\ \textcolor{comment}{/*unused*/})}
+\DoxyCodeLine{00940\ \ \ \ \ \{}
+\DoxyCodeLine{00941\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00942\ \ \ \ \ \}}
+\DoxyCodeLine{00943\ }
+\DoxyCodeLine{00944\ \ \ \ \ \textcolor{keywordtype}{bool}\ string(string\_t\&\ \textcolor{comment}{/*unused*/})}
+\DoxyCodeLine{00945\ \ \ \ \ \{}
+\DoxyCodeLine{00946\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00947\ \ \ \ \ \}}
+\DoxyCodeLine{00948\ }
+\DoxyCodeLine{00949\ \ \ \ \ \textcolor{keywordtype}{bool}\ binary(binary\_t\&\ \textcolor{comment}{/*unused*/})}
+\DoxyCodeLine{00950\ \ \ \ \ \{}
+\DoxyCodeLine{00951\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00952\ \ \ \ \ \}}
+\DoxyCodeLine{00953\ }
+\DoxyCodeLine{00954\ \ \ \ \ \textcolor{keywordtype}{bool}\ start\_object(std::size\_t\ \textcolor{comment}{/*unused*/}\ =\ detail::unknown\_size())}
+\DoxyCodeLine{00955\ \ \ \ \ \{}
+\DoxyCodeLine{00956\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00957\ \ \ \ \ \}}
+\DoxyCodeLine{00958\ }
+\DoxyCodeLine{00959\ \ \ \ \ \textcolor{keywordtype}{bool}\ key(string\_t\&\ \textcolor{comment}{/*unused*/})}
+\DoxyCodeLine{00960\ \ \ \ \ \{}
+\DoxyCodeLine{00961\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00962\ \ \ \ \ \}}
+\DoxyCodeLine{00963\ }
+\DoxyCodeLine{00964\ \ \ \ \ \textcolor{keywordtype}{bool}\ end\_object()}
+\DoxyCodeLine{00965\ \ \ \ \ \{}
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00967\ \ \ \ \ \}}
+\DoxyCodeLine{00968\ }
+\DoxyCodeLine{00969\ \ \ \ \ \textcolor{keywordtype}{bool}\ start\_array(std::size\_t\ \textcolor{comment}{/*unused*/}\ =\ detail::unknown\_size())}
+\DoxyCodeLine{00970\ \ \ \ \ \{}
+\DoxyCodeLine{00971\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00972\ \ \ \ \ \}}
+\DoxyCodeLine{00973\ }
+\DoxyCodeLine{00974\ \ \ \ \ \textcolor{keywordtype}{bool}\ end\_array()}
+\DoxyCodeLine{00975\ \ \ \ \ \{}
+\DoxyCodeLine{00976\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00977\ \ \ \ \ \}}
+\DoxyCodeLine{00978\ }
+\DoxyCodeLine{00979\ \ \ \ \ \textcolor{keywordtype}{bool}\ parse\_error(std::size\_t\ \textcolor{comment}{/*unused*/},\ \textcolor{keyword}{const}\ std::string\&\ \textcolor{comment}{/*unused*/},\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classdetail_1_1exception}{detail::exception}}\&\ \textcolor{comment}{/*unused*/})}
+\DoxyCodeLine{00980\ \ \ \ \ \{}
+\DoxyCodeLine{00981\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00982\ \ \ \ \ \}}
+\DoxyCodeLine{00983\ \};}
+\DoxyCodeLine{00984\ }
+\DoxyCodeLine{00985\ \}\ \ \textcolor{comment}{//\ namespace\ detail}}
+\DoxyCodeLine{00986\ NLOHMANN\_JSON\_NAMESPACE\_END}
+
+\end{DoxyCode}

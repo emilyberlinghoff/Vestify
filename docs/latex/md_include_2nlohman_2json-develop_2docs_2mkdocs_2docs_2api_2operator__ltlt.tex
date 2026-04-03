@@ -1,0 +1,77 @@
+\chapter{
+\footnotesize nlohmann:\+:\+
+\normalsize operator$<$$<$(basic\+\_\+json), 
+\footnotesize nlohmann:\+:\+
+\normalsize operator$<$$<$(json\+\_\+pointer) }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt}\index{$<$small$>$nlohmann::$<$/small$>$operator$<$$<$(basic\_json), $<$small$>$nlohmann::$<$/small$>$operator$<$$<$(json\_pointer)@{$<$small$>$nlohmann::$<$/small$>$operator$<$$<$(basic\_json), $<$small$>$nlohmann::$<$/small$>$operator$<$$<$(json\_pointer)}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1340}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1340}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{std::ostream\&\ operator<<(std::ostream\&\ o,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classbasic__json}{basic\_json}}\&\ j);\ \ \ \ \ \ \textcolor{comment}{//\ (1)}}
+\DoxyCodeLine{}
+\DoxyCodeLine{std::ostream\&\ operator<<(std::ostream\&\ o,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ ptr);\ \ \textcolor{comment}{//\ (2)}}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item Serialize the given JSON value {\ttfamily j} to the output stream {\ttfamily o}. \doxylink{requirements_The}{The} JSON value will be serialized using the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2dump}{{\ttfamily dump}}{0} member function.
+\begin{DoxyItemize}
+\item \doxylink{requirements_The}{The} indentation of the output can be controlled with the member variable {\ttfamily width} of the output stream {\ttfamily o}. For instance, using the manipulator {\ttfamily std::\+setw(4)} on {\ttfamily o} sets the indentation level to {\ttfamily 4} and the serialization result is the same as calling {\ttfamily dump(4)}.
+\item \doxylink{requirements_The}{The} indentation character can be controlled with the member variable {\ttfamily fill} of the output stream {\ttfamily o}. For instance, the manipulator {\ttfamily std::\+setfill(\textquotesingle{}\textbackslash{}\textbackslash{}t\textquotesingle{})} sets indentation to use a tab character rather than the default space character.
+\end{DoxyItemize}
+\item Write a string representation of the given JSON pointer {\ttfamily ptr} to the output stream {\ttfamily o}. \doxylink{requirements_The}{The} string representation is obtained using the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2to__string}{{\ttfamily to\+\_\+string}}{0} member function.
+\end{DoxyEnumerate}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1341}{}\doxysection{\texorpdfstring{Parameters}{Parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1341}
+{\ttfamily o} (in, out) :\+ stream to write to
+
+{\ttfamily j} (in) :\+ JSON value to serialize
+
+{\ttfamily ptr} (in) :\+ JSON pointer to write\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1342}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1342}
+the stream {\ttfamily o}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1343}{}\doxysection{\texorpdfstring{Exceptions}{Exceptions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1343}
+
+\begin{DoxyEnumerate}
+\item Throws \href{../home/exceptions.md\#jsonexceptiontype_error316}{\texttt{{\ttfamily type\+\_\+error.\+316}}} if a string stored inside the JSON value is not UTF-\/8 encoded. Note that unlike the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2dump}{{\ttfamily dump}}{0} member functions, no {\ttfamily error\+\_\+handler} can be set.
+\item None.
+\end{DoxyEnumerate}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1344}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1344}
+Linear.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1345}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1345}
+!!! warning "{}\+Deprecation"{} \begin{DoxyVerb}Function  `#!cpp std::ostream& operator<<(std::ostream& o, const basic_json& j)` replaces function
+`#!cpp std::ostream& operator>>(const basic_json& j, std::ostream& o)` which has been deprecated in version 3.0.0.
+It will be removed in version 4.0.0. Please replace calls like `#!cpp j >> o;` with `#!cpp o << j;`.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1346}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1346}
+??? example "{}\+Example:\+ (1) serialize JSON value to stream"{} \begin{DoxyVerb}The example below shows the serialization with different parameters to `width` to adjust the indentation level.
+
+```cpp
+--8<-- "examples/operator_ltlt__basic_json.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/operator_ltlt__basic_json.output"
+```
+\end{DoxyVerb}
+
+
+??? example "{}\+Example:\+ (2) write JSON pointer to stream"{} \begin{DoxyVerb}The example below shows how to write a JSON pointer to a stream.
+
+```cpp
+--8<-- "examples/operator_ltlt__json_pointer.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/operator_ltlt__json_pointer.output"
+```
+\end{DoxyVerb}
+ \hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1347}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__ltlt_autotoc_md1347}
+
+\begin{DoxyEnumerate}
+\item Added in version 1.\+0.\+0. Added support for indentation character and deprecated {\ttfamily \#!cpp std::\+ostream\& operator\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}(const \doxylink{classbasic__json}{basic\+\_\+json}\& j, std::\+ostream\& o)} in version 3.\+0.\+0.
+\item Added in version 3.\+11.\+0. 
+\end{DoxyEnumerate}

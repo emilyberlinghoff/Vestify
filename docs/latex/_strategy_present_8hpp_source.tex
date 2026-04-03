@@ -1,0 +1,209 @@
+\doxysection{Strategy\+Present.\+hpp}
+\hypertarget{_strategy_present_8hpp_source}{}\label{_strategy_present_8hpp_source}\index{include/scoring/StrategyPresent.hpp@{include/scoring/StrategyPresent.hpp}}
+\doxymbox{\hyperlink{_strategy_present_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_stock_8hpp}{core/Stock.hpp}}"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_scoring_model_8hpp}{scoring/ScoringModel.hpp}}"{}}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{struct\ }ScoringStrategy\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_scoring_strategy_ab50eb0fe95908c9a21128ff55b20eca6}{name}};}
+\DoxyCodeLine{00033\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_scoring_strategy_accbe9ed79d2ae81e2b718758716aa341}{description}};}
+\DoxyCodeLine{00035\ \ \ \ \ std::unordered\_map<std::string,\ double>\ \doxymbox{\hyperlink{struct_scoring_strategy_a781212fabb15f6bf16b3fdda491a6ff8}{weights}};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ ScoringStrategy()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00038\ \ \ \ \ ScoringStrategy(\textcolor{keyword}{const}\ std::string\&\ \doxymbox{\hyperlink{struct_scoring_strategy_ab50eb0fe95908c9a21128ff55b20eca6}{name}},}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ \doxymbox{\hyperlink{struct_scoring_strategy_accbe9ed79d2ae81e2b718758716aa341}{description}},}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::unordered\_map<std::string,\ double>\&\ \doxymbox{\hyperlink{struct_scoring_strategy_a781212fabb15f6bf16b3fdda491a6ff8}{weights}})}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{struct_scoring_strategy_ab50eb0fe95908c9a21128ff55b20eca6}{name}}(\doxymbox{\hyperlink{struct_scoring_strategy_ab50eb0fe95908c9a21128ff55b20eca6}{name}}),\ \doxymbox{\hyperlink{struct_scoring_strategy_accbe9ed79d2ae81e2b718758716aa341}{description}}(\doxymbox{\hyperlink{struct_scoring_strategy_accbe9ed79d2ae81e2b718758716aa341}{description}}),\ \doxymbox{\hyperlink{struct_scoring_strategy_a781212fabb15f6bf16b3fdda491a6ff8}{weights}}(\doxymbox{\hyperlink{struct_scoring_strategy_a781212fabb15f6bf16b3fdda491a6ff8}{weights}})\ \{\}}
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_scored_stock}{ScoredStock}}\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \doxymbox{\hyperlink{struct_stock}{Stock}}\ \doxymbox{\hyperlink{struct_scored_stock_a34a5028ffe2df8d7de4e6654cb6d1ac8}{stock}};}
+\DoxyCodeLine{00056\ \ \ \ \ std::unordered\_map<std::string,\ double>\ \doxymbox{\hyperlink{struct_scored_stock_aea951b17e87ddf0bffed693cf61d6b65}{subscores}};}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_scored_stock_aca4d12573934e1713498a9ee51cfce8d}{composite}}\ =\ 0.0;}
+\DoxyCodeLine{00059\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_strategy_manager_af5f9d21cd5b55d4b2c0ed81d8d7415c7}{StrategyManager}}\ \{}
+\DoxyCodeLine{00075\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00083\ \ \ \ \ \doxymbox{\hyperlink{class_strategy_manager_af5f9d21cd5b55d4b2c0ed81d8d7415c7}{StrategyManager}}()\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_strategy_manager_adc715e8ce4a382fb2304925f15911f6a}{initPresets}}();}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_strategy_manager_ada48e144bd18df9d5405dd350f452901}{active\_strategy\_name\_}}\ =\ \textcolor{stringliteral}{"{}Value"{}};}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_strategy_manager_a35c6c2fc822057c6dd9a339c673ee18b}{registerModel}}(\doxymbox{\hyperlink{class_scoring_model}{ScoringModel}}*\ model)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (model)\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_strategy_manager_afa496f78b16044a63543b762af53b0dd}{models\_}}[model-\/>\doxymbox{\hyperlink{class_scoring_model_a4b9b6b56036e41f15d59c3cdd9a49826}{getModelName}}()]\ =\ model;}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00110\ \ \ \ \ std::vector<std::string>\ \doxymbox{\hyperlink{class_strategy_manager_aeddd7a244416464ed56ed70aecae82e8}{getAvailableStrategies}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ std::vector<std::string>\ names;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ names.reserve(\doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\_}}.size());}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [name,\ \_]\ :\ \doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\_}})\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ names.push\_back(name);}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ std::sort(names.begin(),\ names.end());}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ names;}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_scoring_strategy}{ScoringStrategy}}\&\ \doxymbox{\hyperlink{class_strategy_manager_a7f647102d24407793bff355ab1b8a1a1}{getStrategy}}(\textcolor{keyword}{const}\ std::string\&\ name)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ \doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\_}}.find(name);}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ ==\ \doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\_}}.end())\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Strategy\ not\ found:\ "{}}\ +\ name);}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ it-\/>second;}
+\DoxyCodeLine{00133\ \ \ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_strategy_manager_aaede2f35283b7d0536d73d461fd1a06b}{setActiveStrategy}}(\textcolor{keyword}{const}\ std::string\&\ name)\ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\_}}.find(name)\ ==\ \doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\_}}.end())\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_strategy_manager_ada48e144bd18df9d5405dd350f452901}{active\_strategy\_name\_}}\ =\ name;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00149\ \ \ \ \ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_strategy_manager_a183124a6d516f1d2fa63b448574a6941}{setCustomStrategy}}(\textcolor{keyword}{const}\ std::string\&\ name,}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ description,}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::unordered\_map<std::string,\ double>\&\ weights)\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (weights.empty())\ \{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\_}}[name]\ =\ \doxymbox{\hyperlink{struct_scoring_strategy}{ScoringStrategy}}(name,\ description,\ weights);}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_strategy_manager_ada48e144bd18df9d5405dd350f452901}{active\_strategy\_name\_}}\ =\ name;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00168\ \ \ \ \ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_scoring_strategy}{ScoringStrategy}}\&\ \doxymbox{\hyperlink{class_strategy_manager_a789d023b6e36a8a8f6c2215d929118c8}{getActiveStrategy}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\_}}.at(\doxymbox{\hyperlink{class_strategy_manager_ada48e144bd18df9d5405dd350f452901}{active\_strategy\_name\_}});}
+\DoxyCodeLine{00177\ \ \ \ \ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ \doxymbox{\hyperlink{class_strategy_manager_a0d7ade025f38826e14209905cd92b965}{getActiveStrategyName}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_strategy_manager_ada48e144bd18df9d5405dd350f452901}{active\_strategy\_name\_}};}
+\DoxyCodeLine{00186\ \ \ \ \ \}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00196\ \ \ \ \ \doxymbox{\hyperlink{struct_scored_stock}{ScoredStock}}\ \doxymbox{\hyperlink{class_strategy_manager_ae31b4c4e7e79e8786ecd99d9f3a346b9}{scoreStock}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_stock}{Stock}}\&\ stock)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_scoring_strategy}{ScoringStrategy}}\&\ strategy\ =\ \doxymbox{\hyperlink{class_strategy_manager_a789d023b6e36a8a8f6c2215d929118c8}{getActiveStrategy}}();}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_scored_stock}{ScoredStock}}\ result;}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ result.\doxymbox{\hyperlink{struct_scored_stock_a34a5028ffe2df8d7de4e6654cb6d1ac8}{stock}}\ =\ stock;}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ weighted\_sum\ =\ 0.0;}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ total\_weight\ =\ 0.0;}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [model\_name,\ weight]\ :\ strategy.\doxymbox{\hyperlink{struct_scoring_strategy_a781212fabb15f6bf16b3fdda491a6ff8}{weights}})\ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ model\_it\ =\ \doxymbox{\hyperlink{class_strategy_manager_afa496f78b16044a63543b762af53b0dd}{models\_}}.find(model\_name);}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (model\_it\ ==\ \doxymbox{\hyperlink{class_strategy_manager_afa496f78b16044a63543b762af53b0dd}{models\_}}.end())\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[StrategyManager]\ warning:\ model\ \(\backslash\)"{}"{}}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ model\_name\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ not\ registered,\ skipping.\(\backslash\)n"{}};}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ sub\_score\ =\ model\_it-\/>second-\/>calculateScore(stock);}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!std::isfinite(sub\_score))\ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub\_score\ =\ 0.0;}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ sub\_score\ =\ std::clamp(sub\_score,\ 0.0,\ 100.0);}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ result.\doxymbox{\hyperlink{struct_scored_stock_aea951b17e87ddf0bffed693cf61d6b65}{subscores}}[model\_name]\ =\ sub\_score;}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ weighted\_sum\ +=\ weight\ *\ sub\_score;}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ total\_weight\ +=\ weight;}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (total\_weight\ >\ 0.0)\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ result.\doxymbox{\hyperlink{struct_scored_stock_aca4d12573934e1713498a9ee51cfce8d}{composite}}\ =\ weighted\_sum\ /\ total\_weight;}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00227\ \ \ \ \ \}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00235\ \ \ \ \ std::vector<ScoredStock>\ \doxymbox{\hyperlink{class_strategy_manager_a92b1f2883e71ed2d2b5e41c41a295129}{rankStocks}}(\textcolor{keyword}{const}\ std::vector<Stock>\&\ stocks)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ std::vector<ScoredStock>\ scored;}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ scored.reserve(stocks.size());}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ s\ :\ stocks)\ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ scored.push\_back(\doxymbox{\hyperlink{class_strategy_manager_ae31b4c4e7e79e8786ecd99d9f3a346b9}{scoreStock}}(s));}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ std::sort(scored.begin(),\ scored.end(),}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_scored_stock}{ScoredStock}}\&\ a,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_scored_stock}{ScoredStock}}\&\ b)\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ a.composite\ >\ b.composite;}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scored;}
+\DoxyCodeLine{00249\ \ \ \ \ \}}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_strategy_manager_adc715e8ce4a382fb2304925f15911f6a}{initPresets}}()\ \{}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\_}}[\textcolor{stringliteral}{"{}Value"{}}]\ =\ \doxymbox{\hyperlink{struct_scoring_strategy}{ScoringStrategy}}(}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Value"{}},}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Favours\ undervalued\ stocks\ (low\ P/E,\ high\ dividend/FCF\ yield,\ cheap\ EV/FCF)."{}},}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \{\{\textcolor{stringliteral}{"{}Value"{}},\ 0.45\},\ \{\textcolor{stringliteral}{"{}Quality"{}},\ 0.20\},\ \{\textcolor{stringliteral}{"{}Growth"{}},\ 0.10\},}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Momentum"{}},\ 0.10\},\ \{\textcolor{stringliteral}{"{}Efficiency"{}},\ 0.15\}\}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\_}}[\textcolor{stringliteral}{"{}Growth"{}}]\ =\ \doxymbox{\hyperlink{struct_scoring_strategy}{ScoringStrategy}}(}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Growth"{}},}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Targets\ companies\ with\ high\ margins,\ strong\ ROE,\ and\ earnings\ growth\ potential."{}},}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \{\{\textcolor{stringliteral}{"{}Growth"{}},\ 0.45\},\ \{\textcolor{stringliteral}{"{}Efficiency"{}},\ 0.20\},\ \{\textcolor{stringliteral}{"{}Momentum"{}},\ 0.15\},}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Value"{}},\ 0.10\},\ \{\textcolor{stringliteral}{"{}Quality"{}},\ 0.10\}\}}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\_}}[\textcolor{stringliteral}{"{}Momentum"{}}]\ =\ \doxymbox{\hyperlink{struct_scoring_strategy}{ScoringStrategy}}(}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Momentum"{}},}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Emphasises\ profitability\ trends\ and\ cash\ flow\ strength."{}},}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \{\{\textcolor{stringliteral}{"{}Momentum"{}},\ 0.40\},\ \{\textcolor{stringliteral}{"{}Growth"{}},\ 0.20\},\ \{\textcolor{stringliteral}{"{}Efficiency"{}},\ 0.20\},}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Value"{}},\ 0.10\},\ \{\textcolor{stringliteral}{"{}Quality"{}},\ 0.10\}\}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\_}}[\textcolor{stringliteral}{"{}Quality"{}}]\ =\ \doxymbox{\hyperlink{struct_scoring_strategy}{ScoringStrategy}}(}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Quality"{}},}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Prioritises\ financial\ health:\ low\ debt,\ strong\ margins,\ and\ high\ ROE."{}},}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \{\{\textcolor{stringliteral}{"{}Quality"{}},\ 0.45\},\ \{\textcolor{stringliteral}{"{}Efficiency"{}},\ 0.20\},\ \{\textcolor{stringliteral}{"{}Value"{}},\ 0.15\},}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Growth"{}},\ 0.10\},\ \{\textcolor{stringliteral}{"{}Momentum"{}},\ 0.10\}\}}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\_}}[\textcolor{stringliteral}{"{}Balanced"{}}]\ =\ \doxymbox{\hyperlink{struct_scoring_strategy}{ScoringStrategy}}(}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Balanced"{}},}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Equal\ weighting\ across\ all\ five\ scoring\ dimensions."{}},}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \{\{\textcolor{stringliteral}{"{}Value"{}},\ 0.20\},\ \{\textcolor{stringliteral}{"{}Growth"{}},\ 0.20\},\ \{\textcolor{stringliteral}{"{}Momentum"{}},\ 0.20\},}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Quality"{}},\ 0.20\},\ \{\textcolor{stringliteral}{"{}Efficiency"{}},\ 0.20\}\}}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\_}}[\textcolor{stringliteral}{"{}Efficiency"{}}]\ =\ \doxymbox{\hyperlink{struct_scoring_strategy}{ScoringStrategy}}(}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Efficiency"{}},}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Focuses\ on\ capital\ efficiency:\ strong\ ROA,\ high\ operating\ margins,\ and\ cheap\ EV/EBIT."{}},}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \{\{\textcolor{stringliteral}{"{}Efficiency"{}},\ 0.45\},\ \{\textcolor{stringliteral}{"{}Value"{}},\ 0.20\},\ \{\textcolor{stringliteral}{"{}Quality"{}},\ 0.15\},}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Growth"{}},\ 0.10\},\ \{\textcolor{stringliteral}{"{}Momentum"{}},\ 0.10\}\}}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00296\ \ \ \ \ \}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00301\ \ \ \ \ std::unordered\_map<std::string,\ ScoringStrategy>\ \doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\_}};}
+\DoxyCodeLine{00303\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_strategy_manager_ada48e144bd18df9d5405dd350f452901}{active\_strategy\_name\_}};}
+\DoxyCodeLine{00305\ \ \ \ \ std::unordered\_map<std::string,\ ScoringModel*>\ \doxymbox{\hyperlink{class_strategy_manager_afa496f78b16044a63543b762af53b0dd}{models\_}};}
+\DoxyCodeLine{00306\ \};}
+
+\end{DoxyCode}

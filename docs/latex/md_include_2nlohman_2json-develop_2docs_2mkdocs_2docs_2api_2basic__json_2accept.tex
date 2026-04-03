@@ -1,0 +1,97 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize accept }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$accept@{$<$small$>$nlohmann::basic\_json::$<$/small$>$accept}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md74}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md74}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ (1)}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ InputType>}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ accept(InputType\&\&\ i,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ ignore\_comments\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ ignore\_trailing\_commas\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ (2)}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ IteratorType>}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ accept(IteratorType\ first,\ IteratorType\ last,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ ignore\_comments\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ ignore\_trailing\_commas\ =\ \textcolor{keyword}{false});}
+
+\end{DoxyCode}
+
+
+Checks whether the input is valid JSON.
+
+
+\begin{DoxyEnumerate}
+\item Reads from a compatible input.
+\item Reads from a pair of character iterators
+
+\doxylink{requirements_The}{The} value\+\_\+type of the iterator must be an integral type with a size of 1, 2, or 4 bytes, which will be interpreted respectively as UTF-\/8, UTF-\/16, and UTF-\/32.
+\end{DoxyEnumerate}
+
+Unlike the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parse}{{\ttfamily parse()}}{0} function, this function neither throws an exception in case of invalid JSON input (i.\+e., a parse error) nor creates diagnostic information.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md75}{}\doxysection{\texorpdfstring{Template parameters}{Template parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md75}
+{\ttfamily Input\+Type} :\+ \doxylink{class_a}{A} compatible input, for instance:\+ \begin{DoxyVerb}- an `std::istream` object
+- a `#!c FILE` pointer (throws if null)
+- a C-style array of characters
+- a pointer to a null-terminated string of single byte characters (throws if null)
+- a `std::string`
+- an object `obj` for which `begin(obj)` and `end(obj)` produces a valid pair of iterators.
+\end{DoxyVerb}
+
+
+{\ttfamily Iterator\+Type} :\+ a compatible iterator type, for instance. \begin{DoxyVerb}- a pair of `std::string::iterator` or `std::vector<std::uint8_t>::iterator`
+- a pair of pointers such as `ptr` and `ptr + len`
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md76}{}\doxysection{\texorpdfstring{Parameters}{Parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md76}
+{\ttfamily i} (in) :\+ Input to parse from.
+
+{\ttfamily ignore\+\_\+comments} (in) :\+ whether comments should be ignored and treated like whitespace ({\ttfamily \#!cpp true}) or yield a parse error ({\ttfamily \#!cpp false}); (optional, {\ttfamily \#!cpp false} by default)
+
+{\ttfamily ignore\+\_\+trailing\+\_\+commas} (in) :\+ whether trailing commas in arrays or objects should be ignored and treated like whitespace ({\ttfamily \#!cpp true}) or yield a parse error ({\ttfamily \#!cpp false}); (optional, {\ttfamily \#!cpp false} by default)
+
+{\ttfamily first} (in) :\+ iterator to the start of the character range
+
+{\ttfamily last} (in) :\+ iterator to the end of the character range\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md77}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md77}
+Whether the input is valid JSON.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md78}{}\doxysection{\texorpdfstring{Exception safety}{Exception safety}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md78}
+Strong guarantee:\+ if an exception is thrown, there are no changes in the JSON value.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md79}{}\doxysection{\texorpdfstring{Exceptions}{Exceptions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md79}
+Throws \href{../../home/exceptions.md\#jsonexceptionparse_error101}{\texttt{{\ttfamily parse\+\_\+error.\+101}}} in case of an empty input like a null {\ttfamily \#!c FILE\texorpdfstring{$\ast$}{*}} or {\ttfamily \#!c char\texorpdfstring{$\ast$}{*}} pointer.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md80}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md80}
+Linear in the length of the input. \doxylink{requirements_The}{The} parser is a predictive LL(1) parser.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md81}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md81}
+\doxylink{class_a}{A} UTF-\/8 byte order mark is silently ignored.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md82}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md82}
+??? example \begin{DoxyVerb}The example below demonstrates the `accept()` function reading from a string.
+
+```cpp
+--8<-- "examples/accept__string.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/accept__string.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md83}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md83}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parse}{parse}{0} -\/ deserialize from a compatible input
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt}{operator\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}}{0} -\/ deserialize from stream
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md84}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept_autotoc_md84}
+
+\begin{DoxyItemize}
+\item Added in version 3.\+0.\+0.
+\item Ignoring comments via {\ttfamily ignore\+\_\+comments} added in version 3.\+9.\+0.
+\item Changed \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2assertions}{runtime assertion}{0} in case of {\ttfamily FILE\texorpdfstring{$\ast$}{*}} null pointers to exception in version 3.\+12.\+0.
+\item Added {\ttfamily ignore\+\_\+trailing\+\_\+commas} in version 3.\+12.\+1.
+\end{DoxyItemize}
+
+!!! warning "{}\+Deprecation"{} \begin{DoxyVerb}Overload (2) replaces calls to `accept` with a pair of iterators as their first parameter which has been
+deprecated in version 3.8.0. This overload will be removed in version 4.0.0. Please replace all calls like
+`#!cpp accept({ptr, ptr+len}, ...);` with `#!cpp accept(ptr, ptr+len, ...);`.
+
+You should be warned by your compiler with a `-Wdeprecated-declarations` warning if you are using a deprecated
+function.
+\end{DoxyVerb}
+ 

@@ -1,0 +1,58 @@
+\doxysection{fuzzer::\+Value\+Bit\+Map Struct Reference}
+\hypertarget{structfuzzer_1_1_value_bit_map}{}\label{structfuzzer_1_1_value_bit_map}\index{fuzzer::ValueBitMap@{fuzzer::ValueBitMap}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structfuzzer_1_1_value_bit_map_a7e0a77c4c7b3631b136ea7f2d3f6ceaf}\label{structfuzzer_1_1_value_bit_map_a7e0a77c4c7b3631b136ea7f2d3f6ceaf} 
+void {\bfseries Reset} ()
+\item 
+\Hypertarget{structfuzzer_1_1_value_bit_map_a716c1fc151b968063db3e37955ef530d}\label{structfuzzer_1_1_value_bit_map_a716c1fc151b968063db3e37955ef530d} 
+bool {\bfseries Add\+Value} (uintptr\+\_\+t Value)
+\item 
+\Hypertarget{structfuzzer_1_1_value_bit_map_a708bc9b0f81853bcccb51bba0b07048e}\label{structfuzzer_1_1_value_bit_map_a708bc9b0f81853bcccb51bba0b07048e} 
+bool {\bfseries Get} (uintptr\+\_\+t Idx)
+\item 
+\Hypertarget{structfuzzer_1_1_value_bit_map_a9a08a418bc1f5db612aea10ca6d8a587}\label{structfuzzer_1_1_value_bit_map_a9a08a418bc1f5db612aea10ca6d8a587} 
+size\+\_\+t {\bfseries Get\+Num\+Bits\+Since\+Last\+Merge} () const
+\item 
+\Hypertarget{structfuzzer_1_1_value_bit_map_af95bf22fe5b5b440c5bfd78e6f59dd60}\label{structfuzzer_1_1_value_bit_map_af95bf22fe5b5b440c5bfd78e6f59dd60} 
+ATTRIBUTE\+\_\+\+TARGET\+\_\+\+POPCNT bool {\bfseries Merge\+From} (\doxymbox{\hyperlink{structfuzzer_1_1_value_bit_map}{Value\+Bit\+Map}} \&Other)
+\item 
+\Hypertarget{structfuzzer_1_1_value_bit_map_a152e13d2af4b78d639e4225f2dd2f040}\label{structfuzzer_1_1_value_bit_map_a152e13d2af4b78d639e4225f2dd2f040} 
+{\footnotesize template$<$class Callback$>$ }\\void {\bfseries For\+Each} (Callback CB)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structfuzzer_1_1_value_bit_map_abc4765423cfa45ec36e1eaee9d4491b9}\label{structfuzzer_1_1_value_bit_map_abc4765423cfa45ec36e1eaee9d4491b9} 
+static const size\+\_\+t {\bfseries k\+Map\+Size\+In\+Bits} = 65371
+\item 
+\Hypertarget{structfuzzer_1_1_value_bit_map_a2e454dabf261b10965dfb7dbf96c408e}\label{structfuzzer_1_1_value_bit_map_a2e454dabf261b10965dfb7dbf96c408e} 
+static const size\+\_\+t {\bfseries k\+Map\+Size\+In\+Bits\+Aligned} = 65536
+\item 
+\Hypertarget{structfuzzer_1_1_value_bit_map_a3529edcd716b24050d55917d15759c7d}\label{structfuzzer_1_1_value_bit_map_a3529edcd716b24050d55917d15759c7d} 
+static const size\+\_\+t {\bfseries k\+Bits\+In\+Word} = (sizeof(uintptr\+\_\+t) \texorpdfstring{$\ast$}{*} 8)
+\item 
+\Hypertarget{structfuzzer_1_1_value_bit_map_af39c393894bc8da597e47bdc131e5edf}\label{structfuzzer_1_1_value_bit_map_af39c393894bc8da597e47bdc131e5edf} 
+static const size\+\_\+t {\bfseries k\+Map\+Size\+In\+Words} = k\+Map\+Size\+In\+Bits\+Aligned /\+ k\+Bits\+In\+Word
+\item 
+\Hypertarget{structfuzzer_1_1_value_bit_map_af6651c01d021f3c3596439a7b5f8d673}\label{structfuzzer_1_1_value_bit_map_af6651c01d021f3c3596439a7b5f8d673} 
+static const size\+\_\+t {\bfseries k\+Number\+Of\+Items} = k\+Map\+Size\+In\+Bits
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structfuzzer_1_1_value_bit_map_aec5c0b8be2fa1faf602ed44999f15ce7}\label{structfuzzer_1_1_value_bit_map_aec5c0b8be2fa1faf602ed44999f15ce7} 
+uintptr\+\_\+t Map\+[k\+Map\+Size\+In\+Words]\+ {\bfseries \+\_\+\+\_\+attribute\+\_\+\+\_\+} ((aligned(512)))
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structfuzzer_1_1_value_bit_map_acd8fdea42fea5b23b28ea45b022efc7a}\label{structfuzzer_1_1_value_bit_map_acd8fdea42fea5b23b28ea45b022efc7a} 
+size\+\_\+t {\bfseries Num\+Bits} = 0
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+thirdparty/\+\+Fuzzer/\+Fuzzer\+Value\+Bit\+Map.\+h\end{DoxyCompactItemize}

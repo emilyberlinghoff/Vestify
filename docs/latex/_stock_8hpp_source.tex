@@ -1,0 +1,63 @@
+\doxysection{Stock.\+hpp}
+\hypertarget{_stock_8hpp_source}{}\label{_stock_8hpp_source}\index{include/core/Stock.hpp@{include/core/Stock.hpp}}
+\doxymbox{\hyperlink{_stock_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_stock}{Stock}}}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_stock_ada6e688ab39d51118b61f9054a0f6369}{ticker}};}
+\DoxyCodeLine{00031\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_stock_a8b79c44538a5f8845a17e537798719e4}{name}};}
+\DoxyCodeLine{00033\ \ \ \ \ std::string\ \doxymbox{\hyperlink{struct_stock_a8666c9d148588a1d9ad3dc00a47d17b0}{sector}};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a61137326975b96efd8d08eb473ae9386}{price}}\ =\ 0.0;}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a04f49c88e3a04c95ec994aedfa2ce67c}{shares\_outstanding}}\ =\ 0.0;}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_ab0c755d577f3b56e71a8acb61bcff226}{market\_cap}}\ =\ 0.0;}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a8246454bea0b850caaf173d0d7702439}{dividend\_yield}}\ =\ 0.0;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a7ac2285c0bb37ddc3b3a84d710594684}{revenue}}\ =\ 0.0;}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a7e48d489084a8822e230491cc3b8139f}{gross\_profit}}\ =\ 0.0;}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_ab7f9f538876de56cbf50df490526dd7a}{operating\_income}}\ =\ 0.0;}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a1cdb723f812819f0e0ddf2216f90eef5}{net\_income}}\ =\ 0.0;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_ad4cef1cdaa1acfbe8246a697f4d02a17}{operating\_cash\_flow}}\ =\ 0.0;}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a8c71359702a75e7b2d37e8297dbf85b0}{capital\_expenditures}}\ =\ 0.0;}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_acbf8fa1d61de8cbc3d635b227ec36a3a}{free\_cash\_flow}}\ =\ 0.0;}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a4c96fa16752c494a7d39fdbbd1978b5c}{total\_debt}}\ =\ 0.0;}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_afafe5ff5065e9c07ad6a69c72a957efa}{cash}}\ =\ 0.0;}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_abee169a2fe602e700f967c7a4c12c234}{total\_equity}}\ =\ 0.0;}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a3f219d83e3041945f2f9cdbca06d901c}{total\_assets}}\ =\ 0.0;}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a0fb329f72946c43bbed441c804baccec}{current\_assets}}\ =\ 0.0;}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a9d1d31e7d7f18a7df10f51aaaf1ed4b9}{current\_liabilities}}\ =\ 0.0;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a9dca1feed32318b9deee8bc6bf441c91}{gross\_margin}}\ =\ 0.0;}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a263daa2f1032773bc647bc743f21d694}{operating\_margin}}\ =\ 0.0;}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a6252c1651560ec128a84b1dc278e0a14}{net\_margin}}\ =\ 0.0;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a928912a91490856b4c5690f84c125516}{current\_ratio}}\ =\ 0.0;}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a442675163b5f120be4fa59da415ceaa1}{debt\_to\_equity}}\ =\ 0.0;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a81a3779231dd1bd2cb1757ecc1470668}{book\_value\_per\_share}}\ =\ 0.0;}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a2bc3ff78c3613a52f5a761480267d5dc}{revenue\_per\_share}}\ =\ 0.0;}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_abf42b3def278efb613d5b1395cda67cb}{eps}}\ =\ 0.0;}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a8d68fe1e7e79d5098b8ef405fd6ea0a4}{fcf\_per\_share}}\ =\ 0.0;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_aeb3445238461ccde40ddadc7d40e2060}{pe\_ratio}}\ =\ 0.0;}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a3c244e3f3b680abb6e0d1cfbdb376aea}{pb\_ratio}}\ =\ 0.0;}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a1ee4229cfe1e6bc86dce28b5d1dc459f}{ps\_ratio}}\ =\ 0.0;}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a7d215816c02bceebae3132e886a69c15}{fcf\_yield}}\ =\ 0.0;}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a7cd0b23fba166b692f3f9336f398855e}{enterprise\_value}}\ =\ 0.0;}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_ad66563324c907462bb2bf992982fd357}{ev\_to\_ebit}}\ =\ 0.0;}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_acfe84efee6af68f2477eb91d1a472e2a}{ev\_to\_sales}}\ =\ 0.0;}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a675870dc9d4aba6c109961202e0e010a}{ev\_to\_fcf}}\ =\ 0.0;}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_ab2a7a517194280a158f31c121eded1bb}{roe}}\ =\ 0.0;}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_stock_a04e29953cc6b1a56a40c3a2d44f5e4b8}{roa}}\ =\ 0.0;}
+\DoxyCodeLine{00115\ \};}
+
+\end{DoxyCode}

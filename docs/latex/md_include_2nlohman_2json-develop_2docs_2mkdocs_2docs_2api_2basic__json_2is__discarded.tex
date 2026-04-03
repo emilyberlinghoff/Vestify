@@ -1,0 +1,67 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize is\+\_\+discarded }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$is\_discarded@{$<$small$>$nlohmann::basic\_json::$<$/small$>$is\_discarded}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded_autotoc_md481}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded_autotoc_md481}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ is\_discarded()\ const\ noexcept;}
+
+\end{DoxyCode}
+
+
+This function returns {\ttfamily \#!cpp true} for a JSON value if either:\+
+
+
+\begin{DoxyItemize}
+\item the value was discarded during parsing with a callback function (see \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parser__callback__t}{{\ttfamily parser\+\_\+callback\+\_\+t}}{0}), or
+\item the value is the result of parsing invalid JSON with parameter {\ttfamily allow\+\_\+exceptions} set to {\ttfamily \#!cpp false}; see \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parse}{{\ttfamily parse}}{0} for more information.
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded_autotoc_md482}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded_autotoc_md482}
+{\ttfamily \#!cpp true} if type is discarded, {\ttfamily \#!cpp false} otherwise.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded_autotoc_md483}{}\doxysection{\texorpdfstring{Exception safety}{Exception safety}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded_autotoc_md483}
+No-\/throw guarantee:\+ this member function never throws exceptions.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded_autotoc_md484}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded_autotoc_md484}
+Constant.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded_autotoc_md485}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded_autotoc_md485}
+!!! note "{}\+Comparisons"{} \begin{DoxyVerb}Discarded values are never compared equal with [`operator==`](operator_eq.md). That is, checking whether a JSON
+value `j` is discarded will only work via:
+
+```cpp
+j.is_discarded()
+```
+
+because
+
+```cpp
+j == json::value_t::discarded
+```
+
+will always be `#!cpp false`.
+\end{DoxyVerb}
+
+
+!!! note "{}\+Removal during parsing with callback functions"{} \begin{DoxyVerb}When a value is discarded by a callback function (see [`parser_callback_t`](parser_callback_t.md)) during parsing,
+then it is removed when it is part of a structured value. For instance, if the second value of an array is discarded,
+instead of `#!json [null, discarded, false]`, the array `#!json [null, false]` is returned. Only if the top-level
+value is discarded, the return value of the `parse` call is discarded.
+\end{DoxyVerb}
+
+
+This function will always be {\ttfamily \#!cpp false} for JSON values after parsing. That is, discarded values can only occur during parsing, but will be removed when inside a structured value or replaced by null in other cases.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded_autotoc_md486}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded_autotoc_md486}
+??? example \begin{DoxyVerb}The following code exemplifies `is_discarded()` for all JSON types.
+
+```cpp
+--8<-- "examples/is_discarded.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/is_discarded.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded_autotoc_md487}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__discarded_autotoc_md487}
+
+\begin{DoxyItemize}
+\item Added in version 1.\+0.\+0. 
+\end{DoxyItemize}

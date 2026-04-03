@@ -1,0 +1,50 @@
+\doxysection{Backtest\+Engine.\+hpp}
+\hypertarget{_backtest_engine_8hpp_source}{}\label{_backtest_engine_8hpp_source}\index{include/backtest/BacktestEngine.hpp@{include/backtest/BacktestEngine.hpp}}
+\doxymbox{\hyperlink{_backtest_engine_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_stock_8hpp}{core/Stock.hpp}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_strategy_present_8hpp}{scoring/StrategyPresent.hpp}}"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_backtest_engine}{BacktestEngine}}\ \{}
+\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_backtest_engine_1_1_price_point}{PricePoint}}\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ std::string\ date;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ close\ =\ 0.0;}
+\DoxyCodeLine{00036\ \ \ \ \ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_backtest_engine_1_1_config}{Config}}\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ std::vector<Stock>\ stocks;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ std::unordered\_map<std::string,\ std::vector<PricePoint>>\ prices;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ std::string\ start\_date;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ std::string\ end\_date;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ std::size\_t\ top\_n\ =\ 5;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_backtest_engine_1_1_config_a897b22f6bc7c88981126589f413f399f}{rebalance\_interval}}\ =\ 20;\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ initial\_capital\ =\ 10000.0;}
+\DoxyCodeLine{00053\ \ \ \ \ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_backtest_engine_1_1_result}{Result}}\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ok\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ std::string\ error;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ std::vector<PricePoint>\ equity\_curve;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ initial\_value\ =\ 0.0;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ final\_value\ =\ 0.0;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ rebalances\ =\ 0;}
+\DoxyCodeLine{00068\ \ \ \ \ \};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00081\ \ \ \ \ \doxymbox{\hyperlink{struct_backtest_engine_1_1_result}{Result}}\ \doxymbox{\hyperlink{class_backtest_engine_ab6a98c93c68a4b253e311075f47d1dbb}{run}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_strategy_manager}{StrategyManager}}\&\ strategy,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_backtest_engine_1_1_config}{Config}}\&\ config)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_backtest_engine_aaf0d461d7846025a8d03004e901c78e7}{isWithinRange}}(\textcolor{keyword}{const}\ std::string\&\ date,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ start,}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ end);}
+\DoxyCodeLine{00098\ \};}
+
+\end{DoxyCode}

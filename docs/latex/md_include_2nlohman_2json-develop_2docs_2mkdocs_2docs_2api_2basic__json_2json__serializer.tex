@@ -1,0 +1,38 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize json\+\_\+serializer }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$json\_serializer@{$<$small$>$nlohmann::basic\_json::$<$/small$>$json\_serializer}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer_autotoc_md567}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer_autotoc_md567}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ SFINAE>}
+\DoxyCodeLine{\textcolor{keyword}{using\ }json\_serializer\ =\ JSONSerializer<T,\ SFINAE>;}
+
+\end{DoxyCode}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer_autotoc_md568}{}\doxysection{\texorpdfstring{Template parameters}{Template parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer_autotoc_md568}
+{\ttfamily T} :\+ type to convert; will be used in the {\ttfamily to\+\_\+json}/\+{\ttfamily from\+\_\+json} functions
+
+{\ttfamily SFINAE} :\+ type to add compile type checks via SFINAE; usually {\ttfamily \#!cpp void}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer_autotoc_md569}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer_autotoc_md569}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer_autotoc_md570}{}\doxysubsubsection{\texorpdfstring{Default type}{Default type}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer_autotoc_md570}
+\doxylink{requirements_The}{The} default values for {\ttfamily json\+\_\+serializer} is \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2adl__serializer_2index}{{\ttfamily adl\+\_\+serializer}}{0}.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer_autotoc_md571}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer_autotoc_md571}
+??? example \begin{DoxyVerb}The example below shows how a conversion of a non-default-constructible type is implemented via a specialization of
+the `adl_serializer`.
+
+```cpp
+--8<-- "examples/from_json__non_default_constructible.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/from_json__non_default_constructible.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer_autotoc_md572}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2json__serializer_autotoc_md572}
+
+\begin{DoxyItemize}
+\item Since version 2.\+0.\+0. 
+\end{DoxyItemize}

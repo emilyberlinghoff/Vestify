@@ -1,0 +1,41 @@
+\doxysection{Scoring\+Strategy Struct Reference}
+\hypertarget{struct_scoring_strategy}{}\label{struct_scoring_strategy}\index{ScoringStrategy@{ScoringStrategy}}
+
+
+\doxylink{struct_scoring_strategy}{Scoring\+Strategy} — a named preset with a weight per scoring model.  
+
+
+
+
+{\ttfamily \+\#include $<$Strategy\+Present.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_scoring_strategy_a8f1970e9be7a82da250f7134c916da5f}\label{struct_scoring_strategy_a8f1970e9be7a82da250f7134c916da5f} 
+{\bfseries Scoring\+Strategy} (const std::\+string \&\doxymbox{\hyperlink{struct_scoring_strategy_ab50eb0fe95908c9a21128ff55b20eca6}{name}}, const std::\+string \&\doxymbox{\hyperlink{struct_scoring_strategy_accbe9ed79d2ae81e2b718758716aa341}{description}}, const std::\+unordered\+\_\+map$<$ std::\+string, double $>$ \&\doxymbox{\hyperlink{struct_scoring_strategy_a781212fabb15f6bf16b3fdda491a6ff8}{weights}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_scoring_strategy_ab50eb0fe95908c9a21128ff55b20eca6}\label{struct_scoring_strategy_ab50eb0fe95908c9a21128ff55b20eca6} 
+std::\+string {\bfseries name}
+\begin{DoxyCompactList}\small\item\em Display name (e.\+g., "{}\+Value"{}, "{}\+Growth"{}). \end{DoxyCompactList}\item 
+\Hypertarget{struct_scoring_strategy_accbe9ed79d2ae81e2b718758716aa341}\label{struct_scoring_strategy_accbe9ed79d2ae81e2b718758716aa341} 
+std::\+string {\bfseries description}
+\begin{DoxyCompactList}\small\item\em Short human-\/readable description. \end{DoxyCompactList}\item 
+\Hypertarget{struct_scoring_strategy_a781212fabb15f6bf16b3fdda491a6ff8}\label{struct_scoring_strategy_a781212fabb15f6bf16b3fdda491a6ff8} 
+std::\+unordered\+\_\+map$<$ std::\+string, double $>$ {\bfseries weights}
+\begin{DoxyCompactList}\small\item\em model\+Name -\/\texorpdfstring{$>$}{>} weight (weights should sum to \texorpdfstring{$\sim$}{\string~}1.0). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{struct_scoring_strategy}{Scoring\+Strategy} — a named preset with a weight per scoring model. 
+
+A named scoring preset mapping model names to weights.
+
+Example:\+ "{}\+Value"{} -\/\texorpdfstring{$>$}{>} \{ \{"{}\+Value"{}, 0.\+60\}, \{"{}\+Growth"{}, 0.\+20\}, \{"{}\+Momentum"{}, 0.\+20\} \} 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+scoring/\+\doxymbox{\hyperlink{_strategy_present_8hpp}{Strategy\+Present.\+hpp}}\end{DoxyCompactItemize}

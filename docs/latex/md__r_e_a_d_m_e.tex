@@ -1,0 +1,385 @@
+\chapter{Vestify }
+\hypertarget{md__r_e_a_d_m_e}{}\label{md__r_e_a_d_m_e}\index{Vestify@{Vestify}}
+\label{md__r_e_a_d_m_e_autotoc_md0}%
+\Hypertarget{md__r_e_a_d_m_e_autotoc_md0}%
+
+
+Vestify is a C++17 stock analysis application for Linux/\+\+WSL that loads bundled stock fundamentals from CSV, lets users screen and rank stocks interactively, manages persistent watchlists, and runs historical backtests with periodic rebalancing.
+
+The current application launches through a single interactive terminal menu. The older command-\/line argument mode has been removed.
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysection{\texorpdfstring{Features}{Features}}\label{md__r_e_a_d_m_e_autotoc_md2}
+
+\begin{DoxyItemize}
+\item Load bundled stock fundamentals from {\ttfamily data/\+nasdaq100\+\_\+fundamentals\+\_\+full.\+csv}
+\item Screen stocks with multiple criteria at once
+\item Choose sectors from a generated list instead of typing them manually
+\item Print the current screening filters before running a screen
+\item Rank stocks with five factor models:\+ Value, Growth, Momentum, Quality, and Efficiency
+\item Use predefined strategy presets or create custom scoring weights at runtime
+\item Inspect per-\/factor score breakdowns for ranked stocks
+\item Manage multiple persistent watchlists stored as JSON
+\item Run historical backtests with periodic rebalancing
+\item Refresh the fundamentals CSV with the bundled Python update script
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md4}{}\doxysection{\texorpdfstring{Platform Support}{Platform Support}}\label{md__r_e_a_d_m_e_autotoc_md4}
+Vestify is intended to be built and run on:\+
+
+
+\begin{DoxyItemize}
+\item Linux
+\item WSL
+\end{DoxyItemize}
+
+The codebase and build instructions below assume a Linux-\/style environment. Windows-\/native and mac\+OS setup instructions have been removed because they are no longer the target deployment path.
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md6}{}\doxysection{\texorpdfstring{Requirements}{Requirements}}\label{md__r_e_a_d_m_e_autotoc_md6}
+
+\begin{DoxyItemize}
+\item C++17-\/compatible compiler
+\item CMake 3.\+16 or newer
+\item {\ttfamily make}
+\item libcurl development package
+\item nlohmann-\/json development package
+\item Open\+SSL development package
+\item Python 3 with {\ttfamily pip}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md8}{}\doxysection{\texorpdfstring{New Device Setup}{New Device Setup}}\label{md__r_e_a_d_m_e_autotoc_md8}
+These steps are enough to get the project working on a fresh Ubuntu or WSL machine.\hypertarget{md__r_e_a_d_m_e_autotoc_md9}{}\doxysubsection{\texorpdfstring{1. Install system packages}{1. Install system packages}}\label{md__r_e_a_d_m_e_autotoc_md9}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo\ apt\ update}
+\DoxyCodeLine{sudo\ apt\ install\ -\/y\ build-\/essential\ cmake\ make\ libcurl4-\/openssl-\/dev\ nlohmann-\/json3-\/dev\ libssl-\/dev\ python3\ python3-\/pip}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md10}{}\doxysubsection{\texorpdfstring{2. Clone the repository}{2. Clone the repository}}\label{md__r_e_a_d_m_e_autotoc_md10}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ clone\ <your-\/repo-\/url>}
+\DoxyCodeLine{cd\ Vestify}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md11}{}\doxysubsection{\texorpdfstring{3. Install Python dependencies for the data update script}{3. Install Python dependencies for the data update script}}\label{md__r_e_a_d_m_e_autotoc_md11}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pip3\ install\ -\/r\ scripts/requirements.txt}
+
+\end{DoxyCode}
+
+
+If your WSL or Linux environment blocks system-\/wide {\ttfamily pip} installs, use:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{python3\ -\/m\ venv\ .venv}
+\DoxyCodeLine{source\ .venv/bin/activate}
+\DoxyCodeLine{pip\ install\ -\/r\ scripts/requirements.txt}
+
+\end{DoxyCode}
+
+
+If you are intentionally installing outside a virtual environment on newer Ubuntu/\+\+WSL systems, this may also work:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pip3\ install\ -\/-\/break-\/system-\/packages\ -\/r\ scripts/requirements.txt}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md12}{}\doxysubsection{\texorpdfstring{4. Build the project}{4. Build the project}}\label{md__r_e_a_d_m_e_autotoc_md12}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\ -\/S\ .\ -\/B\ build}
+\DoxyCodeLine{cmake\ -\/-\/build\ build}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md13}{}\doxysubsection{\texorpdfstring{5. Run the application}{5. Run the application}}\label{md__r_e_a_d_m_e_autotoc_md13}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./build/vestify}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md15}{}\doxysection{\texorpdfstring{Optional Environment Variables}{Optional Environment Variables}}\label{md__r_e_a_d_m_e_autotoc_md15}
+Vestify can fetch historical price data from Alpha Vantage for backtesting. To enable that, create a {\ttfamily .env} file in the project root:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ALPHAVANTAGE\_API\_KEY=your\_api\_key\_here}
+
+\end{DoxyCode}
+
+
+The {\ttfamily .env} file is already ignored by Git and should not be committed.
+
+To load it manually in a Linux/\+\+WSL shell:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{set\ -\/a}
+\DoxyCodeLine{source\ .env}
+\DoxyCodeLine{set\ +a}
+
+\end{DoxyCode}
+
+
+If you do not set an API key, the app can still:\+
+
+
+\begin{DoxyItemize}
+\item load the bundled CSV
+\item screen stocks
+\item rank stocks
+\item manage watchlists
+\end{DoxyItemize}
+
+Backtesting that depends on missing historical data may fail until cached price files exist or an API key is provided.
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md17}{}\doxysection{\texorpdfstring{Build and Run}{Build and Run}}\label{md__r_e_a_d_m_e_autotoc_md17}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md18}{}\doxysubsection{\texorpdfstring{Using Make}{Using Make}}\label{md__r_e_a_d_m_e_autotoc_md18}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ build}
+\DoxyCodeLine{make\ run}
+
+\end{DoxyCode}
+
+
+{\ttfamily make run} builds the project and starts the interactive menu.\hypertarget{md__r_e_a_d_m_e_autotoc_md19}{}\doxysubsection{\texorpdfstring{Using CMake directly}{Using CMake directly}}\label{md__r_e_a_d_m_e_autotoc_md19}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\ -\/S\ .\ -\/B\ build}
+\DoxyCodeLine{cmake\ -\/-\/build\ build}
+\DoxyCodeLine{./build/vestify}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md20}{}\doxysubsection{\texorpdfstring{Clean the build directory}{Clean the build directory}}\label{md__r_e_a_d_m_e_autotoc_md20}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ clean}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md22}{}\doxysection{\texorpdfstring{Running Tests}{Running Tests}}\label{md__r_e_a_d_m_e_autotoc_md22}
+Build the project first:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\ -\/S\ .\ -\/B\ build}
+\DoxyCodeLine{cmake\ -\/-\/build\ build}
+
+\end{DoxyCode}
+
+
+Then run the full suite:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ctest\ -\/-\/test-\/dir\ build\ -\/-\/output-\/on-\/failure}
+
+\end{DoxyCode}
+
+
+Run a single suite:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ctest\ -\/-\/test-\/dir\ build\ -\/-\/output-\/on-\/failure\ -\/R\ stock\_screener\_tests}
+
+\end{DoxyCode}
+
+
+You can also run the test executables directly:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./build/tests/scoring\_tests}
+\DoxyCodeLine{./build/tests/watchlist\_tests}
+\DoxyCodeLine{./build/tests/backtest\_tests}
+\DoxyCodeLine{./build/tests/csv\_load\_tests}
+\DoxyCodeLine{./build/tests/stock\_screener\_tests}
+\DoxyCodeLine{./build/tests/stock\_printer\_tests}
+\DoxyCodeLine{./build/tests/screening\_menu\_tests}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md23}{}\doxysubsection{\texorpdfstring{Test Coverage}{Test Coverage}}\label{md__r_e_a_d_m_e_autotoc_md23}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Test Suite  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}What It Verifies  \\
+{\ttfamily scoring\+\_\+tests}  &Strategy presets, factor scores, ranking behavior, custom weights  \\
+{\ttfamily watchlist\+\_\+tests}  &Watchlist CRUD behavior and JSON persistence  \\
+{\ttfamily backtest\+\_\+tests}  &Equity curve generation, rebalance handling, error cases  \\
+{\ttfamily csv\+\_\+load\+\_\+tests}  &CSV import behavior and malformed-\/row handling  \\
+{\ttfamily stock\+\_\+screener\+\_\+tests}  &Multi-\/criteria screening logic  \\
+{\ttfamily stock\+\_\+printer\+\_\+tests}  &\doxylink{struct_stock}{Stock} display and ranking output formatting  \\
+{\ttfamily screening\+\_\+menu\+\_\+tests}  &Interactive screening menu flow  \\
+\end{DoxyTable}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md25}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md__r_e_a_d_m_e_autotoc_md25}
+Start the app with:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./build/vestify}
+
+\end{DoxyCode}
+
+
+The application opens an interactive menu similar to:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Vestify}
+\DoxyCodeLine{1.\ Load\ stock\ data}
+\DoxyCodeLine{2.\ Update\ stock\ data}
+\DoxyCodeLine{3.\ Print\ stock\ data}
+\DoxyCodeLine{4.\ Search\ ticker}
+\DoxyCodeLine{5.\ Print\ available\ stocks}
+\DoxyCodeLine{6.\ Top\ 10\ cheapest\ (EV/FCF)}
+\DoxyCodeLine{7.\ Watchlist\ Menu}
+\DoxyCodeLine{8.\ Score\ and\ Rank\ Stocks}
+\DoxyCodeLine{9.\ Screen\ Stocks}
+\DoxyCodeLine{10.\ Backtest\ (Historical)}
+\DoxyCodeLine{11.\ Exit}
+
+\end{DoxyCode}
+
+
+A typical workflow is:\+
+
+
+\begin{DoxyEnumerate}
+\item Load the bundled CSV data
+\item Screen or rank stocks
+\item Save interesting tickers into watchlists
+\item Run a backtest on a chosen strategy
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md27}{}\doxysection{\texorpdfstring{Scoring Models}{Scoring Models}}\label{md__r_e_a_d_m_e_autotoc_md27}
+Vestify includes five factor models:\+
+
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Model  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Main Focus  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Example Metrics  \\
+Value  &Cheap valuation and cash generation  &{\ttfamily P/\+E}, dividend yield, {\ttfamily EV/\+\+FCF}, {\ttfamily FCF yield}  \\
+Growth  &Reinvestment and scalable profitability  &{\ttfamily P/\+E}, operating margin, {\ttfamily ROE}, dividend yield  \\
+Momentum  &Profitability and cash-\/flow strength proxies  &{\ttfamily ROA}, {\ttfamily FCF yield}, net margin  \\
+Quality  &Balance-\/sheet health and operating quality  &current ratio, debt-\/to-\/equity, gross margin, {\ttfamily ROE}  \\
+Efficiency  &Capital and operating efficiency  &{\ttfamily ROA}, operating margin, {\ttfamily EV/\+\+EBIT}  \\
+\end{DoxyTable}
+
+
+Predefined strategy presets combine those models with different weights, and users can also create a custom weighting interactively.
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md29}{}\doxysection{\texorpdfstring{Stock Screening}{Stock Screening}}\label{md__r_e_a_d_m_e_autotoc_md29}
+The screening flow supports combining multiple filters with AND semantics. Current filters include:\+
+
+
+\begin{DoxyItemize}
+\item sector
+\item price range
+\item max {\ttfamily P/\+E}
+\item max {\ttfamily P/\+B}
+\item max {\ttfamily P/\+S}
+\item max {\ttfamily EV/\+\+FCF}
+\item min {\ttfamily FCF yield}
+\item min {\ttfamily ROE}
+\item min operating margin
+\item max debt-\/to-\/equity
+\item min current ratio
+\item min dividend yield
+\end{DoxyItemize}
+
+The screening menu also supports:\+
+
+
+\begin{DoxyItemize}
+\item selecting sectors from a generated list
+\item printing the current active filter set before running the screen
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md31}{}\doxysection{\texorpdfstring{Data Update Script}{Data Update Script}}\label{md__r_e_a_d_m_e_autotoc_md31}
+The {\ttfamily Update stock data} menu option runs:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{python3\ scripts/update\_data.py}
+
+\end{DoxyCode}
+
+
+That script uses {\ttfamily yfinance} to rebuild:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{data/nasdaq100\_fundamentals\_full.csv}
+
+\end{DoxyCode}
+
+
+Python dependencies for that script are listed in:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{scripts/requirements.txt}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md33}{}\doxysection{\texorpdfstring{Project Structure}{Project Structure}}\label{md__r_e_a_d_m_e_autotoc_md33}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Vestify/}
+\DoxyCodeLine{|-\/-\/\ include/}
+\DoxyCodeLine{|\ \ \ |-\/-\/\ backtest/\ \ \ \ \ \ \ \#\ Backtest\ engine\ interfaces}
+\DoxyCodeLine{|\ \ \ |-\/-\/\ core/\ \ \ \ \ \ \ \ \ \ \ \#\ Stock,\ StockRepository,\ WatchList}
+\DoxyCodeLine{|\ \ \ |-\/-\/\ data/\ \ \ \ \ \ \ \ \ \ \ \#\ CSVLoader,\ LiveDataProvider}
+\DoxyCodeLine{|\ \ \ |-\/-\/\ persistence/\ \ \ \ \#\ WatchListRepo}
+\DoxyCodeLine{|\ \ \ |-\/-\/\ scoring/\ \ \ \ \ \ \ \ \#\ ScoringModel,\ presets,\ factor\ models}
+\DoxyCodeLine{|\ \ \ |-\/-\/\ screening/\ \ \ \ \ \ \#\ StockScreener}
+\DoxyCodeLine{|\ \ \ \`{}-\/-\/\ ui/\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ InteractiveMenu,\ ScreeningMenu,\ StockPrinter}
+\DoxyCodeLine{|-\/-\/\ src/}
+\DoxyCodeLine{|\ \ \ |-\/-\/\ backtest/}
+\DoxyCodeLine{|\ \ \ |-\/-\/\ core/}
+\DoxyCodeLine{|\ \ \ |-\/-\/\ data/}
+\DoxyCodeLine{|\ \ \ |-\/-\/\ persistence/}
+\DoxyCodeLine{|\ \ \ |-\/-\/\ screening/}
+\DoxyCodeLine{|\ \ \ |-\/-\/\ ui/}
+\DoxyCodeLine{|\ \ \ \`{}-\/-\/\ main.cpp}
+\DoxyCodeLine{|-\/-\/\ tests/}
+\DoxyCodeLine{|-\/-\/\ scripts/}
+\DoxyCodeLine{|-\/-\/\ data/}
+\DoxyCodeLine{|-\/-\/\ build/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Generated\ locally\ after\ configuration}
+\DoxyCodeLine{|-\/-\/\ CMakeLists.txt}
+\DoxyCodeLine{|-\/-\/\ Makefile}
+\DoxyCodeLine{\`{}-\/-\/\ README.md}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md35}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md__r_e_a_d_m_e_autotoc_md35}
+
+\begin{DoxyItemize}
+\item The project is intended for Linux/\+\+WSL use.
+\item {\ttfamily build/\+}, {\ttfamily .env}, and virtual environments are ignored by Git.
+\item Bundled fundamentals data allows most of the application to work offline.
+\item Historical price files are stored under {\ttfamily data/\+historical/\+}.
+\item Backtesting is most reliable after historical data has been cached or when an Alpha Vantage API key is available. 
+\end{DoxyItemize}

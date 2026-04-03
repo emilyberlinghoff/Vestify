@@ -1,0 +1,101 @@
+\doxysection{Stock\+Screener Class Reference}
+\hypertarget{class_stock_screener}{}\label{class_stock_screener}\index{StockScreener@{StockScreener}}
+
+
+Reusable stock screening engine for filtering loaded fundamentals.  
+
+
+
+
+{\ttfamily \+\#include $<$Stock\+Screener.\+hpp$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_stock_screener_1_1_criterion}{Criterion}}
+\begin{DoxyCompactList}\small\item\em A single user-\/selected screening rule. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct_stock_screener_1_1_screen_result}{Screen\+Result}}
+\begin{DoxyCompactList}\small\item\em Result of screening a stock list. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \doxymbox{\hyperlink{class_stock_screener_ac44145875f5b7971fa0696a7a4eaf5c5}{Criterion\+Type}} \{ \newline
+{\bfseries Sector\+Equals}
+, {\bfseries Price\+Between}
+, {\bfseries Max\+Pe\+Ratio}
+, {\bfseries Max\+Pb\+Ratio}
+, \newline
+{\bfseries Max\+Ps\+Ratio}
+, {\bfseries Max\+Ev\+To\+Fcf}
+, {\bfseries Min\+Fcf\+Yield}
+, {\bfseries Min\+Roe}
+, \newline
+{\bfseries Min\+Operating\+Margin}
+, {\bfseries Max\+Debt\+To\+Equity}
+, {\bfseries Min\+Current\+Ratio}
+, {\bfseries Min\+Dividend\+Yield}
+ \}
+\begin{DoxyCompactList}\small\item\em Types of supported screening criteria. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \doxymbox{\hyperlink{struct_stock_screener_1_1_screen_result}{Screen\+Result}} \doxymbox{\hyperlink{class_stock_screener_acac3b9971c4db7e7a02f029bf580f98d}{screen}} (const std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ \&stocks, const std::\+vector$<$ \doxymbox{\hyperlink{struct_stock_screener_1_1_criterion}{Criterion}} $>$ \&criteria)
+\begin{DoxyCompactList}\small\item\em Filter stocks by all provided criteria. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Reusable stock screening engine for filtering loaded fundamentals. 
+
+Applies all active criteria with AND semantics and returns both the matching stocks and user-\/facing descriptions of the filters that were applied.
+
+\begin{DoxyAuthor}{Author}
+Maxime Lavoie 
+\end{DoxyAuthor}
+
+
+\label{doc-enum-members}
+\Hypertarget{class_stock_screener_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{class_stock_screener_ac44145875f5b7971fa0696a7a4eaf5c5}\index{StockScreener@{StockScreener}!CriterionType@{CriterionType}}
+\index{CriterionType@{CriterionType}!StockScreener@{StockScreener}}
+\doxysubsubsection{\texorpdfstring{CriterionType}{CriterionType}}
+{\footnotesize\ttfamily \label{class_stock_screener_ac44145875f5b7971fa0696a7a4eaf5c5} 
+enum class \doxymbox{\hyperlink{class_stock_screener_ac44145875f5b7971fa0696a7a4eaf5c5}{Stock\+Screener::\+\+Criterion\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Types of supported screening criteria. 
+
+Each enumerator maps to one menu-\/selectable filter supported by the interactive screening flow. 
+
+\label{doc-func-members}
+\Hypertarget{class_stock_screener_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_stock_screener_acac3b9971c4db7e7a02f029bf580f98d}\index{StockScreener@{StockScreener}!screen@{screen}}
+\index{screen@{screen}!StockScreener@{StockScreener}}
+\doxysubsubsection{\texorpdfstring{screen()}{screen()}}
+{\footnotesize\ttfamily \label{class_stock_screener_acac3b9971c4db7e7a02f029bf580f98d} 
+\doxymbox{\hyperlink{struct_stock_screener_1_1_screen_result}{Stock\+Screener::\+\+Screen\+Result}} Stock\+Screener::\+screen (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ \&}]{stocks}{, }\item[{const std::\+vector$<$ \doxymbox{\hyperlink{struct_stock_screener_1_1_criterion}{Criterion}} $>$ \&}]{criteria}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Filter stocks by all provided criteria. 
+
+A stock must satisfy every criterion to be included in the result.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stocks} & Loaded stock universe. \\
+\hline
+{\em criteria} & User-\/selected filters. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Matching stocks plus human-\/readable criterion descriptions. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+include/\+screening/\+\doxymbox{\hyperlink{_stock_screener_8hpp}{Stock\+Screener.\+hpp}}\item 
+src/\+screening/\+\doxymbox{\hyperlink{_stock_screener_8cpp}{Stock\+Screener.\+cpp}}\end{DoxyCompactItemize}

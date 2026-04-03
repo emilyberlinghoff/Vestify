@@ -1,0 +1,78 @@
+\chapter{{\ttfamily nlohmann} Namespace }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace}\index{$<$tt$>$nlohmann$<$/tt$>$ Namespace@{$<$tt$>$nlohmann$<$/tt$>$ Namespace}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace_autotoc_md1485}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace_autotoc_md1485}%
+
+
+\doxylink{requirements_The}{The} 3.\+11.\+0 release introduced an \href{https://en.cppreference.com/w/cpp/language/namespace\#Inline_namespaces}{\texttt{inline namespace}} to allow different parts of a codebase to safely use different versions of the JSON library as long as they never exchange instances of library types.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace_autotoc_md1486}{}\doxysection{\texorpdfstring{Structure}{Structure}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace_autotoc_md1486}
+\doxylink{requirements_The}{The} complete default namespace name is derived as follows:\+
+
+
+\begin{DoxyItemize}
+\item \doxylink{requirements_The}{The} root namespace is always {\ttfamily \doxylink{namespacenlohmann}{nlohmann}}.
+\item \doxylink{requirements_The}{The} inline namespace starts with {\ttfamily json\+\_\+abi} and is followed by several optional ABI tags according to the value of these ABI-\/affecting macros, in order:\+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostics}{{\ttfamily JSON\+\_\+\+DIAGNOSTICS}}{0} defined non-\/zero appends {\ttfamily \+\_\+diag}.
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__legacy__discarded__value__comparison}{{\ttfamily JSON\+\_\+\+USE\+\_\+\+LEGACY\+\_\+\+DISCARDED\+\_\+\+VALUE\+\_\+\+COMPARISON}}{0} defined non-\/zero appends {\ttfamily \+\_\+ldvcmp}.
+\end{DoxyItemize}
+\item \doxylink{requirements_The}{The} inline namespace ends with the suffix {\ttfamily \+\_\+v} followed by the 3 components of the version number separated by underscores. To omit the version component, see Disabling the version component below.
+\end{DoxyItemize}
+
+For example, the namespace name for version 3.\+11.\+2 with {\ttfamily JSON\+\_\+\+DIAGNOSTICS} defined to {\ttfamily 1} is:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{nlohmann::json\_abi\_diag\_v3\_11\_2}
+
+\end{DoxyCode}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace_autotoc_md1487}{}\doxysection{\texorpdfstring{Purpose}{Purpose}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace_autotoc_md1487}
+Several incompatibilities have been observed. Amongst the most common ones is linking code compiled with different definitions of \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostics}{{\ttfamily JSON\+\_\+\+DIAGNOSTICS}}{0}. This is illustrated in the diagram below.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{graph}
+\DoxyCodeLine{\ \ \ \ json["{}<strong>nlohmann\_json\ (v3.10.5)</strong><br>JSON\_DIAGNOSTICS=0"{}]}
+\DoxyCodeLine{\ \ \ \ json\_diag["{}<strong>nlohmann\_json\ (v3.10.5)</strong><br>JSON\_DIAGNOSTICS=1"{}]}
+\DoxyCodeLine{\ \ \ \ library["{}<strong>some\ library</strong>"{}]}
+\DoxyCodeLine{\ \ \ \ app["{}<strong>application</strong>"{}]}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ library\ -\/-\/>\ json}
+\DoxyCodeLine{\ \ \ \ app\ -\/-\/>\ json\_diag}
+\DoxyCodeLine{\ \ \ \ app\ -\/-\/>\ library}
+
+\end{DoxyCode}
+
+
+In releases prior to 3.\+11.\+0, mixing any version of the JSON library with different {\ttfamily JSON\+\_\+\+DIAGNOSTICS} settings would result in a crashing application. If {\ttfamily some\+\_\+library} never passes instances of JSON library types to the application, this scenario became safe in version 3.\+11.\+0 and above due to the inline namespace yielding distinct symbol names.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace_autotoc_md1488}{}\doxysection{\texorpdfstring{Limitations}{Limitations}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace_autotoc_md1488}
+Neither the compiler nor the linker will issue as much as a warning when translation units – intended to be linked together and that include different versions and/\+or configurations of the JSON library – exchange and use library types.
+
+There is an exception when forward declarations are used (i.\+e., when including {\ttfamily json\+\_\+fwd.\+hpp}) in which case the linker may complain about undefined references.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace_autotoc_md1489}{}\doxysection{\texorpdfstring{Disabling the version component}{Disabling the version component}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace_autotoc_md1489}
+Different versions are not necessarily ABI-\/incompatible, but the project does not actively track changes in the ABI and recommends that all parts of a codebase exchanging library types be built with the same version. Users can, {\bfseries{at their own risk}}, disable the version component of the linline namespace, allowing different versions – but not configurations – to be used in cases where the linker would otherwise output undefined reference errors.
+
+To do so, define \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__no__version}{{\ttfamily NLOHMANN\+\_\+\+JSON\+\_\+\+NAMESPACE\+\_\+\+NO\+\_\+\+VERSION}}{0} to {\ttfamily 1}.
+
+This applies to version 3.\+11.\+2 and above only; versions 3.\+11.\+0 and 3.\+11.\+1 can apply the technique described in the next section to emulate the effect of the {\ttfamily NLOHMANN\+\_\+\+JSON\+\_\+\+NAMESPACE\+\_\+\+NO\+\_\+\+VERSION} macro.
+
+!!! danger "{}\+Use at your own risk"{} \begin{DoxyVerb}Disabling the namespace version component and mixing ABI-incompatible versions will result in crashes or incorrect
+behavior. You have been warned!
+\end{DoxyVerb}
+ \hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace_autotoc_md1490}{}\doxysection{\texorpdfstring{Disabling the inline namespace completely}{Disabling the inline namespace completely}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace_autotoc_md1490}
+When interoperability with code using a pre-\/3.\+11.\+0 version of the library is required, users can, {\bfseries{at their own risk}} restore the old namespace layout by redefining \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__begin}{{\ttfamily NLOHMANN\+\_\+\+JSON\+\_\+\+NAMESPACE\+\_\+\+BEGIN, NLOHMANN\+\_\+\+JSON\+\_\+\+NAMESPACE\+\_\+\+END}}{0} as follows:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_NAMESPACE\_BEGIN\ \ namespace\ nlohmann\ \{}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ NLOHMANN\_JSON\_NAMESPACE\_END\ \ \ \ \}}}
+
+\end{DoxyCode}
+
+
+!!! danger "{}\+Use at your own risk"{} \begin{DoxyVerb}Overriding the namespace and mixing ABI-incompatible versions will result in crashes or incorrect behavior. You
+have been warned!
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace_autotoc_md1491}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2namespace_autotoc_md1491}
+
+\begin{DoxyItemize}
+\item Introduced inline namespace ({\ttfamily json\+\_\+v3\+\_\+11\+\_\+0\+[\+\_\+abi-\/tag]\+\texorpdfstring{$\ast$}{*}}) in version 3.\+11.\+0.
+\item Changed structure of inline namespace in version 3.\+11.\+2. 
+\end{DoxyItemize}

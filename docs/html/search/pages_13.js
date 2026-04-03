@@ -1,0 +1,8 @@
+var searchData=
+[
+  ['update_20script_0',['Data Update Script',['../md__r_e_a_d_m_e.html#autotoc_md31',1,'']]],
+  ['update_20script_1',['3. Install Python dependencies for the data update script',['../md__r_e_a_d_m_e.html#autotoc_md11',1,'']]],
+  ['usage_2',['Usage',['../md__r_e_a_d_m_e.html#autotoc_md25',1,'']]],
+  ['using_20cmake_20directly_3',['Using CMake directly',['../md__r_e_a_d_m_e.html#autotoc_md19',1,'']]],
+  ['using_20make_4',['Using Make',['../md__r_e_a_d_m_e.html#autotoc_md18',1,'']]]
+];

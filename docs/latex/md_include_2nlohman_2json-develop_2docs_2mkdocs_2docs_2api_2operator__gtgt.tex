@@ -1,0 +1,56 @@
+\chapter{
+\footnotesize nlohmann:\+:\+
+\normalsize operator$>$$>$(basic\+\_\+json) }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt}\index{$<$small$>$nlohmann::$<$/small$>$operator$>$$>$(basic\_json)@{$<$small$>$nlohmann::$<$/small$>$operator$>$$>$(basic\_json)}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1316}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1316}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{std::istream\&\ operator>>(std::istream\&\ i,\ \doxymbox{\hyperlink{classbasic__json}{basic\_json}}\&\ j);}
+
+\end{DoxyCode}
+
+
+Deserializes an input stream to a JSON value.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1317}{}\doxysection{\texorpdfstring{Parameters}{Parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1317}
+{\ttfamily i} (in, out) :\+ input stream to read a serialized JSON value from
+
+{\ttfamily j} (in, out) :\+ JSON value to write the deserialized input to\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1318}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1318}
+the stream {\ttfamily i}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1319}{}\doxysection{\texorpdfstring{Exceptions}{Exceptions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1319}
+
+\begin{DoxyItemize}
+\item Throws \href{../home/exceptions.md\#jsonexceptionparse_error101}{\texttt{{\ttfamily parse\+\_\+error.\+101}}} in case of an unexpected token.
+\item Throws \href{../home/exceptions.md\#jsonexceptionparse_error102}{\texttt{{\ttfamily parse\+\_\+error.\+102}}} if {\ttfamily to\+\_\+unicode} fails or surrogate error.
+\item Throws \href{../home/exceptions.md\#jsonexceptionparse_error103}{\texttt{{\ttfamily parse\+\_\+error.\+103}}} if {\ttfamily to\+\_\+unicode} fails.
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1320}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1320}
+Linear in the length of the input. \doxylink{requirements_The}{The} parser is a predictive LL(1) parser.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1321}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1321}
+\doxylink{class_a}{A} UTF-\/8 byte order mark is silently ignored.
+
+!!! warning "{}\+Deprecation"{} \begin{DoxyVerb}This function replaces function `#!cpp std::istream& operator<<(basic_json& j, std::istream& i)` which has
+been deprecated in version 3.0.0. It will be removed in version 4.0.0. Please replace calls like `#!cpp j << i;`
+with `#!cpp i >> j;`.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1322}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1322}
+??? example \begin{DoxyVerb}The example below shows how a JSON value is constructed by reading a serialization from a stream.
+
+```cpp
+--8<-- "examples/operator_deserialize.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/operator_deserialize.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1323}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1323}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2accept}{accept}{0} -\/ check if the input is valid JSON
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parse}{parse}{0} -\/ deserialize from a compatible input
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1324}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__gtgt_autotoc_md1324}
+
+\begin{DoxyItemize}
+\item Added in version 1.\+0.\+0. Deprecated in version 3.\+0.\+0. 
+\end{DoxyItemize}

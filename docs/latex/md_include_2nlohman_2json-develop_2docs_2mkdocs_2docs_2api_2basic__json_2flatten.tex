@@ -1,0 +1,41 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize flatten }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$flatten@{$<$small$>$nlohmann::basic\_json::$<$/small$>$flatten}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md303}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md303}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{classbasic__json}{basic\_json}}\ flatten()\ \textcolor{keyword}{const};}
+
+\end{DoxyCode}
+
+
+\doxylink{requirements_The}{The} function creates a JSON object whose keys are JSON pointers (see \href{https://tools.ietf.org/html/rfc6901}{\texttt{RFC 6901}}) and whose values are all primitive (see \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__primitive}{{\ttfamily is\+\_\+primitive()}}{0} for more information). \doxylink{requirements_The}{The} original JSON value can be restored using the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2unflatten}{{\ttfamily unflatten()}}{0} function.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md304}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md304}
+an object that maps JSON pointers to primitive values\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md305}{}\doxysection{\texorpdfstring{Exception safety}{Exception safety}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md305}
+Strong exception safety:\+ if an exception occurs, the original value stays intact.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md306}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md306}
+Linear in the size of the JSON value.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md307}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md307}
+Empty objects and arrays are flattened to {\ttfamily \#!json null} and will not be reconstructed correctly by the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2unflatten}{{\ttfamily unflatten()}}{0} function.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md308}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md308}
+??? example \begin{DoxyVerb}The following code shows how a JSON object is flattened to an object whose keys consist of JSON pointers.
+
+```cpp
+--8<-- "examples/flatten.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/flatten.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md309}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md309}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2unflatten}{unflatten}{0} the reverse function
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md310}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2flatten_autotoc_md310}
+
+\begin{DoxyItemize}
+\item Added in version 2.\+0.\+0. 
+\end{DoxyItemize}

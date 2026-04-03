@@ -1,0 +1,50 @@
+\doxysection{fuzzer::\+Dictionary Class Reference}
+\hypertarget{classfuzzer_1_1_dictionary}{}\label{classfuzzer_1_1_dictionary}\index{fuzzer::Dictionary@{fuzzer::Dictionary}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_a7a967b81935c414244bc95a2210e9a9a}\label{classfuzzer_1_1_dictionary_a7a967b81935c414244bc95a2210e9a9a} 
+bool {\bfseries Contains\+Word} (const Word \&W) const
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_a08d8925f29e516fa22a070e47cd3ce72}\label{classfuzzer_1_1_dictionary_a08d8925f29e516fa22a070e47cd3ce72} 
+const \doxymbox{\hyperlink{classfuzzer_1_1_dictionary_entry}{Dictionary\+Entry}} \texorpdfstring{$\ast$}{*} {\bfseries begin} () const
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_ab0021075e53a9bc5378a4ace26b1d149}\label{classfuzzer_1_1_dictionary_ab0021075e53a9bc5378a4ace26b1d149} 
+const \doxymbox{\hyperlink{classfuzzer_1_1_dictionary_entry}{Dictionary\+Entry}} \texorpdfstring{$\ast$}{*} {\bfseries end} () const
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_ac579eb968d020fc26d166b4080c0fe27}\label{classfuzzer_1_1_dictionary_ac579eb968d020fc26d166b4080c0fe27} 
+\doxymbox{\hyperlink{classfuzzer_1_1_dictionary_entry}{Dictionary\+Entry}} \& {\bfseries operator\+[$\,$]\+} (size\+\_\+t Idx)
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_a3677ae3fd0761b6b0d8c1c54e6450419}\label{classfuzzer_1_1_dictionary_a3677ae3fd0761b6b0d8c1c54e6450419} 
+void {\bfseries push\+\_\+back} (\doxymbox{\hyperlink{classfuzzer_1_1_dictionary_entry}{Dictionary\+Entry}} DE)
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_ac38844813c2053ae89d3eac63f4fd8b7}\label{classfuzzer_1_1_dictionary_ac38844813c2053ae89d3eac63f4fd8b7} 
+void {\bfseries clear} ()
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_a1ecbd766274c5b9f725953c00fa9b443}\label{classfuzzer_1_1_dictionary_a1ecbd766274c5b9f725953c00fa9b443} 
+bool {\bfseries empty} () const
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_a67f72362929be6e769d674e5adf04482}\label{classfuzzer_1_1_dictionary_a67f72362929be6e769d674e5adf04482} 
+size\+\_\+t {\bfseries size} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_a0dbfb306ab4c01901ef0dd6a6d9ddc96}\label{classfuzzer_1_1_dictionary_a0dbfb306ab4c01901ef0dd6a6d9ddc96} 
+static const size\+\_\+t {\bfseries k\+Max\+Dict\+Size} = 1 $<$$<$ 14
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_abd922beb40acc4b6adf3b857ff050fc0}\label{classfuzzer_1_1_dictionary_abd922beb40acc4b6adf3b857ff050fc0} 
+\doxymbox{\hyperlink{classfuzzer_1_1_dictionary_entry}{Dictionary\+Entry}} {\bfseries DE} \+[k\+Max\+Dict\+Size]\+
+\item 
+\Hypertarget{classfuzzer_1_1_dictionary_a7d05d41729fe39723e3da6da81ec86ff}\label{classfuzzer_1_1_dictionary_a7d05d41729fe39723e3da6da81ec86ff} 
+size\+\_\+t {\bfseries Size} = 0
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+thirdparty/\+\+Fuzzer/\+Fuzzer\+Dictionary.\+h\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+thirdparty/\+\+Fuzzer/\+Fuzzer\+Mutate.\+cpp\end{DoxyCompactItemize}

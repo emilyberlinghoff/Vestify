@@ -1,0 +1,37 @@
+\chapter{Modules }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2modules}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2modules}\index{Modules@{Modules}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2modules_autotoc_md1481}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2modules_autotoc_md1481}%
+
+
+This library has experimental support for C++ modules, introduced in C++20. \doxylink{requirements_The}{The} library can be imported by writing {\ttfamily import \doxylink{namespacenlohmann_a8ba8c5483f73a36e716558571ff97d57}{nlohmann.\+json};} instead of {\ttfamily \#include \texorpdfstring{$<$}{<}nlohmann/\+json.\+hpp\texorpdfstring{$>$}{>}}.
+
+Please be aware that the module is experimental and a full test is outstanding, and the exported symbols are subject to change.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2modules_autotoc_md1482}{}\doxysection{\texorpdfstring{Requirements}{Requirements}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2modules_autotoc_md1482}
+\doxylink{requirements_The}{The} {\ttfamily \doxylink{namespacenlohmann_a8ba8c5483f73a36e716558571ff97d57}{nlohmann.\+json}} module requires that the build system is configured to build and resolve modules when imported. Obviously, as modules were introduced in C++20, this feature can only be used in C++20 and subsequent versions.
+
+To enable building the {\ttfamily \doxylink{namespacenlohmann_a8ba8c5483f73a36e716558571ff97d57}{nlohmann.\+json}} module (which is not done by default), the macro {\ttfamily NLOHMANN\+\_\+\+JSON\+\_\+\+BUILD\+\_\+\+MODULES} must be passed to the build system.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2modules_autotoc_md1483}{}\doxysection{\texorpdfstring{Example}{Example}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2modules_autotoc_md1483}
+When using modules rather than headers, the previous example for creating a {\ttfamily json} object through a JSON file, would instead be:\+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{import}\ std;}
+\DoxyCodeLine{\textcolor{keyword}{import}\ \doxymbox{\hyperlink{module__nlohmann_8json}{nlohmann.json}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{using\ }json\ =\ \doxymbox{\hyperlink{namespacenlohmann_a8ba8c5483f73a36e716558571ff97d57}{nlohmann::json}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ ...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{std::ifstream\ f(\textcolor{stringliteral}{"{}example.json"{}});}
+\DoxyCodeLine{json\ data\ =\ json::parse(f);}
+
+\end{DoxyCode}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2modules_autotoc_md1484}{}\doxysection{\texorpdfstring{Modules do not export macros}{Modules do not export macros}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2modules_autotoc_md1484}
+It should be noted that as modules do not export macros, the {\ttfamily \doxylink{namespacenlohmann_a8ba8c5483f73a36e716558571ff97d57}{nlohmann.\+json}} module will not export any macros, but rather only the following symbols:\+
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \doxylink{structnlohmann_1_1adl__serializer}{nlohmann::\+adl\+\_\+serializer}}
+\item {\ttfamily \doxylink{classnlohmann_1_1basic__json}{nlohmann::\+basic\+\_\+json}}
+\item {\ttfamily \doxylink{namespacenlohmann_a8ba8c5483f73a36e716558571ff97d57}{nlohmann::\+json}}
+\item {\ttfamily \doxylink{classnlohmann_1_1json__pointer}{nlohmann::\+json\+\_\+pointer}}
+\item {\ttfamily \doxylink{structnlohmann_1_1ordered__map}{nlohmann::\+ordered\+\_\+map}}
+\item {\ttfamily \doxylink{namespacenlohmann_a344a086e69e33b9e402f408a1c15b0e6}{nlohmann::\+ordered\+\_\+json}} 
+\end{DoxyItemize}

@@ -1,0 +1,70 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize to\+\_\+bjdata }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$to\_bjdata@{$<$small$>$nlohmann::basic\_json::$<$/small$>$to\_bjdata}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata_autotoc_md877}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata_autotoc_md877}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ (1)}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ std::vector<std::uint8\_t>\ to\_bjdata(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classbasic__json}{basic\_json}}\&\ j,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ use\_size\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ use\_type\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ bjdata\_version\_t\ version\ =\ bjdata\_version\_t::draft2);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ (2)}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ to\_bjdata(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classbasic__json}{basic\_json}}\&\ j,\ \doxymbox{\hyperlink{classdetail_1_1output__adapter}{detail::output\_adapter<std::uint8\_t>}}\ o,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ use\_size\ =\ \textcolor{keyword}{false},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ use\_type\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ bjdata\_version\_t\ version\ =\ bjdata\_version\_t::draft2);}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ to\_bjdata(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classbasic__json}{basic\_json}}\&\ j,\ \doxymbox{\hyperlink{classdetail_1_1output__adapter}{detail::output\_adapter<char>}}\ o,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ use\_size\ =\ \textcolor{keyword}{false},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ use\_type\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ bjdata\_version\_t\ version\ =\ bjdata\_version\_t::draft2);}
+
+\end{DoxyCode}
+
+
+Serializes a given JSON value {\ttfamily j} to a byte vector using the BJData (Binary JData) serialization format. BJData aims to be more compact than JSON itself, yet more efficient to parse.
+
+
+\begin{DoxyEnumerate}
+\item Returns a byte vector containing the BJData serialization.
+\item Writes the BJData serialization to an output adapter.
+\end{DoxyEnumerate}
+
+\doxylink{requirements_The}{The} exact mapping and its limitations are described on a \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2bjdata}{dedicated page}{0}.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata_autotoc_md878}{}\doxysection{\texorpdfstring{Parameters}{Parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata_autotoc_md878}
+{\ttfamily j} (in) :\+ JSON value to serialize
+
+{\ttfamily o} (in) :\+ output adapter to write serialization to
+
+{\ttfamily use\+\_\+size} (in) :\+ whether to add size annotations to container types; optional, {\ttfamily \#!cpp false} by default.
+
+{\ttfamily use\+\_\+type} (in) :\+ whether to add type annotations to container types (must be combined with {\ttfamily \#!cpp use\+\_\+size = true}); optional, {\ttfamily \#!cpp false} by default.
+
+{\ttfamily version} (in) :\+ which version of BJData to use (see note on "{}\+Binary values"{} on \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2bjdata}{BJData}{0}); optional, {\ttfamily \#!cpp bjdata\+\_\+version\+\_\+t::\+draft2} by default.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata_autotoc_md879}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata_autotoc_md879}
+
+\begin{DoxyEnumerate}
+\item BJData serialization as byte vector
+\item (none)
+\end{DoxyEnumerate}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata_autotoc_md880}{}\doxysection{\texorpdfstring{Exception safety}{Exception safety}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata_autotoc_md880}
+Strong guarantee:\+ if an exception is thrown, there are no changes in the JSON value.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata_autotoc_md881}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata_autotoc_md881}
+Linear in the size of the JSON value {\ttfamily j}.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata_autotoc_md882}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata_autotoc_md882}
+??? example \begin{DoxyVerb}The example shows the serialization of a JSON value to a byte vector in BJData format.
+
+```cpp
+--8<-- "examples/to_bjdata.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/to_bjdata.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata_autotoc_md883}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2to__bjdata_autotoc_md883}
+
+\begin{DoxyItemize}
+\item Added in version 3.\+11.\+0.
+\item BJData version parameter (for draft3 binary encoding) added in version 3.\+12.\+0. 
+\end{DoxyItemize}

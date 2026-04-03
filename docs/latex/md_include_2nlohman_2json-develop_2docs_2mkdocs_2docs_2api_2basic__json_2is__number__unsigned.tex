@@ -1,0 +1,42 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize is\+\_\+number\+\_\+unsigned }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$is\_number\_unsigned@{$<$small$>$nlohmann::basic\_json::$<$/small$>$is\_number\_unsigned}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned_autotoc_md516}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned_autotoc_md516}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ is\_number\_unsigned()\ const\ noexcept;}
+
+\end{DoxyCode}
+
+
+This function returns {\ttfamily \#!cpp true} if and only if the JSON value is an unsigned integer number. This excludes floating-\/point and signed integer values.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned_autotoc_md517}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned_autotoc_md517}
+{\ttfamily \#!cpp true} if type is an unsigned integer number, {\ttfamily \#!cpp false} otherwise.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned_autotoc_md518}{}\doxysection{\texorpdfstring{Exception safety}{Exception safety}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned_autotoc_md518}
+No-\/throw guarantee:\+ this member function never throws exceptions.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned_autotoc_md519}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned_autotoc_md519}
+Constant.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned_autotoc_md520}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned_autotoc_md520}
+??? example \begin{DoxyVerb}The following code exemplifies `is_number_unsigned()` for all JSON types.
+
+```cpp
+--8<-- "examples/is_number_unsigned.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/is_number_unsigned.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned_autotoc_md521}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned_autotoc_md521}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number}{is\+\_\+number()}{0} check if the value is a number
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__integer}{is\+\_\+number\+\_\+integer()}{0} check if the value is an integer or unsigned integer number
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__float}{is\+\_\+number\+\_\+float()}{0} check if the value is a floating-\/point number
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned_autotoc_md522}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2is__number__unsigned_autotoc_md522}
+
+\begin{DoxyItemize}
+\item Added in version 2.\+0.\+0. 
+\end{DoxyItemize}

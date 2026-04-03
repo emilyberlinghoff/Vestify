@@ -1,0 +1,58 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize get\+\_\+to }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__to}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__to}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$get\_to@{$<$small$>$nlohmann::basic\_json::$<$/small$>$get\_to}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__to_autotoc_md403}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__to_autotoc_md403}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ValueType>}
+\DoxyCodeLine{ValueType\&\ get\_to(ValueType\&\ v)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}(}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{noexcept}(JSONSerializer<ValueType>::from\_json(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::declval<const\ basic\_json\_t\&>(),\ v)));}
+
+\end{DoxyCode}
+
+
+Explicit type conversion between the JSON value and a compatible value. \doxylink{requirements_The}{The} value is filled into the input parameter by calling the {\ttfamily json\+\_\+serializer\texorpdfstring{$<$}{<}Value\+Type\texorpdfstring{$>$}{>}} {\ttfamily from\+\_\+json()} method.
+
+\doxylink{requirements_The}{The} function is equivalent to executing 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ValueType\ v;}
+\DoxyCodeLine{JSONSerializer<ValueType>::from\_json(*\textcolor{keyword}{this},\ v);}
+
+\end{DoxyCode}
+
+
+This overload is chosen if:\+
+
+
+\begin{DoxyItemize}
+\item {\ttfamily Value\+Type} is not {\ttfamily \doxylink{classbasic__json}{basic\+\_\+json}},
+\item {\ttfamily json\+\_\+serializer\texorpdfstring{$<$}{<}Value\+Type\texorpdfstring{$>$}{>}} has a {\ttfamily from\+\_\+json()} method of the form {\ttfamily void from\+\_\+json(const \doxylink{classbasic__json}{basic\+\_\+json}\&, Value\+Type\&)}
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__to_autotoc_md404}{}\doxysection{\texorpdfstring{Template parameters}{Template parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__to_autotoc_md404}
+{\ttfamily Value\+Type} :\+ the value type to return\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__to_autotoc_md405}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__to_autotoc_md405}
+the input parameter, allowing chaining calls\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__to_autotoc_md406}{}\doxysection{\texorpdfstring{Exceptions}{Exceptions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__to_autotoc_md406}
+Depends on what {\ttfamily json\+\_\+serializer\texorpdfstring{$<$}{<}Value\+Type\texorpdfstring{$>$}{>}} {\ttfamily from\+\_\+json()} method throws\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__to_autotoc_md407}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__to_autotoc_md407}
+??? example \begin{DoxyVerb}The example below shows several conversions from JSON values to other types. There a few things to note: (1)
+Floating-point numbers can be converted to integers, (2) A JSON array can be converted to a standard
+`#!cpp std::vector<short>`, (3) A JSON object can be converted to C++ associative containers such as
+`#cpp std::unordered_map<std::string, json>`.
+
+```cpp
+--8<-- "examples/get_to.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/get_to.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__to_autotoc_md408}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2get__to_autotoc_md408}
+
+\begin{DoxyItemize}
+\item Since version 3.\+3.\+0. 
+\end{DoxyItemize}

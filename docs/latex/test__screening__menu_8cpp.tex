@@ -1,0 +1,57 @@
+\doxysection{tests/\+test\+\_\+screening\+\_\+menu.cpp File Reference}
+\hypertarget{test__screening__menu_8cpp}{}\label{test__screening__menu_8cpp}\index{tests/test\_screening\_menu.cpp@{tests/test\_screening\_menu.cpp}}
+
+
+Unit tests for the interactive screening menu flow.  
+
+
+{\ttfamily \+\#include $<$functional$>$}\newline
+{\ttfamily \+\#include $<$iostream$>$}\newline
+{\ttfamily \+\#include $<$sstream$>$}\newline
+{\ttfamily \+\#include $<$stdexcept$>$}\newline
+{\ttfamily \+\#include $<$string$>$}\newline
+{\ttfamily \+\#include $<$vector$>$}\newline
+{\ttfamily \+\#include "{}ui/\+\+Screening\+Menu.\+hpp"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_fake_input}{Fake\+Input}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{test__screening__menu_8cpp_a2f82a677efa4260a3241d937631e0889}\label{test__screening__menu_8cpp_a2f82a677efa4260a3241d937631e0889} 
+static void {\bfseries CHECK} (bool condition, const std::\+string \&test\+\_\+name)
+\item 
+\Hypertarget{test__screening__menu_8cpp_ac69ccee0060c1837a9aa3e4f48382f8b}\label{test__screening__menu_8cpp_ac69ccee0060c1837a9aa3e4f48382f8b} 
+static std::\+string {\bfseries capture\+Stdout} (const std::\+function$<$ void()$>$ \&fn)
+\item 
+\Hypertarget{test__screening__menu_8cpp_a831e1ea90e29710abe5154a9efa421e6}\label{test__screening__menu_8cpp_a831e1ea90e29710abe5154a9efa421e6} 
+static std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ {\bfseries make\+Stocks} ()
+\item 
+\Hypertarget{test__screening__menu_8cpp_a235546db43c85121142e7b999d8c52d5}\label{test__screening__menu_8cpp_a235546db43c85121142e7b999d8c52d5} 
+static void {\bfseries test\+Screening\+Menu\+Lists\+Sectors\+And\+Filters} ()
+\item 
+\Hypertarget{test__screening__menu_8cpp_a1ab0ab37f68833c3ff48dcf8cdf87985}\label{test__screening__menu_8cpp_a1ab0ab37f68833c3ff48dcf8cdf87985} 
+static void {\bfseries test\+Screening\+Menu\+Handles\+Empty\+Stocks} ()
+\item 
+\Hypertarget{test__screening__menu_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{test__screening__menu_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int {\bfseries main} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{test__screening__menu_8cpp_a561a5450b127e97c5ca67d0b349747a8}\label{test__screening__menu_8cpp_a561a5450b127e97c5ca67d0b349747a8} 
+static int {\bfseries passed} = 0
+\item 
+\Hypertarget{test__screening__menu_8cpp_ad4ec5aab9b62fbbe9b8fc2d8ac0a5989}\label{test__screening__menu_8cpp_ad4ec5aab9b62fbbe9b8fc2d8ac0a5989} 
+static int {\bfseries failed} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Unit tests for the interactive screening menu flow. 
+
+\begin{DoxyAuthor}{Author}
+Maxime Lavoie 
+\end{DoxyAuthor}

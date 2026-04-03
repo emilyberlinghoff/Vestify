@@ -1,0 +1,187 @@
+\doxysection{tests/\+test\+\_\+scoring.cpp File Reference}
+\hypertarget{test__scoring_8cpp}{}\label{test__scoring_8cpp}\index{tests/test\_scoring.cpp@{tests/test\_scoring.cpp}}
+
+
+Test suite for scoring strategy functionality.  
+
+
+{\ttfamily \+\#include $<$algorithm$>$}\newline
+{\ttfamily \+\#include $<$cassert$>$}\newline
+{\ttfamily \+\#include $<$cmath$>$}\newline
+{\ttfamily \+\#include $<$iostream$>$}\newline
+{\ttfamily \+\#include $<$limits$>$}\newline
+{\ttfamily \+\#include $<$string$>$}\newline
+{\ttfamily \+\#include $<$vector$>$}\newline
+{\ttfamily \+\#include "{}core/\+\+Stock.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}scoring/\+\+Scoring\+Model.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}scoring/\+\+Strategy\+Present.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}scoring/\+\+Value\+Scoring\+Model.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}scoring/\+\+Growth\+Scoring\+Model.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}scoring/\+\+Momentum\+Scoring\+Model.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}scoring/\+\+Quality\+Scoring\+Model.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}scoring/\+\+Efficiency\+Scoring\+Model.\+hpp"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \doxymbox{\hyperlink{test__scoring_8cpp_a2f82a677efa4260a3241d937631e0889}{CHECK}} (bool condition, const std::\+string \&test\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Test assertion helper function. \end{DoxyCompactList}\item 
+static bool \doxymbox{\hyperlink{test__scoring_8cpp_a1a335d4268ec4bf7a3caa8261d12ee7a}{approx\+Equal}} (double a, double b, double eps=0.\+001)
+\begin{DoxyCompactList}\small\item\em Approximate equality check for floating-\/point values. \end{DoxyCompactList}\item 
+static void \doxymbox{\hyperlink{test__scoring_8cpp_a81e152cfd0346fd1c757f5f3e8d2d716}{register\+All\+Models}} (\doxymbox{\hyperlink{class_strategy_manager}{Strategy\+Manager}} \&mgr, \doxymbox{\hyperlink{class_value_scoring_model}{Value\+Scoring\+Model}} \&v, \doxymbox{\hyperlink{class_growth_scoring_model}{Growth\+Scoring\+Model}} \&g, \doxymbox{\hyperlink{class_momentum_scoring_model}{Momentum\+Scoring\+Model}} \&m, \doxymbox{\hyperlink{class_quality_scoring_model}{Quality\+Scoring\+Model}} \&q, \doxymbox{\hyperlink{class_efficiency_scoring_model}{Efficiency\+Scoring\+Model}} \&e)
+\begin{DoxyCompactList}\small\item\em Helper to register all five scoring models with a \doxylink{class_strategy_manager}{Strategy\+Manager}. \end{DoxyCompactList}\item 
+static std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ \doxymbox{\hyperlink{test__scoring_8cpp_a23415850ae9f17e0c1bd55dba1b7ace4}{make\+Sample\+Stocks}} ()
+\begin{DoxyCompactList}\small\item\em Creates a vector of sample stocks with realistic fundamental data. \end{DoxyCompactList}\item 
+\Hypertarget{test__scoring_8cpp_a3ff01770c8677182a5b70b7295b02b50}\label{test__scoring_8cpp_a3ff01770c8677182a5b70b7295b02b50} 
+static void {\bfseries test\+Multiple\+Presets\+Exist} ()
+\item 
+\Hypertarget{test__scoring_8cpp_ad1b993c228cea56d6ef866e0b239f5ee}\label{test__scoring_8cpp_ad1b993c228cea56d6ef866e0b239f5ee} 
+static void {\bfseries test\+Selecting\+Strategy\+Updates\+Weights} ()
+\item 
+\Hypertarget{test__scoring_8cpp_a75b48c745c456339d918fc025ef81c97}\label{test__scoring_8cpp_a75b48c745c456339d918fc025ef81c97} 
+static void {\bfseries test\+Rankings\+Change\+With\+Strategy} ()
+\item 
+\Hypertarget{test__scoring_8cpp_a0cdacb0375920b40a832609d2a2d2b09}\label{test__scoring_8cpp_a0cdacb0375920b40a832609d2a2d2b09} 
+static void {\bfseries test\+Default\+Strategy\+On\+Startup} ()
+\item 
+\Hypertarget{test__scoring_8cpp_ae24ac1f758f796df1f170dc15d5bd10c}\label{test__scoring_8cpp_ae24ac1f758f796df1f170dc15d5bd10c} 
+static void {\bfseries test\+Switch\+Without\+Restart} ()
+\item 
+\Hypertarget{test__scoring_8cpp_aadc7e334879b2ebe3544e375f90a7826}\label{test__scoring_8cpp_aadc7e334879b2ebe3544e375f90a7826} 
+static void {\bfseries test\+Scoring\+Models} ()
+\item 
+\Hypertarget{test__scoring_8cpp_a956c4259017da59c667bd5b08626b6d0}\label{test__scoring_8cpp_a956c4259017da59c667bd5b08626b6d0} 
+static void {\bfseries test\+Deterministic\+Scoring} ()
+\item 
+\Hypertarget{test__scoring_8cpp_a0828538036146f61ba2c37080fcd0006}\label{test__scoring_8cpp_a0828538036146f61ba2c37080fcd0006} 
+static void {\bfseries test\+Ranking\+Order} ()
+\item 
+\Hypertarget{test__scoring_8cpp_a30858d957bd569f0825425128dd62f50}\label{test__scoring_8cpp_a30858d957bd569f0825425128dd62f50} 
+static void {\bfseries test\+Breakdown\+Includes\+Factors} ()
+\item 
+\Hypertarget{test__scoring_8cpp_a4dd260efc2b3d6d0810ab832acf34380}\label{test__scoring_8cpp_a4dd260efc2b3d6d0810ab832acf34380} 
+static void {\bfseries test\+Missing\+Data\+Defaults\+To\+Zero} ()
+\item 
+static void \doxymbox{\hyperlink{test__scoring_8cpp_a9bfb1d09ce260695b3b0ff5d9a407902}{test\+Quality\+Model\+Ranking}} ()
+\item 
+\Hypertarget{test__scoring_8cpp_a9c6319e2e03e6f6cd6b0fdc3dac8ade0}\label{test__scoring_8cpp_a9c6319e2e03e6f6cd6b0fdc3dac8ade0} 
+static void {\bfseries test\+All\+Models\+Valid\+Range} ()
+\item 
+\Hypertarget{test__scoring_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{test__scoring_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int {\bfseries main} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{test__scoring_8cpp_a561a5450b127e97c5ca67d0b349747a8}\label{test__scoring_8cpp_a561a5450b127e97c5ca67d0b349747a8} 
+static int {\bfseries passed} = 0
+\item 
+\Hypertarget{test__scoring_8cpp_ad4ec5aab9b62fbbe9b8fc2d8ac0a5989}\label{test__scoring_8cpp_ad4ec5aab9b62fbbe9b8fc2d8ac0a5989} 
+static int {\bfseries failed} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Test suite for scoring strategy functionality. 
+
+\begin{DoxyAuthor}{Author}
+Melvin Roger 
+
+Emily Berlinghoff
+\end{DoxyAuthor}
+This file contains comprehensive tests for the scoring system including:\+
+\begin{DoxyItemize}
+\item Strategy manager functionality
+\item Individual scoring models (Value, Growth, Momentum, Quality, Efficiency)
+\item Strategy switching and weight management
+\item Ranking consistency across different strategies 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{test__scoring_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{test__scoring_8cpp_a1a335d4268ec4bf7a3caa8261d12ee7a}\index{test\_scoring.cpp@{test\_scoring.cpp}!approxEqual@{approxEqual}}
+\index{approxEqual@{approxEqual}!test\_scoring.cpp@{test\_scoring.cpp}}
+\doxysubsubsection{\texorpdfstring{approxEqual()}{approxEqual()}}
+{\footnotesize\ttfamily \label{test__scoring_8cpp_a1a335d4268ec4bf7a3caa8261d12ee7a} 
+bool approx\+Equal (\begin{DoxyParamCaption}\item[{double}]{a}{, }\item[{double}]{b}{, }\item[{double}]{eps}{ = {\ttfamily 0.001}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Approximate equality check for floating-\/point values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & First value to compare. \\
+\hline
+{\em b} & Second value to compare. \\
+\hline
+{\em eps} & Tolerance for comparison (default:\+ 0.\+001). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if values are approximately equal. 
+\end{DoxyReturn}
+\Hypertarget{test__scoring_8cpp_a2f82a677efa4260a3241d937631e0889}\index{test\_scoring.cpp@{test\_scoring.cpp}!CHECK@{CHECK}}
+\index{CHECK@{CHECK}!test\_scoring.cpp@{test\_scoring.cpp}}
+\doxysubsubsection{\texorpdfstring{CHECK()}{CHECK()}}
+{\footnotesize\ttfamily \label{test__scoring_8cpp_a2f82a677efa4260a3241d937631e0889} 
+void CHECK (\begin{DoxyParamCaption}\item[{bool}]{condition}{, }\item[{const std::\+string \&}]{test\+\_\+name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Test assertion helper function. 
+
+Checks a condition and reports pass/\+fail status with test name. Updates global pass/\+fail counters.
+
+
+\begin{DoxyParams}{Parameters}
+{\em condition} & Boolean condition to test. \\
+\hline
+{\em test\+\_\+name} & Descriptive name of the test. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{test__scoring_8cpp_a23415850ae9f17e0c1bd55dba1b7ace4}\index{test\_scoring.cpp@{test\_scoring.cpp}!makeSampleStocks@{makeSampleStocks}}
+\index{makeSampleStocks@{makeSampleStocks}!test\_scoring.cpp@{test\_scoring.cpp}}
+\doxysubsubsection{\texorpdfstring{makeSampleStocks()}{makeSampleStocks()}}
+{\footnotesize\ttfamily \label{test__scoring_8cpp_a23415850ae9f17e0c1bd55dba1b7ace4} 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ make\+Sample\+Stocks (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates a vector of sample stocks with realistic fundamental data. 
+
+\begin{DoxyReturn}{Returns}
+Vector of sample \doxylink{struct_stock}{Stock} objects. 
+\end{DoxyReturn}
+\Hypertarget{test__scoring_8cpp_a81e152cfd0346fd1c757f5f3e8d2d716}\index{test\_scoring.cpp@{test\_scoring.cpp}!registerAllModels@{registerAllModels}}
+\index{registerAllModels@{registerAllModels}!test\_scoring.cpp@{test\_scoring.cpp}}
+\doxysubsubsection{\texorpdfstring{registerAllModels()}{registerAllModels()}}
+{\footnotesize\ttfamily \label{test__scoring_8cpp_a81e152cfd0346fd1c757f5f3e8d2d716} 
+void register\+All\+Models (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_strategy_manager}{Strategy\+Manager}} \&}]{mgr}{, }\item[{\doxymbox{\hyperlink{class_value_scoring_model}{Value\+Scoring\+Model}} \&}]{v}{, }\item[{\doxymbox{\hyperlink{class_growth_scoring_model}{Growth\+Scoring\+Model}} \&}]{g}{, }\item[{\doxymbox{\hyperlink{class_momentum_scoring_model}{Momentum\+Scoring\+Model}} \&}]{m}{, }\item[{\doxymbox{\hyperlink{class_quality_scoring_model}{Quality\+Scoring\+Model}} \&}]{q}{, }\item[{\doxymbox{\hyperlink{class_efficiency_scoring_model}{Efficiency\+Scoring\+Model}} \&}]{e}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Helper to register all five scoring models with a \doxylink{class_strategy_manager}{Strategy\+Manager}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mgr} & \doxylink{class_strategy_manager}{Strategy\+Manager} to register models with. \\
+\hline
+{\em v} & \doxylink{class_value_scoring_model}{Value\+Scoring\+Model} instance. \\
+\hline
+{\em g} & \doxylink{class_growth_scoring_model}{Growth\+Scoring\+Model} instance. \\
+\hline
+{\em m} & \doxylink{class_momentum_scoring_model}{Momentum\+Scoring\+Model} instance. \\
+\hline
+{\em q} & \doxylink{class_quality_scoring_model}{Quality\+Scoring\+Model} instance. \\
+\hline
+{\em e} & \doxylink{class_efficiency_scoring_model}{Efficiency\+Scoring\+Model} instance. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{test__scoring_8cpp_a9bfb1d09ce260695b3b0ff5d9a407902}\index{test\_scoring.cpp@{test\_scoring.cpp}!testQualityModelRanking@{testQualityModelRanking}}
+\index{testQualityModelRanking@{testQualityModelRanking}!test\_scoring.cpp@{test\_scoring.cpp}}
+\doxysubsubsection{\texorpdfstring{testQualityModelRanking()}{testQualityModelRanking()}}
+{\footnotesize\ttfamily \label{test__scoring_8cpp_a9bfb1d09ce260695b3b0ff5d9a407902} 
+void test\+Quality\+Model\+Ranking (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+JNJ should rank well under Quality (low debt, high gross margin, solid ROE).

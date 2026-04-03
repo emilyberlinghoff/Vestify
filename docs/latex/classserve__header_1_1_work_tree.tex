@@ -1,0 +1,92 @@
+\doxysection{serve\+\_\+header.\+Work\+Tree Class Reference}
+\hypertarget{classserve__header_1_1_work_tree}{}\label{classserve__header_1_1_work_tree}\index{serve\_header.WorkTree@{serve\_header.WorkTree}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{classserve__header_1_1_work_tree_a37473863f1321bfb13016d19449d42d7}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, root\+\_\+dir, tree\+\_\+dir)
+\item 
+\doxymbox{\hyperlink{classserve__header_1_1_work_tree_af09099fe47ad8ffe2c46d46c1cafab40}{\+\_\+\+\_\+hash\+\_\+\+\_\+}} (self)
+\item 
+\doxymbox{\hyperlink{classserve__header_1_1_work_tree_a7d3a851677b2cde51c556cea1f199b26}{\+\_\+\+\_\+eq\+\_\+\+\_\+}} (self, other)
+\item 
+\Hypertarget{classserve__header_1_1_work_tree_afbfd4a36f1227fbd153b842702f6a1b3}\label{classserve__header_1_1_work_tree_afbfd4a36f1227fbd153b842702f6a1b3} 
+{\bfseries update\+\_\+dirty} (self, path)
+\item 
+\Hypertarget{classserve__header_1_1_work_tree_a07344db8ba57493fd7e8925db01b0ac7}\label{classserve__header_1_1_work_tree_a07344db8ba57493fd7e8925db01b0ac7} 
+{\bfseries amalgamate\+\_\+header} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classserve__header_1_1_work_tree_ad919b6d33cbe765d9473f921bff63533}\label{classserve__header_1_1_work_tree_ad919b6d33cbe765d9473f921bff63533} 
+{\bfseries root\+\_\+dir} = root\+\_\+dir
+\item 
+\Hypertarget{classserve__header_1_1_work_tree_adcf6da19cd62386777e6db882a4ae903}\label{classserve__header_1_1_work_tree_adcf6da19cd62386777e6db882a4ae903} 
+{\bfseries tree\+\_\+dir} = tree\+\_\+dir
+\item 
+\Hypertarget{classserve__header_1_1_work_tree_aced188c48fb483f87764a7069176bc88}\label{classserve__header_1_1_work_tree_aced188c48fb483f87764a7069176bc88} 
+{\bfseries rel\+\_\+dir} = os.\+path.\+relpath(tree\+\_\+dir, root\+\_\+dir)
+\item 
+\Hypertarget{classserve__header_1_1_work_tree_a32e06f86a993a3a010e1af40d94732f6}\label{classserve__header_1_1_work_tree_a32e06f86a993a3a010e1af40d94732f6} 
+{\bfseries name} = os.\+path.\+basename(tree\+\_\+dir)
+\item 
+\Hypertarget{classserve__header_1_1_work_tree_aa779866977f7fcad057676879b2ec265}\label{classserve__header_1_1_work_tree_aa779866977f7fcad057676879b2ec265} 
+{\bfseries include\+\_\+dir} = os.\+path.\+abspath(os.\+path.\+join(tree\+\_\+dir, INCLUDE))
+\item 
+\Hypertarget{classserve__header_1_1_work_tree_a91e58402b0ab4e8ad031a6624b263142}\label{classserve__header_1_1_work_tree_a91e58402b0ab4e8ad031a6624b263142} 
+{\bfseries header} = os.\+path.\+abspath(os.\+path.\+join(tree\+\_\+dir, SINGLE\+\_\+\+INCLUDE, HEADER))
+\item 
+\Hypertarget{classserve__header_1_1_work_tree_af8ab1ac6c30251195bd7d191c215cd2d}\label{classserve__header_1_1_work_tree_af8ab1ac6c30251195bd7d191c215cd2d} 
+{\bfseries rel\+\_\+header} = os.\+path.\+relpath(self.\+header, root\+\_\+dir)
+\item 
+\Hypertarget{classserve__header_1_1_work_tree_a0e0c042df9ceacc1c7e3f64c5aebf93e}\label{classserve__header_1_1_work_tree_a0e0c042df9ceacc1c7e3f64c5aebf93e} 
+bool {\bfseries dirty} = True
+\item 
+\Hypertarget{classserve__header_1_1_work_tree_a36075af86238b1c72202e39dc5dfcbd9}\label{classserve__header_1_1_work_tree_a36075af86238b1c72202e39dc5dfcbd9} 
+int {\bfseries build\+\_\+count} = 0
+\item 
+\Hypertarget{classserve__header_1_1_work_tree_ad86938062be9abf25edea1624f78b380}\label{classserve__header_1_1_work_tree_ad86938062be9abf25edea1624f78b380} 
+{\bfseries build\+\_\+time} = t.\+strftime(DATETIME\+\_\+\+FORMAT)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classserve__header_1_1_work_tree_a31032e999f69a446efff61ebd5784396}\label{classserve__header_1_1_work_tree_a31032e999f69a446efff61ebd5784396} 
+str {\bfseries make\+\_\+command} = \textquotesingle{}make\textquotesingle{}
+\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{classserve__header_1_1_work_tree_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classserve__header_1_1_work_tree_a37473863f1321bfb13016d19449d42d7}\index{serve\_header.WorkTree@{serve\_header.WorkTree}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!serve\_header.WorkTree@{serve\_header.WorkTree}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classserve__header_1_1_work_tree_a37473863f1321bfb13016d19449d42d7} 
+serve\+\_\+header.\+Work\+Tree.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{root\+\_\+dir}{, }\item[{}]{tree\+\_\+dir}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}.\end{DoxyVerb}
+ 
+
+\label{doc-func-members}
+\Hypertarget{classserve__header_1_1_work_tree_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classserve__header_1_1_work_tree_a7d3a851677b2cde51c556cea1f199b26}\index{serve\_header.WorkTree@{serve\_header.WorkTree}!\_\_eq\_\_@{\_\_eq\_\_}}
+\index{\_\_eq\_\_@{\_\_eq\_\_}!serve\_header.WorkTree@{serve\_header.WorkTree}}
+\doxysubsubsection{\texorpdfstring{\_\_eq\_\_()}{\_\_eq\_\_()}}
+{\footnotesize\ttfamily \label{classserve__header_1_1_work_tree_a7d3a851677b2cde51c556cea1f199b26} 
+serve\+\_\+header.\+Work\+Tree.\+\_\+\+\_\+eq\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}.\end{DoxyVerb}
+ \Hypertarget{classserve__header_1_1_work_tree_af09099fe47ad8ffe2c46d46c1cafab40}\index{serve\_header.WorkTree@{serve\_header.WorkTree}!\_\_hash\_\_@{\_\_hash\_\_}}
+\index{\_\_hash\_\_@{\_\_hash\_\_}!serve\_header.WorkTree@{serve\_header.WorkTree}}
+\doxysubsubsection{\texorpdfstring{\_\_hash\_\_()}{\_\_hash\_\_()}}
+{\footnotesize\ttfamily \label{classserve__header_1_1_work_tree_af09099fe47ad8ffe2c46d46c1cafab40} 
+serve\+\_\+header.\+Work\+Tree.\+\_\+\+\_\+hash\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}.\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tools/\+serve\+\_\+header/\+serve\+\_\+header.\+py\end{DoxyCompactItemize}

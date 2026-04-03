@@ -1,0 +1,143 @@
+\chapter{Message\+Pack }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2messagepack}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2messagepack}\index{MessagePack@{MessagePack}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2messagepack_autotoc_md1412}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2messagepack_autotoc_md1412}%
+
+
+Message\+Pack is an efficient binary serialization format. It lets you exchange data among multiple languages like JSON. But it\textquotesingle{}s faster and smaller. Small integers are encoded into a single byte, and typical short strings require only one extra byte in addition to the strings themselves.
+
+!!! abstract "{}\+References"{} \begin{DoxyVerb}- [MessagePack website](https://msgpack.org)
+- [MessagePack specification](https://github.com/msgpack/msgpack/blob/master/spec.md)
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2messagepack_autotoc_md1413}{}\doxysection{\texorpdfstring{Serialization}{Serialization}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2messagepack_autotoc_md1413}
+\doxylink{requirements_The}{The} library uses the following mapping from JSON values types to Message\+Pack types according to the Message\+Pack specification:\+
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}JSON value type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}value/\+range  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Message\+Pack type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}first byte  \\
+null  &{\ttfamily null}  &nil  &0x\+C0  \\
+boolean  &{\ttfamily true}  &true  &0x\+C3  \\
+boolean  &{\ttfamily false}  &false  &0x\+C2  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/9223372036854775808..-\/2147483649  &int64  &0x\+D3  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/2147483648..-\/32769  &int32  &0x\+D2  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/32768..-\/129  &int16  &0x\+D1  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/128..-\/33  &int8  &0x\+D0  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &-\/32..-\/1  &negative fixint  &0x\+E0..0x\+FF  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &0..127  &positive fixint  &0x00..0x7F  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &128..255  &uint 8  &0x\+CC  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &256..65535  &uint 16  &0x\+CD  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &65536..4294967295  &uint 32  &0x\+CE  \\
+\doxylink{classnumber__integer}{number\+\_\+integer}  &4294967296..18446744073709551615  &uint 64  &0x\+CF  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &0..127  &positive fixint  &0x00..0x7F  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &128..255  &uint 8  &0x\+CC  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &256..65535  &uint 16  &0x\+CD  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &65536..4294967295  &uint 32  &0x\+CE  \\
+\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &4294967296..18446744073709551615  &uint 64  &0x\+CF  \\
+\doxylink{classnumber__float}{number\+\_\+float}  &{\itshape any value representable by a float}  &float 32  &0x\+CA  \\
+\doxylink{classnumber__float}{number\+\_\+float}  &{\itshape any value NOT representable by a float}  &float 64  &0x\+CB  \\
+string  &{\itshape length}:\+ 0..31  &fixstr  &0x\+A0..0x\+BF  \\
+string  &{\itshape length}:\+ 32..255  &str 8  &0x\+D9  \\
+string  &{\itshape length}:\+ 256..65535  &str 16  &0x\+DA  \\
+string  &{\itshape length}:\+ 65536..4294967295  &str 32  &0x\+DB  \\
+array  &{\itshape size}:\+ 0..15  &fixarray  &0x90..0x9F  \\
+array  &{\itshape size}:\+ 16..65535  &array 16  &0x\+DC  \\
+array  &{\itshape size}:\+ 65536..4294967295  &array 32  &0x\+DD  \\
+object  &{\itshape size}:\+ 0..15  &fix map  &0x80..0x8F  \\
+object  &{\itshape size}:\+ 16..65535  &map 16  &0x\+DE  \\
+object  &{\itshape size}:\+ 65536..4294967295  &map 32  &0x\+DF  \\
+binary  &{\itshape size}:\+ 0..255  &bin 8  &0x\+C4  \\
+binary  &{\itshape size}:\+ 256..65535  &bin 16  &0x\+C5  \\
+binary  &{\itshape size}:\+ 65536..4294967295  &bin 32  &0x\+C6  \\
+\end{DoxyTable}
+
+
+!!! success "{}\+Complete mapping"{} \begin{DoxyVerb}The mapping is **complete** in the sense that any JSON value type can be converted to a MessagePack value.
+
+Any MessagePack output created by `to_msgpack` can be successfully parsed by `from_msgpack`.
+\end{DoxyVerb}
+
+
+!!! warning "{}\+Size constraints"{} \begin{DoxyVerb}The following values can **not** be converted to a MessagePack value:
+
+  - strings with more than 4294967295 bytes
+  - byte strings with more than 4294967295 bytes
+  - arrays with more than 4294967295 elements
+  - objects with more than 4294967295 elements
+\end{DoxyVerb}
+
+
+!!! info "{}\+Na\+N/\+infinity handling"{} \begin{DoxyVerb}If NaN or Infinity are stored inside a JSON number, they are serialized properly in contrast to the
+[dump](../../api/basic_json/dump.md) function which serializes NaN or Infinity to `null`.
+\end{DoxyVerb}
+
+
+??? example \begin{DoxyVerb}```cpp
+--8<-- "examples/to_msgpack.cpp"
+```
+
+Output:
+
+```c
+--8<-- "examples/to_msgpack.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2messagepack_autotoc_md1414}{}\doxysection{\texorpdfstring{Deserialization}{Deserialization}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2binary__formats_2messagepack_autotoc_md1414}
+\doxylink{requirements_The}{The} library maps Message\+Pack types to JSON value types as follows:\+
+
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Message\+Pack type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}JSON value type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}first byte  \\
+positive fixint  &\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &0x00..0x7F  \\
+fixmap  &object  &0x80..0x8F  \\
+fixarray  &array  &0x90..0x9F  \\
+fixstr  &string  &0x\+A0..0x\+BF  \\
+nil  &{\ttfamily null}  &0x\+C0  \\
+false  &{\ttfamily false}  &0x\+C2  \\
+true  &{\ttfamily true}  &0x\+C3  \\
+float 32  &\doxylink{classnumber__float}{number\+\_\+float}  &0x\+CA  \\
+float 64  &\doxylink{classnumber__float}{number\+\_\+float}  &0x\+CB  \\
+uint 8  &\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &0x\+CC  \\
+uint 16  &\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &0x\+CD  \\
+uint 32  &\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &0x\+CE  \\
+uint 64  &\doxylink{classnumber__unsigned}{number\+\_\+unsigned}  &0x\+CF  \\
+int 8  &\doxylink{classnumber__integer}{number\+\_\+integer}  &0x\+D0  \\
+int 16  &\doxylink{classnumber__integer}{number\+\_\+integer}  &0x\+D1  \\
+int 32  &\doxylink{classnumber__integer}{number\+\_\+integer}  &0x\+D2  \\
+int 64  &\doxylink{classnumber__integer}{number\+\_\+integer}  &0x\+D3  \\
+str 8  &string  &0x\+D9  \\
+str 16  &string  &0x\+DA  \\
+str 32  &string  &0x\+DB  \\
+array 16  &array  &0x\+DC  \\
+array 32  &array  &0x\+DD  \\
+map 16  &object  &0x\+DE  \\
+map 32  &object  &0x\+DF  \\
+bin 8  &binary  &0x\+C4  \\
+bin 16  &binary  &0x\+C5  \\
+bin 32  &binary  &0x\+C6  \\
+ext 8  &binary  &0x\+C7  \\
+ext 16  &binary  &0x\+C8  \\
+ext 32  &binary  &0x\+C9  \\
+fixext 1  &binary  &0x\+D4  \\
+fixext 2  &binary  &0x\+D5  \\
+fixext 4  &binary  &0x\+D6  \\
+fixext 8  &binary  &0x\+D7  \\
+fixext 16  &binary  &0x\+D8  \\
+negative fixint  &\doxylink{classnumber__integer}{number\+\_\+integer}  &0x\+E0-\/0x\+FF  \\
+\end{DoxyTable}
+
+
+!!! info \begin{DoxyVerb}Any MessagePack output created by `to_msgpack` can be successfully parsed by `from_msgpack`.
+\end{DoxyVerb}
+
+
+??? example \begin{DoxyVerb}```cpp
+--8<-- "examples/from_msgpack.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/from_msgpack.output"
+```
+\end{DoxyVerb}
+ 

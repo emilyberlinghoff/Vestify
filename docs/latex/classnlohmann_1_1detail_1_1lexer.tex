@@ -1,0 +1,383 @@
+\doxysection{nlohmann::\+detail::\+lexer\texorpdfstring{$<$}{<} Basic\+Json\+Type, Input\+Adapter\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classnlohmann_1_1detail_1_1lexer}{}\label{classnlohmann_1_1detail_1_1lexer}\index{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}}
+
+
+lexical analysis  
+
+
+
+
+{\ttfamily \+\#include $<$json\+\_\+v3\+\_\+10\+\_\+5.\+hpp$>$}
+
+Inheritance diagram for nlohmann::\+detail::\+lexer\texorpdfstring{$<$}{<} Basic\+Json\+Type, Input\+Adapter\+Type \texorpdfstring{$>$}{>}:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classnlohmann_1_1detail_1_1lexer}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a986907dff5ceb4fa06aa8ff301822726}\label{classnlohmann_1_1detail_1_1lexer_a986907dff5ceb4fa06aa8ff301822726} 
+using {\bfseries token\+\_\+type} = typename \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base}{lexer\+\_\+base}}$<$Basic\+Json\+Type$>$::\+token\+\_\+type
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types inherited from \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base}{nlohmann::\+detail::\+lexer\+\_\+base$<$ Basic\+Json\+Type $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+enum class \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454}{token\+\_\+type}} \{ \newline
+\doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454a42dd1a73d072bb6bf3f494f22b15db8e}{uninitialized}}
+, \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454a85cc1a37b0aaa52de40e72f0ed4e0c0d}{literal\+\_\+true}}
+, \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454afab1694b1b3937a079f4625fe0b6108b}{literal\+\_\+false}}
+, \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454ab7ae4c0e46d86f884677768160b26e9e}{literal\+\_\+null}}
+, \newline
+\doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454a2b490e8bf366b4cbe3ebd99b26ce15ce}{value\+\_\+string}}
+, \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454aaf1f040fcd2f674d2e5893d7a731078f}{value\+\_\+unsigned}}
+, \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454a5064b6655d88a50ae16665cf7751c0ee}{value\+\_\+integer}}
+, \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454a0d2671a6f81efb91e77f6ac3bdb11443}{value\+\_\+float}}
+, \newline
+\doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454a16c226b4425b68560fea322b46dabe01}{begin\+\_\+array}}
+, \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454a9a9ffd53b6869d4eca271b1ed5b57fe8}{begin\+\_\+object}}
+, \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454a2f3e68e7f111a1e5c7728742b3ca2b7f}{end\+\_\+array}}
+, \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454a7d5b4427866814de4d8f132721d59c87}{end\+\_\+object}}
+, \newline
+\doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454acc3c64f8ae08c00de1b33f19a4d2913a}{name\+\_\+separator}}
+, \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454a745373036100d7392ad62c617cab59af}{value\+\_\+separator}}
+, \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454a456e19aeafa334241c7ff3f589547f9d}{parse\+\_\+error}}
+, \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454aca11f56dd477c09e06583dbdcda0985f}{end\+\_\+of\+\_\+input}}
+, \newline
+\doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454ad2a8e6f6721cccec0b466301dd9495a5}{literal\+\_\+or\+\_\+value}}
+ \}
+\begin{DoxyCompactList}\small\item\em token types for the parser \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a89bbc051da2514a469441a3a30ad63e4}\label{classnlohmann_1_1detail_1_1lexer_a89bbc051da2514a469441a3a30ad63e4} 
+{\bfseries lexer} (Input\+Adapter\+Type \&\&adapter, bool ignore\+\_\+comments\+\_\+=false) noexcept
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_ab75d61c4de687717648c7698850ddb9b}\label{classnlohmann_1_1detail_1_1lexer_ab75d61c4de687717648c7698850ddb9b} 
+{\bfseries lexer} (const lexer \&)=delete
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_ae95416c7ae8b36f0dd0ab349eaa754a2}\label{classnlohmann_1_1detail_1_1lexer_ae95416c7ae8b36f0dd0ab349eaa754a2} 
+{\bfseries lexer} (lexer \&\&)=default
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_aad4020e9be20612197f8d4e049300adc}\label{classnlohmann_1_1detail_1_1lexer_aad4020e9be20612197f8d4e049300adc} 
+lexer \& {\bfseries operator=} (lexer \&)=delete
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a5e448bb3dea993ecb9ee92e71d78ca84}\label{classnlohmann_1_1detail_1_1lexer_a5e448bb3dea993ecb9ee92e71d78ca84} 
+lexer \& {\bfseries operator=} (lexer \&\&)=default
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a9535d0c72adbe9fe149853ebad5faee8}\label{classnlohmann_1_1detail_1_1lexer_a9535d0c72adbe9fe149853ebad5faee8} 
+constexpr number\+\_\+integer\+\_\+t {\bfseries get\+\_\+number\+\_\+integer} () const noexcept
+\begin{DoxyCompactList}\small\item\em return integer value \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_abfc85ff04fcb1a5a8d8ea299a4c479e5}\label{classnlohmann_1_1detail_1_1lexer_abfc85ff04fcb1a5a8d8ea299a4c479e5} 
+constexpr number\+\_\+unsigned\+\_\+t {\bfseries get\+\_\+number\+\_\+unsigned} () const noexcept
+\begin{DoxyCompactList}\small\item\em return unsigned integer value \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_adb1a71f6a3e65ed32c452a318967b61e}\label{classnlohmann_1_1detail_1_1lexer_adb1a71f6a3e65ed32c452a318967b61e} 
+constexpr number\+\_\+float\+\_\+t {\bfseries get\+\_\+number\+\_\+float} () const noexcept
+\begin{DoxyCompactList}\small\item\em return floating-\/point value \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a0d4629316aaa5c05a9b8adb0cd76705e}\label{classnlohmann_1_1detail_1_1lexer_a0d4629316aaa5c05a9b8adb0cd76705e} 
+string\+\_\+t \& {\bfseries get\+\_\+string} ()
+\begin{DoxyCompactList}\small\item\em return current string value (implicitly resets the token; useful only once) \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a948c80b8bd8a3095b544e4655e1ca37e}\label{classnlohmann_1_1detail_1_1lexer_a948c80b8bd8a3095b544e4655e1ca37e} 
+constexpr \doxymbox{\hyperlink{structnlohmann_1_1detail_1_1position__t}{position\+\_\+t}} {\bfseries get\+\_\+position} () const noexcept
+\begin{DoxyCompactList}\small\item\em return position of last read token \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_ae000b7571480e528dee4b281f63d5b15}{get\+\_\+token\+\_\+string}} () const
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_afe2f78f0bad1d08f67dc417278a59f29}\label{classnlohmann_1_1detail_1_1lexer_afe2f78f0bad1d08f67dc417278a59f29} 
+JSON\+\_\+\+HEDLEY\+\_\+\+RETURNS\+\_\+\+NON\+\_\+\+NULL constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+error\+\_\+message} () const noexcept
+\begin{DoxyCompactList}\small\item\em return syntax error message \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_a7cd7d55de2cd398660bc243c7229caf9}{skip\+\_\+bom}} ()
+\begin{DoxyCompactList}\small\item\em skip the UTF-\/8 byte order mark \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a449f3f3703dfbf8b757e12f002668604}\label{classnlohmann_1_1detail_1_1lexer_a449f3f3703dfbf8b757e12f002668604} 
+void {\bfseries skip\+\_\+whitespace} ()
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a40320a8fef5f1f03b60c8b2f2f40af4d}\label{classnlohmann_1_1detail_1_1lexer_a40320a8fef5f1f03b60c8b2f2f40af4d} 
+token\+\_\+type {\bfseries scan} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a594e61f96c87b4464beeab681111ac0c}\label{classnlohmann_1_1detail_1_1lexer_a594e61f96c87b4464beeab681111ac0c} 
+using {\bfseries number\+\_\+integer\+\_\+t} = typename Basic\+Json\+Type::\+number\+\_\+integer\+\_\+t
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_af6b19ef34b2e9ee2321cfaf62ee066cb}\label{classnlohmann_1_1detail_1_1lexer_af6b19ef34b2e9ee2321cfaf62ee066cb} 
+using {\bfseries number\+\_\+unsigned\+\_\+t} = typename Basic\+Json\+Type::\+number\+\_\+unsigned\+\_\+t
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a438a78e53120fd2c3ea049161d4798cb}\label{classnlohmann_1_1detail_1_1lexer_a438a78e53120fd2c3ea049161d4798cb} 
+using {\bfseries number\+\_\+float\+\_\+t} = typename Basic\+Json\+Type::\+number\+\_\+float\+\_\+t
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_af85c01fd669d529ab93a9e1d80b62015}\label{classnlohmann_1_1detail_1_1lexer_af85c01fd669d529ab93a9e1d80b62015} 
+using {\bfseries string\+\_\+t} = typename Basic\+Json\+Type::\+string\+\_\+t
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a98c69ad433d971104288baef813b2c68}\label{classnlohmann_1_1detail_1_1lexer_a98c69ad433d971104288baef813b2c68} 
+using {\bfseries char\+\_\+type} = typename Input\+Adapter\+Type::\+char\+\_\+type
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a46612a81a07dbbc6daef870ca4f959e4}\label{classnlohmann_1_1detail_1_1lexer_a46612a81a07dbbc6daef870ca4f959e4} 
+using {\bfseries char\+\_\+int\+\_\+type} = typename \doxymbox{\hyperlink{structstd_1_1char__traits}{std::\+char\+\_\+traits}}$<$char\+\_\+type$>$::\+int\+\_\+type
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_adcf663a9878f58544790f1b6faad2e42}{get\+\_\+codepoint}} ()
+\begin{DoxyCompactList}\small\item\em get codepoint from 4 hex characters following {\ttfamily \textbackslash{}u} \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_af6fe701b8b3ca5f4a1b58db4658bdf87}{next\+\_\+byte\+\_\+in\+\_\+range}} (std::\+initializer\+\_\+list$<$ char\+\_\+int\+\_\+type $>$ ranges)
+\begin{DoxyCompactList}\small\item\em check if the next byte(s) are inside a given range \end{DoxyCompactList}\item 
+token\+\_\+type \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_ab6352978e03ebcbc3cd618cd17142f26}{scan\+\_\+string}} ()
+\begin{DoxyCompactList}\small\item\em scan a string literal \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_afdc68706ad20be93977cd0f97043ea7f}{scan\+\_\+comment}} ()
+\begin{DoxyCompactList}\small\item\em scan a comment \end{DoxyCompactList}\item 
+token\+\_\+type \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_aab51a28e32c1957329141baff8eda1c4}{scan\+\_\+number}} ()
+\begin{DoxyCompactList}\small\item\em scan a number literal \end{DoxyCompactList}\item 
+token\+\_\+type \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_ad89dec0ac0f4e851925a0499e043b18b}{scan\+\_\+literal}} (const char\+\_\+type \texorpdfstring{$\ast$}{*}literal\+\_\+text, const std::\+size\+\_\+t length, token\+\_\+type return\+\_\+type)
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a3bda093837339813916d11fb6e396606}\label{classnlohmann_1_1detail_1_1lexer_a3bda093837339813916d11fb6e396606} 
+void {\bfseries reset} () noexcept
+\begin{DoxyCompactList}\small\item\em reset token\+\_\+buffer; current character is beginning of token \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a9cd3e4cf04d19be521beb8868c1a2fc9}\label{classnlohmann_1_1detail_1_1lexer_a9cd3e4cf04d19be521beb8868c1a2fc9} 
+char\+\_\+int\+\_\+type {\bfseries get} ()
+\item 
+void \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_ab5811afe1c3efb0b769f7733b8373c6f}{unget}} ()
+\begin{DoxyCompactList}\small\item\em unget current character (read it again on next get) \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a36ffc3c33c3aea18291ead7a30fa7cc6}\label{classnlohmann_1_1detail_1_1lexer_a36ffc3c33c3aea18291ead7a30fa7cc6} 
+void {\bfseries add} (char\+\_\+int\+\_\+type c)
+\begin{DoxyCompactList}\small\item\em add a character to token\+\_\+buffer \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a48f74c761ce663cd0d92bf428606b535}\label{classnlohmann_1_1detail_1_1lexer_a48f74c761ce663cd0d92bf428606b535} 
+static JSON\+\_\+\+HEDLEY\+\_\+\+PURE char {\bfseries get\+\_\+decimal\+\_\+point} () noexcept
+\begin{DoxyCompactList}\small\item\em return the locale-\/dependent decimal point \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a6d3dffb7bb247a7fd7276d49d3a00dc8}\label{classnlohmann_1_1detail_1_1lexer_a6d3dffb7bb247a7fd7276d49d3a00dc8} 
+static void {\bfseries strtof} (float \&f, const char \texorpdfstring{$\ast$}{*}str, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}endptr) noexcept
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_ac8455259d8a06acd2a284a5dd7221aea}\label{classnlohmann_1_1detail_1_1lexer_ac8455259d8a06acd2a284a5dd7221aea} 
+static void {\bfseries strtof} (double \&f, const char \texorpdfstring{$\ast$}{*}str, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}endptr) noexcept
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_ae01f87db7819a05d0ed17bcb665442e1}\label{classnlohmann_1_1detail_1_1lexer_ae01f87db7819a05d0ed17bcb665442e1} 
+static void {\bfseries strtof} (long double \&f, const char \texorpdfstring{$\ast$}{*}str, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}endptr) noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a526d001dd91ec55b8032ba98466765c0}\label{classnlohmann_1_1detail_1_1lexer_a526d001dd91ec55b8032ba98466765c0} 
+Input\+Adapter\+Type {\bfseries ia}
+\begin{DoxyCompactList}\small\item\em input adapter \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a11528814930243028ac5b8901f4a17d7}\label{classnlohmann_1_1detail_1_1lexer_a11528814930243028ac5b8901f4a17d7} 
+const bool {\bfseries ignore\+\_\+comments} = false
+\begin{DoxyCompactList}\small\item\em whether comments should be ignored (true) or signaled as errors (false) \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a40bd85d91d377ade9ccb910e35776c22}\label{classnlohmann_1_1detail_1_1lexer_a40bd85d91d377ade9ccb910e35776c22} 
+char\+\_\+int\+\_\+type {\bfseries current} = \doxymbox{\hyperlink{structstd_1_1char__traits}{std::\+char\+\_\+traits}}$<$char\+\_\+type$>$::\+eof()
+\begin{DoxyCompactList}\small\item\em the current character \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a40b108a0e45a7253f6ad85fbdaa6a262}\label{classnlohmann_1_1detail_1_1lexer_a40b108a0e45a7253f6ad85fbdaa6a262} 
+bool {\bfseries next\+\_\+unget} = false
+\begin{DoxyCompactList}\small\item\em whether the next get() call should just return current \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a8a1bda107ce1622c0cb3174fa12155ea}\label{classnlohmann_1_1detail_1_1lexer_a8a1bda107ce1622c0cb3174fa12155ea} 
+\doxymbox{\hyperlink{structnlohmann_1_1detail_1_1position__t}{position\+\_\+t}} {\bfseries position} \{\}
+\begin{DoxyCompactList}\small\item\em the start position of the current token \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a94aec416b883f742ba7f20bd16adb3c3}\label{classnlohmann_1_1detail_1_1lexer_a94aec416b883f742ba7f20bd16adb3c3} 
+std::\+vector$<$ char\+\_\+type $>$ {\bfseries token\+\_\+string} \{\}
+\begin{DoxyCompactList}\small\item\em raw input token string (for error messages) \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_ac4eaf39567bd5f0750e5d7e913fb474d}\label{classnlohmann_1_1detail_1_1lexer_ac4eaf39567bd5f0750e5d7e913fb474d} 
+string\+\_\+t {\bfseries token\+\_\+buffer} \{\}
+\begin{DoxyCompactList}\small\item\em buffer for variable-\/length tokens (numbers, strings) \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a84cbcd8c897c98c2ce04d29a29bf84cc}\label{classnlohmann_1_1detail_1_1lexer_a84cbcd8c897c98c2ce04d29a29bf84cc} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries error\+\_\+message} = "{}"{}
+\begin{DoxyCompactList}\small\item\em a description of occurred lexer errors \end{DoxyCompactList}\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a5134de850fab8f41474a36ae07998088}\label{classnlohmann_1_1detail_1_1lexer_a5134de850fab8f41474a36ae07998088} 
+number\+\_\+integer\+\_\+t {\bfseries value\+\_\+integer} = 0
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_ae84cbf312215c15d79783380b1592f74}\label{classnlohmann_1_1detail_1_1lexer_ae84cbf312215c15d79783380b1592f74} 
+number\+\_\+unsigned\+\_\+t {\bfseries value\+\_\+unsigned} = 0
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a0d74bb18ba7d32ea7e7c9d9a7d6c2e70}\label{classnlohmann_1_1detail_1_1lexer_a0d74bb18ba7d32ea7e7c9d9a7d6c2e70} 
+number\+\_\+float\+\_\+t {\bfseries value\+\_\+float} = 0
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a6f2fd5b4b6b153f11fc8f77213350073}\label{classnlohmann_1_1detail_1_1lexer_a6f2fd5b4b6b153f11fc8f77213350073} 
+const char\+\_\+int\+\_\+type {\bfseries decimal\+\_\+point\+\_\+char} = \textquotesingle{}.\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em the decimal point \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base}{nlohmann::\+detail::\+lexer\+\_\+base$<$ Basic\+Json\+Type $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+JSON\+\_\+\+HEDLEY\+\_\+\+RETURNS\+\_\+\+NON\+\_\+\+NULL static JSON\+\_\+\+HEDLEY\+\_\+\+CONST const char \texorpdfstring{$\ast$}{*} {\bfseries token\+\_\+type\+\_\+name} (const \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454}{token\+\_\+type}} t) noexcept
+\begin{DoxyCompactList}\small\item\em return name of values of type \doxylink{classnlohmann_1_1detail_1_1lexer__base_aa3538cce439a2de6c7893e627b38c454}{token\+\_\+type} (only used for errors) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$\newline
+class nlohmann::\+detail::\+lexer$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$}
+lexical analysis 
+
+This class organizes the lexical analysis during JSON deserialization. 
+
+\label{doc-func-members}
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_adcf663a9878f58544790f1b6faad2e42}\index{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}!get\_codepoint@{get\_codepoint}}
+\index{get\_codepoint@{get\_codepoint}!nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}}
+\doxysubsubsection{\texorpdfstring{get\_codepoint()}{get\_codepoint()}}
+{\footnotesize\ttfamily \label{classnlohmann_1_1detail_1_1lexer_adcf663a9878f58544790f1b6faad2e42} 
+template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$ \\
+int \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer}{nlohmann::\+detail::\+lexer}}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$::\+get\+\_\+codepoint (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+get codepoint from 4 hex characters following {\ttfamily \textbackslash{}u} 
+
+For input "{}\textbackslash{}u c1 c2 c3 c4"{} the codepoint is:\+ (c1 \texorpdfstring{$\ast$}{*} 0x1000) + (c2 \texorpdfstring{$\ast$}{*} 0x0100) + (c3 \texorpdfstring{$\ast$}{*} 0x0010) + c4 = (c1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 12) + (c2 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 8) + (c3 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4) + (c4 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0)
+
+Furthermore, the possible characters \textquotesingle{}0\textquotesingle{}..\textquotesingle{}9\textquotesingle{}, \textquotesingle{}\doxylink{class_a}{A}\textquotesingle{}..\textquotesingle{}F\textquotesingle{}, and \textquotesingle{}a\textquotesingle{}..\textquotesingle{}f\textquotesingle{} must be converted to the integers 0x0..0x9, 0xA..0xF, 0xA..0xF, resp. \doxylink{requirements_The}{The} conversion is done by subtracting the offset (0x30, 0x37, and 0x57) between the ASCII value of the character and the desired integer value.
+
+\begin{DoxyReturn}{Returns}
+codepoint (0x0000..0x\+FFFF) or -\/1 in case of an error (e.\+g. EOF or non-\/hex character) 
+\end{DoxyReturn}
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_ae000b7571480e528dee4b281f63d5b15}\index{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}!get\_token\_string@{get\_token\_string}}
+\index{get\_token\_string@{get\_token\_string}!nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}}
+\doxysubsubsection{\texorpdfstring{get\_token\_string()}{get\_token\_string()}}
+{\footnotesize\ttfamily \label{classnlohmann_1_1detail_1_1lexer_ae000b7571480e528dee4b281f63d5b15} 
+template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$ \\
+std::\+string \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer}{nlohmann::\+detail::\+lexer}}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$::\+get\+\_\+token\+\_\+string (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+return the last read token (for errors only). Will never contain EOF (an arbitrary value that is not a valid char value, often -\/1), because 255 may legitimately occur. May contain NUL, which should be escaped. \Hypertarget{classnlohmann_1_1detail_1_1lexer_af6fe701b8b3ca5f4a1b58db4658bdf87}\index{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}!next\_byte\_in\_range@{next\_byte\_in\_range}}
+\index{next\_byte\_in\_range@{next\_byte\_in\_range}!nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}}
+\doxysubsubsection{\texorpdfstring{next\_byte\_in\_range()}{next\_byte\_in\_range()}}
+{\footnotesize\ttfamily \label{classnlohmann_1_1detail_1_1lexer_af6fe701b8b3ca5f4a1b58db4658bdf87} 
+template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$ \\
+bool \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer}{nlohmann::\+detail::\+lexer}}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$::\+next\+\_\+byte\+\_\+in\+\_\+range (\begin{DoxyParamCaption}\item[{std::\+initializer\+\_\+list$<$ char\+\_\+int\+\_\+type $>$}]{ranges}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+check if the next byte(s) are inside a given range 
+
+Adds the current byte and, for each passed range, reads a new byte and checks if it is inside the range. If a violation was detected, set up an error message and return false. Otherwise, return true.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em ranges} & list of integers; interpreted as list of pairs of inclusive lower and upper bound, respectively\\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Precondition}
+\doxylink{requirements_The}{The} passed list {\itshape ranges} must have 2, 4, or 6 elements; that is, 1, 2, or 3 pairs. This precondition is enforced by an assertion.
+\end{DoxyPrecond}
+\begin{DoxyReturn}{Returns}
+true if and only if no range violation was detected 
+\end{DoxyReturn}
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_afdc68706ad20be93977cd0f97043ea7f}\index{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}!scan\_comment@{scan\_comment}}
+\index{scan\_comment@{scan\_comment}!nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}}
+\doxysubsubsection{\texorpdfstring{scan\_comment()}{scan\_comment()}}
+{\footnotesize\ttfamily \label{classnlohmann_1_1detail_1_1lexer_afdc68706ad20be93977cd0f97043ea7f} 
+template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$ \\
+bool \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer}{nlohmann::\+detail::\+lexer}}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$::\+scan\+\_\+comment (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+scan a comment 
+
+\begin{DoxyReturn}{Returns}
+whether comment could be scanned successfully 
+\end{DoxyReturn}
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_ad89dec0ac0f4e851925a0499e043b18b}\index{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}!scan\_literal@{scan\_literal}}
+\index{scan\_literal@{scan\_literal}!nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}}
+\doxysubsubsection{\texorpdfstring{scan\_literal()}{scan\_literal()}}
+{\footnotesize\ttfamily \label{classnlohmann_1_1detail_1_1lexer_ad89dec0ac0f4e851925a0499e043b18b} 
+template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$ \\
+token\+\_\+type \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer}{nlohmann::\+detail::\+lexer}}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$::\+scan\+\_\+literal (\begin{DoxyParamCaption}\item[{const char\+\_\+type \texorpdfstring{$\ast$}{*}}]{literal\+\_\+text}{, }\item[{const std::\+size\+\_\+t}]{length}{, }\item[{token\+\_\+type}]{return\+\_\+type}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em literal\+\_\+text} & the literal text to expect \\
+\hline
+\doxymbox{\texttt{in}}  & {\em length} & the length of the passed literal text \\
+\hline
+\doxymbox{\texttt{in}}  & {\em return\+\_\+type} & the token type to return on success \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_aab51a28e32c1957329141baff8eda1c4}\index{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}!scan\_number@{scan\_number}}
+\index{scan\_number@{scan\_number}!nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}}
+\doxysubsubsection{\texorpdfstring{scan\_number()}{scan\_number()}}
+{\footnotesize\ttfamily \label{classnlohmann_1_1detail_1_1lexer_aab51a28e32c1957329141baff8eda1c4} 
+template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$ \\
+token\+\_\+type \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer}{nlohmann::\+detail::\+lexer}}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$::\+scan\+\_\+number (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+scan a number literal 
+
+This function scans a string according to Sect. 6 of RFC 8259.
+
+\doxylink{requirements_The}{The} function is realized with a deterministic finite state machine derived from the grammar described in RFC 8259. Starting in state "{}init"{}, the input is read and used to determined the next state. Only state "{}done"{} accepts the number. State "{}error"{} is a trap state to model errors. In the table below, "{}anything"{} means any character but the ones listed before.
+
+
+\begin{DoxyTable}{8}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}state  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}0  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}1-\/9  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}e E  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}+  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}-\/  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}.  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}anything  \\
+init  &zero  &any1  &\+[error]\+  &\+[error]\+  &minus  &\+[error]\+  &\+[error]\+  \\
+minus  &zero  &any1  &\+[error]\+  &\+[error]\+  &\+[error]\+  &\+[error]\+  &\+[error]\+  \\
+zero  &done  &done  &exponent  &done  &done  &decimal1  &done  \\
+any1  &any1  &any1  &exponent  &done  &done  &decimal1  &done  \\
+decimal1  &decimal2  &decimal2  &\+[error]\+  &\+[error]\+  &\+[error]\+  &\+[error]\+  &\+[error]\+  \\
+decimal2  &decimal2  &decimal2  &exponent  &done  &done  &done  &done  \\
+exponent  &any2  &any2  &\+[error]\+  &sign  &sign  &\+[error]\+  &\+[error]\+  \\
+sign  &any2  &any2  &\+[error]\+  &\+[error]\+  &\+[error]\+  &\+[error]\+  &\+[error]\+  \\
+any2  &any2  &any2  &done  &done  &done  &done  &done  \\
+\end{DoxyTable}
+
+
+\doxylink{requirements_The}{The} state machine is realized with one label per state (prefixed with "{}scan\+\_\+number\+\_\+"{}) and {\ttfamily goto} statements between them. \doxylink{requirements_The}{The} state machine contains cycles, but any cycle can be left when EOF is read. Therefore, the function is guaranteed to terminate.
+
+During scanning, the read bytes are stored in token\+\_\+buffer. This string is then converted to a signed integer, an unsigned integer, or a floating-\/point number.
+
+\begin{DoxyReturn}{Returns}
+token\+\_\+type::\+value\+\_\+unsigned, token\+\_\+type::\+value\+\_\+integer, or token\+\_\+type::\+value\+\_\+float if number could be successfully scanned, token\+\_\+type::\+parse\+\_\+error otherwise
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+\doxylink{requirements_The}{The} scanner is independent of the current locale. Internally, the locale\textquotesingle{}s decimal point is used instead of {\ttfamily .} to work with the locale-\/dependent converters. 
+\end{DoxyNote}
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_ab6352978e03ebcbc3cd618cd17142f26}\index{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}!scan\_string@{scan\_string}}
+\index{scan\_string@{scan\_string}!nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}}
+\doxysubsubsection{\texorpdfstring{scan\_string()}{scan\_string()}}
+{\footnotesize\ttfamily \label{classnlohmann_1_1detail_1_1lexer_ab6352978e03ebcbc3cd618cd17142f26} 
+template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$ \\
+token\+\_\+type \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer}{nlohmann::\+detail::\+lexer}}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$::\+scan\+\_\+string (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+scan a string literal 
+
+This function scans a string according to Sect. 7 of RFC 8259. While scanning, bytes are escaped and copied into buffer token\+\_\+buffer. Then the function returns successfully, token\+\_\+buffer is {\itshape not} null-\/terminated (as it may contain \textbackslash{}0 bytes), and token\+\_\+buffer.\+size() is the number of bytes in the string.
+
+\begin{DoxyReturn}{Returns}
+token\+\_\+type::\+value\+\_\+string if string could be successfully scanned, token\+\_\+type::\+parse\+\_\+error otherwise
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+In case of errors, variable error\+\_\+message contains a textual description. 
+\end{DoxyNote}
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_a7cd7d55de2cd398660bc243c7229caf9}\index{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}!skip\_bom@{skip\_bom}}
+\index{skip\_bom@{skip\_bom}!nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}}
+\doxysubsubsection{\texorpdfstring{skip\_bom()}{skip\_bom()}}
+{\footnotesize\ttfamily \label{classnlohmann_1_1detail_1_1lexer_a7cd7d55de2cd398660bc243c7229caf9} 
+template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$ \\
+bool \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer}{nlohmann::\+detail::\+lexer}}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$::\+skip\+\_\+bom (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+skip the UTF-\/8 byte order mark 
+
+\begin{DoxyReturn}{Returns}
+true iff there is no BOM or the correct BOM has been skipped 
+\end{DoxyReturn}
+\Hypertarget{classnlohmann_1_1detail_1_1lexer_ab5811afe1c3efb0b769f7733b8373c6f}\index{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}!unget@{unget}}
+\index{unget@{unget}!nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}}
+\doxysubsubsection{\texorpdfstring{unget()}{unget()}}
+{\footnotesize\ttfamily \label{classnlohmann_1_1detail_1_1lexer_ab5811afe1c3efb0b769f7733b8373c6f} 
+template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$ \\
+void \doxymbox{\hyperlink{classnlohmann_1_1detail_1_1lexer}{nlohmann::\+detail::\+lexer}}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$::\+unget (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+unget current character (read it again on next get) 
+
+We implement unget by setting variable next\+\_\+unget to true. \doxylink{requirements_The}{The} input is not changed -\/ we just simulate ungetting by modifying chars\+\_\+read\+\_\+total, chars\+\_\+read\+\_\+current\+\_\+line, and token\+\_\+string. \doxylink{requirements_The}{The} next call to get() will behave as if the unget character is read again. 
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+abi/\+include/\+nlohmann/\+json\+\_\+v3\+\_\+10\+\_\+5.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,55 @@
+\doxysection{Backtest\+Engine::\+Config Struct Reference}
+\hypertarget{struct_backtest_engine_1_1_config}{}\label{struct_backtest_engine_1_1_config}\index{BacktestEngine::Config@{BacktestEngine::Config}}
+
+
+Configuration parameters for a backtest run.  
+
+
+
+
+{\ttfamily \+\#include $<$Backtest\+Engine.\+hpp$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_backtest_engine_1_1_config_a688e9a130f4dcdeb56c61713243a1da6}\label{struct_backtest_engine_1_1_config_a688e9a130f4dcdeb56c61713243a1da6} 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ {\bfseries stocks}
+\item 
+\Hypertarget{struct_backtest_engine_1_1_config_a3010c2b77fa412ffd0fda4fd468e4a0d}\label{struct_backtest_engine_1_1_config_a3010c2b77fa412ffd0fda4fd468e4a0d} 
+std::\+unordered\+\_\+map$<$ std::\+string, std::\+vector$<$ \doxymbox{\hyperlink{struct_backtest_engine_1_1_price_point}{Price\+Point}} $>$ $>$ {\bfseries prices}
+\item 
+\Hypertarget{struct_backtest_engine_1_1_config_aa9d20c474c53dc9472940a65418c2df1}\label{struct_backtest_engine_1_1_config_aa9d20c474c53dc9472940a65418c2df1} 
+std::\+string {\bfseries start\+\_\+date}
+\item 
+\Hypertarget{struct_backtest_engine_1_1_config_a4d165ed74715cae91c1134fcc1d8ff56}\label{struct_backtest_engine_1_1_config_a4d165ed74715cae91c1134fcc1d8ff56} 
+std::\+string {\bfseries end\+\_\+date}
+\item 
+\Hypertarget{struct_backtest_engine_1_1_config_a0534c8fae05fb254050ebbd64557d552}\label{struct_backtest_engine_1_1_config_a0534c8fae05fb254050ebbd64557d552} 
+std::\+size\+\_\+t {\bfseries top\+\_\+n} = 5
+\item 
+int \doxymbox{\hyperlink{struct_backtest_engine_1_1_config_a897b22f6bc7c88981126589f413f399f}{rebalance\+\_\+interval}} = 20
+\item 
+\Hypertarget{struct_backtest_engine_1_1_config_a00f38deab3eeacf6d8eb4d75fcca7745}\label{struct_backtest_engine_1_1_config_a00f38deab3eeacf6d8eb4d75fcca7745} 
+double {\bfseries initial\+\_\+capital} = 10000.\+0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Configuration parameters for a backtest run. 
+
+Groups together the stock universe, price history, date range, rebalance cadence, and capital assumptions needed to run one repeatable simulation. 
+
+\label{doc-variable-members}
+\Hypertarget{struct_backtest_engine_1_1_config_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_backtest_engine_1_1_config_a897b22f6bc7c88981126589f413f399f}\index{BacktestEngine::Config@{BacktestEngine::Config}!rebalance\_interval@{rebalance\_interval}}
+\index{rebalance\_interval@{rebalance\_interval}!BacktestEngine::Config@{BacktestEngine::Config}}
+\doxysubsubsection{\texorpdfstring{rebalance\_interval}{rebalance\_interval}}
+{\footnotesize\ttfamily \label{struct_backtest_engine_1_1_config_a897b22f6bc7c88981126589f413f399f} 
+int Backtest\+Engine::\+\+Config::\+rebalance\+\_\+interval = 20}
+
+Trading days. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+backtest/\+\doxymbox{\hyperlink{_backtest_engine_8hpp}{Backtest\+Engine.\+hpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,236 @@
+\doxysection{CSVLoader.\+hpp}
+\hypertarget{_c_s_v_loader_8hpp_source}{}\label{_c_s_v_loader_8hpp_source}\index{include/data/CSVLoader.hpp@{include/data/CSVLoader.hpp}}
+\doxymbox{\hyperlink{_c_s_v_loader_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <cctype>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_stock_8hpp}{core/Stock.hpp}}"{}}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_c_s_v_loader_af5808dd8dc04663a51aa315dc3822f30}{CSVLoader}}\ \{}
+\DoxyCodeLine{00031\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_c_s_v_loader_1_1_options}{Options}}\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{struct_c_s_v_loader_1_1_options_ab31a6f0cf5a44555733694d0d4fc9f5f}{delimiter}}\ =\ \textcolor{charliteral}{','};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{struct_c_s_v_loader_1_1_options_a91398d13c32edca528efd136e50a98e3}{has\_header}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00043\ \ \ \ \ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_c_s_v_loader_1_1_load_result}{LoadResult}}\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ std::vector<Stock>\ \doxymbox{\hyperlink{struct_c_s_v_loader_1_1_load_result_a1d27771bbf1008dc26c689d2ffbd6c60}{stocks}};}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ std::vector<std::string>\ \doxymbox{\hyperlink{struct_c_s_v_loader_1_1_load_result_a3081cd1b7858df01f0ab647dc84c553e}{errors}};}
+\DoxyCodeLine{00056\ \ \ \ \ \};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00064\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_af5808dd8dc04663a51aa315dc3822f30}{CSVLoader}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{class_c_s_v_loader_ab1f11e9479616156bb9f398dc20a3407}{CSVLoader}}(\doxymbox{\hyperlink{struct_c_s_v_loader_1_1_options}{Options}}\ options)\ :\ \doxymbox{\hyperlink{class_c_s_v_loader_a3e003dd6dbaaea6edca769528223a445}{options\_}}(options)\ \{\}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00079\ \ \ \ \ \doxymbox{\hyperlink{struct_c_s_v_loader_1_1_load_result}{LoadResult}}\ \doxymbox{\hyperlink{class_c_s_v_loader_ae863bcc3ebb3908bee1be3fe815b46c9}{loadFile}}(\textcolor{keyword}{const}\ std::string\&\ path)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ std::ifstream\ file(path);}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_c_s_v_loader_1_1_load_result}{LoadResult}}\ result;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ result.\doxymbox{\hyperlink{struct_c_s_v_loader_1_1_load_result_a3081cd1b7858df01f0ab647dc84c553e}{errors}}.push\_back(\textcolor{stringliteral}{"{}Failed\ to\ open\ CSV\ file:\ "{}}\ +\ path);}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_c_s_v_loader_a06c396f81321e434803a3e1d9e18f1ca}{loadStream}}(file);}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00095\ \ \ \ \ \doxymbox{\hyperlink{struct_c_s_v_loader_1_1_load_result}{LoadResult}}\ \doxymbox{\hyperlink{class_c_s_v_loader_a06c396f81321e434803a3e1d9e18f1ca}{loadStream}}(std::istream\&\ in)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_c_s_v_loader_1_1_load_result}{LoadResult}}\ result;}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ std::unordered\_map<std::string,\ size\_t>\ header\_index;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{class_c_s_v_loader_a3e003dd6dbaaea6edca769528223a445}{options\_}}.has\_header\ \&\&\ std::getline(in,\ line))\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ header\_fields\ =\ \doxymbox{\hyperlink{class_c_s_v_loader_acad8f99cc2d815b46a45af0ac16c4d6e}{parseCsvLine}}(line);}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ header\_fields.size();\ ++i)\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ header\_index[\doxymbox{\hyperlink{class_c_s_v_loader_a3dd176c546f40768d355378c943e369d}{normalizeHeader}}(header\_fields[i])]\ =\ i;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ row\ =\ 1;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(in,\ line))\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ ++row;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (line.empty())\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ fields\ =\ \doxymbox{\hyperlink{class_c_s_v_loader_acad8f99cc2d815b46a45af0ac16c4d6e}{parseCsvLine}}(line);}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ stock\_opt\ =\ \doxymbox{\hyperlink{class_c_s_v_loader_a443f4cc23c838f1b1748e794199de291}{parseStock}}(fields,\ header\_index);}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!stock\_opt.has\_value())\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result.\doxymbox{\hyperlink{struct_c_s_v_loader_1_1_load_result_a3081cd1b7858df01f0ab647dc84c553e}{errors}}.push\_back(\textcolor{stringliteral}{"{}Row\ "{}}\ +\ std::to\_string(row)\ +\ \textcolor{stringliteral}{"{}:\ malformed\ or\ missing\ required\ fields;\ skipped."{}});}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ result.\doxymbox{\hyperlink{struct_c_s_v_loader_1_1_load_result_a1d27771bbf1008dc26c689d2ffbd6c60}{stocks}}.push\_back(*stock\_opt);}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00130\ \ \ \ \ \doxymbox{\hyperlink{struct_c_s_v_loader_1_1_options}{Options}}\ \doxymbox{\hyperlink{class_c_s_v_loader_a3e003dd6dbaaea6edca769528223a445}{options\_}};}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00138\ \ \ \ \ std::vector<std::string>\ \doxymbox{\hyperlink{class_c_s_v_loader_acad8f99cc2d815b46a45af0ac16c4d6e}{parseCsvLine}}(\textcolor{keyword}{const}\ std::string\&\ line)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ std::vector<std::string>\ fields;}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ std::string\ field;}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ in\_quotes\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ line.size();\ ++i)\ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ c\ =\ line[i];}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (c\ ==\ \textcolor{charliteral}{'"{}'})\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (in\_quotes\ \&\&\ i\ +\ 1\ <\ line.size()\ \&\&\ line[i\ +\ 1]\ ==\ \textcolor{charliteral}{'"{}'})\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ field.push\_back(\textcolor{charliteral}{'"{}'});}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++i;}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ in\_quotes\ =\ !in\_quotes;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (c\ ==\ \doxymbox{\hyperlink{class_c_s_v_loader_a3e003dd6dbaaea6edca769528223a445}{options\_}}.delimiter\ \&\&\ !in\_quotes)\ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.push\_back(\doxymbox{\hyperlink{class_c_s_v_loader_acc3998dfcf2b6df0df96d54aec39be9d}{trim}}(field));}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ field.clear();}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ field.push\_back(c);}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ fields.push\_back(\doxymbox{\hyperlink{class_c_s_v_loader_acc3998dfcf2b6df0df96d54aec39be9d}{trim}}(field));}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ fields;}
+\DoxyCodeLine{00162\ \ \ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00170\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_c_s_v_loader_a3dd176c546f40768d355378c943e369d}{normalizeHeader}}(\textcolor{keyword}{const}\ std::string\&\ header)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ std::string\ out;}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ out.reserve(header.size());}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{char}\ c\ :\ header)\ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isalnum(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\textcolor{keyword}{>}(c)))\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ out.push\_back(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}\textcolor{keyword}{>}(std::tolower(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\textcolor{keyword}{>}(c))));}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00179\ \ \ \ \ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00187\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_c_s_v_loader_acc3998dfcf2b6df0df96d54aec39be9d}{trim}}(\textcolor{keyword}{const}\ std::string\&\ value)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ start\ =\ 0;}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (start\ <\ value.size()\ \&\&\ std::isspace(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\textcolor{keyword}{>}(value[start])))\ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ ++start;}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ end\ =\ value.size();}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (end\ >\ start\ \&\&\ std::isspace(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\textcolor{keyword}{>}(value[end\ -\/\ 1])))\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/end;}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value.substr(start,\ end\ -\/\ start);}
+\DoxyCodeLine{00197\ \ \ \ \ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00206\ \ \ \ \ std::optional<Stock>\ \doxymbox{\hyperlink{class_c_s_v_loader_a443f4cc23c838f1b1748e794199de291}{parseStock}}(}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::string>\&\ fields,}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keyword}{const}\ std::unordered\_map<std::string,\ size\_t>\&\ header\_index}
+\DoxyCodeLine{00209\ )\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00210\ \ \ \ \ \doxymbox{\hyperlink{struct_stock}{Stock}}\ stock;}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keyword}{auto}\ getField\ =\ [\&](\textcolor{keyword}{const}\ std::vector<std::string>\&\ keys,\ \textcolor{keywordtype}{size\_t}\ fallback\_index)\ -\/>\ std::optional<std::string>\ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ key\ :\ keys)\ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ header\_index.find(key);}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ header\_index.end()\ \&\&\ it-\/>second\ <\ fields.size())\ \{}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ fields[it-\/>second];}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!header\_index.empty())\ \{}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (fallback\_index\ <\ fields.size())\ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ fields[fallback\_index];}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00226\ \ \ \ \ \};}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keyword}{auto}\ ticker\ =\ getField(\{\textcolor{stringliteral}{"{}ticker"{}},\ \textcolor{stringliteral}{"{}symbol"{}}\},\ 0);}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keyword}{auto}\ name\ =\ getField(\{\textcolor{stringliteral}{"{}name"{}},\ \textcolor{stringliteral}{"{}longname"{}},\ \textcolor{stringliteral}{"{}shortname"{}}\},\ 1);}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keyword}{auto}\ sector\ =\ getField(\{\textcolor{stringliteral}{"{}sector"{}}\},\ 2);}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordflow}{if}\ (!ticker.has\_value()\ ||\ ticker-\/>empty())\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00234\ \ \ \ \ \}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ stock.\doxymbox{\hyperlink{struct_stock_ada6e688ab39d51118b61f9054a0f6369}{ticker}}\ =\ *ticker;}
+\DoxyCodeLine{00237\ \ \ \ \ stock.\doxymbox{\hyperlink{struct_stock_a8b79c44538a5f8845a17e537798719e4}{name}}\ =\ name.value\_or(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00238\ \ \ \ \ stock.\doxymbox{\hyperlink{struct_stock_a8666c9d148588a1d9ad3dc00a47d17b0}{sector}}\ =\ sector.value\_or(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{comment}{//\ Market}}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}price"{}},\ \textcolor{stringliteral}{"{}regularmarketprice"{}}\},\ 3),\ stock.\doxymbox{\hyperlink{struct_stock_a61137326975b96efd8d08eb473ae9386}{price}}))\ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00242\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}sharesoutstanding"{}}\},\ 4),\ stock.\doxymbox{\hyperlink{struct_stock_a04f49c88e3a04c95ec994aedfa2ce67c}{shares\_outstanding}});}
+\DoxyCodeLine{00243\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}marketcap"{}}\},\ 5),\ stock.\doxymbox{\hyperlink{struct_stock_ab0c755d577f3b56e71a8acb61bcff226}{market\_cap}});}
+\DoxyCodeLine{00244\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}dividendyield"{}},\ \textcolor{stringliteral}{"{}dividend\_yield"{}}\},\ 9999),\ stock.\doxymbox{\hyperlink{struct_stock_a8246454bea0b850caaf173d0d7702439}{dividend\_yield}});}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{comment}{//\ Income\ statement}}
+\DoxyCodeLine{00247\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}revenue"{}}\},\ 6),\ stock.\doxymbox{\hyperlink{struct_stock_a7ac2285c0bb37ddc3b3a84d710594684}{revenue}});}
+\DoxyCodeLine{00248\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}grossprofit"{}}\},\ 7),\ stock.\doxymbox{\hyperlink{struct_stock_a7e48d489084a8822e230491cc3b8139f}{gross\_profit}});}
+\DoxyCodeLine{00249\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}operatingincome"{}}\},\ 8),\ stock.\doxymbox{\hyperlink{struct_stock_ab7f9f538876de56cbf50df490526dd7a}{operating\_income}});}
+\DoxyCodeLine{00250\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}netincome"{}}\},\ 9),\ stock.\doxymbox{\hyperlink{struct_stock_a1cdb723f812819f0e0ddf2216f90eef5}{net\_income}});}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{comment}{//\ Cash\ flow}}
+\DoxyCodeLine{00253\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}operatingcashflow"{}}\},\ 10),\ stock.\doxymbox{\hyperlink{struct_stock_ad4cef1cdaa1acfbe8246a697f4d02a17}{operating\_cash\_flow}});}
+\DoxyCodeLine{00254\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}capitalexpenditures"{}}\},\ 11),\ stock.\doxymbox{\hyperlink{struct_stock_a8c71359702a75e7b2d37e8297dbf85b0}{capital\_expenditures}});}
+\DoxyCodeLine{00255\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}freecashflow"{}}\},\ 12),\ stock.\doxymbox{\hyperlink{struct_stock_acbf8fa1d61de8cbc3d635b227ec36a3a}{free\_cash\_flow}});}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{comment}{//\ Balance\ sheet}}
+\DoxyCodeLine{00258\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}totaldebt"{}}\},\ 13),\ stock.\doxymbox{\hyperlink{struct_stock_a4c96fa16752c494a7d39fdbbd1978b5c}{total\_debt}});}
+\DoxyCodeLine{00259\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}cash"{}}\},\ 14),\ stock.\doxymbox{\hyperlink{struct_stock_afafe5ff5065e9c07ad6a69c72a957efa}{cash}});}
+\DoxyCodeLine{00260\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}totalequity"{}}\},\ 15),\ stock.\doxymbox{\hyperlink{struct_stock_abee169a2fe602e700f967c7a4c12c234}{total\_equity}});}
+\DoxyCodeLine{00261\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}totalassets"{}}\},\ 16),\ stock.\doxymbox{\hyperlink{struct_stock_a3f219d83e3041945f2f9cdbca06d901c}{total\_assets}});}
+\DoxyCodeLine{00262\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}currentassets"{}}\},\ 17),\ stock.\doxymbox{\hyperlink{struct_stock_a0fb329f72946c43bbed441c804baccec}{current\_assets}});}
+\DoxyCodeLine{00263\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}currentliabilities"{}}\},\ 18),\ stock.\doxymbox{\hyperlink{struct_stock_a9d1d31e7d7f18a7df10f51aaaf1ed4b9}{current\_liabilities}});}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \ \ \ \ \textcolor{comment}{//\ Ratios\ /\ margins}}
+\DoxyCodeLine{00266\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}grossmargin"{}}\},\ 19),\ stock.\doxymbox{\hyperlink{struct_stock_a9dca1feed32318b9deee8bc6bf441c91}{gross\_margin}});}
+\DoxyCodeLine{00267\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}operatingmargin"{}}\},\ 20),\ stock.\doxymbox{\hyperlink{struct_stock_a263daa2f1032773bc647bc743f21d694}{operating\_margin}});}
+\DoxyCodeLine{00268\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}netmargin"{}}\},\ 21),\ stock.\doxymbox{\hyperlink{struct_stock_a6252c1651560ec128a84b1dc278e0a14}{net\_margin}});}
+\DoxyCodeLine{00269\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}currentratio"{}}\},\ 22),\ stock.\doxymbox{\hyperlink{struct_stock_a928912a91490856b4c5690f84c125516}{current\_ratio}});}
+\DoxyCodeLine{00270\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}debttoequity"{}}\},\ 23),\ stock.\doxymbox{\hyperlink{struct_stock_a442675163b5f120be4fa59da415ceaa1}{debt\_to\_equity}});}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ \textcolor{comment}{//\ Per-\/share}}
+\DoxyCodeLine{00273\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}bookvaluepershare"{}}\},\ 24),\ stock.\doxymbox{\hyperlink{struct_stock_a81a3779231dd1bd2cb1757ecc1470668}{book\_value\_per\_share}});}
+\DoxyCodeLine{00274\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}revenuepershare"{}}\},\ 25),\ stock.\doxymbox{\hyperlink{struct_stock_a2bc3ff78c3613a52f5a761480267d5dc}{revenue\_per\_share}});}
+\DoxyCodeLine{00275\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}eps"{}}\},\ 26),\ stock.\doxymbox{\hyperlink{struct_stock_abf42b3def278efb613d5b1395cda67cb}{eps}});}
+\DoxyCodeLine{00276\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}fcfpershare"{}}\},\ 27),\ stock.\doxymbox{\hyperlink{struct_stock_a8d68fe1e7e79d5098b8ef405fd6ea0a4}{fcf\_per\_share}});}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{comment}{//\ Valuation}}
+\DoxyCodeLine{00279\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}peratio"{}}\},\ 28),\ stock.\doxymbox{\hyperlink{struct_stock_aeb3445238461ccde40ddadc7d40e2060}{pe\_ratio}});}
+\DoxyCodeLine{00280\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}pbratio"{}}\},\ 29),\ stock.\doxymbox{\hyperlink{struct_stock_a3c244e3f3b680abb6e0d1cfbdb376aea}{pb\_ratio}});}
+\DoxyCodeLine{00281\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}psratio"{}}\},\ 30),\ stock.\doxymbox{\hyperlink{struct_stock_a1ee4229cfe1e6bc86dce28b5d1dc459f}{ps\_ratio}});}
+\DoxyCodeLine{00282\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}fcfyield"{}}\},\ 31),\ stock.\doxymbox{\hyperlink{struct_stock_a7d215816c02bceebae3132e886a69c15}{fcf\_yield}});}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{comment}{//\ Enterprise\ value}}
+\DoxyCodeLine{00285\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}enterprisevalue"{}}\},\ 32),\ stock.\doxymbox{\hyperlink{struct_stock_a7cd0b23fba166b692f3f9336f398855e}{enterprise\_value}});}
+\DoxyCodeLine{00286\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}evtoebit"{}}\},\ 33),\ stock.\doxymbox{\hyperlink{struct_stock_ad66563324c907462bb2bf992982fd357}{ev\_to\_ebit}});}
+\DoxyCodeLine{00287\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}evtosales"{}}\},\ 34),\ stock.\doxymbox{\hyperlink{struct_stock_acfe84efee6af68f2477eb91d1a472e2a}{ev\_to\_sales}});}
+\DoxyCodeLine{00288\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}evtofcf"{}}\},\ 35),\ stock.\doxymbox{\hyperlink{struct_stock_a675870dc9d4aba6c109961202e0e010a}{ev\_to\_fcf}});}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{comment}{//\ Profitability}}
+\DoxyCodeLine{00291\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}roe"{}}\},\ 36),\ stock.\doxymbox{\hyperlink{struct_stock_ab2a7a517194280a158f31c121eded1bb}{roe}});}
+\DoxyCodeLine{00292\ \ \ \ \ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(getField(\{\textcolor{stringliteral}{"{}roa"{}}\},\ 37),\ stock.\doxymbox{\hyperlink{struct_stock_a04e29953cc6b1a56a40c3a2d44f5e4b8}{roa}});}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{keywordflow}{return}\ stock;}
+\DoxyCodeLine{00295\ \}}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_c_s_v_loader_afc949a6df26d3844b2fb888993f174c5}{parseDouble}}(\textcolor{keyword}{const}\ std::optional<std::string>\&\ value,\ \textcolor{keywordtype}{double}\&\ out)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!value.has\_value()\ ||\ value-\/>empty())\ \{}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ out\ =\ 0.0;}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ out\ =\ std::stod(*value);}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\&)\ \{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00315\ \ \ \ \ \}}
+\DoxyCodeLine{00316\ \};}
+
+\end{DoxyCode}

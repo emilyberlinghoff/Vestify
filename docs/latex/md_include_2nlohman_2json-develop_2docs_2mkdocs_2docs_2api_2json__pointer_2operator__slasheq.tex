@@ -1,0 +1,64 @@
+\chapter{
+\footnotesize nlohmann::\+json\+\_\+pointer:\+:\+
+\normalsize operator/\+= }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slasheq}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slasheq}\index{$<$small$>$nlohmann::json\_pointer::$<$/small$>$operator/=@{$<$small$>$nlohmann::json\_pointer::$<$/small$>$operator/=}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slasheq_autotoc_md1060}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slasheq_autotoc_md1060}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ (1)}}
+\DoxyCodeLine{\doxymbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ operator/=(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ ptr);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ (2)}}
+\DoxyCodeLine{\doxymbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ operator/=(string\_t\ token);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ (3)}}
+\DoxyCodeLine{\doxymbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ operator/=(std::size\_t\ array\_idx)}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item append another JSON pointer at the end of this JSON pointer
+\item append an unescaped reference token at the end of this JSON pointer
+\item append an array index at the end of this JSON pointer
+\end{DoxyEnumerate}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slasheq_autotoc_md1061}{}\doxysection{\texorpdfstring{Parameters}{Parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slasheq_autotoc_md1061}
+{\ttfamily ptr} (in) :\+ JSON pointer to append
+
+{\ttfamily token} (in) :\+ reference token to append
+
+{\ttfamily array\+\_\+idx} (in) :\+ array index to append\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slasheq_autotoc_md1062}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slasheq_autotoc_md1062}
+
+\begin{DoxyEnumerate}
+\item JSON pointer with {\ttfamily ptr} appended
+\item JSON pointer with {\ttfamily token} appended without escaping {\ttfamily token}
+\item JSON pointer with {\ttfamily array\+\_\+idx} appended
+\end{DoxyEnumerate}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slasheq_autotoc_md1063}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slasheq_autotoc_md1063}
+
+\begin{DoxyEnumerate}
+\item Linear in the length of {\ttfamily ptr}.
+\item Amortized constant.
+\item Amortized constant.
+\end{DoxyEnumerate}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slasheq_autotoc_md1064}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slasheq_autotoc_md1064}
+??? example \begin{DoxyVerb}The example shows the usage of `operator/=`.
+
+```cpp
+--8<-- "examples/json_pointer__operator_add.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/json_pointer__operator_add.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slasheq_autotoc_md1065}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slasheq_autotoc_md1065}
+
+\begin{DoxyEnumerate}
+\item Added in version 3.\+6.\+0.
+\item Added in version 3.\+6.\+0. Changed type of {\ttfamily token} to {\ttfamily string\+\_\+t} in version 3.\+11.\+0.
+\item Added in version 3.\+6.\+0. 
+\end{DoxyEnumerate}

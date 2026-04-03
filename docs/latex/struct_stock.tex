@@ -1,0 +1,141 @@
+\doxysection{Stock Struct Reference}
+\hypertarget{struct_stock}{}\label{struct_stock}\index{Stock@{Stock}}
+
+
+Comprehensive financial data structure for individual stocks.  
+
+
+
+
+{\ttfamily \+\#include $<$Stock.\+hpp$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_stock_ada6e688ab39d51118b61f9054a0f6369}\label{struct_stock_ada6e688ab39d51118b61f9054a0f6369} 
+std::\+string {\bfseries ticker}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_stock}{Stock} ticker symbol (e.\+g., "{}\+AAPL"{}, "{}\+GOOGL"{}). \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a8b79c44538a5f8845a17e537798719e4}\label{struct_stock_a8b79c44538a5f8845a17e537798719e4} 
+std::\+string {\bfseries name}
+\begin{DoxyCompactList}\small\item\em Full company name. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a8666c9d148588a1d9ad3dc00a47d17b0}\label{struct_stock_a8666c9d148588a1d9ad3dc00a47d17b0} 
+std::\+string {\bfseries sector}
+\begin{DoxyCompactList}\small\item\em Industry sector classification. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a61137326975b96efd8d08eb473ae9386}\label{struct_stock_a61137326975b96efd8d08eb473ae9386} 
+double {\bfseries price} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Current stock price per share in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a04f49c88e3a04c95ec994aedfa2ce67c}\label{struct_stock_a04f49c88e3a04c95ec994aedfa2ce67c} 
+double {\bfseries shares\+\_\+outstanding} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Total shares outstanding. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_ab0c755d577f3b56e71a8acb61bcff226}\label{struct_stock_ab0c755d577f3b56e71a8acb61bcff226} 
+double {\bfseries market\+\_\+cap} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Market capitalization (price × shares\+\_\+outstanding) in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a8246454bea0b850caaf173d0d7702439}\label{struct_stock_a8246454bea0b850caaf173d0d7702439} 
+double {\bfseries dividend\+\_\+yield} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Annual dividend yield as a decimal (e.\+g., 0.\+025 for 2.\+5\%). \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a7ac2285c0bb37ddc3b3a84d710594684}\label{struct_stock_a7ac2285c0bb37ddc3b3a84d710594684} 
+double {\bfseries revenue} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Total revenue for the period in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a7e48d489084a8822e230491cc3b8139f}\label{struct_stock_a7e48d489084a8822e230491cc3b8139f} 
+double {\bfseries gross\+\_\+profit} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Gross profit (revenue -\/ cost of goods sold) in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_ab7f9f538876de56cbf50df490526dd7a}\label{struct_stock_ab7f9f538876de56cbf50df490526dd7a} 
+double {\bfseries operating\+\_\+income} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Operating income (EBIT) in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a1cdb723f812819f0e0ddf2216f90eef5}\label{struct_stock_a1cdb723f812819f0e0ddf2216f90eef5} 
+double {\bfseries net\+\_\+income} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Net income attributable to shareholders in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_ad4cef1cdaa1acfbe8246a697f4d02a17}\label{struct_stock_ad4cef1cdaa1acfbe8246a697f4d02a17} 
+double {\bfseries operating\+\_\+cash\+\_\+flow} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Operating cash flow in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a8c71359702a75e7b2d37e8297dbf85b0}\label{struct_stock_a8c71359702a75e7b2d37e8297dbf85b0} 
+double {\bfseries capital\+\_\+expenditures} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Capital expenditures (negative value) in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_acbf8fa1d61de8cbc3d635b227ec36a3a}\label{struct_stock_acbf8fa1d61de8cbc3d635b227ec36a3a} 
+double {\bfseries free\+\_\+cash\+\_\+flow} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Free cash flow (operating cash flow -\/ capex) in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a4c96fa16752c494a7d39fdbbd1978b5c}\label{struct_stock_a4c96fa16752c494a7d39fdbbd1978b5c} 
+double {\bfseries total\+\_\+debt} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Total debt obligations in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_afafe5ff5065e9c07ad6a69c72a957efa}\label{struct_stock_afafe5ff5065e9c07ad6a69c72a957efa} 
+double {\bfseries cash} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Cash and cash equivalents in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_abee169a2fe602e700f967c7a4c12c234}\label{struct_stock_abee169a2fe602e700f967c7a4c12c234} 
+double {\bfseries total\+\_\+equity} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Total shareholders\textquotesingle{} equity in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a3f219d83e3041945f2f9cdbca06d901c}\label{struct_stock_a3f219d83e3041945f2f9cdbca06d901c} 
+double {\bfseries total\+\_\+assets} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Total assets in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a0fb329f72946c43bbed441c804baccec}\label{struct_stock_a0fb329f72946c43bbed441c804baccec} 
+double {\bfseries current\+\_\+assets} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Current assets (due within 1 year) in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a9d1d31e7d7f18a7df10f51aaaf1ed4b9}\label{struct_stock_a9d1d31e7d7f18a7df10f51aaaf1ed4b9} 
+double {\bfseries current\+\_\+liabilities} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Current liabilities (due within 1 year) in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a9dca1feed32318b9deee8bc6bf441c91}\label{struct_stock_a9dca1feed32318b9deee8bc6bf441c91} 
+double {\bfseries gross\+\_\+margin} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Gross margin (gross\+\_\+profit /\+ revenue) as decimal. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a263daa2f1032773bc647bc743f21d694}\label{struct_stock_a263daa2f1032773bc647bc743f21d694} 
+double {\bfseries operating\+\_\+margin} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Operating margin (operating\+\_\+income /\+ revenue) as decimal. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a6252c1651560ec128a84b1dc278e0a14}\label{struct_stock_a6252c1651560ec128a84b1dc278e0a14} 
+double {\bfseries net\+\_\+margin} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Net margin (net\+\_\+income /\+ revenue) as decimal. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a928912a91490856b4c5690f84c125516}\label{struct_stock_a928912a91490856b4c5690f84c125516} 
+double {\bfseries current\+\_\+ratio} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Current ratio (current\+\_\+assets /\+ current\+\_\+liabilities). \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a442675163b5f120be4fa59da415ceaa1}\label{struct_stock_a442675163b5f120be4fa59da415ceaa1} 
+double {\bfseries debt\+\_\+to\+\_\+equity} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Debt-\/to-\/equity ratio (total\+\_\+debt /\+ total\+\_\+equity). \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a81a3779231dd1bd2cb1757ecc1470668}\label{struct_stock_a81a3779231dd1bd2cb1757ecc1470668} 
+double {\bfseries book\+\_\+value\+\_\+per\+\_\+share} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Book value per share (total\+\_\+equity /\+ shares\+\_\+outstanding). \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a2bc3ff78c3613a52f5a761480267d5dc}\label{struct_stock_a2bc3ff78c3613a52f5a761480267d5dc} 
+double {\bfseries revenue\+\_\+per\+\_\+share} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Revenue per share (revenue /\+ shares\+\_\+outstanding). \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_abf42b3def278efb613d5b1395cda67cb}\label{struct_stock_abf42b3def278efb613d5b1395cda67cb} 
+double {\bfseries eps} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Earnings per share (net\+\_\+income /\+ shares\+\_\+outstanding). \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a8d68fe1e7e79d5098b8ef405fd6ea0a4}\label{struct_stock_a8d68fe1e7e79d5098b8ef405fd6ea0a4} 
+double {\bfseries fcf\+\_\+per\+\_\+share} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Free cash flow per share (free\+\_\+cash\+\_\+flow /\+ shares\+\_\+outstanding). \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_aeb3445238461ccde40ddadc7d40e2060}\label{struct_stock_aeb3445238461ccde40ddadc7d40e2060} 
+double {\bfseries pe\+\_\+ratio} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Price-\/to-\/earnings ratio (price /\+ eps). \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a3c244e3f3b680abb6e0d1cfbdb376aea}\label{struct_stock_a3c244e3f3b680abb6e0d1cfbdb376aea} 
+double {\bfseries pb\+\_\+ratio} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Price-\/to-\/book ratio (price /\+ book\+\_\+value\+\_\+per\+\_\+share). \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a1ee4229cfe1e6bc86dce28b5d1dc459f}\label{struct_stock_a1ee4229cfe1e6bc86dce28b5d1dc459f} 
+double {\bfseries ps\+\_\+ratio} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Price-\/to-\/sales ratio (price /\+ revenue\+\_\+per\+\_\+share). \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a7d215816c02bceebae3132e886a69c15}\label{struct_stock_a7d215816c02bceebae3132e886a69c15} 
+double {\bfseries fcf\+\_\+yield} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Free cash flow yield (free\+\_\+cash\+\_\+flow /\+ market\+\_\+cap) as decimal. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a7cd0b23fba166b692f3f9336f398855e}\label{struct_stock_a7cd0b23fba166b692f3f9336f398855e} 
+double {\bfseries enterprise\+\_\+value} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Enterprise value (market\+\_\+cap + total\+\_\+debt -\/ cash) in USD. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_ad66563324c907462bb2bf992982fd357}\label{struct_stock_ad66563324c907462bb2bf992982fd357} 
+double {\bfseries ev\+\_\+to\+\_\+ebit} = 0.\+0
+\begin{DoxyCompactList}\small\item\em EV-\/to-\/\+EBIT ratio (enterprise\+\_\+value /\+ operating\+\_\+income). \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_acfe84efee6af68f2477eb91d1a472e2a}\label{struct_stock_acfe84efee6af68f2477eb91d1a472e2a} 
+double {\bfseries ev\+\_\+to\+\_\+sales} = 0.\+0
+\begin{DoxyCompactList}\small\item\em EV-\/to-\/sales ratio (enterprise\+\_\+value /\+ revenue). \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a675870dc9d4aba6c109961202e0e010a}\label{struct_stock_a675870dc9d4aba6c109961202e0e010a} 
+double {\bfseries ev\+\_\+to\+\_\+fcf} = 0.\+0
+\begin{DoxyCompactList}\small\item\em EV-\/to-\/\+FCF ratio (enterprise\+\_\+value /\+ free\+\_\+cash\+\_\+flow). \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_ab2a7a517194280a158f31c121eded1bb}\label{struct_stock_ab2a7a517194280a158f31c121eded1bb} 
+double {\bfseries roe} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Return on equity (net\+\_\+income /\+ total\+\_\+equity) as decimal. \end{DoxyCompactList}\item 
+\Hypertarget{struct_stock_a04e29953cc6b1a56a40c3a2d44f5e4b8}\label{struct_stock_a04e29953cc6b1a56a40c3a2d44f5e4b8} 
+double {\bfseries roa} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Return on assets (net\+\_\+income /\+ total\+\_\+assets) as decimal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Comprehensive financial data structure for individual stocks. 
+
+The \doxylink{struct_stock}{Stock} struct contains all financial information needed for stock analysis, organized into logical categories including identity, market data, income statement, cash flow, balance sheet, ratios, and valuation metrics. All monetary values are in USD, and ratios are expressed as decimals (e.\+g., 0.\+15 for 15\%). 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+core/\+\doxymbox{\hyperlink{_stock_8hpp}{Stock.\+hpp}}\end{DoxyCompactItemize}

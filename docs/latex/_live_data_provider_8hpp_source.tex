@@ -1,0 +1,46 @@
+\doxysection{Live\+Data\+Provider.\+hpp}
+\hypertarget{_live_data_provider_8hpp_source}{}\label{_live_data_provider_8hpp_source}\index{include/data/LiveDataProvider.hpp@{include/data/LiveDataProvider.hpp}}
+\doxymbox{\hyperlink{_live_data_provider_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_stock_8hpp}{core/Stock.hpp}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_live_data_provider_a6adff44276e80781ba470929d34649e8}{LiveDataProvider}}\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_live_data_provider_1_1_historical_point}{HistoricalPoint}}\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ std::string\ date;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ close\ =\ 0.0;}
+\DoxyCodeLine{00031\ \ \ \ \ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_live_data_provider_1_1_historical_result}{HistoricalResult}}\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ std::string\ ticker;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ std::vector<HistoricalPoint>\ points;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ std::vector<std::string>\ errors;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ from\_cache\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00041\ \ \ \ \ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{class_live_data_provider_a6adff44276e80781ba470929d34649e8}{LiveDataProvider}}(std::string\ base\_url\ =\ \textcolor{stringliteral}{"{}https://www.alphavantage.co"{}});}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00059\ \ \ \ \ \doxymbox{\hyperlink{struct_live_data_provider_1_1_historical_result}{HistoricalResult}}\ \doxymbox{\hyperlink{class_live_data_provider_a5c0bcf19a14568a8be55ab9f58a1d02b}{fetchDailySeries}}(\textcolor{keyword}{const}\ std::string\&\ ticker,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ outputsize\ =\ \textcolor{stringliteral}{"{}compact"{}},}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ adjusted\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ cache\_dir\ =\ \textcolor{stringliteral}{"{}data/historical"{}})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00066\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_live_data_provider_adca95c34804ba641acc04fc66deef2df}{base\_url\_}};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00077\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_live_data_provider_ac1858a662469b01d3338fd939afe4dc7}{buildDailySeriesUrl}}(\textcolor{keyword}{const}\ std::string\&\ ticker,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ api\_key,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ outputsize,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ adjusted)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \doxymbox{\hyperlink{class_live_data_provider_afb129b4f760dcd8d04fcbae91314de4e}{urlEncode}}(\textcolor{keyword}{const}\ std::string\&\ value);}
+\DoxyCodeLine{00089\ \};}
+
+\end{DoxyCode}

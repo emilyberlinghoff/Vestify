@@ -1,0 +1,64 @@
+\doxysection{src/\+ui/\+\+Interactive\+Menu.cpp File Reference}
+\hypertarget{_interactive_menu_8cpp}{}\label{_interactive_menu_8cpp}\index{src/ui/InteractiveMenu.cpp@{src/ui/InteractiveMenu.cpp}}
+
+
+Implementation of the interactive terminal interface for the Vestify application.  
+
+
+{\ttfamily \+\#include "{}ui/\+\+Interactive\+Menu.\+hpp"{}}\newline
+{\ttfamily \+\#include $<$algorithm$>$}\newline
+{\ttfamily \+\#include $<$cstdlib$>$}\newline
+{\ttfamily \+\#include $<$iomanip$>$}\newline
+{\ttfamily \+\#include $<$iostream$>$}\newline
+{\ttfamily \+\#include $<$limits$>$}\newline
+{\ttfamily \+\#include $<$sstream$>$}\newline
+{\ttfamily \+\#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \+\#include $<$unordered\+\_\+set$>$}\newline
+{\ttfamily \+\#include $<$fstream$>$}\newline
+{\ttfamily \+\#include "{}backtest/\+\+Backtest\+Engine.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}data/\+\+Live\+Data\+Provider.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}scoring/\+\+Growth\+Scoring\+Model.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}scoring/\+\+Momentum\+Scoring\+Model.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}scoring/\+\+Strategy\+Present.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}scoring/\+\+Value\+Scoring\+Model.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}scoring/\+\+Quality\+Scoring\+Model.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}scoring/\+\+Efficiency\+Scoring\+Model.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}ui/\+\+Screening\+Menu.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}ui/\+\+Stock\+Printer.\+hpp"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \doxymbox{\hyperlink{_interactive_menu_8cpp_a030e7f9b4d3e837d4d2e77e898393701}{load\+Env\+From\+File}} (const std::\+string \&path)
+\begin{DoxyCompactList}\small\item\em Construct the interactive menu and initialize watchlist persistence. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the interactive terminal interface for the Vestify application. 
+
+This file contains the implementation of the \doxylink{class_interactive_menu}{Interactive\+Menu} class, which drives the interactive menu for the stock analysis application. It handles user input, coordinates data loading and display operations, and manages the application workflow.
+
+\begin{DoxyAuthor}{Author}
+Maxime Lavoie 
+
+Melvin Roger 
+
+Zack Goodman 
+\end{DoxyAuthor}
+
+
+\label{doc-func-members}
+\Hypertarget{_interactive_menu_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_interactive_menu_8cpp_a030e7f9b4d3e837d4d2e77e898393701}\index{InteractiveMenu.cpp@{InteractiveMenu.cpp}!loadEnvFromFile@{loadEnvFromFile}}
+\index{loadEnvFromFile@{loadEnvFromFile}!InteractiveMenu.cpp@{InteractiveMenu.cpp}}
+\doxysubsubsection{\texorpdfstring{loadEnvFromFile()}{loadEnvFromFile()}}
+{\footnotesize\ttfamily \label{_interactive_menu_8cpp_a030e7f9b4d3e837d4d2e77e898393701} 
+void load\+Env\+From\+File (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Construct the interactive menu and initialize watchlist persistence. 
+
+Creates the watchlist repository using the demo watchlist JSON path and attempts to load any persisted watchlist data into memory. \begin{DoxyAuthor}{Author}
+Zack Goodman 
+\end{DoxyAuthor}

@@ -1,0 +1,258 @@
+\doxysection{fuzzer::\+Fuzzer Class Reference}
+\hypertarget{classfuzzer_1_1_fuzzer}{}\label{classfuzzer_1_1_fuzzer}\index{fuzzer::Fuzzer@{fuzzer::Fuzzer}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structfuzzer_1_1_fuzzer_1_1_coverage}{Coverage}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a582438623b355f23604ebcd6150134c1}\label{classfuzzer_1_1_fuzzer_a582438623b355f23604ebcd6150134c1} 
+{\bfseries Fuzzer} (User\+Callback CB, \doxymbox{\hyperlink{classfuzzer_1_1_input_corpus}{Input\+Corpus}} \&Corpus, \doxymbox{\hyperlink{classfuzzer_1_1_mutation_dispatcher}{Mutation\+Dispatcher}} \&MD, \doxymbox{\hyperlink{structfuzzer_1_1_fuzzing_options}{Fuzzing\+Options}} Options)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a0306e29f06ced3d24ed0417ea2fef34b}\label{classfuzzer_1_1_fuzzer_a0306e29f06ced3d24ed0417ea2fef34b} 
+void {\bfseries Loop} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a54326d89b0de8eb858c70dfa78c5cc57}\label{classfuzzer_1_1_fuzzer_a54326d89b0de8eb858c70dfa78c5cc57} 
+void {\bfseries Minimize\+Crash\+Loop} (const Unit \&U)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a368fcca328a7e72c500caf081227f7ef}\label{classfuzzer_1_1_fuzzer_a368fcca328a7e72c500caf081227f7ef} 
+void {\bfseries Shuffle\+And\+Minimize} (Unit\+Vector \texorpdfstring{$\ast$}{*}V)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a9f3aadcfbeb0e69ee8a0d6ad8133e455}\label{classfuzzer_1_1_fuzzer_a9f3aadcfbeb0e69ee8a0d6ad8133e455} 
+void {\bfseries Initialize\+Trace\+State} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a44506dc46253928eb73397091d6c4c32}\label{classfuzzer_1_1_fuzzer_a44506dc46253928eb73397091d6c4c32} 
+void {\bfseries Reread\+Output\+Corpus} (size\+\_\+t Max\+Size)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a71ac55e6fdd0979496a9c65f99fe33c5}\label{classfuzzer_1_1_fuzzer_a71ac55e6fdd0979496a9c65f99fe33c5} 
+size\+\_\+t {\bfseries seconds\+Since\+Process\+Start\+Up} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_acde1eccc2e342f62136ab3531b2b5630}\label{classfuzzer_1_1_fuzzer_acde1eccc2e342f62136ab3531b2b5630} 
+bool {\bfseries Timed\+Out} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_aa88607925eeffcf7d373ac58e767d7d5}\label{classfuzzer_1_1_fuzzer_aa88607925eeffcf7d373ac58e767d7d5} 
+size\+\_\+t {\bfseries exec\+Per\+Sec} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_af8117818c8156811dc998b34cdcf7ddb}\label{classfuzzer_1_1_fuzzer_af8117818c8156811dc998b34cdcf7ddb} 
+size\+\_\+t {\bfseries get\+Total\+Number\+Of\+Runs} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a5a299bed53a0c2d2ffd6557c173f7e40}\label{classfuzzer_1_1_fuzzer_a5a299bed53a0c2d2ffd6557c173f7e40} 
+void {\bfseries Execute\+Callback} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}\doxymbox{\hyperlink{struct_data}{Data}}, size\+\_\+t Size)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a89cb175e3dd6b4e14beb716a8a64f10c}\label{classfuzzer_1_1_fuzzer_a89cb175e3dd6b4e14beb716a8a64f10c} 
+size\+\_\+t {\bfseries Run\+One} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}\doxymbox{\hyperlink{struct_data}{Data}}, size\+\_\+t Size)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_aad1ef6d2a186b7b2462363111398e54e}\label{classfuzzer_1_1_fuzzer_aad1ef6d2a186b7b2462363111398e54e} 
+void {\bfseries Merge} (const std::\+vector$<$ std::\+string $>$ \&Corpora)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a3777acf379198d5339bf6baf0e9ad011}\label{classfuzzer_1_1_fuzzer_a3777acf379198d5339bf6baf0e9ad011} 
+void {\bfseries Crash\+Resistant\+Merge} (const std::\+vector$<$ std::\+string $>$ \&Args, const std::\+vector$<$ std::\+string $>$ \&Corpora)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a960f37bdf1d61e7043609ace07d411e4}\label{classfuzzer_1_1_fuzzer_a960f37bdf1d61e7043609ace07d411e4} 
+void {\bfseries Crash\+Resistant\+Merge\+Internal\+Step} (const std::\+string \&Control\+File\+Path)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a6a4abd6692ba305867fcb7df7bfe79cc}\label{classfuzzer_1_1_fuzzer_a6a4abd6692ba305867fcb7df7bfe79cc} 
+Unit\+Vector {\bfseries Find\+Extra\+Units} (const Unit\+Vector \&Initial, const Unit\+Vector \&Extra)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a8b8d0ef2f5292085afb55957ac513b24}\label{classfuzzer_1_1_fuzzer_a8b8d0ef2f5292085afb55957ac513b24} 
+\doxymbox{\hyperlink{classfuzzer_1_1_mutation_dispatcher}{Mutation\+Dispatcher}} \& {\bfseries Get\+MD} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a7caa04e4384d37875ab1d2eb745f5978}\label{classfuzzer_1_1_fuzzer_a7caa04e4384d37875ab1d2eb745f5978} 
+void {\bfseries Print\+Final\+Stats} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_af049926833d09bb487062779d6f881ba}\label{classfuzzer_1_1_fuzzer_af049926833d09bb487062779d6f881ba} 
+void {\bfseries Set\+Max\+Input\+Len} (size\+\_\+t Max\+Input\+Len)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a294a565231ed605981b9600e0ce60722}\label{classfuzzer_1_1_fuzzer_a294a565231ed605981b9600e0ce60722} 
+void {\bfseries Set\+Max\+Mutation\+Len} (size\+\_\+t Max\+Mutation\+Len)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_aaff2d6a9892349f851f17dd3f0da5ac0}\label{classfuzzer_1_1_fuzzer_aaff2d6a9892349f851f17dd3f0da5ac0} 
+void {\bfseries Rss\+Limit\+Callback} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_abbc24e3115c1bf70ff10e81dedfe38c6}\label{classfuzzer_1_1_fuzzer_abbc24e3115c1bf70ff10e81dedfe38c6} 
+void {\bfseries Reset\+Coverage} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a6b8043b43eaa243299df6d64ba8413b6}\label{classfuzzer_1_1_fuzzer_a6b8043b43eaa243299df6d64ba8413b6} 
+bool {\bfseries In\+Fuzzing\+Thread} () const
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_af1d13fc1411234ad0cb2b10175d71141}\label{classfuzzer_1_1_fuzzer_af1d13fc1411234ad0cb2b10175d71141} 
+size\+\_\+t {\bfseries Get\+Current\+Unit\+In\+Fuzzing\+Thead} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\doxymbox{\hyperlink{struct_data}{Data}}) const
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a7b4edc3276350436fe6ed3f4200b0226}\label{classfuzzer_1_1_fuzzer_a7b4edc3276350436fe6ed3f4200b0226} 
+void {\bfseries Try\+Detecting\+AMemory\+Leak} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}\doxymbox{\hyperlink{struct_data}{Data}}, size\+\_\+t Size, bool During\+Initial\+Corpus\+Execution)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_aedd1fa002d658fbcc1e0870ae28c4489}\label{classfuzzer_1_1_fuzzer_aedd1fa002d658fbcc1e0870ae28c4489} 
+void {\bfseries Handle\+Malloc} (size\+\_\+t Size)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a8e5cc850a9e02c0650f196981ced0b78}\label{classfuzzer_1_1_fuzzer_a8e5cc850a9e02c0650f196981ced0b78} 
+static void {\bfseries Static\+Alarm\+Callback} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a53ec06c88c7260710d7c7fcae14bf568}\label{classfuzzer_1_1_fuzzer_a53ec06c88c7260710d7c7fcae14bf568} 
+static void {\bfseries Static\+Crash\+Signal\+Callback} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_ade17502cb3deeb915a59e0e98cb109da}\label{classfuzzer_1_1_fuzzer_ade17502cb3deeb915a59e0e98cb109da} 
+static void {\bfseries Static\+Interrupt\+Callback} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_ae4ac0d050d81923fec7220dd5587f509}\label{classfuzzer_1_1_fuzzer_ae4ac0d050d81923fec7220dd5587f509} 
+void {\bfseries Alarm\+Callback} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a59da5344dd4a5419b5cc1782e98e08b9}\label{classfuzzer_1_1_fuzzer_a59da5344dd4a5419b5cc1782e98e08b9} 
+void {\bfseries Crash\+Callback} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_ad57a4305892f168dd0801368faf9f6de}\label{classfuzzer_1_1_fuzzer_ad57a4305892f168dd0801368faf9f6de} 
+void {\bfseries Interrupt\+Callback} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a9c3b80798ae30570306d7f938961dec3}\label{classfuzzer_1_1_fuzzer_a9c3b80798ae30570306d7f938961dec3} 
+void {\bfseries Mutate\+And\+Test\+One} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a26b0af99479a986f0b3c67950085adf1}\label{classfuzzer_1_1_fuzzer_a26b0af99479a986f0b3c67950085adf1} 
+void {\bfseries Report\+New\+Coverage} (\doxymbox{\hyperlink{structfuzzer_1_1_input_info}{Input\+Info}} \texorpdfstring{$\ast$}{*}II, const Unit \&U)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_aab38a9313baf9c0761553cab5baeb5f3}\label{classfuzzer_1_1_fuzzer_aab38a9313baf9c0761553cab5baeb5f3} 
+size\+\_\+t {\bfseries Run\+One} (const Unit \&U)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_ad2a2044a0a3a8f283e9113544888372a}\label{classfuzzer_1_1_fuzzer_ad2a2044a0a3a8f283e9113544888372a} 
+void {\bfseries Write\+To\+Output\+Corpus} (const Unit \&U)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_aef705ffb2c3596bc6c6fe425320093d8}\label{classfuzzer_1_1_fuzzer_aef705ffb2c3596bc6c6fe425320093d8} 
+void {\bfseries Write\+Unit\+To\+File\+With\+Prefix} (const Unit \&U, const char \texorpdfstring{$\ast$}{*}Prefix)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a8f5aa23c9773c86b0b57362a36c81247}\label{classfuzzer_1_1_fuzzer_a8f5aa23c9773c86b0b57362a36c81247} 
+void {\bfseries Print\+Stats} (const char \texorpdfstring{$\ast$}{*}Where, const char \texorpdfstring{$\ast$}{*}End="{}\textbackslash{}n"{}, size\+\_\+t Units=0)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_ac7f5f2abe2e381509015eae6bb588410}\label{classfuzzer_1_1_fuzzer_ac7f5f2abe2e381509015eae6bb588410} 
+void {\bfseries Print\+Status\+For\+New\+Unit} (const Unit \&U)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a041e5a9e9a6e0c3cfda1633480ec1a7e}\label{classfuzzer_1_1_fuzzer_a041e5a9e9a6e0c3cfda1633480ec1a7e} 
+void {\bfseries Shuffle\+Corpus} (Unit\+Vector \texorpdfstring{$\ast$}{*}V)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a1b927081b7a550a69037ef495e015909}\label{classfuzzer_1_1_fuzzer_a1b927081b7a550a69037ef495e015909} 
+void {\bfseries Add\+To\+Corpus} (const Unit \&U)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_aaddf0e7cb45194b8829b8d73be87d82e}\label{classfuzzer_1_1_fuzzer_aaddf0e7cb45194b8829b8d73be87d82e} 
+void {\bfseries Check\+Exit\+On\+Src\+Pos\+Or\+Item} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a1a2f2b42af458dd9bb2382336419e2de}\label{classfuzzer_1_1_fuzzer_a1a2f2b42af458dd9bb2382336419e2de} 
+void {\bfseries Start\+Trace\+Recording} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a6e90e1017376db8debf0658f03cda9dc}\label{classfuzzer_1_1_fuzzer_a6e90e1017376db8debf0658f03cda9dc} 
+void {\bfseries Stop\+Trace\+Recording} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_acc39f35d54c3d1dd17f108aba6fab3f8}\label{classfuzzer_1_1_fuzzer_acc39f35d54c3d1dd17f108aba6fab3f8} 
+void {\bfseries Set\+Death\+Callback} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_ac853911b596fa7f8d6f1bdbd0a748a0f}\label{classfuzzer_1_1_fuzzer_ac853911b596fa7f8d6f1bdbd0a748a0f} 
+void {\bfseries Dump\+Current\+Unit} (const char \texorpdfstring{$\ast$}{*}Prefix)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a5084c0cdc4b451c899e062eab5bc6651}\label{classfuzzer_1_1_fuzzer_a5084c0cdc4b451c899e062eab5bc6651} 
+void {\bfseries Death\+Callback} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_ae5d66bff35f7051a6844098b9b1f83af}\label{classfuzzer_1_1_fuzzer_ae5d66bff35f7051a6844098b9b1f83af} 
+void {\bfseries Reset\+Edge\+Coverage} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_aae1fc306bbc4d6094da5a7bb530abd79}\label{classfuzzer_1_1_fuzzer_aae1fc306bbc4d6094da5a7bb530abd79} 
+void {\bfseries Reset\+Counters} ()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_af45e921689024754bcda0f6df9a86013}\label{classfuzzer_1_1_fuzzer_af45e921689024754bcda0f6df9a86013} 
+void {\bfseries Prepare\+Counters} (\doxymbox{\hyperlink{structfuzzer_1_1_fuzzer_1_1_coverage}{Fuzzer::\+\+Coverage}} \texorpdfstring{$\ast$}{*}C)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a0b5a2dac0eebd945f1dde1bf267982a1}\label{classfuzzer_1_1_fuzzer_a0b5a2dac0eebd945f1dde1bf267982a1} 
+bool {\bfseries Record\+Max\+Coverage} (\doxymbox{\hyperlink{structfuzzer_1_1_fuzzer_1_1_coverage}{Fuzzer::\+\+Coverage}} \texorpdfstring{$\ast$}{*}C)
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_ab029ddbb7a4998687caf8a6e23ff2794}\label{classfuzzer_1_1_fuzzer_ab029ddbb7a4998687caf8a6e23ff2794} 
+void {\bfseries Allocate\+Current\+Unit\+Data} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a7de4a6effa071db473a5008a5ec24147}\label{classfuzzer_1_1_fuzzer_a7de4a6effa071db473a5008a5ec24147} 
+static void {\bfseries Static\+Death\+Callback} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_aa9c6dc64a5c3a6850c85552d2cdeaa71}\label{classfuzzer_1_1_fuzzer_aa9c6dc64a5c3a6850c85552d2cdeaa71} 
+uint8\+\_\+t \texorpdfstring{$\ast$}{*} {\bfseries Current\+Unit\+Data} = nullptr
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a089ff84397c6e01dbaf870d4fcb4fde2}\label{classfuzzer_1_1_fuzzer_a089ff84397c6e01dbaf870d4fcb4fde2} 
+std::\+atomic$<$ size\+\_\+t $>$ {\bfseries Current\+Unit\+Size}
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a7f8f0f37fed7cec80aa8118399df6154}\label{classfuzzer_1_1_fuzzer_a7f8f0f37fed7cec80aa8118399df6154} 
+uint8\+\_\+t {\bfseries Base\+Sha1} \+[k\+SHA1\+Num\+Bytes]\+
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_ad41d81df7fa27e1d6153616fcb33db80}\label{classfuzzer_1_1_fuzzer_ad41d81df7fa27e1d6153616fcb33db80} 
+bool {\bfseries Running\+CB} = false
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_ada53d94859eb4f291bfb90b068a87cd4}\label{classfuzzer_1_1_fuzzer_ada53d94859eb4f291bfb90b068a87cd4} 
+size\+\_\+t {\bfseries Total\+Number\+Of\+Runs} = 0
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_afc1b85a7f4534901f44d4b0ebf21fcfe}\label{classfuzzer_1_1_fuzzer_afc1b85a7f4534901f44d4b0ebf21fcfe} 
+size\+\_\+t {\bfseries Number\+Of\+New\+Units\+Added} = 0
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a4e2355cd8114e702b3ddf24daa74435c}\label{classfuzzer_1_1_fuzzer_a4e2355cd8114e702b3ddf24daa74435c} 
+bool {\bfseries Has\+More\+Mallocs\+Than\+Frees} = false
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_acb2fae719f622b4e22e24cabe834d6ed}\label{classfuzzer_1_1_fuzzer_acb2fae719f622b4e22e24cabe834d6ed} 
+size\+\_\+t {\bfseries Number\+Of\+Leak\+Detection\+Attempts} = 0
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a16a997fbc6f9d63a5c13166b8d0e86f9}\label{classfuzzer_1_1_fuzzer_a16a997fbc6f9d63a5c13166b8d0e86f9} 
+User\+Callback {\bfseries CB}
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a259f7852a45a3163401f2e8be0312184}\label{classfuzzer_1_1_fuzzer_a259f7852a45a3163401f2e8be0312184} 
+\doxymbox{\hyperlink{classfuzzer_1_1_input_corpus}{Input\+Corpus}} \& {\bfseries Corpus}
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_aae32e35a1f3355a1e33d004380d61ee5}\label{classfuzzer_1_1_fuzzer_aae32e35a1f3355a1e33d004380d61ee5} 
+\doxymbox{\hyperlink{classfuzzer_1_1_mutation_dispatcher}{Mutation\+Dispatcher}} \& {\bfseries MD}
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a7e2417b51569446c7c61124c8bd049e4}\label{classfuzzer_1_1_fuzzer_a7e2417b51569446c7c61124c8bd049e4} 
+\doxymbox{\hyperlink{structfuzzer_1_1_fuzzing_options}{Fuzzing\+Options}} {\bfseries Options}
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a4b58936f14f53467ba3318e2595fd891}\label{classfuzzer_1_1_fuzzer_a4b58936f14f53467ba3318e2595fd891} 
+system\+\_\+clock::\+time\+\_\+point {\bfseries Process\+Start\+Time} = system\+\_\+clock::\+now()
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a3cd1b97de3ccddf8fbecab0e04dfd95d}\label{classfuzzer_1_1_fuzzer_a3cd1b97de3ccddf8fbecab0e04dfd95d} 
+system\+\_\+clock::\+time\+\_\+point {\bfseries Unit\+Start\+Time}
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a31dc7b9a98bc73b57002af992e674ad3}\label{classfuzzer_1_1_fuzzer_a31dc7b9a98bc73b57002af992e674ad3} 
+system\+\_\+clock::\+time\+\_\+point {\bfseries Unit\+Stop\+Time}
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a7cf7fb0b40f911a2b88eb6be24a307cf}\label{classfuzzer_1_1_fuzzer_a7cf7fb0b40f911a2b88eb6be24a307cf} 
+long {\bfseries Time\+Of\+Longest\+Unit\+In\+Seconds} = 0
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_af3929076fb180c4feba033252bd3c7bf}\label{classfuzzer_1_1_fuzzer_af3929076fb180c4feba033252bd3c7bf} 
+long {\bfseries Epoch\+Of\+Last\+Read\+Of\+Output\+Corpus} = 0
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_ac0d1b89a100c0d71a083d3333449fd79}\label{classfuzzer_1_1_fuzzer_ac0d1b89a100c0d71a083d3333449fd79} 
+\doxymbox{\hyperlink{structfuzzer_1_1_fuzzer_1_1_coverage}{Coverage}} {\bfseries Max\+Coverage}
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_ae4174024679e8edbbfd2caf2b0a58045}\label{classfuzzer_1_1_fuzzer_ae4174024679e8edbbfd2caf2b0a58045} 
+size\+\_\+t {\bfseries Max\+Input\+Len} = 0
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a6fed6402b4153f02e114784ce8a47c6a}\label{classfuzzer_1_1_fuzzer_a6fed6402b4153f02e114784ce8a47c6a} 
+size\+\_\+t {\bfseries Max\+Mutation\+Len} = 0
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_a8b629489411399a22c46ce50a8111861}\label{classfuzzer_1_1_fuzzer_a8b629489411399a22c46ce50a8111861} 
+bool {\bfseries In\+Merge\+Mode} = false
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfuzzer_1_1_fuzzer_aabb2c722fad69521779ac2704181d5f5}\label{classfuzzer_1_1_fuzzer_aabb2c722fad69521779ac2704181d5f5} 
+static bool {\bfseries Is\+My\+Thread}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+thirdparty/\+\+Fuzzer/\+Fuzzer\+Internal.\+h\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+thirdparty/\+\+Fuzzer/\+Fuzzer\+Loop.\+cpp\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+thirdparty/\+\+Fuzzer/\+Fuzzer\+Merge.\+cpp\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+thirdparty/\+\+Fuzzer/\+Fuzzer\+Trace\+State.\+cpp\end{DoxyCompactItemize}

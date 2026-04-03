@@ -1,0 +1,43 @@
+\chapter{Trailing Commas }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2trailing__commas}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2trailing__commas}\index{Trailing Commas@{Trailing Commas}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2trailing__commas_autotoc_md1511}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2trailing__commas_autotoc_md1511}%
+
+
+Like \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2comments}{comments}{0}, this library does not support trailing commas in arrays and objects {\itshape by default}.
+
+You can set parameter {\ttfamily ignore\+\_\+trailing\+\_\+commas} to {\ttfamily \#!cpp true} in the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parse}{{\ttfamily parse}}{0} function to allow trailing commas in arrays and objects. Note that a single comma as the only content of the array or object ({\ttfamily \+[,]\+} or {\ttfamily \{,\}}) is not allowed, and multiple trailing commas ({\ttfamily \+[1,,]\+}) are not allowed either.
+
+This library does not add trailing commas when serializing JSON data.
+
+For more information, see \href{https://nigeltao.github.io/blog/2021/json-with-commas-comments.html}{\texttt{JSON With Commas and Comments (JWCC)}}.
+
+!!! example \begin{DoxyVerb}Consider the following JSON with trailing commas.
+
+```json
+{
+    "planets": [
+        "Mercury",
+        "Venus",
+        "Earth",
+        "Mars",
+        "Jupiter",
+        "Uranus",
+        "Neptune",
+    ]
+}
+```
+
+When calling `parse` without additional argument, a parse error exception is thrown. If `ignore_trailing_commas` is set to `#! true`, the trailing commas are ignored during parsing:
+
+```cpp
+--8<-- "examples/trailing_commas.cpp"
+```
+
+Output:
+
+```
+--8<-- "examples/trailing_commas.output"
+```
+\end{DoxyVerb}
+ 

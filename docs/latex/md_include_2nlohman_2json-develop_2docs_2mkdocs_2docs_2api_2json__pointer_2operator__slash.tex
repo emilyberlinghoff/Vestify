@@ -1,0 +1,66 @@
+\chapter{
+\footnotesize nlohmann::\+json\+\_\+pointer:\+:\+
+\normalsize operator/\+ }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slash}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slash}\index{$<$small$>$nlohmann::json\_pointer::$<$/small$>$operator/@{$<$small$>$nlohmann::json\_pointer::$<$/small$>$operator/}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slash_autotoc_md1054}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slash_autotoc_md1054}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ (1)}}
+\DoxyCodeLine{\doxymbox{\hyperlink{classjson__pointer}{json\_pointer}}\ operator/(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ lhs,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ rhs);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ (2)}}
+\DoxyCodeLine{\doxymbox{\hyperlink{classjson__pointer}{json\_pointer}}\ operator/(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ lhs,\ string\_t\ token);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ (3)}}
+\DoxyCodeLine{\doxymbox{\hyperlink{classjson__pointer}{json\_pointer}}\ operator/(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classjson__pointer}{json\_pointer}}\&\ lhs,\ std::size\_t\ array\_idx);}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item create a new JSON pointer by appending the right JSON pointer at the end of the left JSON pointer
+\item create a new JSON pointer by appending the unescaped token at the end of the JSON pointer
+\item create a new JSON pointer by appending the array-\/index-\/token at the end of the JSON pointer
+\end{DoxyEnumerate}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slash_autotoc_md1055}{}\doxysection{\texorpdfstring{Parameters}{Parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slash_autotoc_md1055}
+{\ttfamily lhs} (in) :\+ JSON pointer
+
+{\ttfamily rhs} (in) :\+ JSON pointer to append
+
+{\ttfamily token} (in) :\+ reference token to append
+
+{\ttfamily array\+\_\+idx} (in) :\+ array index to append\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slash_autotoc_md1056}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slash_autotoc_md1056}
+
+\begin{DoxyEnumerate}
+\item a new JSON pointer with {\ttfamily rhs} appended to {\ttfamily lhs}
+\item a new JSON pointer with unescaped {\ttfamily token} appended to {\ttfamily lhs}
+\item a new JSON pointer with {\ttfamily array\+\_\+idx} appended to {\ttfamily lhs}
+\end{DoxyEnumerate}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slash_autotoc_md1057}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slash_autotoc_md1057}
+
+\begin{DoxyEnumerate}
+\item Linear in the length of {\ttfamily lhs} and {\ttfamily rhs}.
+\item Linear in the length of {\ttfamily lhs}.
+\item Linear in the length of {\ttfamily lhs}.
+\end{DoxyEnumerate}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slash_autotoc_md1058}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slash_autotoc_md1058}
+??? example \begin{DoxyVerb}The example shows the usage of `operator/`.
+
+```cpp
+--8<-- "examples/json_pointer__operator_add_binary.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/json_pointer__operator_add_binary.output"
+```
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slash_autotoc_md1059}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slash_autotoc_md1059}
+
+\begin{DoxyEnumerate}
+\item Added in version 3.\+6.\+0.
+\item Added in version 3.\+6.\+0. Changed type of {\ttfamily token} to {\ttfamily string\+\_\+t} in version 3.\+11.\+0.
+\item Added in version 3.\+6.\+0. 
+\end{DoxyEnumerate}

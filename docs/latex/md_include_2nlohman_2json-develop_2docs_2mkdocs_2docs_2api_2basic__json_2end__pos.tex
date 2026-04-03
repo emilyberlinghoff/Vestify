@@ -1,0 +1,64 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize end\+\_\+pos }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$end\_pos@{$<$small$>$nlohmann::basic\_json::$<$/small$>$end\_pos}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md265}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md265}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#if\ JSON\_DIAGNOSTIC\_POSITIONS}}
+\DoxyCodeLine{\textcolor{keyword}{constexpr}\ std::size\_t\ end\_pos()\ const\ noexcept;}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
+
+
+Returns the position immediately following the last character of the JSON string from which the value was parsed from.
+
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}JSON type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}return value  \\
+object  &position after the closing {\ttfamily \}}  \\
+array  &position after the closing {\ttfamily ]\+}  \\
+string  &position after the closing {\ttfamily "{}}  \\
+number  &position after the last character  \\
+boolean  &position after {\ttfamily e}  \\
+null  &position after {\ttfamily l}  \\
+\end{DoxyTable}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md266}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md266}
+the position of the character {\itshape following} the last character of the given value in the parsed JSON string, if the value was created by the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2parse}{{\ttfamily parse}}{0} function, or {\ttfamily std::\+string::\+npos} if the value was constructed otherwise\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md267}{}\doxysection{\texorpdfstring{Exception safety}{Exception safety}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md267}
+No-\/throw guarantee:\+ this member function never throws exceptions.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md268}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md268}
+Constant.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md269}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md269}
+!!! note "{}\+Note"{} \begin{DoxyVerb}The function is only available if macro [`JSON_DIAGNOSTIC_POSITIONS`](../macros/json_diagnostic_positions.md) has
+been defined to `#!cpp 1` before including the library header.
+\end{DoxyVerb}
+
+
+!!! warning "{}\+Invalidation"{} \begin{DoxyVerb}The returned positions are only valid as long as the JSON value is not changed. The positions are *not* updated
+when the JSON value is changed.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md270}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md270}
+??? example "{}\+Example"{} \begin{DoxyVerb}```cpp
+--8<-- "examples/diagnostic_positions.cpp"
+```
+
+Output:
+
+```
+--8<-- "examples/diagnostic_positions.output"
+```
+
+The output shows the start/end positions of all the objects and fields in the JSON string.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md271}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md271}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2start__pos}{start\+\_\+pos}{0} to access the start position
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions}{JSON\+\_\+\+DIAGNOSTIC\+\_\+\+POSITIONS}{0} for an overview of the diagnostic positions
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md272}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2end__pos_autotoc_md272}
+
+\begin{DoxyItemize}
+\item Added in version 3.\+12.\+0. 
+\end{DoxyItemize}

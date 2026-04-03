@@ -1,0 +1,56 @@
+\chapter{
+\footnotesize nlohmann:\+:\+
+\normalsize json\+\_\+pointer }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index}\index{$<$small$>$nlohmann::$<$/small$>$json\_pointer@{$<$small$>$nlohmann::$<$/small$>$json\_pointer}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index_autotoc_md1022}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index_autotoc_md1022}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ RefStringType>}
+\DoxyCodeLine{\textcolor{keyword}{class\ }\doxymbox{\hyperlink{classjson__pointer}{json\_pointer}};}
+
+\end{DoxyCode}
+
+
+\doxylink{class_a}{A} JSON pointer defines a string syntax for identifying a specific value within a JSON document. It can be used with functions \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2at}{{\ttfamily at}}{0} and {\ttfamily operator\+[]\+}. Furthermore, JSON pointers are the base for JSON patches.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index_autotoc_md1023}{}\doxysection{\texorpdfstring{Template parameters}{Template parameters}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index_autotoc_md1023}
+{\ttfamily Ref\+String\+Type} :\+ the string type used for the reference tokens making up the JSON pointer
+
+!!! warning "{}\+Deprecation"{} \begin{DoxyVerb}For backwards compatibility `RefStringType` may also be a specialization of [`basic_json`](../basic_json/index.md)
+in which case `string_t` will be deduced as [`basic_json::string_t`](../basic_json/string_t.md). This feature is
+deprecated and may be removed in a future major version.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index_autotoc_md1024}{}\doxysection{\texorpdfstring{Member types}{Member types}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index_autotoc_md1024}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2string__t}{{\bfseries{string\+\_\+t}}}{0} -\/ the string type used for the reference tokens
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index_autotoc_md1025}{}\doxysection{\texorpdfstring{Member functions}{Member functions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index_autotoc_md1025}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2json__pointer}{(constructor)}{0}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2to__string}{{\bfseries{to\+\_\+string}}}{0} -\/ return a string representation of the JSON pointer
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__string__t}{{\bfseries{operator string\+\_\+t}}}{0} -\/ return a string representation of the JSON pointer
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__eq}{{\bfseries{operator==}}}{0} -\/ compare:\+ equal
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__ne}{{\bfseries{operator!=}}}{0} -\/ compare:\+ not equal
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slasheq}{{\bfseries{operator/\+=}}}{0} -\/ append to the end of the JSON pointer
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2operator__slash}{{\bfseries{operator/\+}}}{0} -\/ create JSON Pointer by appending
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2parent__pointer}{{\bfseries{parent\+\_\+pointer}}}{0} -\/ returns the parent of this JSON pointer
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2pop__back}{{\bfseries{pop\+\_\+back}}}{0} -\/ remove the last reference token
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2back}{{\bfseries{back}}}{0} -\/ return last reference token
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2push__back}{{\bfseries{push\+\_\+back}}}{0} -\/ append an unescaped token at the end of the pointer
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2empty}{{\bfseries{empty}}}{0} -\/ return whether the pointer points to the root document
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index_autotoc_md1026}{}\doxysection{\texorpdfstring{Literals}{Literals}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index_autotoc_md1026}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2operator__literal__json__pointer}{{\bfseries{operator"{}"{}\+\_\+json\+\_\+pointer}}}{0} -\/ user-\/defined string literal for JSON pointers 
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index_autotoc_md1027}{}\doxysection{\texorpdfstring{See also}{See also}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index_autotoc_md1027}
+
+\begin{DoxyItemize}
+\item \href{https://datatracker.ietf.org/doc/html/rfc6901}{\texttt{RFC 6901}}
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index_autotoc_md1028}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json__pointer_2index_autotoc_md1028}
+
+\begin{DoxyItemize}
+\item Added in version 2.\+0.\+0.
+\item Changed template parameter from {\ttfamily \doxylink{classbasic__json}{basic\+\_\+json}} to string type in version 3.\+11.\+0. 
+\end{DoxyItemize}

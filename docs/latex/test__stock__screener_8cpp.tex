@@ -1,0 +1,49 @@
+\doxysection{tests/\+test\+\_\+stock\+\_\+screener.cpp File Reference}
+\hypertarget{test__stock__screener_8cpp}{}\label{test__stock__screener_8cpp}\index{tests/test\_stock\_screener.cpp@{tests/test\_stock\_screener.cpp}}
+
+
+Unit tests for multi-\/criteria stock screening.  
+
+
+{\ttfamily \+\#include $<$iostream$>$}\newline
+{\ttfamily \+\#include $<$string$>$}\newline
+{\ttfamily \+\#include $<$vector$>$}\newline
+{\ttfamily \+\#include "{}screening/\+\+Stock\+Screener.\+hpp"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{test__stock__screener_8cpp_a2f82a677efa4260a3241d937631e0889}\label{test__stock__screener_8cpp_a2f82a677efa4260a3241d937631e0889} 
+static void {\bfseries CHECK} (bool condition, const std::\+string \&test\+\_\+name)
+\item 
+\Hypertarget{test__stock__screener_8cpp_a831e1ea90e29710abe5154a9efa421e6}\label{test__stock__screener_8cpp_a831e1ea90e29710abe5154a9efa421e6} 
+static std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ {\bfseries make\+Stocks} ()
+\item 
+\Hypertarget{test__stock__screener_8cpp_a8548f9502e451efac9ad2404e731769c}\label{test__stock__screener_8cpp_a8548f9502e451efac9ad2404e731769c} 
+static void {\bfseries test\+Sector\+And\+Valuation\+Criteria} ()
+\item 
+\Hypertarget{test__stock__screener_8cpp_a6124297d0ffd5f0682ffe3e88f6e9a43}\label{test__stock__screener_8cpp_a6124297d0ffd5f0682ffe3e88f6e9a43} 
+static void {\bfseries test\+Range\+And\+Quality\+Criteria} ()
+\item 
+\Hypertarget{test__stock__screener_8cpp_a3765ca72f2318933524bb39e450a2946}\label{test__stock__screener_8cpp_a3765ca72f2318933524bb39e450a2946} 
+static void {\bfseries test\+Empty\+Criteria\+Returns\+All\+Stocks} ()
+\item 
+\Hypertarget{test__stock__screener_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{test__stock__screener_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int {\bfseries main} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{test__stock__screener_8cpp_a561a5450b127e97c5ca67d0b349747a8}\label{test__stock__screener_8cpp_a561a5450b127e97c5ca67d0b349747a8} 
+static int {\bfseries passed} = 0
+\item 
+\Hypertarget{test__stock__screener_8cpp_ad4ec5aab9b62fbbe9b8fc2d8ac0a5989}\label{test__stock__screener_8cpp_ad4ec5aab9b62fbbe9b8fc2d8ac0a5989} 
+static int {\bfseries failed} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Unit tests for multi-\/criteria stock screening. 
+
+\begin{DoxyAuthor}{Author}
+Maxime Lavoie 
+\end{DoxyAuthor}

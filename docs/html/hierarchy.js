@@ -1,0 +1,38 @@
+var hierarchy =
+[
+    [ "BacktestEngine", "class_backtest_engine.html", null ],
+    [ "BacktestEngine::Config", "struct_backtest_engine_1_1_config.html", null ],
+    [ "StockScreener::Criterion", "struct_stock_screener_1_1_criterion.html", null ],
+    [ "CSVLoader", "class_c_s_v_loader.html", null ],
+    [ "FakeInput", "struct_fake_input.html", null ],
+    [ "LiveDataProvider::HistoricalPoint", "struct_live_data_provider_1_1_historical_point.html", null ],
+    [ "LiveDataProvider::HistoricalResult", "struct_live_data_provider_1_1_historical_result.html", null ],
+    [ "HttpResponse", "struct_http_response.html", null ],
+    [ "InteractiveMenu", "class_interactive_menu.html", null ],
+    [ "LiveDataProvider", "class_live_data_provider.html", null ],
+    [ "CSVLoader::LoadResult", "struct_c_s_v_loader_1_1_load_result.html", null ],
+    [ "StockRepository::LoadResult", "struct_stock_repository_1_1_load_result.html", null ],
+    [ "WatchListRepo::LoadResult", "struct_watch_list_repo_1_1_load_result.html", null ],
+    [ "CSVLoader::Options", "struct_c_s_v_loader_1_1_options.html", null ],
+    [ "BacktestEngine::PricePoint", "struct_backtest_engine_1_1_price_point.html", null ],
+    [ "BacktestEngine::Result", "struct_backtest_engine_1_1_result.html", null ],
+    [ "WatchListRepo::SaveResult", "struct_watch_list_repo_1_1_save_result.html", null ],
+    [ "ScoredStock", "struct_scored_stock.html", null ],
+    [ "ScoringModel", "class_scoring_model.html", [
+      [ "EfficiencyScoringModel", "class_efficiency_scoring_model.html", null ],
+      [ "GrowthScoringModel", "class_growth_scoring_model.html", null ],
+      [ "MomentumScoringModel", "class_momentum_scoring_model.html", null ],
+      [ "QualityScoringModel", "class_quality_scoring_model.html", null ],
+      [ "ValueScoringModel", "class_value_scoring_model.html", null ]
+    ] ],
+    [ "ScoringStrategy", "struct_scoring_strategy.html", null ],
+    [ "ScreeningMenu", "class_screening_menu.html", null ],
+    [ "StockScreener::ScreenResult", "struct_stock_screener_1_1_screen_result.html", null ],
+    [ "Stock", "struct_stock.html", null ],
+    [ "StockPrinter", "class_stock_printer.html", null ],
+    [ "StockRepository", "class_stock_repository.html", null ],
+    [ "StockScreener", "class_stock_screener.html", null ],
+    [ "StrategyManager", "class_strategy_manager.html", null ],
+    [ "WatchList", "class_watch_list.html", null ],
+    [ "WatchListRepo", "class_watch_list_repo.html", null ]
+];

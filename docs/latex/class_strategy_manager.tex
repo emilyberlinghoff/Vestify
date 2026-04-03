@@ -1,0 +1,270 @@
+\doxysection{Strategy\+Manager Class Reference}
+\hypertarget{class_strategy_manager}{}\label{class_strategy_manager}\index{StrategyManager@{StrategyManager}}
+
+
+\doxylink{class_strategy_manager}{Strategy\+Manager} — owns presets, active strategy, and ranking logic.  
+
+
+
+
+{\ttfamily \+\#include $<$Strategy\+Present.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_strategy_manager_af5f9d21cd5b55d4b2c0ed81d8d7415c7}{Strategy\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em ── Construction ────────────────────────────────────────────────── \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_strategy_manager_a35c6c2fc822057c6dd9a339c673ee18b}{register\+Model}} (\doxymbox{\hyperlink{class_scoring_model}{Scoring\+Model}} \texorpdfstring{$\ast$}{*}model)
+\begin{DoxyCompactList}\small\item\em ── Model registration ──────────────────────────────────────────── \end{DoxyCompactList}\item 
+std::\+vector$<$ std::\+string $>$ \doxymbox{\hyperlink{class_strategy_manager_aeddd7a244416464ed56ed70aecae82e8}{get\+Available\+Strategies}} () const
+\begin{DoxyCompactList}\small\item\em ── Strategy catalogue ──────────────────────────────────────────── \end{DoxyCompactList}\item 
+const \doxymbox{\hyperlink{struct_scoring_strategy}{Scoring\+Strategy}} \& \doxymbox{\hyperlink{class_strategy_manager_a7f647102d24407793bff355ab1b8a1a1}{get\+Strategy}} (const std::\+string \&name) const
+\begin{DoxyCompactList}\small\item\em Look up a strategy by name. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_strategy_manager_aaede2f35283b7d0536d73d461fd1a06b}{set\+Active\+Strategy}} (const std::\+string \&name)
+\begin{DoxyCompactList}\small\item\em ── Active strategy management ──────────────────────────────────── \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_strategy_manager_a183124a6d516f1d2fa63b448574a6941}{set\+Custom\+Strategy}} (const std::\+string \&name, const std::\+string \&description, const std::\+unordered\+\_\+map$<$ std::\+string, double $>$ \&weights)
+\begin{DoxyCompactList}\small\item\em Create or update a custom strategy and activate it. \end{DoxyCompactList}\item 
+const \doxymbox{\hyperlink{struct_scoring_strategy}{Scoring\+Strategy}} \& \doxymbox{\hyperlink{class_strategy_manager_a789d023b6e36a8a8f6c2215d929118c8}{get\+Active\+Strategy}} () const
+\begin{DoxyCompactList}\small\item\em Get the currently active strategy. \end{DoxyCompactList}\item 
+const std::\+string \& \doxymbox{\hyperlink{class_strategy_manager_a0d7ade025f38826e14209905cd92b965}{get\+Active\+Strategy\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Get the active strategy\textquotesingle{}s name. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{struct_scored_stock}{Scored\+Stock}} \doxymbox{\hyperlink{class_strategy_manager_ae31b4c4e7e79e8786ecd99d9f3a346b9}{score\+Stock}} (const \doxymbox{\hyperlink{struct_stock}{Stock}} \&stock) const
+\begin{DoxyCompactList}\small\item\em ── Scoring \& ranking ───────────────────────────────────────────── \end{DoxyCompactList}\item 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_scored_stock}{Scored\+Stock}} $>$ \doxymbox{\hyperlink{class_strategy_manager_a92b1f2883e71ed2d2b5e41c41a295129}{rank\+Stocks}} (const std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ \&stocks) const
+\begin{DoxyCompactList}\small\item\em Score and rank a list of stocks under the active strategy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_strategy_manager_adc715e8ce4a382fb2304925f15911f6a}\label{class_strategy_manager_adc715e8ce4a382fb2304925f15911f6a} 
+void {\bfseries init\+Presets} ()
+\begin{DoxyCompactList}\small\item\em ── Preset initialization ───────────────────────────────────────── \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std::\+unordered\+\_\+map$<$ std::\+string, \doxymbox{\hyperlink{struct_scoring_strategy}{Scoring\+Strategy}} $>$ \doxymbox{\hyperlink{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}{presets\+\_\+}}
+\begin{DoxyCompactList}\small\item\em ── Data ────────────────────────────────────────────────────────── \end{DoxyCompactList}\item 
+\Hypertarget{class_strategy_manager_ada48e144bd18df9d5405dd350f452901}\label{class_strategy_manager_ada48e144bd18df9d5405dd350f452901} 
+std::\+string {\bfseries active\+\_\+strategy\+\_\+name\+\_\+}
+\begin{DoxyCompactList}\small\item\em Name of the currently active strategy. \end{DoxyCompactList}\item 
+\Hypertarget{class_strategy_manager_afa496f78b16044a63543b762af53b0dd}\label{class_strategy_manager_afa496f78b16044a63543b762af53b0dd} 
+std::\+unordered\+\_\+map$<$ std::\+string, \doxymbox{\hyperlink{class_scoring_model}{Scoring\+Model}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries models\+\_\+}
+\begin{DoxyCompactList}\small\item\em Registered scoring models (non-\/owning). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_strategy_manager}{Strategy\+Manager} — owns presets, active strategy, and ranking logic. 
+
+Manages predefined scoring strategy presets and applies them to stocks.
+
+Satisfies the acceptance tests for "{}\+Apply Predefined Scoring Strategy Presets"{}:\+
+\begin{DoxyEnumerate}
+\item Multiple predefined strategies exist.
+\item Selecting a strategy updates the scoring weights.
+\item Re-\/running scoring reflects the new weights.
+\item A default strategy is applied on startup (constructor).
+\item Switching strategies does not require restarting the application. 
+\end{DoxyEnumerate}
+
+\label{doc-constructors}
+\Hypertarget{class_strategy_manager_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_strategy_manager_af5f9d21cd5b55d4b2c0ed81d8d7415c7}\index{StrategyManager@{StrategyManager}!StrategyManager@{StrategyManager}}
+\index{StrategyManager@{StrategyManager}!StrategyManager@{StrategyManager}}
+\doxysubsubsection{\texorpdfstring{StrategyManager()}{StrategyManager()}}
+{\footnotesize\ttfamily \label{class_strategy_manager_af5f9d21cd5b55d4b2c0ed81d8d7415c7} 
+Strategy\+Manager::\+\+Strategy\+Manager (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+── Construction ────────────────────────────────────────────────── 
+
+Construct the manager with built-\/in presets.
+
+Default active strategy is "{}\+Value"{}. 
+
+\label{doc-func-members}
+\Hypertarget{class_strategy_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_strategy_manager_a789d023b6e36a8a8f6c2215d929118c8}\index{StrategyManager@{StrategyManager}!getActiveStrategy@{getActiveStrategy}}
+\index{getActiveStrategy@{getActiveStrategy}!StrategyManager@{StrategyManager}}
+\doxysubsubsection{\texorpdfstring{getActiveStrategy()}{getActiveStrategy()}}
+{\footnotesize\ttfamily \label{class_strategy_manager_a789d023b6e36a8a8f6c2215d929118c8} 
+const \doxymbox{\hyperlink{struct_scoring_strategy}{Scoring\+Strategy}} \& Strategy\+Manager::\+get\+Active\+Strategy (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the currently active strategy. 
+
+\begin{DoxyReturn}{Returns}
+Const reference to the active \doxylink{struct_scoring_strategy}{Scoring\+Strategy}. 
+\end{DoxyReturn}
+\Hypertarget{class_strategy_manager_a0d7ade025f38826e14209905cd92b965}\index{StrategyManager@{StrategyManager}!getActiveStrategyName@{getActiveStrategyName}}
+\index{getActiveStrategyName@{getActiveStrategyName}!StrategyManager@{StrategyManager}}
+\doxysubsubsection{\texorpdfstring{getActiveStrategyName()}{getActiveStrategyName()}}
+{\footnotesize\ttfamily \label{class_strategy_manager_a0d7ade025f38826e14209905cd92b965} 
+const std::\+string \& Strategy\+Manager::\+get\+Active\+Strategy\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the active strategy\textquotesingle{}s name. 
+
+\begin{DoxyReturn}{Returns}
+Strategy name string. 
+\end{DoxyReturn}
+\Hypertarget{class_strategy_manager_aeddd7a244416464ed56ed70aecae82e8}\index{StrategyManager@{StrategyManager}!getAvailableStrategies@{getAvailableStrategies}}
+\index{getAvailableStrategies@{getAvailableStrategies}!StrategyManager@{StrategyManager}}
+\doxysubsubsection{\texorpdfstring{getAvailableStrategies()}{getAvailableStrategies()}}
+{\footnotesize\ttfamily \label{class_strategy_manager_aeddd7a244416464ed56ed70aecae82e8} 
+std::\+vector$<$ std::\+string $>$ Strategy\+Manager::\+get\+Available\+Strategies (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+── Strategy catalogue ──────────────────────────────────────────── 
+
+Get the names of all available presets (sorted alphabetically).
+
+\begin{DoxyReturn}{Returns}
+Vector of strategy names. 
+\end{DoxyReturn}
+\Hypertarget{class_strategy_manager_a7f647102d24407793bff355ab1b8a1a1}\index{StrategyManager@{StrategyManager}!getStrategy@{getStrategy}}
+\index{getStrategy@{getStrategy}!StrategyManager@{StrategyManager}}
+\doxysubsubsection{\texorpdfstring{getStrategy()}{getStrategy()}}
+{\footnotesize\ttfamily \label{class_strategy_manager_a7f647102d24407793bff355ab1b8a1a1} 
+const \doxymbox{\hyperlink{struct_scoring_strategy}{Scoring\+Strategy}} \& Strategy\+Manager::\+get\+Strategy (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{name}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Look up a strategy by name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Strategy name. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Const reference to the strategy. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std::\+out\+\_\+of\+\_\+range} & if not found. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_strategy_manager_a92b1f2883e71ed2d2b5e41c41a295129}\index{StrategyManager@{StrategyManager}!rankStocks@{rankStocks}}
+\index{rankStocks@{rankStocks}!StrategyManager@{StrategyManager}}
+\doxysubsubsection{\texorpdfstring{rankStocks()}{rankStocks()}}
+{\footnotesize\ttfamily \label{class_strategy_manager_a92b1f2883e71ed2d2b5e41c41a295129} 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_scored_stock}{Scored\+Stock}} $>$ Strategy\+Manager::\+rank\+Stocks (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ \doxymbox{\hyperlink{struct_stock}{Stock}} $>$ \&}]{stocks}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Score and rank a list of stocks under the active strategy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stocks} & Input stocks (not modified). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector of \doxylink{struct_scored_stock}{Scored\+Stock} sorted descending by composite score. 
+\end{DoxyReturn}
+\Hypertarget{class_strategy_manager_a35c6c2fc822057c6dd9a339c673ee18b}\index{StrategyManager@{StrategyManager}!registerModel@{registerModel}}
+\index{registerModel@{registerModel}!StrategyManager@{StrategyManager}}
+\doxysubsubsection{\texorpdfstring{registerModel()}{registerModel()}}
+{\footnotesize\ttfamily \label{class_strategy_manager_a35c6c2fc822057c6dd9a339c673ee18b} 
+void Strategy\+Manager::\+register\+Model (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_scoring_model}{Scoring\+Model}} \texorpdfstring{$\ast$}{*}}]{model}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+── Model registration ──────────────────────────────────────────── 
+
+Register a scoring model the manager can use.
+
+The caller retains ownership of the pointer (manager does not delete it).
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & Non-\/null pointer to a \doxylink{class_scoring_model}{Scoring\+Model}. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_strategy_manager_ae31b4c4e7e79e8786ecd99d9f3a346b9}\index{StrategyManager@{StrategyManager}!scoreStock@{scoreStock}}
+\index{scoreStock@{scoreStock}!StrategyManager@{StrategyManager}}
+\doxysubsubsection{\texorpdfstring{scoreStock()}{scoreStock()}}
+{\footnotesize\ttfamily \label{class_strategy_manager_ae31b4c4e7e79e8786ecd99d9f3a346b9} 
+\doxymbox{\hyperlink{struct_scored_stock}{Scored\+Stock}} Strategy\+Manager::\+score\+Stock (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_stock}{Stock}} \&}]{stock}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+── Scoring \& ranking ───────────────────────────────────────────── 
+
+Score a single stock under the active strategy.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stock} & \doxylink{struct_stock}{Stock} to score. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_scored_stock}{Scored\+Stock} with sub-\/scores and composite. 
+\end{DoxyReturn}
+\Hypertarget{class_strategy_manager_aaede2f35283b7d0536d73d461fd1a06b}\index{StrategyManager@{StrategyManager}!setActiveStrategy@{setActiveStrategy}}
+\index{setActiveStrategy@{setActiveStrategy}!StrategyManager@{StrategyManager}}
+\doxysubsubsection{\texorpdfstring{setActiveStrategy()}{setActiveStrategy()}}
+{\footnotesize\ttfamily \label{class_strategy_manager_aaede2f35283b7d0536d73d461fd1a06b} 
+bool Strategy\+Manager::\+set\+Active\+Strategy (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+── Active strategy management ──────────────────────────────────── 
+
+Set the active strategy by name.
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Strategy name. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the strategy exists and was set; false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_strategy_manager_a183124a6d516f1d2fa63b448574a6941}\index{StrategyManager@{StrategyManager}!setCustomStrategy@{setCustomStrategy}}
+\index{setCustomStrategy@{setCustomStrategy}!StrategyManager@{StrategyManager}}
+\doxysubsubsection{\texorpdfstring{setCustomStrategy()}{setCustomStrategy()}}
+{\footnotesize\ttfamily \label{class_strategy_manager_a183124a6d516f1d2fa63b448574a6941} 
+bool Strategy\+Manager::\+set\+Custom\+Strategy (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{name}{, }\item[{const std::\+string \&}]{description}{, }\item[{const std::\+unordered\+\_\+map$<$ std::\+string, double $>$ \&}]{weights}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Create or update a custom strategy and activate it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Strategy name. \\
+\hline
+{\em description} & Strategy description. \\
+\hline
+{\em weights} & model\+Name -\/\texorpdfstring{$>$}{>} weight. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if weights were provided and the strategy was set. 
+\end{DoxyReturn}
+
+
+\label{doc-variable-members}
+\Hypertarget{class_strategy_manager_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531}\index{StrategyManager@{StrategyManager}!presets\_@{presets\_}}
+\index{presets\_@{presets\_}!StrategyManager@{StrategyManager}}
+\doxysubsubsection{\texorpdfstring{presets\_}{presets\_}}
+{\footnotesize\ttfamily \label{class_strategy_manager_a8f0bfbf40804db7a3c25d9aeff580531} 
+std::\+unordered\+\_\+map$<$std::\+string, \doxymbox{\hyperlink{struct_scoring_strategy}{Scoring\+Strategy}}$>$ Strategy\+Manager::\+presets\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+── Data ────────────────────────────────────────────────────────── 
+
+Registered presets. 
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+scoring/\+\doxymbox{\hyperlink{_strategy_present_8hpp}{Strategy\+Present.\+hpp}}\end{DoxyCompactItemize}

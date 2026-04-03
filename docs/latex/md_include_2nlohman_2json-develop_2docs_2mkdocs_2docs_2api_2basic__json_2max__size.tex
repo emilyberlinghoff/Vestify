@@ -1,0 +1,53 @@
+\chapter{
+\footnotesize nlohmann::\+basic\+\_\+json:\+:\+
+\normalsize max\+\_\+size }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size}\index{$<$small$>$nlohmann::basic\_json::$<$/small$>$max\_size@{$<$small$>$nlohmann::basic\_json::$<$/small$>$max\_size}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size_autotoc_md573}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size_autotoc_md573}%
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{size\_type\ max\_size()\ const\ noexcept;}
+
+\end{DoxyCode}
+
+
+Returns the maximum number of elements a JSON value is able to hold due to system or library implementation limitations, i.\+e. {\ttfamily std::\+distance(begin(), end())} for the JSON value.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size_autotoc_md574}{}\doxysection{\texorpdfstring{Return value}{Return value}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size_autotoc_md574}
+\doxylink{requirements_The}{The} return value depends on the different types and is defined as follows:\+
+
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Value type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}return value  \\
+null  &{\ttfamily 0} (same as \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2size}{{\ttfamily size()}}{0})  \\
+boolean  &{\ttfamily 1} (same as \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2size}{{\ttfamily size()}}{0})  \\
+string  &{\ttfamily 1} (same as \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2size}{{\ttfamily size()}}{0})  \\
+number  &{\ttfamily 1} (same as \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2size}{{\ttfamily size()}}{0})  \\
+binary  &{\ttfamily 1} (same as \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2size}{{\ttfamily size()}}{0})  \\
+object  &result of function {\ttfamily object\+\_\+t::\+max\+\_\+size()}  \\
+array  &result of function {\ttfamily array\+\_\+t::\+max\+\_\+size()}  \\
+\end{DoxyTable}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size_autotoc_md575}{}\doxysection{\texorpdfstring{Exception safety}{Exception safety}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size_autotoc_md575}
+No-\/throw guarantee:\+ this function never throws exceptions.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size_autotoc_md576}{}\doxysection{\texorpdfstring{Complexity}{Complexity}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size_autotoc_md576}
+Constant, as long as \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2array__t}{{\ttfamily array\+\_\+t}}{0} and \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2object__t}{{\ttfamily object\+\_\+t}}{0} satisfy the \href{https://en.cppreference.com/w/cpp/named_req/Container}{\texttt{Container}} concept; that is, their {\ttfamily max\+\_\+size()} functions have constant complexity.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size_autotoc_md577}{}\doxysection{\texorpdfstring{Notes}{Notes}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size_autotoc_md577}
+This function does not return the maximal length of a string stored as JSON value -- it returns the maximal number of string elements the JSON value can store which is {\ttfamily 1}.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size_autotoc_md578}{}\doxysection{\texorpdfstring{Examples}{Examples}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size_autotoc_md578}
+??? example \begin{DoxyVerb}The following code calls `max_size()` on the different value types.
+
+```cpp
+--8<-- "examples/max_size.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/max_size.output"
+```
+
+Note the output is platform-dependent.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size_autotoc_md579}{}\doxysection{\texorpdfstring{Version history}{Version history}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2max__size_autotoc_md579}
+
+\begin{DoxyItemize}
+\item Added in version 1.\+0.\+0.
+\item Extended to return {\ttfamily 1} for binary types in version 3.\+8.\+0. 
+\end{DoxyItemize}

@@ -1,0 +1,41 @@
+\doxysection{Efficiency\+Scoring\+Model.\+hpp}
+\hypertarget{_efficiency_scoring_model_8hpp_source}{}\label{_efficiency_scoring_model_8hpp_source}\index{include/scoring/EfficiencyScoringModel.hpp@{include/scoring/EfficiencyScoringModel.hpp}}
+\doxymbox{\hyperlink{_efficiency_scoring_model_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_scoring_model_8hpp}{scoring/ScoringModel.hpp}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_efficiency_scoring_model}{EfficiencyScoringModel}}\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_scoring_model}{ScoringModel}}\ \{}
+\DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{class_efficiency_scoring_model_a74358dd711fe0163a625b9a2978f2041}{calculateScore}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_stock}{Stock}}\&\ stock)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ total\ =\ 0.0;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ components\ =\ 0;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isfinite(stock.\doxymbox{\hyperlink{struct_stock_a04e29953cc6b1a56a40c3a2d44f5e4b8}{roa}})\ \&\&\ stock.\doxymbox{\hyperlink{struct_stock_a04e29953cc6b1a56a40c3a2d44f5e4b8}{roa}}\ >\ 0.0)\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ total\ +=\ std::min(100.0,\ stock.\doxymbox{\hyperlink{struct_stock_a04e29953cc6b1a56a40c3a2d44f5e4b8}{roa}}\ *\ 400.0);}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ ++components;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isfinite(stock.\doxymbox{\hyperlink{struct_stock_a263daa2f1032773bc647bc743f21d694}{operating\_margin}})\ \&\&\ stock.\doxymbox{\hyperlink{struct_stock_a263daa2f1032773bc647bc743f21d694}{operating\_margin}}\ >\ 0.0)\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ total\ +=\ std::min(100.0,\ stock.\doxymbox{\hyperlink{struct_stock_a263daa2f1032773bc647bc743f21d694}{operating\_margin}}\ *\ 250.0);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ ++components;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isfinite(stock.\doxymbox{\hyperlink{struct_stock_ad66563324c907462bb2bf992982fd357}{ev\_to\_ebit}})\ \&\&\ stock.\doxymbox{\hyperlink{struct_stock_ad66563324c907462bb2bf992982fd357}{ev\_to\_ebit}}\ >\ 0.0)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ total\ +=\ std::max(0.0,\ 100.0\ -\/\ (stock.\doxymbox{\hyperlink{struct_stock_ad66563324c907462bb2bf992982fd357}{ev\_to\_ebit}}\ *\ 2.5));}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ ++components;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (components\ >\ 0)\ ?\ (total\ /\ components)\ :\ 0.0;}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00075\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_efficiency_scoring_model_a8618e239f2a125daf4c931015a9cc825}{getModelName}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Efficiency"{}};\ \}}
+\DoxyCodeLine{00076\ \};}
+
+\end{DoxyCode}

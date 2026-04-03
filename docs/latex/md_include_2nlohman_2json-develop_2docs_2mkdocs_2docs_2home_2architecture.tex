@@ -1,0 +1,117 @@
+\chapter{Architecture }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture}\index{Architecture@{Architecture}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1553}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1553}%
+
+
+!!! info \begin{DoxyVerb}This page is still under construction. Its goal is to provide a high-level overview of the library's architecture.
+This should help new contributors to get an idea of the used concepts and where to make changes.
+\end{DoxyVerb}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1554}{}\doxysection{\texorpdfstring{Overview}{Overview}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1554}
+\doxylink{requirements_The}{The} main structure is class \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2index}{nlohmann::\+basic\+\_\+json}{0}.
+
+
+\begin{DoxyItemize}
+\item public API
+\item container interface
+\item iterators
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1555}{}\doxysection{\texorpdfstring{Template specializations}{Template specializations}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1555}
+
+\begin{DoxyItemize}
+\item describe template parameters of {\ttfamily \doxylink{classbasic__json}{basic\+\_\+json}}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2json}{{\ttfamily json}}{0}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__json}{{\ttfamily ordered\+\_\+json}}{0} via \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2ordered__map}{{\ttfamily ordered\+\_\+map}}{0}
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1556}{}\doxysection{\texorpdfstring{Value storage}{Value storage}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1556}
+Values are stored as a tagged union of \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2basic__json_2value__t}{value\+\_\+t}{0} and json\+\_\+value.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}\ m\_type\ =\ value\_t::null;}
+\DoxyCodeLine{}
+\DoxyCodeLine{json\_value\ m\_value\ =\ \{\};}
+
+\end{DoxyCode}
+
+
+with
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{enum\ class}\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632}{value\_t}}\ :\ std::uint8\_t}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a37a6259cc0c1dae299a7866489dff0bd}{null}},\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{classobject}{object}},\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{classarray}{array}},\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{classstring}{string}},\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a84e2c64f38f78ba3ea5c905ab5a2da27}{boolean}},\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{classnumber__integer}{number\_integer}},\ \ \ }
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{classnumber__unsigned}{number\_unsigned}},\ \ }
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{classnumber__float}{number\_float}},\ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{binary}},\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a94708897ec9db8647dfe695714c98e46}{discarded}}\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{union\ }json\_value\ \{}
+\DoxyCodeLine{\ \ object\_t\ *\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632aa8cfde6331bd59eb2ac96f8911c4b666}{object}};}
+\DoxyCodeLine{\ \ array\_t\ *array;}
+\DoxyCodeLine{\ \ string\_t\ *\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ab45cffe084dd3d20d928bee85e7b0f21}{string}};}
+\DoxyCodeLine{\ \ binary\_t\ *\doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a9d7183f16acce70658f686ae7f1a4d20}{binary}};}
+\DoxyCodeLine{\ \ boolean\_t\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a84e2c64f38f78ba3ea5c905ab5a2da27}{boolean}};}
+\DoxyCodeLine{\ \ number\_integer\_t\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632a5763da164f8659d94a56e29df64b4bcc}{number\_integer}};}
+\DoxyCodeLine{\ \ number\_unsigned\_t\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632adce7cc8ec29055c4158828921f2f265e}{number\_unsigned}};}
+\DoxyCodeLine{\ \ number\_float\_t\ \doxymbox{\hyperlink{namespacedetail_a917c3efabea8a20dc72d9ae2c673d632ad9966ecb59667235a57b4b999a649eef}{number\_float}};}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1557}{}\doxysection{\texorpdfstring{Parsing inputs (deserialization)}{Parsing inputs (deserialization)}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1557}
+Input is read via {\bfseries{input adapters}} that abstract a source with a common interface:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\doxymbox{\hyperlink{structstd_1_1char__traits}{std::char\_traits<char>::int\_type}}\ get\_character()\ noexcept;}
+\DoxyCodeLine{}
+\DoxyCodeLine{template<class\ T>}
+\DoxyCodeLine{std::\textcolor{keywordtype}{size\_t}\ get\_elements(T*\ dest,\ std::\textcolor{keywordtype}{size\_t}\ count\ =\ 1);}
+
+\end{DoxyCode}
+
+
+List examples of input adapters.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1558}{}\doxysection{\texorpdfstring{SAX Interface}{SAX Interface}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1558}
+TODO\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1559}{}\doxysection{\texorpdfstring{Writing outputs (serialization)}{Writing outputs (serialization)}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1559}
+Output is written via {\bfseries{output adapters}}:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ write\_character(CharType\ c);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ CharType>}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ write\_characters(\textcolor{keyword}{const}\ CharType*\ s,\ std::size\_t\ length);}
+
+\end{DoxyCode}
+
+
+List examples of output adapters.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1560}{}\doxysection{\texorpdfstring{Value conversion}{Value conversion}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1560}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ to\_json(\doxymbox{\hyperlink{classbasic__json}{basic\_json}}\&\ j,\ \textcolor{keyword}{const}\ T\&\ t);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ from\_json(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classbasic__json}{basic\_json}}\&\ j,\ T\&\ t);}
+
+\end{DoxyCode}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1561}{}\doxysection{\texorpdfstring{Additional features}{Additional features}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1561}
+
+\begin{DoxyItemize}
+\item JSON Pointers
+\item Binary formats
+\item Custom base class
+\item Conversion macros
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1562}{}\doxysection{\texorpdfstring{Details namespace}{Details namespace}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2architecture_autotoc_md1562}
+
+\begin{DoxyItemize}
+\item C++ feature backports 
+\end{DoxyItemize}

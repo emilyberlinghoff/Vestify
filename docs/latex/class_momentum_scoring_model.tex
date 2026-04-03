@@ -1,0 +1,106 @@
+\doxysection{Momentum\+Scoring\+Model Class Reference}
+\hypertarget{class_momentum_scoring_model}{}\label{class_momentum_scoring_model}\index{MomentumScoringModel@{MomentumScoringModel}}
+
+
+Scores stocks on momentum and profitability trend characteristics.  
+
+
+
+
+{\ttfamily \+\#include $<$Momentum\+Scoring\+Model.\+hpp$>$}
+
+Inheritance diagram for Momentum\+Scoring\+Model:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_momentum_scoring_model}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \doxymbox{\hyperlink{class_momentum_scoring_model_a5ae27c3a2ffbcda20833aa97da372d70}{calculate\+Score}} (const \doxymbox{\hyperlink{struct_stock}{Stock}} \&stock) const override
+\begin{DoxyCompactList}\small\item\em Calculate a momentum-\/style score for one stock. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_momentum_scoring_model_aba194964180b8d4a251d65d5e01f8ab1}{get\+Model\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em Return the display name for this model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_scoring_model}{Scoring\+Model}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \doxymbox{\hyperlink{class_scoring_model_a9b9bf1dac68c407b2c2e0be03dec48b0}{\texorpdfstring{$\sim$}{\string~}\+Scoring\+Model}} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor for polymorphic scoring models. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Scores stocks on momentum and profitability trend characteristics. 
+
+Without full historical return data, this model uses fundamental profitability signals that correlate with price momentum:\+
+\begin{DoxyItemize}
+\item ROA (companies with high asset returns tend to sustain momentum)
+\item FCF yield (strong cash generation supports continued price gains)
+\item Net margin (improving profitability drives momentum)
+\end{DoxyItemize}
+
+Each component maps to a 0-\/100 sub-\/score, then averaged.
+
+\begin{DoxyNote}{Note}
+When historical price data becomes available, this model should incorporate actual return-\/based momentum (e.\+g., 6-\/month or 12-\/month total return minus the most recent month).
+\end{DoxyNote}
+\begin{DoxyAuthor}{Author}
+Melvin Rogers 
+\end{DoxyAuthor}
+
+
+\label{doc-func-members}
+\Hypertarget{class_momentum_scoring_model_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_momentum_scoring_model_a5ae27c3a2ffbcda20833aa97da372d70}\index{MomentumScoringModel@{MomentumScoringModel}!calculateScore@{calculateScore}}
+\index{calculateScore@{calculateScore}!MomentumScoringModel@{MomentumScoringModel}}
+\doxysubsubsection{\texorpdfstring{calculateScore()}{calculateScore()}}
+{\footnotesize\ttfamily \label{class_momentum_scoring_model_a5ae27c3a2ffbcda20833aa97da372d70} 
+double Momentum\+Scoring\+Model::\+calculate\+Score (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_stock}{Stock}} \&}]{stock}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Calculate a momentum-\/style score for one stock. 
+
+Uses fundamental profitability and cash-\/generation proxies as stand-\/ins for price momentum, normalizing each valid signal to the shared 0-\/100 scale before averaging.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stock} & \doxylink{struct_stock}{Stock} fundamentals to evaluate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Momentum score in the range \+[0, 100]\+. 
+\end{DoxyReturn}
+ROA:\+ higher return on assets correlates with sustained momentum. Stored as fraction. Map 0-\/0.\+25 (25\%) -\/\texorpdfstring{$>$}{>} 0-\/100.
+
+FCF yield:\+ strong cash flow supports price momentum. Stored as fraction. Map 0-\/0.\+10 (10\%) -\/\texorpdfstring{$>$}{>} 0-\/100.
+
+Net margin:\+ profitability strength as a momentum signal. Stored as fraction. Map 0-\/0.\+30 (30\%) -\/\texorpdfstring{$>$}{>} 0-\/100.
+
+Implements \doxymbox{\hyperlink{class_scoring_model_a5a6301eb2a281ebb14ae07603fb2f261}{Scoring\+Model}}.
+
+\Hypertarget{class_momentum_scoring_model_aba194964180b8d4a251d65d5e01f8ab1}\index{MomentumScoringModel@{MomentumScoringModel}!getModelName@{getModelName}}
+\index{getModelName@{getModelName}!MomentumScoringModel@{MomentumScoringModel}}
+\doxysubsubsection{\texorpdfstring{getModelName()}{getModelName()}}
+{\footnotesize\ttfamily \label{class_momentum_scoring_model_aba194964180b8d4a251d65d5e01f8ab1} 
+std::\+string Momentum\+Scoring\+Model::\+get\+Model\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Return the display name for this model. 
+
+The strategy manager and ranked-\/stock output use this string to identify the momentum component consistently.
+
+\begin{DoxyReturn}{Returns}
+The model name string "{}\+Momentum"{}. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_scoring_model_a4b9b6b56036e41f15d59c3cdd9a49826}{Scoring\+Model}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+scoring/\+\doxymbox{\hyperlink{_momentum_scoring_model_8hpp}{Momentum\+Scoring\+Model.\+hpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,68 @@
+\chapter{Macros }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index}\index{Macros@{Macros}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1168}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1168}%
+
+
+Some aspects of the library can be configured by defining preprocessor macros {\bfseries{before}} including the {\ttfamily json.\+hpp} header. See also the \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2macros}{macro overview page}{0}.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1169}{}\doxysection{\texorpdfstring{Runtime assertions}{Runtime assertions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1169}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__assert}{{\bfseries{JSON\+\_\+\+ASSERT(x)}}}{0} -\/ control behavior of runtime assertions
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1170}{}\doxysection{\texorpdfstring{Exceptions}{Exceptions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1170}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__throw__user}{{\bfseries{JSON\+\_\+\+CATCH\+\_\+\+USER(exception)}}{\bfseries{JSON\+\_\+\+THROW\+\_\+\+USER(exception)}}{\bfseries{JSON\+\_\+\+TRY\+\_\+\+USER}}}{0} -\/ control exceptions
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostics}{{\bfseries{JSON\+\_\+\+DIAGNOSTICS}}}{0} -\/ control extended diagnostics
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__diagnostic__positions}{{\bfseries{JSON\+\_\+\+DIAGNOSTIC\+\_\+\+POSITIONS}}}{0} -\/ access positions of elements
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__noexception}{{\bfseries{JSON\+\_\+\+NOEXCEPTION}}}{0} -\/ switch off exceptions
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1171}{}\doxysection{\texorpdfstring{Language support}{Language support}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1171}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__has__cpp__11}{{\bfseries{JSON\+\_\+\+HAS\+\_\+\+CPP\+\_\+11}}{\bfseries{JSON\+\_\+\+HAS\+\_\+\+CPP\+\_\+14}}{\bfseries{JSON\+\_\+\+HAS\+\_\+\+CPP\+\_\+17}}{\bfseries{JSON\+\_\+\+HAS\+\_\+\+CPP\+\_\+20}}}{0} -\/ set supported C++ standard
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__has__filesystem}{{\bfseries{JSON\+\_\+\+HAS\+\_\+\+FILESYSTEM}}{\bfseries{JSON\+\_\+\+HAS\+\_\+\+EXPERIMENTAL\+\_\+\+FILESYSTEM}}}{0} -\/ control {\ttfamily std::\+filesystem} support
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__has__ranges}{{\bfseries{JSON\+\_\+\+HAS\+\_\+\+RANGES}}}{0} -\/ control {\ttfamily std::\+ranges} support
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__has__three__way__comparison}{{\bfseries{JSON\+\_\+\+HAS\+\_\+\+THREE\+\_\+\+WAY\+\_\+\+COMPARISON}}}{0} -\/ control 3-\/way comparison support
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__no__io}{{\bfseries{JSON\+\_\+\+NO\+\_\+\+IO}}}{0} -\/ switch off functions relying on certain C++ I/\+O headers
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__skip__unsupported__compiler__check}{{\bfseries{JSON\+\_\+\+SKIP\+\_\+\+UNSUPPORTED\+\_\+\+COMPILER\+\_\+\+CHECK}}}{0} -\/ do not warn about unsupported compilers
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__global__udls}{{\bfseries{JSON\+\_\+\+USE\+\_\+\+GLOBAL\+\_\+\+UDLS}}}{0} -\/ place user-\/defined string literals (UDLs) into the global namespace
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1172}{}\doxysection{\texorpdfstring{Library version}{Library version}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1172}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__skip__library__version__check}{{\bfseries{JSON\+\_\+\+SKIP\+\_\+\+LIBRARY\+\_\+\+VERSION\+\_\+\+CHECK}}}{0} -\/ skip library version check
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__version__major}{{\bfseries{NLOHMANN\+\_\+\+JSON\+\_\+\+VERSION\+\_\+\+MAJOR}}{\bfseries{NLOHMANN\+\_\+\+JSON\+\_\+\+VERSION\+\_\+\+MINOR}}{\bfseries{NLOHMANN\+\_\+\+JSON\+\_\+\+VERSION\+\_\+\+PATCH}}}{0} -\/ library version information
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1173}{}\doxysection{\texorpdfstring{Library namespace}{Library namespace}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1173}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace}{{\bfseries{NLOHMANN\+\_\+\+JSON\+\_\+\+NAMESPACE}}}{0} -\/ full name of the {\ttfamily \doxylink{namespacenlohmann}{nlohmann}} namespace
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__begin}{{\bfseries{NLOHMANN\+\_\+\+JSON\+\_\+\+NAMESPACE\+\_\+\+BEGIN}}{\bfseries{NLOHMANN\+\_\+\+JSON\+\_\+\+NAMESPACE\+\_\+\+END}}}{0} -\/ open and close the library namespace
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__namespace__no__version}{{\bfseries{NLOHMANN\+\_\+\+JSON\+\_\+\+NAMESPACE\+\_\+\+NO\+\_\+\+VERSION}}}{0} -\/ disable the version component of the inline namespace
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1174}{}\doxysection{\texorpdfstring{Type conversions}{Type conversions}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1174}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__disable__enum__serialization}{{\bfseries{JSON\+\_\+\+DISABLE\+\_\+\+ENUM\+\_\+\+SERIALIZATION}}}{0} -\/ switch off default serialization/\+deserialization functions for enums
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__implicit__conversions}{{\bfseries{JSON\+\_\+\+USE\+\_\+\+IMPLICIT\+\_\+\+CONVERSIONS}}}{0} -\/ control implicit conversions
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1175}{}\doxysection{\texorpdfstring{Comparison behavior}{Comparison behavior}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1175}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2json__use__legacy__discarded__value__comparison}{{\bfseries{JSON\+\_\+\+USE\+\_\+\+LEGACY\+\_\+\+DISCARDED\+\_\+\+VALUE\+\_\+\+COMPARISON}}}{0} -\/ control comparison of discarded values
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1176}{}\doxysection{\texorpdfstring{Serialization/\+deserialization macros}{Serialization/\+deserialization macros}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1176}
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1177}{}\doxysubsection{\texorpdfstring{Enums}{Enums}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1177}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__json__serialize__enum}{{\bfseries{NLOHMANN\+\_\+\+JSON\+\_\+\+SERIALIZE\+\_\+\+ENUM}}}{0} -\/ serialize/\+deserialize an enum
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1178}{}\doxysubsection{\texorpdfstring{Classes and structs}{Classes and structs}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2index_autotoc_md1178}
+
+\begin{DoxyItemize}
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive}{{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE}}}{0} -\/ serialize/\+deserialize a non-\/derived class with private members
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive}{{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT}}}{0} -\/ serialize/\+deserialize a non-\/derived class with private members; uses default values
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__intrusive}{{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE}}}{0} -\/ serialize a non-\/derived class with private members
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__non__intrusive}{{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE}}}{0} -\/ serialize/\+deserialize a non-\/derived class
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__non__intrusive}{{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT}}}{0} -\/ serialize/\+deserialize a non-\/derived class; uses default values
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__type__non__intrusive}{{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE}}}{0} -\/ serialize a non-\/derived class
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type}{{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+INTRUSIVE}}}{0} -\/ serialize/\+deserialize a derived class with private members
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type}{{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT}}}{0} -\/ serialize/\+deserialize a derived class with private members; uses default values
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type}{{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE}}}{0} -\/ serialize a derived class with private members
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type}{{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE}}}{0} -\/ serialize/\+deserialize a derived class
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type}{{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE\+\_\+\+WITH\+\_\+\+DEFAULT}}}{0} -\/ serialize/\+deserialize a derived class; uses default values
+\item \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2api_2macros_2nlohmann__define__derived__type}{{\bfseries{NLOHMANN\+\_\+\+DEFINE\+\_\+\+DERIVED\+\_\+\+TYPE\+\_\+\+NON\+\_\+\+INTRUSIVE\+\_\+\+ONLY\+\_\+\+SERIALIZE}}}{0} -\/ serialize a derived class 
+\end{DoxyItemize}

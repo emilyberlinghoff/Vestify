@@ -1,0 +1,82 @@
+\doxysection{fuzzer::\+Trace\+State Class Reference}
+\hypertarget{classfuzzer_1_1_trace_state}{}\label{classfuzzer_1_1_trace_state}\index{fuzzer::TraceState@{fuzzer::TraceState}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_aa76275fc21df8dabdab8707cc7707825}\label{classfuzzer_1_1_trace_state_aa76275fc21df8dabdab8707cc7707825} 
+{\bfseries Trace\+State} (\doxymbox{\hyperlink{classfuzzer_1_1_mutation_dispatcher}{Mutation\+Dispatcher}} \&MD, const \doxymbox{\hyperlink{structfuzzer_1_1_fuzzing_options}{Fuzzing\+Options}} \&Options, const \doxymbox{\hyperlink{classfuzzer_1_1_fuzzer}{Fuzzer}} \texorpdfstring{$\ast$}{*}F)
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_a19ca7e78b3705def9767cef2d55d04ca}\label{classfuzzer_1_1_trace_state_a19ca7e78b3705def9767cef2d55d04ca} 
+void {\bfseries Trace\+Memcmp\+Callback} (size\+\_\+t Cmp\+Size, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}Data1, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}Data2)
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_a90c1b3e1c63873c2ea8faa00ad29d411}\label{classfuzzer_1_1_trace_state_a90c1b3e1c63873c2ea8faa00ad29d411} 
+void {\bfseries Trace\+Switch\+Callback} (uintptr\+\_\+t PC, size\+\_\+t Val\+Size\+In\+Bits, uint64\+\_\+t Val, size\+\_\+t Num\+Cases, uint64\+\_\+t \texorpdfstring{$\ast$}{*}Cases)
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_acf2bff66ee5368a9ca0d44d2926a5d6c}\label{classfuzzer_1_1_trace_state_acf2bff66ee5368a9ca0d44d2926a5d6c} 
+int {\bfseries Try\+To\+Add\+Desired\+Data} (uint64\+\_\+t Present\+Data, uint64\+\_\+t Desired\+Data, size\+\_\+t Data\+Size)
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_abd1b3dc526c6a18c167fe57c611b5b78}\label{classfuzzer_1_1_trace_state_abd1b3dc526c6a18c167fe57c611b5b78} 
+int {\bfseries Try\+To\+Add\+Desired\+Data} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}Present\+Data, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}Desired\+Data, size\+\_\+t Data\+Size)
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_a0c3b5e922389f8b18e5cbc9add9dda0b}\label{classfuzzer_1_1_trace_state_a0c3b5e922389f8b18e5cbc9add9dda0b} 
+void {\bfseries Start\+Trace\+Recording} ()
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_a7e610df0349a397e09d67a10c251dc07}\label{classfuzzer_1_1_trace_state_a7e610df0349a397e09d67a10c251dc07} 
+void {\bfseries Stop\+Trace\+Recording} ()
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_a3cfaba51f138339caf55beb176fd25d2}\label{classfuzzer_1_1_trace_state_a3cfaba51f138339caf55beb176fd25d2} 
+void {\bfseries Add\+Mutation} (uint32\+\_\+t Pos, uint32\+\_\+t Size, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}\doxymbox{\hyperlink{struct_data}{Data}})
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_ad45c505dd4e607fd1de68d49de1a5537}\label{classfuzzer_1_1_trace_state_ad45c505dd4e607fd1de68d49de1a5537} 
+void {\bfseries Add\+Mutation} (uint32\+\_\+t Pos, uint32\+\_\+t Size, uint64\+\_\+t \doxymbox{\hyperlink{struct_data}{Data}})
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_a956f37bcffd013e84d1f014a739b3a23}\label{classfuzzer_1_1_trace_state_a956f37bcffd013e84d1f014a739b3a23} 
+void {\bfseries Add\+Interesting\+Word} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}\doxymbox{\hyperlink{struct_data}{Data}}, size\+\_\+t Size)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_ab6f07d887ca97cdc55b629da23ea0281}\label{classfuzzer_1_1_trace_state_ab6f07d887ca97cdc55b629da23ea0281} 
+bool {\bfseries Is\+Two\+Byte\+Data} (uint64\+\_\+t \doxymbox{\hyperlink{struct_data}{Data}})
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_a6271f1ea9d8d46b0dc542f25dd89dc3b}\label{classfuzzer_1_1_trace_state_a6271f1ea9d8d46b0dc542f25dd89dc3b} 
+bool {\bfseries Want\+To\+Handle\+One\+More\+Mutation} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_ac1b871978686b330c05df51365afb6d6}\label{classfuzzer_1_1_trace_state_ac1b871978686b330c05df51365afb6d6} 
+size\+\_\+t {\bfseries Num\+Mutations}
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_a67ff9f56f2b15972670d25b0c6b2616c}\label{classfuzzer_1_1_trace_state_a67ff9f56f2b15972670d25b0c6b2616c} 
+\doxymbox{\hyperlink{structfuzzer_1_1_trace_based_mutation}{Trace\+Based\+Mutation}} {\bfseries Mutations} \+[k\+Max\+Mutations]\+
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_ab5e978d601ea16eeca2f66f95234b064}\label{classfuzzer_1_1_trace_state_ab5e978d601ea16eeca2f66f95234b064} 
+std::\+set$<$ Word $>$ {\bfseries Interesting\+Words}
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_a97cdc556ddce3c7188613de10102dd56}\label{classfuzzer_1_1_trace_state_a97cdc556ddce3c7188613de10102dd56} 
+\doxymbox{\hyperlink{classfuzzer_1_1_mutation_dispatcher}{Mutation\+Dispatcher}} \& {\bfseries MD}
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_a970855544d64adfb50f357b4c7635251}\label{classfuzzer_1_1_trace_state_a970855544d64adfb50f357b4c7635251} 
+const \doxymbox{\hyperlink{structfuzzer_1_1_fuzzing_options}{Fuzzing\+Options}} {\bfseries Options}
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_aa02e89daa315d71081e553bf6e670b3e}\label{classfuzzer_1_1_trace_state_aa02e89daa315d71081e553bf6e670b3e} 
+const \doxymbox{\hyperlink{classfuzzer_1_1_fuzzer}{Fuzzer}} \texorpdfstring{$\ast$}{*} {\bfseries F}
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_acd8d6af136a9a64dc42d5bf8b7775e6d}\label{classfuzzer_1_1_trace_state_acd8d6af136a9a64dc42d5bf8b7775e6d} 
+std::\+map$<$ Word, size\+\_\+t $>$ {\bfseries Auto\+Dict\+Unit\+Counts}
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_a68030cc948c9880404b7397dadff3bd0}\label{classfuzzer_1_1_trace_state_a68030cc948c9880404b7397dadff3bd0} 
+size\+\_\+t {\bfseries Auto\+Dict\+Adds} = 0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfuzzer_1_1_trace_state_a157c507c788145db301f63e5b3d83546}\label{classfuzzer_1_1_trace_state_a157c507c788145db301f63e5b3d83546} 
+static const size\+\_\+t {\bfseries k\+Max\+Mutations} = 1 $<$$<$ 16
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+thirdparty/\+\+Fuzzer/\+Fuzzer\+Trace\+State.\+cpp\end{DoxyCompactItemize}

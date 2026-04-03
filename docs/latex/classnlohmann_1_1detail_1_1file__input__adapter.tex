@@ -1,0 +1,47 @@
+\doxysection{nlohmann::\+detail::\+file\+\_\+input\+\_\+adapter Class Reference}
+\hypertarget{classnlohmann_1_1detail_1_1file__input__adapter}{}\label{classnlohmann_1_1detail_1_1file__input__adapter}\index{nlohmann::detail::file\_input\_adapter@{nlohmann::detail::file\_input\_adapter}}
+
+
+{\ttfamily \+\#include $<$json\+\_\+v3\+\_\+10\+\_\+5.\+hpp$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1file__input__adapter_ac853c96c60f93dc97433dacd98179f35}\label{classnlohmann_1_1detail_1_1file__input__adapter_ac853c96c60f93dc97433dacd98179f35} 
+using {\bfseries char\+\_\+type} = char
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1file__input__adapter_aeade050f2793280503be93feff2ece5b}\label{classnlohmann_1_1detail_1_1file__input__adapter_aeade050f2793280503be93feff2ece5b} 
+{\bfseries file\+\_\+input\+\_\+adapter} (std::\+\+FILE \texorpdfstring{$\ast$}{*}f) noexcept
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1file__input__adapter_a308099b496a0cba2123a06fe99a95d02}\label{classnlohmann_1_1detail_1_1file__input__adapter_a308099b496a0cba2123a06fe99a95d02} 
+{\bfseries file\+\_\+input\+\_\+adapter} (const file\+\_\+input\+\_\+adapter \&)=delete
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1file__input__adapter_a5a35c5bc8d6216ee6e4070fc4b6b0127}\label{classnlohmann_1_1detail_1_1file__input__adapter_a5a35c5bc8d6216ee6e4070fc4b6b0127} 
+{\bfseries file\+\_\+input\+\_\+adapter} (file\+\_\+input\+\_\+adapter \&\&) noexcept=default
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1file__input__adapter_a8e2293f81491dabe5dc74b2d4910d400}\label{classnlohmann_1_1detail_1_1file__input__adapter_a8e2293f81491dabe5dc74b2d4910d400} 
+file\+\_\+input\+\_\+adapter \& {\bfseries operator=} (const file\+\_\+input\+\_\+adapter \&)=delete
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1file__input__adapter_a54d43cbc6f5677d8f7b4a3123692e541}\label{classnlohmann_1_1detail_1_1file__input__adapter_a54d43cbc6f5677d8f7b4a3123692e541} 
+file\+\_\+input\+\_\+adapter \& {\bfseries operator=} (file\+\_\+input\+\_\+adapter \&\&)=delete
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1file__input__adapter_acd3cff5e0b14fef206c40aa6b96a3ef2}\label{classnlohmann_1_1detail_1_1file__input__adapter_acd3cff5e0b14fef206c40aa6b96a3ef2} 
+\doxymbox{\hyperlink{structstd_1_1char__traits}{std::\+char\+\_\+traits}}$<$ char $>$::\+int\+\_\+type {\bfseries get\+\_\+character} () noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classnlohmann_1_1detail_1_1file__input__adapter_a164fbe2739ac97e517e22bc1fff1c174}\label{classnlohmann_1_1detail_1_1file__input__adapter_a164fbe2739ac97e517e22bc1fff1c174} 
+std::\+\+FILE \texorpdfstring{$\ast$}{*} {\bfseries m\+\_\+file}
+\begin{DoxyCompactList}\small\item\em the file pointer to read from \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Input adapter for stdio file access. This adapter read only 1 byte and do not use any buffer. This adapter is a very low level adapter. 
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+nlohman/\+json-\/develop/\+tests/\+abi/\+include/\+nlohmann/\+json\+\_\+v3\+\_\+10\+\_\+5.\+hpp\end{DoxyCompactItemize}

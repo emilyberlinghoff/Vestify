@@ -1,0 +1,267 @@
+\chapter{Quality assurance }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance}\index{Quality assurance@{Quality assurance}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1373}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1373}%
+
+
+Ensuring quality is paramount for this project, particularly because \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2home_2customers}{numerous other projects}{0} depend on it. Each commit to the library undergoes rigorous checks against the following requirements, and any violations will result in a failed build.\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1374}{}\doxysection{\texorpdfstring{C++ language compliance and compiler compatibility}{C++ language compliance and compiler compatibility}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1374}
+!!! success "{}\+Requirement:\+ Compiler support"{} \begin{DoxyVerb}Any compiler with complete C++11 support can compile the library without warnings.
+\end{DoxyVerb}
+
+
+
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} library is compiled with 50+ different C++ compilers with different operating systems and platforms, including the oldest versions known to compile the library.
+
+??? abstract "{}\+Compilers used in continuous integration"{} \begin{DoxyVerb}| Compiler                                     | Architecture | Operating System                  | CI        |
+|----------------------------------------------|--------------|-----------------------------------|-----------|
+| AppleClang 15.0.0.15000040; Xcode 15.0.1     | x86_64       | macOS 13.7.2 (Ventura)            | GitHub    |
+| AppleClang 15.0.0.15000100; Xcode 15.1       | x86_64       | macOS 13.7.2 (Ventura)            | GitHub    |
+| AppleClang 15.0.0.15000100; Xcode 15.2       | x86_64       | macOS 13.7.2 (Ventura)            | GitHub    |
+| AppleClang 15.0.0.15000309; Xcode 15.3       | arm64        | macOS 14.7.2 (Sonoma)             | GitHub    |
+| AppleClang 15.0.0.15000309; Xcode 15.4       | arm64        | macOS 14.7.2 (Sonoma)             | GitHub    |
+| AppleClang 16.0.0.16000026; Xcode 16         | arm64        | macOS 15.2 (Sequoia)              | GitHub    |
+| AppleClang 16.0.0.16000026; Xcode 16.1       | arm64        | macOS 15.2 (Sequoia)              | GitHub    |
+| AppleClang 16.0.0.16000026; Xcode 16.2       | arm64        | macOS 15.2 (Sequoia)              | GitHub    |
+| AppleClang 17.0.0.17000013; Xcode 16.3       | arm64        | macOS 15.5 (Sequoia)              | GitHub    |
+| AppleClang 17.0.0.17000013; Xcode 16.4       | arm64        | macOS 15.5 (Sequoia)              | GitHub    |
+| AppleClang 17.0.0.17000319; Xcode 26.0.1     | arm64        | macOS 15.5 (Sequoia)              | GitHub    |
+| Clang 3.5.2                                  | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 3.6.2                                  | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 3.7.1                                  | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 3.8.1                                  | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 3.9.1                                  | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 4.0.1                                  | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 5.0.2                                  | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 6.0.1                                  | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 7.1.0                                  | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 8.0.1                                  | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 9.0.1                                  | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 10.0.1                                 | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 11.0.1 with GNU-like command-line      | x86_64       | Windows Server 2022 (Build 20348) | GitHub    |
+| Clang 11.1.0                                 | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 12.0.1 with GNU-like command-line      | x86_64       | Windows Server 2022 (Build 20348) | GitHub    |
+| Clang 12.0.1                                 | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 13.0.1 with GNU-like command-line      | x86_64       | Windows Server 2022 (Build 20348) | GitHub    |
+| Clang 13.0.1                                 | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 14.0.6                                 | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 14.0.6 with GNU-like command-line      | x86_64       | Windows Server 2022 (Build 20348) | GitHub    |
+| Clang 15.0.7                                 | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 15.0.7 with GNU-like command-line      | x86_64       | Windows Server 2022 (Build 20348) | GitHub    |
+| Clang 16.0.6                                 | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 16.0.6 with GNU-like command-line      | x86_64       | Windows Server 2022 (Build 20348) | GitHub    |
+| Clang 17.0.6                                 | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 18.1.8                                 | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 18.1.8 with GNU-like command-line      | x86_64       | Windows Server 2022 (Build 20348) | GitHub    |
+| Clang 19.1.5 with MSVC-like command-line     | x86_64       | Windows Server 2022 (Build 20348) | GitHub    |
+| Clang 19.1.7                                 | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 19.1.7 with GNU-like command-line      | x86_64       | Windows Server 2022 (Build 20348) | GitHub    |
+| Clang 20.1.1                                 | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Clang 20.1.8 with GNU-like command-line      | x86_64       | Windows Server 2022 (Build 20348) | GitHub    |
+| Clang 21.0.0                                 | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| Emscripten 4.0.6                             | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 4.8.5                                    | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 4.9.3                                    | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 5.5.0                                    | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 6.4.0                                    | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 7.5.0                                    | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 8.5.0                                    | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 9.3.0                                    | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 9.4.0                                    | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 9.5.0                                    | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 10.5.0                                   | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 11.4.0                                   | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 11.5.0                                   | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 12.2.0 (MinGW-W64 i686-ucrt-posix-dwarf) | x86_64       | Windows Server 2022 (Build 20348) | GitHub    |
+| GNU 12.2.0 (MinGW-W64 x86_64-ucrt-posix-seh) | x86_64       | Windows Server 2022 (Build 20348) | GitHub    |
+| GNU 12.4.0                                   | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 13.3.0                                   | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 14.2.0                                   | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| GNU 14.2.0                                   | arm64        | Linux 6.1.100                     | Cirrus CI |
+| GNU 15.1.0                                   | x86_64       | Ubuntu 22.04.1 LTS                | GitHub    |
+| icpc (ICC) 2021.5.0 20211109                 | x86_64       | Ubuntu 20.04.3 LTS                | GitHub    |
+| MSVC 19.0.24241.7                            | x86          | Windows 8.1                       | AppVeyor  |
+| MSVC 19.16.27035.0                           | x86          | Windows-10 (Build 14393)          | AppVeyor  |
+| MSVC 19.29.30157.0                           | x86          | Windows-10 (Build 17763)          | AppVeyor  |
+| MSVC 19.44.35214.0                           | x86          | Windows Server 2022 (Build 20348) | GitHub    |
+| MSVC 19.44.35214.0                           | x86_64       | Windows Server 2022 (Build 20348) | GitHub    |
+\end{DoxyVerb}
+
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} library is compiled with all C++ language revisions (C++11, C++14, C++17, C++20, C++23, and C++26) to detect and fix language deprecations early.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} library is checked for compiler warnings:\+
+\begin{DoxyItemize}
+\item On Clang, {\ttfamily -\/Weverything} is used with 8 exceptions.
+
+??? abstract "{}\+Clang warnings"{} \begin{DoxyVerb}```cmake
+--8<-- "../../../cmake/clang_flags.cmake"
+```
+\end{DoxyVerb}
+
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item On GCC, 300+ warnings are enabled with 8 exceptions.
+
+??? abstract "{}\+GCC warnings"{} \begin{DoxyVerb}```cmake
+--8<-- "../../../cmake/gcc_flags.cmake"
+```
+\end{DoxyVerb}
+
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1375}{}\doxysection{\texorpdfstring{C++ standard library compliance}{C++ standard library compliance}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1375}
+!!! success "{}\+Requirement:\+ No prerequisites"{} \begin{DoxyVerb}The library has no prerequisites other than the Standard Template Library (STL).
+\end{DoxyVerb}
+
+
+
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} library is compiled and tested with both \href{https://libcxx.llvm.org}{\texttt{libc++}} and \href{https://gcc.gnu.org/onlinedocs/libstdc++/}{\texttt{libstdc++}} to detect subtle differences or incompatibilities.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} code checked with \href{https://include-what-you-use.org}{\texttt{Include What You Use (IWYU)}} that all required standard headers are included.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] On Windows, the library is compiled with {\ttfamily \texorpdfstring{$<$}{<}Windows.\+h\texorpdfstring{$>$}{>}} being included to detect and avoid common bugs.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} library is compiled with exceptions disabled to support alternative means of error handling.
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1376}{}\doxysection{\texorpdfstring{Stable public API}{Stable public API}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1376}
+!!! success "{}\+Requirement:\+ Stable public API"{} \begin{DoxyVerb}Any change to the library does not break the public API.
+\end{DoxyVerb}
+
+
+
+\begin{DoxyItemize}
+\item[\DoxyChecked] All public API functions are tested with a variety of arguments.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} library is compiled and tested with different template arguments for number, string, array, and object types.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Unit tests cover all lines of the code base.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Every exception of the library is thrown in the test suite, and the error messages and exception ids are checked.
+\end{DoxyItemize}
+
+!!! success "{}\+Requirement:\+ Complete documentation"{} \begin{DoxyVerb}The public API is extensively documented.
+\end{DoxyVerb}
+
+
+
+\begin{DoxyItemize}
+\item[\DoxyChecked] Every public API function has a dedicated page in the \href{https://json.nlohmann.me/api/basic_json/}{\texttt{API reference documentation}} with a self-\/contained code example.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] All examples in the documentation are tested, and changes in their output are treated as an error.
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1377}{}\doxysection{\texorpdfstring{Robust input processing}{Robust input processing}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1377}
+!!! success "{}\+Requirement:\+ Standards compliance"{} \begin{DoxyVerb}The library is compliant to JSON as defined in [RFC 8259](https://datatracker.ietf.org/doc/html/rfc8259).
+\end{DoxyVerb}
+
+
+
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} lexer is tested with all valid Unicode code points and all prefixes of all invalid Unicode code points.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} parser is tested against extensive correctness suites for JSON compliance.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] In addition, the library is continuously fuzz-\/tested at \href{https://google.github.io/oss-fuzz/}{\texttt{OSS-\/\+Fuzz}} where the library is checked against billions of inputs.
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1378}{}\doxysection{\texorpdfstring{Static analysis}{Static analysis}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1378}
+!!! success "{}\+Requirement:\+ State-\/of-\/the-\/art code analysis"{} \begin{DoxyVerb}The code is checked with state-of-the-art static code analysis tools.
+\end{DoxyVerb}
+
+
+
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} code is checked with the latest \href{https://clang.llvm.org/extra/clang-tidy/}{\texttt{Clang-\/\+Tidy}}.
+
+??? abstract "{}\+Clang-\/\+Tidy configuration (.\+clang-\/tidy)"{} \begin{DoxyVerb}```ini
+--8<-- "../../../.clang-tidy"
+```
+\end{DoxyVerb}
+
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} code is checked with the latest \href{https://cppcheck.sourceforge.io}{\texttt{Cppcheck}} with all warnings enabled.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} code is checked with the latest \href{https://clang-analyzer.llvm.org}{\texttt{Clang Static Analyzer}} with 89 enabled rules.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} code is checked with \href{https://fbinfer.com}{\texttt{Infer}}.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} code is checked with \href{https://app.codacy.com/gh/nlohmann/json/dashboard}{\texttt{Codacy}}.
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1379}{}\doxysection{\texorpdfstring{Dynamic analysis}{Dynamic analysis}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1379}
+!!! success "{}\+Requirement:\+ Correctness"{} \begin{DoxyVerb}The library is checked for memory correctness and absence of undefined behavior.
+\end{DoxyVerb}
+
+
+
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} test suite is executed with enabled \href{https://json.nlohmann.me/features/assertions/}{\texttt{runtime assertions}} to check invariants and preconditions of functions to detect undefined behavior.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} test suite is executed with \href{https://valgrind.org}{\texttt{Valgrind}} (Memcheck) to detect memory leaks.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} test suite is executed with \href{https://github.com/google/sanitizers}{\texttt{Sanitizers}} (address sanitizer, undefined behavior sanitizer, integer overflow detection, nullability violations).
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1380}{}\doxysection{\texorpdfstring{Style check}{Style check}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1380}
+!!! success "{}\+Requirement:\+ Common code style"{} \begin{DoxyVerb}A common code style is used throughout all code files of the library.
+\end{DoxyVerb}
+
+
+
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} code is formatted with \href{https://astyle.sourceforge.net}{\texttt{Artistic Style}} (astyle) against a style configuration that is also enforced in the CI.
+
+??? abstract "{}\+Astyle configuration (tools/\+astyle/\+.\+astylerc)"{} \begin{DoxyVerb}```ini
+--8<-- "../../../tools/astyle/.astylerc"
+```
+\end{DoxyVerb}
+
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} code style is checked with \href{https://github.com/cpplint/cpplint}{\texttt{cpplint}} with 61 enabled rules.
+\end{DoxyItemize}\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1381}{}\doxysection{\texorpdfstring{Simple integration}{Simple integration}}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2community_2quality__assurance_autotoc_md1381}
+!!! success "{}\+Requirement:\+ Single header"{} \begin{DoxyVerb}The library can be used by adding a single header to a C++ project.
+\end{DoxyVerb}
+
+
+
+\begin{DoxyItemize}
+\item[\DoxyChecked] An amalgamation script is used to check if the source code is exposed as a self-\/contained single-\/header file.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} test suite is checked against the amalgamated source file as well as the individual source file.
+\end{DoxyItemize}
+
+!!! success "{}\+Requirement:\+ CMake as primary development tool"{} \begin{DoxyVerb}All library functions are exposed and usable by CMake.
+\end{DoxyVerb}
+
+
+
+\begin{DoxyItemize}
+\item[\DoxyChecked] All library options are exposed as \href{https://json.nlohmann.me/integration/cmake/}{\texttt{CMake options}} and tested.
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{requirements_The}{The} library is tested against relevant CMake versions:\+
+\begin{DoxyItemize}
+\item CMake 3.\+5 (the earliest supported)
+\item CMake 3.\+31.\+6 (the latest 3.\+x release)
+\item CMake 4.\+0.\+0 (a very recent release) 
+\end{DoxyItemize}
+\end{DoxyItemize}

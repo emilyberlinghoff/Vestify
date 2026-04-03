@@ -1,0 +1,23 @@
+\chapter{JSON Merge Patch }
+\hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2merge__patch}{}\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2merge__patch}\index{JSON Merge Patch@{JSON Merge Patch}}
+\label{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2merge__patch_autotoc_md1480}%
+\Hypertarget{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2merge__patch_autotoc_md1480}%
+
+
+\doxylink{requirements_The}{The} library supports JSON Merge Patch (\href{https://tools.ietf.org/html/rfc7386}{\texttt{RFC 7386}}) as a patch format. \doxylink{requirements_The}{The} merge patch format is primarily intended for use with the HTTP PATCH method as a means of describing a set of modifications to a target resource\textquotesingle{}s content. This function applies a merge patch to the current JSON value.
+
+Instead of using \doxysectlink{md_include_2nlohman_2json-develop_2docs_2mkdocs_2docs_2features_2json__pointer}{JSON Pointer}{0} to specify values to be manipulated, it describes the changes using a syntax that closely mimics the document being modified.
+
+??? example \begin{DoxyVerb}The following code shows how a JSON Merge Patch is applied to a JSON document.
+
+```cpp
+--8<-- "examples/merge_patch.cpp"
+```
+
+Output:
+
+```json
+--8<-- "examples/merge_patch.output"
+```
+\end{DoxyVerb}
+ 

@@ -1,0 +1,95 @@
+\doxysection{Interactive\+Menu.\+hpp}
+\hypertarget{_interactive_menu_8hpp_source}{}\label{_interactive_menu_8hpp_source}\index{include/ui/InteractiveMenu.hpp@{include/ui/InteractiveMenu.hpp}}
+\doxymbox{\hyperlink{_interactive_menu_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_stock_repository_8hpp}{core/StockRepository.hpp}}"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_watch_list_8hpp}{core/WatchList.hpp}}"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_watch_list_repo_8hpp}{persistence/WatchListRepo.hpp}}"{}}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_interactive_menu_a8c5ed37b184c6ea9fbd6f9514c35c601}{InteractiveMenu}}}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00043\ \ \ \ \ \doxymbox{\hyperlink{class_interactive_menu_a8c5ed37b184c6ea9fbd6f9514c35c601}{InteractiveMenu}}();}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_interactive_menu_ac90a2ff75ce753f15dad835e621a457f}{run}}();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00057\ \ \ \ \ \doxymbox{\hyperlink{class_stock_repository}{StockRepository}}\ \doxymbox{\hyperlink{class_interactive_menu_ad5e9afe967c569e617f64465a8167574}{repository\_}};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00060\ \ \ \ \ std::vector<WatchList>\ \doxymbox{\hyperlink{class_interactive_menu_ae8d8b3db8fa0dd420e5285c7346e8302}{watchlists\_}};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00063\ \ \ \ \ \doxymbox{\hyperlink{class_watch_list_repo}{WatchListRepo}}\ \doxymbox{\hyperlink{class_interactive_menu_a63c1182783991bf3403997b6e7127c9d}{watchlistRepo\_}};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \doxymbox{\hyperlink{class_interactive_menu_a9b0ed5319b0db813aea3f9a7513a64c3}{toUpper}}(std::string\ str);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<std::string>\ \doxymbox{\hyperlink{class_interactive_menu_ae85d38851017bfe47383500b9fec0c69}{splitTickers}}(\textcolor{keyword}{const}\ std::string\ \&input);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_interactive_menu_a8498f6767f2c653ab55f7f2a45e6443b}{handleLoadCsv}}(\textcolor{keyword}{const}\ std::string\ \&path);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_interactive_menu_af7141d6361db5532d8902f73b64057b6}{printLoadedStocks}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_interactive_menu_a549df67d5868bb0dcc5091a13e375f81}{updateStockData}}();}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_interactive_menu_a01e3f7dee01b320f8b91032492fe826a}{searchTicker}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{comment}{//void\ loadDemoWatchlist();}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_interactive_menu_a52a52778135a72d3e02eb24961865c38}{loadWatchlists}}();}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{comment}{//void\ saveDemoWatchlist()\ const;}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_interactive_menu_a89504c82933d1a0210fb6d8b751a98b0}{saveWatchlists}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_interactive_menu_a67fd95a3d55edfc77afcd0c81745c415}{watchlistMenu}}();}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_interactive_menu_afd4fcc725659958d5dbc24dc6c1904a3}{scoreAndRankStocks}}();}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_interactive_menu_a19101ce02ed68fc226dfc28f865de82c}{screenStocks}}();}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_interactive_menu_a09b40f9ea96ae76539a6a9c8d8a8af6c}{runBacktest}}();}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_interactive_menu_a57265fbd179a1cbb9ac51247a95ad10f}{modifyWatchlistMenu}}();}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_interactive_menu_a6edd899f2aa82ae8323d840609423752}{readInt}}();}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \doxymbox{\hyperlink{class_interactive_menu_a3b3f9ec638808f93f698c19d971e3981}{readLine}}(\textcolor{keyword}{const}\ std::string\ \&prompt);}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{comment}{//New\ member\ variables\ supporting\ multiple\ watchlists}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{comment}{//\ int\ selectedWatchlistIndex\_\ =\ -\/1;}}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{comment}{//\ bool\ lockWatchlistSelection\_\ =\ false;}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_interactive_menu_a0cc8e83c63d4f62148ff8ace9afd6e35}{createWatchlist}}();}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_interactive_menu_a30bb5ab22175bb84e9cda61fa5f52167}{renameWatchlist}}(\textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_interactive_menu_ac9ed2c30db8365de46844910d7522f29}{deleteWatchlist}}(\textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00253\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_interactive_menu_a727d79db970a34f0b2bab11b5a219a4e}{addStockToWatchlist}}(\textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_interactive_menu_a71742d4679c7f3ecc79bb2e3af3f1290}{removeStockFromWatchlist}}(\textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00272\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_interactive_menu_ac11381e9e4a349ce56308aa0cab0a3c1}{printAllWatchlists}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_interactive_menu_a8f30c2145b45b03b9e61c499aa58f2c3}{printAllWatchlistContents}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_interactive_menu_a7b46435370058685d8995e18ec15000b}{openSingleWatchlist}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_interactive_menu_a5b1bc945ad6f739fdc9c0cf9ecc06580}{printWatchlist}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_watch_list}{WatchList}}\ \&watchlist)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_interactive_menu_adbac60b719cace698bab2ad702dbb7a9}{selectWatchlistIndex}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_interactive_menu_ae4149f020ec523c80ba9ff76223a4fe0}{runInteractive}}();}
+\DoxyCodeLine{00319\ \};}
+
+\end{DoxyCode}

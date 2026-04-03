@@ -1,7 +1,7 @@
 /**
  * @file EfficiencyScoringModel.hpp
  * @brief Efficiency scoring model implementation.
- * @author Group 13
+ * @author Melvin Rogers
  */
 
 #pragma once
@@ -23,7 +23,7 @@
  * It highlights businesses that turn assets and operations into profit
  * efficiently without requiring excessive valuation support.
  *
- * @author Group 13
+ * @author Melvin Rogers
  */
 class EfficiencyScoringModel : public ScoringModel {
 public:

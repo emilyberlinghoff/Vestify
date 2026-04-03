@@ -1,7 +1,7 @@
 /**
  * @file StrategyPresent.hpp
  * @brief Scoring strategies, results, and ranking logic.
- * @author Group 13
+ * @author Melvin Rogers
  */
 
 #pragma once

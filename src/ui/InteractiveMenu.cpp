@@ -7,7 +7,9 @@
  * user input, coordinates data loading and display operations, and manages
  * the application workflow.
  *
- * @author Group 13
+ * @author Maxime Lavoie
+ * @author Melvin Rogers
+ * @author Zack Goodman
  */
 
 #include "ui/InteractiveMenu.hpp"
@@ -38,6 +40,7 @@
  *
  * Creates the watchlist repository using the demo watchlist JSON path and
  * attempts to load any persisted watchlist data into memory.
+ * @author Zack Goodman
  */
 static void loadEnvFromFile(const std::string &path)
 {
@@ -88,6 +91,7 @@ InteractiveMenu::InteractiveMenu()
  *
  * @param str The input string to convert.
  * @return A new string with all characters converted to uppercase.
+ * @author Maxime Lavoie
  */
 std::string InteractiveMenu::toUpper(std::string str)
 {
@@ -106,6 +110,7 @@ std::string InteractiveMenu::toUpper(std::string str)
  * prompts again until a valid integer is entered.
  *
  * @return The integer value entered by the user.
+ * @author Zack Goodman
  */
 int InteractiveMenu::readInt()
 {
@@ -132,6 +137,7 @@ int InteractiveMenu::readInt()
  *
  * @param prompt Message displayed before reading input.
  * @return The line entered by the user.
+ * @author Melvin Rogers
  */
 std::string InteractiveMenu::readLine(const std::string &prompt)
 {
@@ -149,6 +155,7 @@ std::string InteractiveMenu::readLine(const std::string &prompt)
  *
  * @param input A comma-separated string of ticker symbols.
  * @return A vector of individual ticker symbol strings.
+ * @author Melvin Rogers
  */
 std::vector<std::string> InteractiveMenu::splitTickers(const std::string &input)
 {
@@ -224,6 +231,7 @@ std::vector<std::string> InteractiveMenu::splitTickers(const std::string &input)
  *
  * @param path Path to the CSV file containing stock data.
  * @return Exit code (0 for success, 2 if errors occurred during loading).
+ * @author Maxime Lavoie
  */
 int InteractiveMenu::handleLoadCsv(const std::string &path)
 {
@@ -244,6 +252,7 @@ int InteractiveMenu::handleLoadCsv(const std::string &path)
  *
  * Displays comprehensive stock data for all stocks currently loaded in the
  * repository. If no stocks are loaded, displays an appropriate message.
+ * @author Maxime Lavoie
  */
 void InteractiveMenu::printLoadedStocks() const
 {
@@ -261,6 +270,7 @@ void InteractiveMenu::printLoadedStocks() const
  *
  * Executes the Python script responsible for updating stock data and reports
  * the success or failure of the operation.
+ * @author Maxime Lavoie
  */
 void InteractiveMenu::updateStockData()
 {
@@ -284,6 +294,7 @@ void InteractiveMenu::updateStockData()
  * Prompts the user to enter a ticker symbol, searches the repository for it,
  * and displays detailed information if found. If no stocks are loaded or the
  * ticker is not found, displays appropriate error messages.
+ * @author Maxime Lavoie
  */
 void InteractiveMenu::searchTicker() const
 {
@@ -310,6 +321,13 @@ void InteractiveMenu::searchTicker() const
     StockPrinter::printStocks({*stock});
 }
 
+/**
+ * @brief Runs the stock screening menu.
+ *
+ * Launches the interactive stock screening prompt flow, allowing the user to
+ * stack multiple criteria and view matching stocks based on the loaded data.
+ * @author Maxime Lavoie
+ */
 void InteractiveMenu::screenStocks()
 {
     ScreeningMenu::run(
@@ -330,6 +348,7 @@ void InteractiveMenu::screenStocks()
  * Reads the configured watchlist file using the watchlist repository and
  * appends the loaded watchlist to the in-memory collection if it contains
  * either a name or ticker data.
+ * @author Zack Goodman
  */
 void InteractiveMenu::loadWatchlists()
 {
@@ -357,6 +376,7 @@ void InteractiveMenu::loadWatchlists()
  *
  * Persists the first watchlist in the in-memory collection using the
  * watchlist repository. If no watchlists are present, no save is attempted.
+ * @author Zack Goodman
  */
 void InteractiveMenu::saveWatchlists() const
 {
@@ -374,6 +394,7 @@ void InteractiveMenu::saveWatchlists() const
  *
  * Displays each watchlist in the in-memory collection with a 1-based index.
  * If no watchlists exist, an informative message is printed instead.
+ * @author Zack Goodman
  */
 void InteractiveMenu::printAllWatchlists() const
 {
@@ -398,6 +419,7 @@ void InteractiveMenu::printAllWatchlists() const
  * that the selection falls within the current range.
  *
  * @return Zero-based index of the selected watchlist, or -1 on failure.
+ * @author Zack Goodman
  */
 int InteractiveMenu::selectWatchlistIndex() const
 {
@@ -427,6 +449,7 @@ int InteractiveMenu::selectWatchlistIndex() const
  * name is non-empty and not already used by another watchlist.
  *
  * @return True if the watchlist was created, false otherwise.
+ * @author Zack Goodman
  */
 bool InteractiveMenu::createWatchlist()
 {
@@ -460,6 +483,7 @@ bool InteractiveMenu::createWatchlist()
  * succeeds only if the selection is valid and the new name is non-empty and unique.
  *
  * @return True if the watchlist was renamed, false otherwise.
+ * @author Zack Goodman
  */
 bool InteractiveMenu::renameWatchlist(int index)
 {
@@ -497,6 +521,7 @@ bool InteractiveMenu::renameWatchlist(int index)
  * in-memory collection if the selection is valid.
  *
  * @return True if the watchlist was deleted, false otherwise.
+ * @author Zack Goodman
  */
 bool InteractiveMenu::deleteWatchlist(int index)
 {
@@ -518,6 +543,7 @@ bool InteractiveMenu::deleteWatchlist(int index)
  * must exist in the repository and not already be present in the watchlist.
  *
  * @return True if the ticker was added, false otherwise.
+ * @author Zack Goodman
  */
 bool InteractiveMenu::addStockToWatchlist(int index)
 {
@@ -560,6 +586,7 @@ bool InteractiveMenu::addStockToWatchlist(int index)
  * is removed only if it currently exists in the selected watchlist.
  *
  * @return True if the ticker was removed, false otherwise.
+ * @author Zack Goodman
  */
 bool InteractiveMenu::removeStockFromWatchlist(int index)
 {
@@ -590,6 +617,7 @@ bool InteractiveMenu::removeStockFromWatchlist(int index)
  * its tickers exist in the loaded stock data, an explanatory message is shown.
  *
  * @param watchlist The watchlist to display.
+ * @author Zack Goodman
  */
 void InteractiveMenu::printWatchlist(const WatchList &watchlist) const
 {
@@ -627,6 +655,7 @@ void InteractiveMenu::printWatchlist(const WatchList &watchlist) const
  *
  * Iterates through every watchlist currently stored in memory and displays
  * the stocks contained in each one.
+ * @author Zack Goodman
  */
 void InteractiveMenu::printAllWatchlistContents() const
 {
@@ -648,6 +677,7 @@ void InteractiveMenu::printAllWatchlistContents() const
  *
  * Prompts the user to choose a watchlist and displays its contents if a
  * valid selection is made.
+ * @author Zack Goodman
  */
 void InteractiveMenu::openSingleWatchlist() const
 {
@@ -666,6 +696,7 @@ void InteractiveMenu::openSingleWatchlist() const
  * Displays options for adding or removing stocks, renaming a watchlist,
  * deleting a watchlist, or returning to the previous menu. Successful
  * modifications trigger a save of the persisted demo watchlist.
+ * @author Zack Goodman
  */
 void InteractiveMenu::modifyWatchlistMenu()
 {
@@ -757,6 +788,7 @@ void InteractiveMenu::modifyWatchlistMenu()
  *
  * Displays options for creating, modifying, printing, or opening watchlists.
  * Successful creation triggers a save of the persisted demo watchlist.
+ * @author Zack Goodman
  */
 void InteractiveMenu::watchlistMenu()
 {
@@ -807,6 +839,8 @@ void InteractiveMenu::watchlistMenu()
  *
  * Allows the user to select a predefined scoring strategy, view ranked results,
  * and inspect a breakdown of factor contributions for a selected stock.
+ * @author Zack Goodman
+ * @author Melvin Rogers
  */
 void InteractiveMenu::scoreAndRankStocks()
 {
@@ -1072,6 +1106,14 @@ void InteractiveMenu::scoreAndRankStocks()
     }
 }
 
+/**
+ * @brief Run a backtest of a scoring-based strategy over historical data.
+ *
+ * Prompts the user for tickers, date range, rebalance interval, and strategy
+ * selection, then simulates a backtest and displays performance results.
+ * @author Zack Goodman
+ * @author Melvin Rogers
+ */
 void InteractiveMenu::runBacktest()
 {
     if (repository_.getAll().empty())
@@ -1324,6 +1366,9 @@ void InteractiveMenu::runBacktest()
  * Displays a menu of options and processes user input in a loop until the
  * user chooses to exit. Provides access to all major application features
  * through numbered menu options.
+ * @author Zack Goodman
+ * @author Melvin Rogers
+ * @author Maxime Lavoie
  */
 void InteractiveMenu::runInteractive()
 {
@@ -1399,6 +1444,7 @@ void InteractiveMenu::runInteractive()
  * This is the primary interface between the application and the user.
  *
  * @return Exit code (0 for success, non-zero for errors).
+ * @author Melvin Rogers
  */
 int InteractiveMenu::run()
 {

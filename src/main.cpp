@@ -7,7 +7,7 @@
  * functionality for loading stock data, performing analysis, and displaying
  * results through an interactive terminal menu.
  *
- * @author Group 13
+ * @author Maxime Lavoie
  */
 
 #include "ui/InteractiveMenu.hpp"

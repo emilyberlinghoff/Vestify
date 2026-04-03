@@ -7,7 +7,7 @@
  * methods for loading stock data from CSV files and retrieving stocks by
  * various criteria.
  *
- * @author Group 13
+ * @author Emily Berlinghoff
  */
 
 #pragma once
@@ -25,7 +25,7 @@
  * and efficient retrieval operations. It serves as the data access layer
  * between data providers and the rest of the application.
  *
- * @author Group 13
+ * @author Emily Berlinghoff
  */
 class StockRepository
 {

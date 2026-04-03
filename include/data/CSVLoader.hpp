@@ -1,7 +1,8 @@
 /**
  * @file CSVLoader.hpp
  * @brief CSV parsing utility for loading stock fundamentals from tabular data.
- * @author Group 13
+ * @author Emily Berlinghoff
+ * @author Maxime Lavoie
  */
 
 #pragma once
@@ -24,7 +25,7 @@
  * numeric fields into a `Stock` record, and reports recoverable row-level
  * errors without aborting the whole import.
  *
- * @author Group 13
+ * @author Emily Berlinghoff
  */
 class CSVLoader {
 public:

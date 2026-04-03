@@ -1,7 +1,7 @@
 /**
  * @file LiveDataProvider.hpp
  * @brief Alpha Vantage data provider for historical stock prices.
- * @author Group 13
+ * @author Emily Berlinghoff
  */
 
 #pragma once
@@ -18,7 +18,7 @@
  * It also exposes a local caching workflow so repeated backtests can reuse
  * prior downloads instead of hitting the remote API each time.
  *
- * @author Group 13
+ * @author Emily Berlinghoff
  */
 class LiveDataProvider {
 public:

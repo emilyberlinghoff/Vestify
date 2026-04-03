@@ -1,7 +1,7 @@
 /**
  * @file StockScreener.hpp
  * @brief Header for reusable multi-criteria stock screening logic.
- * @author Group 13
+ * @author Maxime Lavoie
  */
 
 #pragma once
@@ -17,7 +17,7 @@
  * Applies all active criteria with AND semantics and returns both the matching
  * stocks and user-facing descriptions of the filters that were applied.
  *
- * @author Group 13
+ * @author Maxime Lavoie
  */
 class StockScreener
 {

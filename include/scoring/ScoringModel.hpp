@@ -1,7 +1,7 @@
 /**
  * @file ScoringModel.hpp
  * @brief Abstract interface for individual stock scoring models.
- * @author Group 13
+ * @author Melvin Rogers
  */
 
 #pragma once
@@ -18,7 +18,7 @@
  * This abstraction allows strategies to combine interchangeable factor models
  * without coupling ranking logic to any one implementation.
  *
- * @author Group 13
+ * @author Melvin Rogers
  */
 class ScoringModel {
 public:

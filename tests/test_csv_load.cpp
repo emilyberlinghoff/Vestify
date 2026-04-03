@@ -1,7 +1,7 @@
 /**
  * @file test_csv_load.cpp
  * @brief Unit tests for CSV loading into the stock repository.
- * @author Group 13
+ * @author Emily Berlinghoff
  */
 
 #include <filesystem>

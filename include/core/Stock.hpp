@@ -7,7 +7,7 @@
  * statements, ratios, and valuation metrics used throughout the Vestify
  * stock analysis application.
  *
- * @author Group 13
+ * @author Maxime Lavoie
  */
 
 #pragma once

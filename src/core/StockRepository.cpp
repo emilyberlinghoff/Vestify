@@ -7,7 +7,7 @@
  * It provides methods for loading stock data from CSV files and retrieving
  * stocks by various criteria.
  *
- * @author Group 13
+ * @author Emily Berlinghoff
  */
 
 #include "core/StockRepository.hpp"

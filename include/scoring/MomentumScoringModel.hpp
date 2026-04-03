@@ -1,7 +1,7 @@
 /**
  * @file MomentumScoringModel.hpp
  * @brief Momentum scoring model implementation.
- * @author Group 13
+ * @author Melvin Rogers
  */
 
 #pragma once
@@ -26,7 +26,7 @@
  *       incorporate actual return-based momentum (e.g., 6-month or 12-month
  *       total return minus the most recent month).
  *
- * @author Group 13
+ * @author Melvin Rogers
  */
 class MomentumScoringModel : public ScoringModel {
 public:

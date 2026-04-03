@@ -1,7 +1,7 @@
 /**
  * @file test_backtest.cpp
  * @brief Acceptance tests for the backtest engine.
- * @author Group 13
+ * @author Emily Berlinghoff
  */
 
 #include <algorithm>

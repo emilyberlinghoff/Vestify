@@ -1,7 +1,7 @@
 /**
  * @file BacktestEngine.hpp
  * @brief Backtest engine with periodic rebalancing support.
- * @author Group 13
+ * @author Emily Berlinghoff
  */
 
 #pragma once
@@ -20,7 +20,7 @@
  * universe with the active scoring strategy, selects the highest-ranked
  * holdings, and tracks the resulting equity curve across time.
  *
- * @author Group 13
+ * @author Emily Berlinghoff
  */
 class BacktestEngine {
 public:

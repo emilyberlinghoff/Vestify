@@ -1,7 +1,8 @@
 /**
  * @file ValueScoringModel.hpp
  * @brief Value scoring model implementation.
- * @author Group 13
+ * @author Melvin Rogers
+ * @author Emily Berlinghoff
  */
 
 #pragma once
@@ -24,7 +25,8 @@
  * The model is intended to favor cheaper cash-generating businesses while
  * still rewarding direct shareholder return through dividends.
  *
- * @author Group 13
+ * @author Melvin Rogers
+ * @author Emily Berlinghoff
  */
 class ValueScoringModel : public ScoringModel {
 public:

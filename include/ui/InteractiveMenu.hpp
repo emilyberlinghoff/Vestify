@@ -6,7 +6,7 @@
  * for the Vestify stock analysis application. It provides an interactive menu system
  * for data loading, analysis, and display operations.
  *
- * @author Group 13
+ * @author Zack Goodman
  */
 
 #pragma once
@@ -27,7 +27,7 @@
  * It acts as the application's orchestration layer, delegating specialized work
  * to screening, watchlist, scoring, printing, and backtesting modules.
  *
- * @author Group 13
+ * @author Zack Goodman
  */
 class InteractiveMenu
 {

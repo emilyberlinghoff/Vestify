@@ -1,7 +1,7 @@
 /**
  * @file ScreeningMenu.hpp
  * @brief Header for the dedicated interactive stock screening flow.
- * @author Group 13
+ * @author Maxime Lavoie
  */
 
 #pragma once
@@ -19,7 +19,7 @@
  * users can build, inspect, and execute multi-criteria screens without
  * increasing the complexity of `InteractiveMenu`.
  *
- * @author Group 13
+ * @author Maxime Lavoie
  */
 class ScreeningMenu
 {

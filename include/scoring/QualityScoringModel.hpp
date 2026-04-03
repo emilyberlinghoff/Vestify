@@ -1,7 +1,7 @@
 /**
  * @file QualityScoringModel.hpp
  * @brief Quality scoring model implementation.
- * @author Group 13
+ * @author Melvin Rogers
  */
 
 #pragma once
@@ -24,7 +24,7 @@
  * This model complements valuation and growth screens by emphasizing durable
  * balance-sheet strength and profitability quality.
  *
- * @author Group 13
+ * @author Melvin Rogers
  */
 class QualityScoringModel : public ScoringModel {
 public:

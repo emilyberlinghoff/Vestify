@@ -7,7 +7,7 @@
  * monetary value formatting, metric colorization, and tabular display of
  * stock data with proper alignment and visual indicators.
  *
- * @author Group 13
+ * @author Maxime Lavoie
  */
 
 #pragma once

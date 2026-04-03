@@ -1,7 +1,7 @@
 /**
  * @file WatchList.cpp
  * @brief Implementation of the WatchList container for tracked ticker symbols.
- * @author Group 13
+ * @author Zack Goodman
  */
 
 #include "core/Watchlist.hpp"

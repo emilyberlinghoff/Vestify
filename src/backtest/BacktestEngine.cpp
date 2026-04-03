@@ -1,7 +1,7 @@
 /**
  * @file BacktestEngine.cpp
  * @brief Implementation of the backtest engine.
- * @author Group 13
+ * @author Emily Berlinghoff
  */
 
 #include "backtest/BacktestEngine.hpp"

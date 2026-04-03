@@ -1,5 +1,6 @@
 ## @file update_data.py
 ## @brief Script to update financial data for NASDAQ 100 stocks using Yahoo Finance.
+## @author Maxime Lavoie
 ##
 ## This script fetches comprehensive financial data for NASDAQ 100 companies using
 ## the yfinance library, calculates various financial ratios and metrics, and saves

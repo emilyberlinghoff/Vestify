@@ -1,7 +1,7 @@
 /**
  * @file LiveDataProvider.cpp
  * @brief Implementation of the Alpha Vantage historical data provider.
- * @author Group 13
+ * @author Emily Berlinghoff
  */
 
 #include "data/LiveDataProvider.hpp"

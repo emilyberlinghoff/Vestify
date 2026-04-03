@@ -1,7 +1,7 @@
 /**
  * @file GrowthScoringModel.hpp
  * @brief Growth scoring model implementation.
- * @author Group 13
+ * @author Melvin Rogers
  */
 
 #pragma once
@@ -24,7 +24,7 @@
  * It is designed to reward companies whose fundamentals suggest reinvestment
  * capacity and scalable operating performance.
  *
- * @author Group 13
+ * @author Melvin Rogers
  */
 class GrowthScoringModel : public ScoringModel {
 public:

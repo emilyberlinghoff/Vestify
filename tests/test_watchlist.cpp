@@ -1,7 +1,9 @@
 /**
  * @file test_watchlist.cpp
  * @brief Acceptance tests for watchlist behavior and persistence.
- * @author Group 13
+ * @author Tamanna Nair
+ * @author Zack Goodman
+ * @author Maxime Lavoie
  */
 
 #include <cstdlib>

@@ -1,7 +1,7 @@
 /**
  * @file WatchListRepo.hpp
  * @brief Header for JSON-based watchlist persistence.
- * @author Group 13
+ * @author Zack Goodman
  */
 
 #pragma once
@@ -18,7 +18,7 @@
  * The repository hides file-format details from the rest of the application so
  * the UI and domain logic can work directly with `WatchList` objects.
  *
- * @author Group 13
+ * @author Zack Goodman
  */
 class WatchListRepo
 {

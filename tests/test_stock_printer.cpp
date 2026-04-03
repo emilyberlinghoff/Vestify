@@ -1,7 +1,7 @@
 /**
  * @file test_stock_printer.cpp
  * @brief Unit tests for stock display and ranking output helpers.
- * @author Group 13
+ * @author Maxime Lavoie
  */
 
 #include <functional>

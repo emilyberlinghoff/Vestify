@@ -1,7 +1,7 @@
 /**
  * @file StockScreener.cpp
  * @brief Implementation of reusable multi-criteria stock screening logic.
- * @author Group 13
+ * @author Maxime Lavoie
  */
 
 #include "screening/StockScreener.hpp"

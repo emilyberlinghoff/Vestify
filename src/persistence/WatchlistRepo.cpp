@@ -1,7 +1,7 @@
 /**
  * @file WatchlistRepo.cpp
  * @brief Implementation of JSON-backed watchlist loading and saving.
- * @author Group 13
+ * @author Zack Goodman
  */
 
 #include "persistence/WatchListRepo.hpp"

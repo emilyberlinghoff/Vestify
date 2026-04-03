@@ -48,6 +48,8 @@ Makefile
 .venv/
 venv/
 env/
+__pycache__/
+*.pyc
 
 # =========================
 # IDE files

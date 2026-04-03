@@ -286,6 +286,13 @@ private:
             {{"Value", 0.20}, {"Growth", 0.20}, {"Momentum", 0.20},
              {"Quality", 0.20}, {"Efficiency", 0.20}}
         );
+
+        presets_["Efficiency"] = ScoringStrategy(
+            "Efficiency",
+            "Focuses on capital efficiency: strong ROA, high operating margins, and cheap EV/EBIT.",
+            {{"Efficiency", 0.45}, {"Value", 0.20}, {"Quality", 0.15},
+            {"Growth", 0.10}, {"Momentum", 0.10}}
+        );
     }
 
     /// ── Data ──────────────────────────────────────────────────────────

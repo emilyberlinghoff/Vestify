@@ -8,7 +8,7 @@
  * the application workflow.
  *
  * @author Maxime Lavoie
- * @author Melvin Rogers
+ * @author Melvin Roger
  * @author Zack Goodman
  */
 

@@ -1,7 +1,7 @@
 /**
  * @file test_scoring.cpp
  * @brief Test suite for scoring strategy functionality.
- * @author Melvin Rogers
+ * @author Melvin Roger
  * @author Emily Berlinghoff
  *
  * This file contains comprehensive tests for the scoring system including:

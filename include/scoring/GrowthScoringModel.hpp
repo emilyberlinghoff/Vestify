@@ -1,7 +1,7 @@
 /**
  * @file GrowthScoringModel.hpp
  * @brief Growth scoring model implementation.
- * @author Melvin Rogers
+ * @author Melvin Roger
  */
 
 #pragma once

@@ -1,7 +1,7 @@
 /**
  * @file QualityScoringModel.hpp
  * @brief Quality scoring model implementation.
- * @author Melvin Rogers
+ * @author Melvin Roger  
  */
 
 #pragma once

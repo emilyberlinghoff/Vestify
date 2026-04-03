@@ -1,7 +1,7 @@
 /**
  * @file ScoringModel.hpp
  * @brief Abstract interface for individual stock scoring models.
- * @author Melvin Rogers
+ * @author Melvin Roger
  */
 
 #pragma once

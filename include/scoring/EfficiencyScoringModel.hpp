@@ -1,7 +1,7 @@
 /**
  * @file EfficiencyScoringModel.hpp
  * @brief Efficiency scoring model implementation.
- * @author Melvin Rogers
+ * @author Melvin Roger
  */
 
 #pragma once

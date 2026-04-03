@@ -25,7 +25,7 @@
  * The model is intended to favor cheaper cash-generating businesses while
  * still rewarding direct shareholder return through dividends.
  *
- * @author Melvin Rogers
+ * @author Melvin Roger
  * @author Emily Berlinghoff
  */
 class ValueScoringModel : public ScoringModel {

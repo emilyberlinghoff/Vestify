@@ -1,7 +1,7 @@
 /**
  * @file MomentumScoringModel.hpp
  * @brief Momentum scoring model implementation.
- * @author Melvin Rogers
+ * @author Melvin Roger
  */
 
 #pragma once

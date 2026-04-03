@@ -1,6 +1,7 @@
 /**
  * @file LiveDataProvider.hpp
  * @brief Alpha Vantage data provider for historical stock prices.
+ * @author Group 13
  */
 
 #pragma once
@@ -14,6 +15,10 @@
  * @brief Live data provider that fetches historical prices from Alpha Vantage.
  *
  * Requires an API key provided via the ALPHAVANTAGE_API_KEY environment variable.
+ * It also exposes a local caching workflow so repeated backtests can reuse
+ * prior downloads instead of hitting the remote API each time.
+ *
+ * @author Group 13
  */
 class LiveDataProvider {
 public:

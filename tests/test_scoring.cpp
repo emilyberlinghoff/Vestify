@@ -1,6 +1,7 @@
 /**
  * @file test_scoring.cpp
  * @brief Test suite for scoring strategy functionality.
+ * @author Group 13
  *
  * This file contains comprehensive tests for the scoring system including:
  * - Strategy manager functionality

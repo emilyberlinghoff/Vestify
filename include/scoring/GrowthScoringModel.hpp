@@ -1,6 +1,7 @@
 /**
  * @file GrowthScoringModel.hpp
  * @brief Growth scoring model implementation.
+ * @author Group 13
  */
 
 #pragma once
@@ -20,9 +21,23 @@
  *   - Low dividend yield (earnings reinvested into the business)
  *
  * Each component maps to a 0-100 sub-score, then averaged.
+ * It is designed to reward companies whose fundamentals suggest reinvestment
+ * capacity and scalable operating performance.
+ *
+ * @author Group 13
  */
 class GrowthScoringModel : public ScoringModel {
 public:
+    /**
+     * @brief Calculate a growth score for one stock.
+     *
+     * Maps growth-oriented valuation and profitability measures onto the
+     * shared 0-100 scoring scale, then averages the components that are
+     * available and sensible for the current stock.
+     *
+     * @param stock Stock fundamentals to evaluate.
+     * @return Growth score in the range [0, 100].
+     */
     double calculateScore(const Stock& stock) const override {
         double total = 0.0;
         int components = 0;
@@ -56,5 +71,13 @@ public:
         return (components > 0) ? (total / components) : 0.0;
     }
 
+    /**
+     * @brief Return the display name for this model.
+     *
+     * The returned key is used by preset strategies and result views when
+     * associating scores with this growth factor model.
+     *
+     * @return The model name string "Growth".
+     */
     std::string getModelName() const override { return "Growth"; }
 };

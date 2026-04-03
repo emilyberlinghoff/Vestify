@@ -1,6 +1,7 @@
 /**
  * @file MomentumScoringModel.hpp
  * @brief Momentum scoring model implementation.
+ * @author Group 13
  */
 
 #pragma once
@@ -24,9 +25,21 @@
  * @note When historical price data becomes available, this model should
  *       incorporate actual return-based momentum (e.g., 6-month or 12-month
  *       total return minus the most recent month).
+ *
+ * @author Group 13
  */
 class MomentumScoringModel : public ScoringModel {
 public:
+    /**
+     * @brief Calculate a momentum-style score for one stock.
+     *
+     * Uses fundamental profitability and cash-generation proxies as stand-ins
+     * for price momentum, normalizing each valid signal to the shared 0-100
+     * scale before averaging.
+     *
+     * @param stock Stock fundamentals to evaluate.
+     * @return Momentum score in the range [0, 100].
+     */
     double calculateScore(const Stock& stock) const override {
         double total = 0.0;
         int components = 0;
@@ -55,5 +68,13 @@ public:
         return (components > 0) ? (total / components) : 0.0;
     }
 
+    /**
+     * @brief Return the display name for this model.
+     *
+     * The strategy manager and ranked-stock output use this string to identify
+     * the momentum component consistently.
+     *
+     * @return The model name string "Momentum".
+     */
     std::string getModelName() const override { return "Momentum"; }
 };

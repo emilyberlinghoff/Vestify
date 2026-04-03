@@ -13,6 +13,8 @@
  *
  * This file contains the implementation of methods for formatting financial values,
  * colorizing metrics based on thresholds, and printing stock information to the console.
+ *
+ * @author Group 13
  */
 
 namespace

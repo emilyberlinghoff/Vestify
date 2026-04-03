@@ -1,6 +1,7 @@
 /**
  * @file test_stock_screener.cpp
  * @brief Unit tests for multi-criteria stock screening.
+ * @author Group 13
  */
 
 #include <iostream>

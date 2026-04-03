@@ -1,6 +1,7 @@
 /**
  * @file BacktestEngine.cpp
  * @brief Implementation of the backtest engine.
+ * @author Group 13
  */
 
 #include "backtest/BacktestEngine.hpp"

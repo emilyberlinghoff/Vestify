@@ -1,6 +1,7 @@
 /**
  * @file ScreeningMenu.cpp
  * @brief Implementation of the interactive stock screening menu flow.
+ * @author Group 13
  */
 
 #include "ui/ScreeningMenu.hpp"

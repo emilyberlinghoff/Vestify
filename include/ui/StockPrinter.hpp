@@ -6,6 +6,8 @@
  * formatting and displaying stock information in various formats. It handles
  * monetary value formatting, metric colorization, and tabular display of
  * stock data with proper alignment and visual indicators.
+ *
+ * @author Group 13
  */
 
 #pragma once

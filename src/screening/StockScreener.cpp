@@ -1,3 +1,9 @@
+/**
+ * @file StockScreener.cpp
+ * @brief Implementation of reusable multi-criteria stock screening logic.
+ * @author Group 13
+ */
+
 #include "screening/StockScreener.hpp"
 
 #include <algorithm>

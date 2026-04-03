@@ -6,6 +6,8 @@
  * financial data for individual stocks, including market data, financial
  * statements, ratios, and valuation metrics used throughout the Vestify
  * stock analysis application.
+ *
+ * @author Group 13
  */
 
 #pragma once

@@ -1,6 +1,7 @@
 /**
  * @file test_screening_menu.cpp
  * @brief Unit tests for the interactive screening menu flow.
+ * @author Group 13
  */
 
 #include <functional>

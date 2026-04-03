@@ -1,6 +1,7 @@
 /**
  * @file BacktestEngine.hpp
  * @brief Backtest engine with periodic rebalancing support.
+ * @author Group 13
  */
 
 #pragma once
@@ -14,11 +15,20 @@
 
 /**
  * @brief Simple backtest engine with periodic rebalancing.
+ *
+ * The engine simulates a portfolio that periodically re-ranks the stock
+ * universe with the active scoring strategy, selects the highest-ranked
+ * holdings, and tracks the resulting equity curve across time.
+ *
+ * @author Group 13
  */
 class BacktestEngine {
 public:
     /**
      * @brief Single dated price point used for simulation.
+     *
+     * Represents one historical close that can be used in both input price
+     * series and output equity-curve results.
      */
     struct PricePoint {
         std::string date;
@@ -27,6 +37,10 @@ public:
 
     /**
      * @brief Configuration parameters for a backtest run.
+     *
+     * Groups together the stock universe, price history, date range, rebalance
+     * cadence, and capital assumptions needed to run one repeatable
+     * simulation.
      */
     struct Config {
         std::vector<Stock> stocks;
@@ -40,6 +54,9 @@ public:
 
     /**
      * @brief Output results for a backtest run.
+     *
+     * Captures both success/failure state and the portfolio-level metrics
+     * needed for reporting the simulation outcome.
      */
     struct Result {
         bool ok = false;
@@ -53,6 +70,10 @@ public:
     /**
      * @brief Run a backtest using the provided strategy.
      *
+     * Rebalances the simulated portfolio according to the configured interval,
+     * evaluates holdings with the supplied strategy, and returns a summary of
+     * the resulting performance path.
+     *
      * @param strategy Scoring strategy to rank holdings.
      * @param config Backtest configuration.
      * @return Result with equity curve and summary values.
@@ -62,6 +83,9 @@ public:
 private:
     /**
      * @brief Check if a date is within the start/end range.
+     *
+     * Performs an inclusive range check against date strings that already use
+     * the sortable `YYYY-MM-DD` format.
      *
      * @param date Date to check.
      * @param start Inclusive start date (YYYY-MM-DD) or empty.

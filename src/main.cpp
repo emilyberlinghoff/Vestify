@@ -6,6 +6,8 @@
  * menu system for the stock analysis application. The application provides
  * functionality for loading stock data, performing analysis, and displaying
  * results through an interactive terminal menu.
+ *
+ * @author Group 13
  */
 
 #include "ui/InteractiveMenu.hpp"

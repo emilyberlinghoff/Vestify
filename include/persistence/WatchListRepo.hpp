@@ -1,6 +1,7 @@
 /**
  * @file WatchListRepo.hpp
  * @brief Header for JSON-based watchlist persistence.
+ * @author Group 13
  */
 
 #pragma once
@@ -14,6 +15,10 @@
  * @brief Handles loading and saving watchlists to disk.
  *
  * Uses JSON files for persistence.
+ * The repository hides file-format details from the rest of the application so
+ * the UI and domain logic can work directly with `WatchList` objects.
+ *
+ * @author Group 13
  */
 class WatchListRepo
 {

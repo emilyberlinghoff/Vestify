@@ -6,6 +6,8 @@
  * drives the interactive menu for the stock analysis application. It handles
  * user input, coordinates data loading and display operations, and manages
  * the application workflow.
+ *
+ * @author Group 13
  */
 
 #include "ui/InteractiveMenu.hpp"

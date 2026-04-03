@@ -1,6 +1,7 @@
 /**
  * @file test_watchlist.cpp
  * @brief Acceptance tests for watchlist behavior and persistence.
+ * @author Group 13
  */
 
 #include <cstdlib>

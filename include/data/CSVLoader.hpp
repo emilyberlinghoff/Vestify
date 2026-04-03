@@ -1,6 +1,7 @@
 /**
  * @file CSVLoader.hpp
  * @brief CSV parsing utility for loading stock fundamentals from tabular data.
+ * @author Group 13
  */
 
 #pragma once
@@ -18,11 +19,20 @@
 
 /**
  * @brief CSV loader for stock datasets.
+ *
+ * Reads the project's fundamentals CSV format, normalizes headers, parses
+ * numeric fields into a `Stock` record, and reports recoverable row-level
+ * errors without aborting the whole import.
+ *
+ * @author Group 13
  */
 class CSVLoader {
 public:
     /**
      * @brief Options for CSV parsing.
+     *
+     * Controls delimiter handling and whether the first row is treated as a
+     * header row during parsing.
      */
     struct Options {
         /** @brief Field delimiter. */
@@ -33,6 +43,9 @@ public:
 
     /**
      * @brief Result of a CSV load operation.
+     *
+     * Combines every successfully parsed stock with a list of human-readable
+     * parse or file-access errors encountered during loading.
      */
     struct LoadResult {
         /** @brief Parsed stocks. */

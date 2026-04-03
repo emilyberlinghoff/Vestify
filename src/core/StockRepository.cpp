@@ -6,6 +6,8 @@
  * as the central data store for stock information in the Vestify application.
  * It provides methods for loading stock data from CSV files and retrieving
  * stocks by various criteria.
+ *
+ * @author Group 13
  */
 
 #include "core/StockRepository.hpp"

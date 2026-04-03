@@ -5,6 +5,8 @@
  * This header defines the InteractiveMenu class which serves as the main user interface
  * for the Vestify stock analysis application. It provides an interactive menu system
  * for data loading, analysis, and display operations.
+ *
+ * @author Group 13
  */
 
 #pragma once
@@ -22,6 +24,10 @@
  * The InteractiveMenu class provides the interactive terminal interface for the
  * stock analysis application. It coordinates between user input, data operations,
  * and display output through the StockRepository and various display components.
+ * It acts as the application's orchestration layer, delegating specialized work
+ * to screening, watchlist, scoring, printing, and backtesting modules.
+ *
+ * @author Group 13
  */
 class InteractiveMenu
 {
@@ -29,6 +35,10 @@ public:
 
     /**
      * @brief Construct the interactive menu and load the demo watchlist.
+     *
+     * Initializes the repository-backed state, configures the watchlist
+     * persistence file, and loads any saved watchlists so the session starts
+     * from the latest stored data.
      */
     InteractiveMenu();
 
@@ -49,7 +59,7 @@ private:
     /** @brief In-memory collection of watchlists. */
     std::vector<WatchList> watchlists_;
 
-    /** @brief Repo for loading/saving a single demo watchlist file. */
+    /** @brief Repository responsible for loading and saving persisted watchlists. */
     WatchListRepo watchlistRepo_;
 
     /**
@@ -150,11 +160,17 @@ private:
 
     /**
      * @brief Screen loaded stocks using one or more user-selected criteria.
+     *
+     * Forwards control to the dedicated screening menu so the top-level menu
+     * remains focused on routing rather than filter-building details.
      */
     void screenStocks();
 
     /**
      * @brief Run a historical backtest with periodic rebalancing.
+     *
+     * Collects a backtest configuration from the user, loads the required
+     * historical prices, and prints the resulting performance summary.
      */
     void runBacktest();
 

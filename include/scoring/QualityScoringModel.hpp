@@ -1,6 +1,7 @@
 /**
  * @file QualityScoringModel.hpp
  * @brief Quality scoring model implementation.
+ * @author Group 13
  */
 
 #pragma once
@@ -20,9 +21,23 @@
  *   - ROE (management effectiveness, capped to avoid distortion)
  *
  * Each component maps to a 0-100 sub-score, then averaged.
+ * This model complements valuation and growth screens by emphasizing durable
+ * balance-sheet strength and profitability quality.
+ *
+ * @author Group 13
  */
 class QualityScoringModel : public ScoringModel {
 public:
+    /**
+     * @brief Calculate a quality score for one stock.
+     *
+     * Converts the stock's liquidity, leverage, margin, and return-on-equity
+     * metrics into normalized sub-scores, then averages only the valid inputs
+     * to avoid distorting the result with missing data.
+     *
+     * @param stock Stock fundamentals to evaluate.
+     * @return Quality score in the range [0, 100].
+     */
     double calculateScore(const Stock& stock) const override {
         double total = 0.0;
         int components = 0;
@@ -59,5 +74,13 @@ public:
         return (components > 0) ? (total / components) : 0.0;
     }
 
+    /**
+     * @brief Return the display name for this model.
+     *
+     * The strategy manager uses this stable string as the lookup key for
+     * weights, sub-score breakdowns, and active-strategy reporting.
+     *
+     * @return The model name string "Quality".
+     */
     std::string getModelName() const override { return "Quality"; }
 };

@@ -1,6 +1,7 @@
 /**
  * @file ScoringModel.hpp
  * @brief Abstract interface for individual stock scoring models.
+ * @author Group 13
  */
 
 #pragma once
@@ -14,11 +15,18 @@
  *
  * Each concrete model computes a single numeric score for a stock
  * based on its own criteria (value, growth, momentum, etc.).
+ * This abstraction allows strategies to combine interchangeable factor models
+ * without coupling ranking logic to any one implementation.
+ *
+ * @author Group 13
  */
 class ScoringModel {
 public:
     /**
      * @brief Virtual destructor for polymorphic scoring models.
+     *
+     * Keeping the destructor virtual ensures derived model objects can be
+     * destroyed safely through base pointers.
      */
     virtual ~ScoringModel() = default;
 
@@ -33,7 +41,10 @@ public:
     /**
      * @brief Unique name identifying this model (used as a key in weights and results).
      *
+     * Implementations should return a stable identifier so strategies and
+     * result breakdowns can refer to the same model consistently.
+     *
      * @return Model name string.
      */
     virtual std::string getModelName() const = 0;
-};   
+};

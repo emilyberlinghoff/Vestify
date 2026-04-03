@@ -1,6 +1,7 @@
 /**
  * @file WatchList.hpp
  * @brief Header for the WatchList class used to track user-selected tickers.
+ * @author Group 13
  */
 
 #pragma once
@@ -10,6 +11,11 @@
 
 /**
  * @brief Keeps track of stocks the user wants to watch.
+ *
+ * Encapsulates a named collection of normalized ticker symbols and provides
+ * convenience operations for maintaining and querying that collection.
+ *
+ * @author Group 13
  */
 class WatchList
 {

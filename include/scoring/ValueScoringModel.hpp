@@ -1,6 +1,7 @@
 /**
  * @file ValueScoringModel.hpp
  * @brief Value scoring model implementation.
+ * @author Group 13
  */
 
 #pragma once
@@ -20,9 +21,22 @@
  *   - FCF yield (higher means more free cash flow per dollar of market cap)
  *
  * Each component maps to a 0-100 sub-score, then averaged.
+ * The model is intended to favor cheaper cash-generating businesses while
+ * still rewarding direct shareholder return through dividends.
+ *
+ * @author Group 13
  */
 class ValueScoringModel : public ScoringModel {
 public:
+    /**
+     * @brief Calculate a value score for one stock.
+     *
+     * Normalizes valuation and cash-generation metrics into sub-scores and
+     * averages the valid components into a single comparable ranking value.
+     *
+     * @param stock Stock fundamentals to evaluate.
+     * @return Value score in the range [0, 100].
+     */
     double calculateScore(const Stock& stock) const override {
         double total = 0.0;
         int components = 0;
@@ -57,5 +71,13 @@ public:
         return (components > 0) ? (total / components) : 0.0;
     }
 
+    /**
+     * @brief Return the display name for this model.
+     *
+     * This string is used when registering the model with a strategy manager
+     * and when showing per-factor score breakdowns to the user.
+     *
+     * @return The model name string "Value".
+     */
     std::string getModelName() const override { return "Value"; }
 };

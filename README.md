@@ -1,92 +1,128 @@
 # Vestify
 
-Vestify is a C++17 stock analysis application that loads financial data from CSV files or live APIs and provides scoring, screening, backtesting, and portfolio tracking through an interactive command-line interface.
+Vestify is a C++17 stock analysis application for Linux/WSL that loads bundled stock fundamentals from CSV, lets users screen and rank stocks interactively, manages persistent watchlists, and runs historical backtests with periodic rebalancing.
 
-The project is organized into modular components separating data ingestion, core logic, scoring models, persistence, and user interface.
+The current application launches through a single interactive terminal menu. The older command-line argument mode has been removed.
 
 ---
 
 ## Features
 
-- **Stock Data Loading** -- Load NASDAQ 100 fundamental data from a bundled CSV file with 38 financial metrics per stock.
-- **Live Data Fetching** -- Retrieve real-time stock quotes from Alpha Vantage via the REST API.
-- **Stock Scoring and Ranking** -- Rank stocks using five factor-based scoring models (Value, Growth, Momentum, Quality, Efficiency) with predefined or custom-weighted strategy presets.
-- **Score Breakdown** -- Inspect per-factor contributions for any ranked stock to understand why it scored the way it did.
-- **Stock Screening** -- Filter stocks by sector, valuation, profitability, and other financial criteria.
-- **Historical Backtesting** -- Simulate portfolio performance over historical price data with periodic rebalancing using any scoring strategy.
-- **Watchlist Management** -- Create, rename, and delete watchlists. Add and remove tickers. Watchlists persist to disk as JSON files.
-- **Data Updates** -- Refresh fundamental data by running the bundled Python script, which fetches from Yahoo Finance.
+- Load bundled stock fundamentals from `data/nasdaq100_fundamentals_full.csv`
+- Screen stocks with multiple criteria at once
+- Choose sectors from a generated list instead of typing them manually
+- Print the current screening filters before running a screen
+- Rank stocks with five factor models: Value, Growth, Momentum, Quality, and Efficiency
+- Use predefined strategy presets or create custom scoring weights at runtime
+- Inspect per-factor score breakdowns for ranked stocks
+- Manage multiple persistent watchlists stored as JSON
+- Run historical backtests with periodic rebalancing
+- Refresh the fundamentals CSV with the bundled Python update script
+
+---
+
+## Platform Support
+
+Vestify is intended to be built and run on:
+
+- Linux
+- WSL
+
+The codebase and build instructions below assume a Linux-style environment. Windows-native and macOS setup instructions have been removed because they are no longer the target deployment path.
 
 ---
 
 ## Requirements
 
-- C++17 compatible compiler (GCC, Clang, or MSVC)
-- CMake 3.16 or higher
-- libcurl (for live API requests)
-- nlohmann-json (for JSON parsing)
-- Python 3 (for data update scripts)
+- C++17-compatible compiler
+- CMake 3.16 or newer
+- `make`
+- libcurl development package
+- nlohmann-json development package
+- OpenSSL development package
+- Python 3 with `pip`
 
 ---
 
-## System Dependencies
+## New Device Setup
 
-### Ubuntu / WSL
+These steps are enough to get the project working on a fresh Ubuntu or WSL machine.
+
+### 1. Install system packages
 
 ```bash
 sudo apt update
-sudo apt install -y build-essential cmake libcurl4-openssl-dev nlohmann-json3-dev libssl-dev python3 python3-pip
+sudo apt install -y build-essential cmake make libcurl4-openssl-dev nlohmann-json3-dev libssl-dev python3 python3-pip
 ```
 
-### macOS
+### 2. Clone the repository
 
 ```bash
-brew install cmake curl nlohmann-json python3
+git clone <your-repo-url>
+cd Vestify
 ```
 
-### MSYS2 (Windows)
-
-```bash
-pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-curl mingw-w64-x86_64-nlohmann-json
-```
-
----
-
-## Python Setup
-
-Vestify includes Python scripts for fetching and updating stock data. Install dependencies from the project root:
+### 3. Install Python dependencies for the data update script
 
 ```bash
 pip3 install -r scripts/requirements.txt
 ```
 
-On newer Ubuntu/WSL systems that restrict pip, use:
+If your WSL or Linux environment blocks system-wide `pip` installs, use:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r scripts/requirements.txt
+```
+
+If you are intentionally installing outside a virtual environment on newer Ubuntu/WSL systems, this may also work:
 
 ```bash
 pip3 install --break-system-packages -r scripts/requirements.txt
 ```
 
+### 4. Build the project
+
+```bash
+cmake -S . -B build
+cmake --build build
+```
+
+### 5. Run the application
+
+```bash
+./build/vestify
+```
+
 ---
 
-## Environment Variables
+## Optional Environment Variables
 
-Live data fetching requires an Alpha Vantage API key. Create a `.env` file in the `Vestify/` directory:
+Vestify can fetch historical price data from Alpha Vantage for backtesting. To enable that, create a `.env` file in the project root:
 
-```
+```env
 ALPHAVANTAGE_API_KEY=your_api_key_here
 ```
 
-The `.env` file is listed in `.gitignore` and must never be committed to version control.
+The `.env` file is already ignored by Git and should not be committed.
 
-To load the key in your terminal session:
+To load it manually in a Linux/WSL shell:
 
 ```bash
-# Linux / macOS / WSL
-set -a && source .env && set +a
-
-# PowerShell (Windows)
-$env:ALPHAVANTAGE_API_KEY="your_api_key_here"
+set -a
+source .env
+set +a
 ```
+
+If you do not set an API key, the app can still:
+
+- load the bundled CSV
+- screen stocks
+- rank stocks
+- manage watchlists
+
+Backtesting that depends on missing historical data may fail until cached price files exist or an API key is provided.
 
 ---
 
@@ -95,10 +131,11 @@ $env:ALPHAVANTAGE_API_KEY="your_api_key_here"
 ### Using Make
 
 ```bash
+make build
 make run
 ```
 
-This configures the project with CMake, builds the executable, and runs it.
+`make run` builds the project and starts the interactive menu.
 
 ### Using CMake directly
 
@@ -108,7 +145,7 @@ cmake --build build
 ./build/vestify
 ```
 
-### Clean build
+### Clean the build directory
 
 ```bash
 make clean
@@ -118,51 +155,62 @@ make clean
 
 ## Running Tests
 
-Tests are built automatically with the project. Run them from the build directory:
+Build the project first:
 
 ```bash
-cd build
-ctest --output-on-failure
+cmake -S . -B build
+cmake --build build
 ```
 
-Alternatively, run individual test executables directly:
+Then run the full suite:
+
+```bash
+ctest --test-dir build --output-on-failure
+```
+
+Run a single suite:
+
+```bash
+ctest --test-dir build --output-on-failure -R stock_screener_tests
+```
+
+You can also run the test executables directly:
 
 ```bash
 ./build/tests/scoring_tests
-./build/tests/backtest_tests
 ./build/tests/watchlist_tests
+./build/tests/backtest_tests
 ./build/tests/csv_load_tests
 ./build/tests/stock_screener_tests
 ./build/tests/stock_printer_tests
 ./build/tests/screening_menu_tests
 ```
 
-If CMake is not available, scoring tests can be compiled and run directly:
-
-```bash
-g++ -std=c++17 -Wall -Wextra -I include -o scoring_tests tests/test_scoring.cpp
-./scoring_tests
-```
-
 ### Test Coverage
 
 | Test Suite | What It Verifies |
 |---|---|
-| scoring_tests | Strategy presets, model scoring, ranking order, factor breakdowns, missing data handling |
-| backtest_tests | Equity curve generation, rebalancing intervals, missing data error handling |
-| watchlist_tests | Watchlist persistence, JSON save/load, corrupted file recovery |
-| csv_load_tests | CSV parsing, malformed row handling, missing file errors |
-| stock_screener_tests | Filtering by sector, valuation, and financial metrics |
-| stock_printer_tests | Output formatting and display correctness |
-| screening_menu_tests | Screening menu interaction flow |
+| `scoring_tests` | Strategy presets, factor scores, ranking behavior, custom weights |
+| `watchlist_tests` | Watchlist CRUD behavior and JSON persistence |
+| `backtest_tests` | Equity curve generation, rebalance handling, error cases |
+| `csv_load_tests` | CSV import behavior and malformed-row handling |
+| `stock_screener_tests` | Multi-criteria screening logic |
+| `stock_printer_tests` | Stock display and ranking output formatting |
+| `screening_menu_tests` | Interactive screening menu flow |
 
 ---
 
 ## Usage
 
-When the application starts, it presents an interactive menu:
+Start the app with:
 
+```bash
+./build/vestify
 ```
+
+The application opens an interactive menu similar to:
+
+```text
 Vestify
 1. Load stock data
 2. Update stock data
@@ -177,66 +225,112 @@ Vestify
 11. Exit
 ```
 
-A typical workflow is to load stock data (option 1), then score and rank (option 8) to see which stocks rank highest under different strategies.
+A typical workflow is:
 
-### Scoring Strategies
-
-The scoring system uses five factor models, each evaluating different aspects of a stock:
-
-| Model | What It Measures | Key Metrics Used |
-|---|---|---|
-| Value | Whether a stock is underpriced | P/E ratio, dividend yield, EV/FCF, FCF yield |
-| Growth | Earnings and revenue growth potential | P/E ratio, operating margin, ROE, dividend yield |
-| Momentum | Profitability trends and cash flow strength | ROA, FCF yield, net margin |
-| Quality | Financial health and balance sheet strength | Current ratio, debt-to-equity, gross margin, ROE |
-| Efficiency | Capital efficiency and operational performance | ROA, operating margin, EV/EBIT |
-
-Predefined strategy presets combine these models with different weights:
-
-| Strategy | Focus | Dominant Model Weight |
-|---|---|---|
-| Value | Finding cheap stocks | Value at 45% |
-| Growth | Finding high-growth companies | Growth at 45% |
-| Momentum | Finding strong profitability trends | Momentum at 40% |
-| Quality | Finding financially safe companies | Quality at 45% |
-| Balanced | No single bias | All models at 20% |
-
-Users can also define custom weights at runtime.
+1. Load the bundled CSV data
+2. Screen or rank stocks
+3. Save interesting tickers into watchlists
+4. Run a backtest on a chosen strategy
 
 ---
 
-## Repository Structure
+## Scoring Models
 
+Vestify includes five factor models:
+
+| Model | Main Focus | Example Metrics |
+|---|---|---|
+| Value | Cheap valuation and cash generation | `P/E`, dividend yield, `EV/FCF`, `FCF yield` |
+| Growth | Reinvestment and scalable profitability | `P/E`, operating margin, `ROE`, dividend yield |
+| Momentum | Profitability and cash-flow strength proxies | `ROA`, `FCF yield`, net margin |
+| Quality | Balance-sheet health and operating quality | current ratio, debt-to-equity, gross margin, `ROE` |
+| Efficiency | Capital and operating efficiency | `ROA`, operating margin, `EV/EBIT` |
+
+Predefined strategy presets combine those models with different weights, and users can also create a custom weighting interactively.
+
+---
+
+## Stock Screening
+
+The screening flow supports combining multiple filters with AND semantics. Current filters include:
+
+- sector
+- price range
+- max `P/E`
+- max `P/B`
+- max `P/S`
+- max `EV/FCF`
+- min `FCF yield`
+- min `ROE`
+- min operating margin
+- max debt-to-equity
+- min current ratio
+- min dividend yield
+
+The screening menu also supports:
+
+- selecting sectors from a generated list
+- printing the current active filter set before running the screen
+
+---
+
+## Data Update Script
+
+The `Update stock data` menu option runs:
+
+```bash
+python3 scripts/update_data.py
 ```
+
+That script uses `yfinance` to rebuild:
+
+```text
+data/nasdaq100_fundamentals_full.csv
+```
+
+Python dependencies for that script are listed in:
+
+```text
+scripts/requirements.txt
+```
+
+---
+
+## Project Structure
+
+```text
 Vestify/
-├── include/
-│   ├── backtest/          # Backtest engine
-│   ├── core/              # Stock, StockRepository, WatchList
-│   ├── data/              # CSVLoader, LiveDataProvider
-│   ├── persistence/       # WatchListRepo (JSON persistence)
-│   ├── scoring/           # ScoringModel, strategy presets, 5 scoring models
-│   ├── screening/         # StockScreener
-│   └── ui/                # InteractiveMenu, ScreeningMenu, StockPrinter
-├── src/
-│   ├── backtest/          # BacktestEngine implementation
-│   ├── core/              # StockRepository, WatchList implementations
-│   ├── data/              # LiveDataProvider implementation
-│   ├── persistence/       # WatchlistRepo implementation
-│   ├── screening/         # StockScreener implementation
-│   ├── ui/                # Menu and display implementations
-│   └── main.cpp           # Application entry point
-├── tests/                 # Unit and integration tests
-├── scripts/               # Python data update scripts
-├── data/                  # Stock CSV data and historical prices
-├── CMakeLists.txt
-├── Makefile
-└── README.md
+|-- include/
+|   |-- backtest/       # Backtest engine interfaces
+|   |-- core/           # Stock, StockRepository, WatchList
+|   |-- data/           # CSVLoader, LiveDataProvider
+|   |-- persistence/    # WatchListRepo
+|   |-- scoring/        # ScoringModel, presets, factor models
+|   |-- screening/      # StockScreener
+|   `-- ui/             # InteractiveMenu, ScreeningMenu, StockPrinter
+|-- src/
+|   |-- backtest/
+|   |-- core/
+|   |-- data/
+|   |-- persistence/
+|   |-- screening/
+|   |-- ui/
+|   `-- main.cpp
+|-- tests/
+|-- scripts/
+|-- data/
+|-- build/              # Generated locally after configuration
+|-- CMakeLists.txt
+|-- Makefile
+`-- README.md
 ```
 
 ---
 
 ## Notes
 
-- The `.env` file, `build/` directory, and Python virtual environments are excluded from version control via `.gitignore`.
-- Stock data is bundled in `data/nasdaq100_fundamentals_full.csv` so the application works offline without API access.
-- Historical price data for backtesting is stored in `data/historical/` as per-ticker CSV files.
+- The project is intended for Linux/WSL use.
+- `build/`, `.env`, and virtual environments are ignored by Git.
+- Bundled fundamentals data allows most of the application to work offline.
+- Historical price files are stored under `data/historical/`.
+- Backtesting is most reliable after historical data has been cached or when an Alpha Vantage API key is available.
